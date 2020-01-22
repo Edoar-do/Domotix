@@ -23,7 +23,7 @@ public class UnitaImmobiliare {
 
     public boolean addStanza(Stanza stanza) {
         for (Stanza s : this.stanze) {
-            if (s.getNome() == stanza.getNome()) {
+            if (s.getNome().equals(stanza.getNome())) {
                 return false;
             }
         }
