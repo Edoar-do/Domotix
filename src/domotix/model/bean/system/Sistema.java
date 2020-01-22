@@ -12,6 +12,18 @@ public abstract class Sistema implements Osservabile, Azionabile {
     private ElencoDispositivi sensori;
     private ElencoDispositivi attuatori;
 
+    public Sistema(String nome) {
+        this.nome = nome;
+        this.sensori = new ElencoDispositivi();
+        this.attuatori = new ElencoDispositivi();
+    }
+
+    public Sistema(String nome, ElencoDispositivi sensoriIniziali, ElencoDispositivi attuatoriIniziali) {
+        this.nome = nome;
+        this.attuatori = attuatoriIniziali;
+        this.sensori = sensoriIniziali;
+    }
+
     public String getNome() {
         return nome;
     }
