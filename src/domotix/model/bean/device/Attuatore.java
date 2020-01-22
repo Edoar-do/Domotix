@@ -5,11 +5,10 @@ public class Attuatore extends Dispositivo {
 
     private CategoriaAttuatore categoria;
     private Modalita modoOp;
-    private String nome;
-    //private boolean stato;
 
+    // riceve come nome dell'attuatore solo la prima parte a cui poi affianco la categoria
     public Attuatore(String nome, CategoriaAttuatore categoria, Modalita modoOpIniziale){
-        this.nome = nome;
+        super.setNome(nome);
         this.categoria = categoria;
         this.modoOp = modoOpIniziale;
     }
@@ -20,10 +19,6 @@ public class Attuatore extends Dispositivo {
 
     public Modalita getModoOp() {
         return modoOp;
-    }
-
-    public String getNome(){
-        return nome;
     }
 
     public void setModoOp(Modalita nuovaModalita){
