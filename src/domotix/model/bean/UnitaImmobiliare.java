@@ -2,10 +2,12 @@ package domotix.model.bean;
 
 import domotix.model.ElencoDispositivi;
 import domotix.model.bean.device.Attuatore;
+import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.system.Stanza;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UnitaImmobiliare {
@@ -61,6 +63,16 @@ public class UnitaImmobiliare {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Sensore[] getSensori() {
+        Dispositivo[] arraySensori = sensori.getDispositivi();
+        return Arrays.copyOf(arraySensori, arraySensori.length, Sensore[].class);
+    }
+
+    public Attuatore[] getAttuatori() {
+        Dispositivo[] arrayAttuatori = attuatori.getDispositivi();
+        return Arrays.copyOf(arrayAttuatori, arrayAttuatori.length, Attuatore[].class);
     }
 
     private void addDispositivi(Stanza stanza) {
