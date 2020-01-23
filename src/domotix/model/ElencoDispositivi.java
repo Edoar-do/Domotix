@@ -16,8 +16,8 @@ public class ElencoDispositivi {
         elenco = new HashMap<>();
     }
 
-    public Dispositivo getDispositivo(String nome) {
-        return elenco.get(nome);
+    public Dispositivo getDispositivo(String key) {
+        return elenco.get(key);
     }
 
     public Dispositivo[] getDispositivi() {
