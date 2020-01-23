@@ -6,9 +6,11 @@ import java.util.Map;
 
 public class Stanza extends Sistema {
     private Map<String, Artefatto> artefatti;
+    private String unitaOwner;
 
-    public Stanza(String nome) {
+    public Stanza(String nome, String unitaOwner) {
         super(nome);
+        this.unitaOwner = unitaOwner;
         artefatti = new HashMap<>();
     }
 
@@ -35,5 +37,9 @@ public class Stanza extends Sistema {
 
     public Artefatto getArtefatto(String nome) {
         return artefatti.get(nome);
+    }
+
+    public String getUnitaOwner() {
+        return unitaOwner;
     }
 }

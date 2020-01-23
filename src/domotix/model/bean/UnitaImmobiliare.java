@@ -17,7 +17,7 @@ public class UnitaImmobiliare {
     public UnitaImmobiliare(String nome) {
         this.nome = nome;
         this.stanze = new ArrayList<>();
-        this.stanze.add(new Stanza("")); // stanza di default
+        this.stanze.add(new Stanza("", this.nome)); // stanza di default
         this.sensori = new ElencoDispositivi();
         this.attuatori = new ElencoDispositivi();
     }
