@@ -65,9 +65,17 @@ public class UnitaImmobiliare {
         this.nome = nome;
     }
 
+    public Sensore getSensore(String nome) {
+        return (Sensore) sensori.getDispositivo(nome);
+    }
+
     public Sensore[] getSensori() {
         Dispositivo[] arraySensori = sensori.getDispositivi();
         return Arrays.copyOf(arraySensori, arraySensori.length, Sensore[].class);
+    }
+
+    public Attuatore getAttuatore(String nome) {
+        return (Attuatore) attuatori.getDispositivo(nome);
     }
 
     public Attuatore[] getAttuatori() {
