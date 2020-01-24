@@ -20,6 +20,8 @@ public class ElencoCategorieSensori {
         categorie = new HashMap<>();
     }
 
+    public CategoriaSensore getCategoria(String nome) { return categorie.get(nome); }
+
     public ArrayList<CategoriaSensore> getCategorie(){
         return new ArrayList<>(categorie.values());
     }

@@ -23,6 +23,10 @@ public class ElencoCategorieAttuatori {
         categorie = new HashMap<>();
     }
 
+    public CategoriaAttuatore getCategoria(String nome) {
+        return categorie.get(nome);
+    }
+
     public ArrayList<CategoriaAttuatore> getCategorie(){
         return new ArrayList<>(categorie.values());
     }

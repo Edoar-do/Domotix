@@ -23,7 +23,7 @@ public class Stanza extends Sistema {
     }
 
     public boolean addArtefatto(Artefatto artefatto) {
-        if (artefatti.get(artefatto.getNome()) != null) {
+        if (artefatti.get(artefatto.getNome()) == null) {
             artefatti.put(artefatto.getNome(), artefatto);
             return true;
         } else {
