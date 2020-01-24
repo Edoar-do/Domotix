@@ -110,10 +110,9 @@ public class DatiLocali extends AccessoDatiSalvatiAdapter {
     public List<CategoriaSensore> leggiCategorieSensori() throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
         ArrayList<CategoriaSensore> catSens = new ArrayList<>();
 
-        Iterator<Path> it = Files.list(Path.of(Costanti.PERCORSO_CARTELLA_CATEGORIE_SENSORI)).iterator();
-
-        while(it.hasNext()) {
-            catSens.add(leggiCategoriaSensore(it.next().toFile().getName()));
+        File cartella = new File(Costanti.PERCORSO_CARTELLA_CATEGORIE_SENSORI);
+        for(File f : cartella.listFiles()) {
+            catSens.add(leggiCategoriaSensore(f.getName()));
         }
 
         return catSens;
@@ -130,10 +129,9 @@ public class DatiLocali extends AccessoDatiSalvatiAdapter {
     public List<CategoriaAttuatore> leggiCategorieAttuatori() throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
         ArrayList<CategoriaAttuatore> catAtt = new ArrayList<>();
 
-        Iterator<Path> it = Files.list(Path.of(Costanti.PERCORSO_CARTELLA_CATEGORIE_ATTUATORI)).iterator();
-
-        while(it.hasNext()) {
-            catAtt.add(leggiCategoriaAttuatore(it.next().toFile().getName()));
+        File cartella = new File(Costanti.PERCORSO_CARTELLA_CATEGORIE_ATTUATORI);
+        for(File f : cartella.listFiles()) {
+            catAtt.add(leggiCategoriaAttuatore(f.getName()));
         }
 
         return catAtt;
@@ -169,10 +167,9 @@ public class DatiLocali extends AccessoDatiSalvatiAdapter {
     public List<UnitaImmobiliare> leggiUnitaImmobiliare() throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
         ArrayList<UnitaImmobiliare> unita = new ArrayList<>();
 
-        Iterator<Path> it = Files.list(Path.of(Costanti.PERCORSO_CARTELLA_UNITA_IMMOB)).iterator();
-
-        while(it.hasNext()) {
-            unita.add(leggiUnitaImmobiliare(it.next().toFile().getName()));
+        File cartella = new File(Costanti.PERCORSO_CARTELLA_UNITA_IMMOB);
+        for(File f : cartella.listFiles()) {
+            unita.add(leggiUnitaImmobiliare(f.getName()));
         }
 
         return unita;
