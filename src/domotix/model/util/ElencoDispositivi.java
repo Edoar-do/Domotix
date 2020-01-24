@@ -100,7 +100,7 @@ public class ElencoDispositivi implements ListaOsservabile<Dispositivo>, Osserva
         if (oss instanceof ElencoDispositivi)
             ((ElencoDispositivi)oss).setRuolo(false);
 
-        elenco.forEach((s, dispositivo) -> informaAggiunta(dispositivo)); //in modo da informare immediatamente l'osservatore dei dati gia' contenuti
+        elenco.forEach((s, dispositivo) -> oss.elaboraAggiunta(dispositivo)); //in modo da informare immediatamente l'osservatore dei dati gia' contenuti
         osservatori.add(oss);
     }
 
