@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UnitaImmobiliare {
+    public static final String NOME_STANZA_DEFAULT = "";
+    private static final int POS_STANZA_DEFAULT = 0;
+
     private String nome;
     private List<Stanza> stanze;
     private ElencoDispositivi sensori;
@@ -19,7 +22,7 @@ public class UnitaImmobiliare {
     public UnitaImmobiliare(String nome) {
         this.nome = nome;
         this.stanze = new ArrayList<>();
-        this.stanze.add(new Stanza("", this.nome)); // stanza di default
+        this.stanze.add(new Stanza(NOME_STANZA_DEFAULT, this.nome)); // stanza di default
         this.sensori = new ElencoDispositivi();
         this.attuatori = new ElencoDispositivi();
 
@@ -53,8 +56,16 @@ public class UnitaImmobiliare {
         }
     }
 
+    public boolean setStanzaDefault(Stanza stanza) {
+        if (stanza.getNome().equals(NOME_STANZA_DEFAULT)) {
+            stanze.set(POS_STANZA_DEFAULT, stanza);
+            return true;
+        }
+        return false;
+    }
+
     public Stanza getStanzaDefault() {
-        return stanze.get(0);
+        return stanze.get(POS_STANZA_DEFAULT);
     }
 
     public Stanza[] getStanze() {
