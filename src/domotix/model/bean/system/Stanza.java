@@ -15,15 +15,20 @@ public class Stanza extends Sistema {
     }
 
     public void removeArtefatto(Artefatto artefatto) {
-        artefatti.remove(artefatto.getNome());
+        removeArtefatto(artefatto.getNome());
     }
 
     public void removeArtefatto(String nome) {
-        artefatti.remove(nome);
+        Artefatto a = artefatti.get(nome);
+        if (a != null) {
+            artefatti.remove(nome);
+            a.distruggi(); //TODO: decidere se fare questa cosa drastica o meno in rimozione di una stanza
+        }
     }
 
     public boolean addArtefatto(Artefatto artefatto) {
         if (artefatti.get(artefatto.getNome()) == null) {
+            artefatto.ereditaOsservatoriLista(this);
             artefatti.put(artefatto.getNome(), artefatto);
             return true;
         } else {

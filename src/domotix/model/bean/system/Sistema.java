@@ -4,6 +4,7 @@ import domotix.model.util.ElencoDispositivi;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
+import domotix.model.util.OsservatoreLista;
 
 import java.util.Arrays;
 
@@ -32,19 +33,48 @@ public abstract class Sistema implements Osservabile, Azionabile {
         this.nome = nome;
     }
 
+    /**
+     * Per svuotare completamente il sistema, eliminando i vari sensori contenuti e i collegamenti agli osservatori
+     */
+    public void distruggi() {
+        for (Dispositivo d : sensori.getDispositivi())
+            sensori.remove(d);
+        for(Dispositivo d : attuatori.getDispositivi())
+            attuatori.remove(d);
+        sensori.svuotaOsservatori();
+        attuatori.svuotaOsservatori();
+    }
+
+    public void ereditaOsservatoriLista(Sistema sis) {
+        sis.sensori.getOsservatori().forEach(dispositivoOsservatoreLista -> this.sensori.aggiungiOsservatore(dispositivoOsservatoreLista));
+        sis.attuatori.getOsservatori().forEach(dispositivoOsservatoreLista -> this.attuatori.aggiungiOsservatore(dispositivoOsservatoreLista));
+    }
+    public void addOsservatoreListaSensori(OsservatoreLista<Dispositivo> oss) {
+        sensori.aggiungiOsservatore(oss);
+    }
+    public void removeOsservatoreListaSensori(OsservatoreLista<Dispositivo> oss) {
+        sensori.rimuoviOsservatore(oss);
+    }
+    public void addOsservatoreListaAttuatori(OsservatoreLista<Dispositivo> oss) {
+        attuatori.aggiungiOsservatore(oss);
+    }
+    public void removeOsservatoreListaAttuatori(OsservatoreLista<Dispositivo> oss) {
+        attuatori.rimuoviOsservatore(oss);
+    }
+
     @Override
     public boolean addSensore(Sensore sensore) {
-        return sensori.add(sensore.getCategoria().getNome(), sensore, true);
+        return sensori.add(sensore, sensore.getCategoria().getNome());
     }
 
     @Override
     public void removeSensore(Sensore sensore) {
-        sensori.remove(sensore.getCategoria().getNome(), true);
+        sensori.remove(sensore.getCategoria().getNome());
     }
 
     @Override
     public void removeSensore(String categoriaSensore) {
-        sensori.remove(categoriaSensore, true);
+        sensori.remove(categoriaSensore);
     }
 
     @Override
@@ -55,17 +85,17 @@ public abstract class Sistema implements Osservabile, Azionabile {
 
     @Override
     public boolean addAttuatore(Attuatore attuatore) {
-        return attuatori.add(attuatore.getCategoria().getNome(), attuatore, true);
+        return attuatori.add(attuatore, attuatore.getCategoria().getNome());
     }
 
     @Override
     public void removeAttuatore(Attuatore attuatore) {
-        attuatori.remove(attuatore.getCategoria().getNome(), true);
+        attuatori.remove(attuatore.getCategoria().getNome());
     }
 
     @Override
     public void removeAttuatore(String categoriaAttuatore) {
-        attuatori.remove(categoriaAttuatore, true);
+        attuatori.remove(categoriaAttuatore);
     }
 
     @Override

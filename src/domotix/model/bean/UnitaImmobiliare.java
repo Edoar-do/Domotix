@@ -22,6 +22,9 @@ public class UnitaImmobiliare {
         this.stanze.add(new Stanza("", this.nome)); // stanza di default
         this.sensori = new ElencoDispositivi();
         this.attuatori = new ElencoDispositivi();
+
+        getStanzaDefault().addOsservatoreListaAttuatori(attuatori);
+        getStanzaDefault().addOsservatoreListaSensori(sensori);
     }
 
     public boolean addStanza(Stanza stanza) {
@@ -30,8 +33,9 @@ public class UnitaImmobiliare {
                 return false;
             }
         }
+        stanza.addOsservatoreListaSensori(sensori);
+        stanza.addOsservatoreListaAttuatori(attuatori);
         this.stanze.add(stanza);
-        this.addDispositivi(stanza);
         return true;
     }
 
@@ -42,7 +46,7 @@ public class UnitaImmobiliare {
     public void removeStanza(String nome) {
         for (int i = 0; i < stanze.size(); i++) {
             if (stanze.get(i).getNome().equals(nome)) {
-                removeDispositivi(stanze.get(i));
+                stanze.get(i).distruggi(); //TODO: decidere se fare questa cosa drastica o meno in rimozione di una stanza
                 stanze.remove(i);
                 break;
             }
@@ -83,27 +87,4 @@ public class UnitaImmobiliare {
         return Arrays.copyOf(arrayAttuatori, arrayAttuatori.length, Attuatore[].class);
     }
 
-    private void addDispositivi(Stanza stanza) {
-        for (Sensore s : stanza.getSensori()) {
-            sensori.add(s, false);
-        }
-        for (Attuatore a : stanza.getAttuatori()) {
-            attuatori.add(a, false);
-        }
-    }
-
-    private void removeDispositivi(Stanza stanza) {
-        for (Sensore s : stanza.getSensori()) {
-            stanza.addSensore(s);
-            if (sensori.getDispositivo(s.getNome()).getNumeroAssociazioni() == 0) {
-                sensori.remove(s);
-            }
-        }
-        for (Attuatore a : stanza.getAttuatori()) {
-            stanza.removeAttuatore(a);
-            if (attuatori.getDispositivo(a.getNome()).getNumeroAssociazioni() == 0) {
-                attuatori.remove(a);
-            }
-        }
-    }
 }
