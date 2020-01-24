@@ -1,10 +1,10 @@
 package domotix.model.bean;
 
-import domotix.model.util.ElencoDispositivi;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.system.Stanza;
+import domotix.model.util.SommarioDispositivi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,15 +16,15 @@ public class UnitaImmobiliare {
 
     private String nome;
     private List<Stanza> stanze;
-    private ElencoDispositivi sensori;
-    private ElencoDispositivi attuatori;
+    private SommarioDispositivi sensori;
+    private SommarioDispositivi attuatori;
 
     public UnitaImmobiliare(String nome) {
         this.nome = nome;
         this.stanze = new ArrayList<>();
         this.stanze.add(new Stanza(NOME_STANZA_DEFAULT, this.nome)); // stanza di default
-        this.sensori = new ElencoDispositivi();
-        this.attuatori = new ElencoDispositivi();
+        this.sensori = new SommarioDispositivi();
+        this.attuatori = new SommarioDispositivi();
 
         getStanzaDefault().addOsservatoreListaAttuatori(attuatori);
         getStanzaDefault().addOsservatoreListaSensori(sensori);
