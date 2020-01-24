@@ -1,6 +1,6 @@
 package domotix.model.bean;
 
-import domotix.model.ElencoDispositivi;
+import domotix.model.util.ElencoDispositivi;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;

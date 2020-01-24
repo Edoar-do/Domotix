@@ -1,4 +1,4 @@
-package domotix.model;
+package domotix.model.util;
 
 import domotix.model.bean.device.Dispositivo;
 
