@@ -99,6 +99,8 @@ public class ElencoDispositivi implements ListaOsservabile<Dispositivo>, Osserva
     public void aggiungiOsservatore(OsservatoreLista<Dispositivo> oss) {
         if (oss instanceof ElencoDispositivi)
             ((ElencoDispositivi)oss).setRuolo(false);
+
+        elenco.forEach((s, dispositivo) -> informaAggiunta(dispositivo)); //in modo da informare immediatamente l'osservatore dei dati gia' contenuti
         osservatori.add(oss);
     }
 
