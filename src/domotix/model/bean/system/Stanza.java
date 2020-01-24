@@ -1,6 +1,9 @@
 package domotix.model.bean.system;
 
 
+import domotix.model.bean.device.Dispositivo;
+import domotix.model.util.OsservatoreLista;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,5 +49,29 @@ public class Stanza extends Sistema {
 
     public String getUnitaOwner() {
         return unitaOwner;
+    }
+
+    @Override
+    public void addOsservatoreListaSensori(OsservatoreLista<Dispositivo> oss) {
+        super.addOsservatoreListaSensori(oss);
+        artefatti.forEach((s, artefatto) -> artefatto.addOsservatoreListaSensori(oss)); //per riportare anche agli artefatti gli osservatori aggiunti
+    }
+
+    @Override
+    public void removeOsservatoreListaSensori(OsservatoreLista<Dispositivo> oss) {
+        super.removeOsservatoreListaSensori(oss);
+        artefatti.forEach((s, artefatto) -> artefatto.removeOsservatoreListaSensori(oss)); //per riportare anche agli artefatti gli osservatori rimossi
+    }
+
+    @Override
+    public void addOsservatoreListaAttuatori(OsservatoreLista<Dispositivo> oss) {
+        super.addOsservatoreListaAttuatori(oss);
+        artefatti.forEach((s, artefatto) -> artefatto.addOsservatoreListaAttuatori(oss)); //per riportare anche agli artefatti gli osservatori aggiunti
+    }
+
+    @Override
+    public void removeOsservatoreListaAttuatori(OsservatoreLista<Dispositivo> oss) {
+        super.removeOsservatoreListaAttuatori(oss);
+        artefatti.forEach((s, artefatto) -> artefatto.removeOsservatoreListaAttuatori(oss)); //per riportare anche agli artefatti gli osservatori rimossi
     }
 }
