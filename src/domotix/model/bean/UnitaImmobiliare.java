@@ -58,6 +58,10 @@ public class UnitaImmobiliare {
 
     public boolean setStanzaDefault(Stanza stanza) {
         if (stanza.getNome().equals(NOME_STANZA_DEFAULT)) {
+            getStanzaDefault().distruggi(); //distruggo la precedente
+            
+            stanza.addOsservatoreListaSensori(sensori);
+            stanza.addOsservatoreListaAttuatori(attuatori);
             stanze.set(POS_STANZA_DEFAULT, stanza);
             return true;
         }
