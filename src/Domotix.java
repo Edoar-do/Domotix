@@ -33,13 +33,13 @@ public class Domotix {
             ElencoCategorieAttuatori.getInstance().add(ca);
 
             UnitaImmobiliare ui = new UnitaImmobiliare("casa");
-            ui.addStanza(new Stanza("cucina", ui.getNome()));
-            ui.addStanza(new Stanza("salotto", ui.getNome()));
-            ui.getStanze()[1].addArtefatto(new Artefatto("finestra", ui.getNome()));
+            ui.addStanza(new Stanza("cucina"));
+            ui.addStanza(new Stanza("salotto"));
+            ui.getStanze()[1].addArtefatto(new Artefatto("finestra"));
             ca = ElencoCategorieAttuatori.getInstance().getCategoria("servo");
             Modalita m = ca.getModalita(0);
             ui.getStanze()[1].getArtefatti()[0].addAttuatore(new Attuatore("servoFinestra", ca, m));
-            ui.getStanze()[2].addArtefatto(new Artefatto("lampada", ui.getNome()));
+            ui.getStanze()[2].addArtefatto(new Artefatto("lampada"));
             ca = ElencoCategorieAttuatori.getInstance().getCategoria("rele");
             m = ca.getModalita(0);
             ui.getStanze()[2].getArtefatti()[0].addAttuatore(new Attuatore("releLampada", ca, m));
@@ -47,7 +47,7 @@ public class Domotix {
             ui.getStanze()[2].addSensore(ui.getStanze()[1].getSensori()[0]);
 
             ui.getStanzaDefault().addSensore(new Sensore("esterno", ElencoCategorieSensori.getInstance().getCategoria("termometro")));
-            ui.getStanzaDefault().addArtefatto(new Artefatto("cancello", ui.getNome()));
+            ui.getStanzaDefault().addArtefatto(new Artefatto("cancello"));
             ca = ElencoCategorieAttuatori.getInstance().getCategoria("servo");
             m = ca.getModalita(0);
             ui.getStanzaDefault().getArtefatti()[0].addAttuatore(new Attuatore("servoCancello", ca, m));
@@ -89,6 +89,8 @@ public class Domotix {
             } catch (ParserConfigurationException e) {
                 e.printStackTrace();
             } catch (TransformerConfigurationException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

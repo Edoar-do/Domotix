@@ -8,6 +8,9 @@ import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.model.io.AccessoDatiSalvatiAdapter;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -23,11 +26,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileSystemException;
-import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -41,8 +42,6 @@ import java.util.List;
  */
 public class DatiLocali extends AccessoDatiSalvatiAdapter {
 
-    private static final String NOME_GENERICO_ENTITA = ".*";
-
     private static DatiLocali _instance = null;
 
     public static DatiLocali getInstance() throws NotDirectoryException, ParserConfigurationException, TransformerConfigurationException {
@@ -55,6 +54,8 @@ public class DatiLocali extends AccessoDatiSalvatiAdapter {
     private DocumentBuilder documentBuilder = null;
     private TransformerFactory transformerFactory = null;
     private Transformer transformer = null;
+    private HashMap<String, LettoriXML> lettori = null;
+    private HashMap<Class, ScrittoriXML> scrittori = null;
 
     private DatiLocali() throws NotDirectoryException, ParserConfigurationException, TransformerConfigurationException {
         //test esistenza struttura dati
@@ -72,6 +73,28 @@ public class DatiLocali extends AccessoDatiSalvatiAdapter {
         documentBuilder = documentFactory.newDocumentBuilder();
         transformerFactory = TransformerFactory.newInstance();
         transformer = transformerFactory.newTransformer();
+
+        //Popolo la tabella dei lettori
+        lettori = new HashMap<>();
+        lettori.put(Costanti.NODO_XML_ATTUATORE, LettoriXML.ATTUATORE);
+        lettori.put(Costanti.NODO_XML_SENSORE, LettoriXML.SENSORE);
+        lettori.put(Costanti.NODO_XML_ARTEFATTO, LettoriXML.ARTEFATTO);
+        lettori.put(Costanti.NODO_XML_STANZA, LettoriXML.STANZA);
+        lettori.put(Costanti.NODO_XML_UNITA_IMMOB, LettoriXML.UNITA_IMMOB);
+        lettori.put(Costanti.NODO_XML_MODALITA, LettoriXML.MODALITA);
+        lettori.put(Costanti.NODO_XML_CATEGORIA_ATTUATORE, LettoriXML.CATEGORIA_ATTUATORE);
+        lettori.put(Costanti.NODO_XML_CATEGORIA_SENSORE, LettoriXML.CATEGORIA_SENSORE);
+
+        //Popolo la tabella degli scrittori
+        scrittori = new HashMap<>();
+        scrittori.put(Attuatore.class, ScrittoriXML.ATTUATORE);
+        scrittori.put(Sensore.class, ScrittoriXML.SENSORE);
+        scrittori.put(Artefatto.class, ScrittoriXML.ARTEFATTO);
+        scrittori.put(Stanza.class, ScrittoriXML.STANZA);
+        scrittori.put(UnitaImmobiliare.class, ScrittoriXML.UNITA_IMMOB);
+        scrittori.put(Modalita.class, ScrittoriXML.MODALITA);
+        scrittori.put(CategoriaAttuatore.class, ScrittoriXML.CATEGORIA_ATTUATORE);
+        scrittori.put(CategoriaSensore.class, ScrittoriXML.CATEGORIA_SENSORE);
     }
 
     private void controllaCartella(String percorso) throws NotDirectoryException {
@@ -84,7 +107,47 @@ public class DatiLocali extends AccessoDatiSalvatiAdapter {
         }
     }
 
-    private Object leggi(String path, TrasformatoriXML trasformatore, Object ...param) throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
+    @Override
+    public List<String> getNomiCategorieSensori() {
+        return PercorsiFile.getInstance().getNomiCategorieSensori();
+    }
+
+    @Override
+    public List<String> getNomiCategorieAttuatori() {
+        return PercorsiFile.getInstance().getNomiCategorieAttuatori();
+    }
+
+    @Override
+    public List<String> getNomiModalita(String categoriaAttuatore) {
+        return PercorsiFile.getInstance().getNomiModalita(categoriaAttuatore);
+    }
+
+    @Override
+    public List<String> getNomiUnitaImmobiliare() {
+        return PercorsiFile.getInstance().getNomiUnitaImmobiliare();
+    }
+
+    @Override
+    public List<String> getNomiStanze(String unitaImmobiliare) {
+        return PercorsiFile.getInstance().getNomiStanze(unitaImmobiliare);
+    }
+
+    @Override
+    public List<String> getNomiArtefatti(String unitaImmobiliare) {
+        return PercorsiFile.getInstance().getNomiArtefatti(unitaImmobiliare);
+    }
+
+    @Override
+    public List<String> getNomiSensori() {
+        return PercorsiFile.getInstance().getNomiSensori();
+    }
+
+    @Override
+    public List<String> getNomiAttuatori() {
+        return PercorsiFile.getInstance().getNomiAttuatori();
+    }
+
+    private Object leggi(String path) throws Exception {
         File input = new File(path);
 
         //controlla il file
@@ -102,131 +165,110 @@ public class DatiLocali extends AccessoDatiSalvatiAdapter {
         Document doc = documentBuilder.parse(input);
         doc.getDocumentElement().normalize();
 
-        //genera e ritorna l'istanza
-        return trasformatore.getInstance(doc, param);
+        NodeList nList = doc.getChildNodes();;
+
+        //elaboro contenuto
+        if (nList.getLength() > 0) {
+            Node nodo = nList.item(0); //i documenti contengono un elemento ciascuno
+
+            //controllo tipo contenuto
+            if (nodo.getNodeType() == Node.ELEMENT_NODE) {
+                Element el = (Element) nodo;
+
+                LettoriXML lett = lettori.get(el.getTagName());
+                if (lett == null) {
+                    throw new IllegalArgumentException(this.getClass().getName() + ": elemento XML " + el.getTagName() + " non gestito.");
+                }
+
+                return lett.getInstance(el);
+            }
+        }
+
+        return null;
     }
 
     @Override
-    public List<CategoriaSensore> leggiCategorieSensori() throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
+    public List<CategoriaSensore> leggiCategorieSensori() throws Exception {
         ArrayList<CategoriaSensore> catSens = new ArrayList<>();
 
-        File cartella = new File(Costanti.PERCORSO_CARTELLA_CATEGORIE_SENSORI);
-        for(File f : cartella.listFiles()) {
-            catSens.add(leggiCategoriaSensore(f.getName()));
+        for (String s : getNomiCategorieSensori()) {
+            catSens.add(leggiCategoriaSensore(s));
         }
 
         return catSens;
     }
 
     @Override
-    public CategoriaSensore leggiCategoriaSensore(String nome) throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
+    public CategoriaSensore leggiCategoriaSensore(String nome) throws Exception {
         String path = PercorsiFile.getInstance().getCategoriaSensore(nome);
-        CategoriaSensore cat = (CategoriaSensore)leggi(path, TrasformatoriXML.CATEGORIA_SENSORE);
-        return cat;
+        return (CategoriaSensore)leggi(path);
     }
 
     @Override
-    public List<CategoriaAttuatore> leggiCategorieAttuatori() throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
+    public List<CategoriaAttuatore> leggiCategorieAttuatori() throws Exception {
         ArrayList<CategoriaAttuatore> catAtt = new ArrayList<>();
 
-        File cartella = new File(Costanti.PERCORSO_CARTELLA_CATEGORIE_ATTUATORI);
-        for(File f : cartella.listFiles()) {
-            catAtt.add(leggiCategoriaAttuatore(f.getName()));
+        for (String s : getNomiCategorieAttuatori()) {
+            catAtt.add(leggiCategoriaAttuatore(s));
         }
 
         return catAtt;
     }
 
     @Override
-    public CategoriaAttuatore leggiCategoriaAttuatore(String nome) throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
+    public CategoriaAttuatore leggiCategoriaAttuatore(String nome) throws Exception {
         String path = PercorsiFile.getInstance().getCategoriaAttuatore(nome);
-        CategoriaAttuatore cat = (CategoriaAttuatore) leggi(path, TrasformatoriXML.CATEGORIA_ATTUATORE);
-
-        //Aggiunta delle Modalita relative
-        File cartellaModalita = new File(Costanti.PERCORSO_CARTELLA_MODALITA);
-        File[] modalitaCategoria = cartellaModalita.listFiles((dir, name) -> name.matches(PercorsiFile.getInstance().getNomeModalita(NOME_GENERICO_ENTITA, cat.getNome())));
-        for (File f : modalitaCategoria) {
-            Modalita m = leggiModalita(f.getPath());
-            cat.addModalita(m);
-        }
-
-        return cat;
+        return (CategoriaAttuatore) leggi(path);
     }
 
     @Override
-    public Modalita leggiModalita(String nome, String categoria) throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
+    public Modalita leggiModalita(String nome, String categoria) throws Exception {
         String path = PercorsiFile.getInstance().getModalita(nome, categoria);
-        return leggiModalita(path);
-    }
-
-    public Modalita leggiModalita(String path) throws SAXException, ParserConfigurationException, TransformerConfigurationException, IOException {
-        return (Modalita) leggi(path, TrasformatoriXML.MODALITA);
+        return (Modalita) leggi(path);
     }
 
     @Override
-    public List<UnitaImmobiliare> leggiUnitaImmobiliare() throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
+    public List<UnitaImmobiliare> leggiUnitaImmobiliare() throws Exception {
         ArrayList<UnitaImmobiliare> unita = new ArrayList<>();
 
-        File cartella = new File(Costanti.PERCORSO_CARTELLA_UNITA_IMMOB);
-        for(File f : cartella.listFiles()) {
-            unita.add(leggiUnitaImmobiliare(f.getName()));
+        for (String s : getNomiUnitaImmobiliare()) {
+            unita.add(leggiUnitaImmobiliare(s));
         }
 
         return unita;
     }
 
     @Override
-    public UnitaImmobiliare leggiUnitaImmobiliare(String nome) throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
+    public UnitaImmobiliare leggiUnitaImmobiliare(String nome) throws Exception {
         String path = PercorsiFile.getInstance().getUnitaImmobiliare(nome);
-        UnitaImmobiliare unita = (UnitaImmobiliare) leggi(path, TrasformatoriXML.UNITA_IMMOB);
-
-        //Aggiunta delle Stanze relative
-        File cartellaModalita = new File(Costanti.PERCORSO_CARTELLA_STANZE);
-        File[] stanzeUnita = cartellaModalita.listFiles((dir, name) -> name.matches(PercorsiFile.getInstance().getNomeStanza(NOME_GENERICO_ENTITA, unita.getNome())));
-        for (File f : stanzeUnita) {
-            Stanza s = leggiStanza(f.getPath(), unita);
-            if (s.getNome().equals(UnitaImmobiliare.NOME_STANZA_DEFAULT))
-                unita.setStanzaDefault(s);
-            else
-                unita.addStanza(s);
-        }
-
-        return unita;
+        return (UnitaImmobiliare) leggi(path);
     }
 
     @Override
-    public Stanza leggiStanza(String nome, String unitaImmob) throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
+    public Stanza leggiStanza(String nome, String unitaImmob) throws Exception {
         String path = PercorsiFile.getInstance().getStanza(nome, unitaImmob);
-        return leggiStanza(path, ElencoUnitaImmobiliari.getInstance().getUnita(unitaImmob));
-    }
-
-    public Stanza leggiStanza(String path, UnitaImmobiliare unita) throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
-        return (Stanza) leggi(path, TrasformatoriXML.STANZA, unita);
+        return (Stanza) leggi(path);
     }
 
     @Override
-    public Artefatto leggiArtefatto(String nome, String unitaImmob) throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
+    public Artefatto leggiArtefatto(String nome, String unitaImmob) throws Exception {
         String path = PercorsiFile.getInstance().getArtefatto(nome, unitaImmob);
-        return leggiArtefatto(path, ElencoUnitaImmobiliari.getInstance().getUnita(unitaImmob));
-    }
-
-    public Artefatto leggiArtefatto(String path, UnitaImmobiliare unita) throws SAXException, ParserConfigurationException, TransformerConfigurationException, IOException {
-        return (Artefatto) leggi(path, TrasformatoriXML.ARTEFATTO, unita);
+        return (Artefatto) leggi(path);
     }
 
     @Override
-    public Sensore leggiSensore(String nome) throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
+    public Sensore leggiSensore(String nome) throws Exception {
         String path = PercorsiFile.getInstance().getSensore(nome);
-        return (Sensore) leggi(path, TrasformatoriXML.SENSORE);
+        return (Sensore) leggi(path);
     }
 
     @Override
-    public Attuatore leggiAttuatore(String nome) throws IOException, SAXException, ParserConfigurationException, TransformerConfigurationException {
+    public Attuatore leggiAttuatore(String nome) throws Exception {
         String path = PercorsiFile.getInstance().getAttuatore(nome);
-        return (Attuatore) leggi(path, TrasformatoriXML.ATTUATORE);
+        return (Attuatore) leggi(path);
     }
 
-    private void salva(String path, Object obj, TrasformatoriXML trasformatore) throws TransformerException, IOException, ParserConfigurationException {
+    private void salva(String path, Object obj) throws TransformerException, IOException, ParserConfigurationException {
         Document doc = documentBuilder.newDocument();
         File docFile = new File(path);
 
@@ -243,8 +285,13 @@ public class DatiLocali extends AccessoDatiSalvatiAdapter {
             docFile.setReadable(true);
         }
 
+        ScrittoriXML scritt = scrittori.get(obj.getClass());
+        if (scritt == null) {
+            throw new IllegalArgumentException(this.getClass().getName() + ": oggetto di tipo " + obj.getClass().getName() + " non gestito.");
+        }
+
         //riempie il documento da scrivere
-        trasformatore.appendiXML(obj, doc);
+        scritt.appendiDocumento(obj, doc);
 
         //scrive
         DOMSource domSource = new DOMSource(doc);
@@ -256,7 +303,7 @@ public class DatiLocali extends AccessoDatiSalvatiAdapter {
     @Override
     public void salva(CategoriaSensore cat) throws TransformerException, IOException, ParserConfigurationException {
         String path = PercorsiFile.getInstance().getCategoriaSensore(cat.getNome());
-        salva(path, cat, TrasformatoriXML.CATEGORIA_SENSORE);
+        salva(path, cat);
     }
 
     @Override
@@ -268,13 +315,13 @@ public class DatiLocali extends AccessoDatiSalvatiAdapter {
 
         //salva la categoria
         String path = PercorsiFile.getInstance().getCategoriaAttuatore(cat.getNome());
-        salva(path, cat, TrasformatoriXML.CATEGORIA_ATTUATORE);
+        salva(path, cat);
     }
 
     @Override
     public void salva(Modalita modalita, String cat) throws TransformerException, IOException, ParserConfigurationException {
         String path = PercorsiFile.getInstance().getModalita(modalita.getNome(), cat);
-        salva(path, modalita, TrasformatoriXML.MODALITA);
+        salva(path, modalita);
     }
 
     @Override
@@ -295,7 +342,7 @@ public class DatiLocali extends AccessoDatiSalvatiAdapter {
 
         //salva l'unita immobiliare
         String path = PercorsiFile.getInstance().getUnitaImmobiliare(unita.getNome());
-        salva(path, unita, TrasformatoriXML.UNITA_IMMOB);
+        salva(path, unita);
     }
 
     @Override
@@ -313,7 +360,7 @@ public class DatiLocali extends AccessoDatiSalvatiAdapter {
 
         //salva l'unita immobiliare
         String path = PercorsiFile.getInstance().getStanza(stanza.getNome(), unita);
-        salva(path, stanza, TrasformatoriXML.STANZA);
+        salva(path, stanza);
     }
 
     @Override
@@ -328,13 +375,13 @@ public class DatiLocali extends AccessoDatiSalvatiAdapter {
 
         //salva l'unita immobiliare
         String path = PercorsiFile.getInstance().getArtefatto(artefatto.getNome(), unita);
-        salva(path, artefatto, TrasformatoriXML.ARTEFATTO);
+        salva(path, artefatto);
     }
 
     @Override
     public void salva(Sensore sensore) throws TransformerException, IOException, ParserConfigurationException {
         String path = PercorsiFile.getInstance().getSensore(sensore.getNome());
-        salva(path, sensore, TrasformatoriXML.SENSORE);
+        salva(path, sensore);
     }
 
     @Override
@@ -344,6 +391,6 @@ public class DatiLocali extends AccessoDatiSalvatiAdapter {
         //Pertanto e' necessario risalvare la categoria in caso di aggiunta di nuova modalita'
 
         String path = PercorsiFile.getInstance().getAttuatore(attuatore.getNome());
-        salva(path, attuatore, TrasformatoriXML.ATTUATORE);
+        salva(path, attuatore);
     }
 }

@@ -17,6 +17,46 @@ import java.util.List;
  */
 public abstract class AccessoDatiSalvatiAdapter implements AccessoDatiSalvati {
     @Override
+    public List<String> getNomiCategorieSensori() {
+        return null;
+    }
+
+    @Override
+    public List<String> getNomiCategorieAttuatori() {
+        return null;
+    }
+
+    @Override
+    public List<String> getNomiModalita(String categoriaAttuatore) {
+        return null;
+    }
+
+    @Override
+    public List<String> getNomiUnitaImmobiliare() {
+        return null;
+    }
+
+    @Override
+    public List<String> getNomiStanze(String unitaImmobiliare) {
+        return null;
+    }
+
+    @Override
+    public List<String> getNomiArtefatti(String unitaImmobiliare) {
+        return null;
+    }
+
+    @Override
+    public List<String> getNomiSensori() {
+        return null;
+    }
+
+    @Override
+    public List<String> getNomiAttuatori() {
+        return null;
+    }
+
+    @Override
     public List<CategoriaSensore> leggiCategorieSensori() throws Exception {
         return null;
     }
@@ -62,7 +102,17 @@ public abstract class AccessoDatiSalvatiAdapter implements AccessoDatiSalvati {
     }
 
     @Override
+    public List<Sensore> leggiSensori() throws Exception {
+        return null;
+    }
+
+    @Override
     public Sensore leggiSensore(String nome) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<Attuatore> leggiAttuatori() throws Exception {
         return null;
     }
 

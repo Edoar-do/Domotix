@@ -68,8 +68,10 @@ public class ElencoDispositivi implements ListaOsservabile<Dispositivo> {
 
     @Override
     public void aggiungiOsservatore(OsservatoreLista<Dispositivo> oss) {
-        elenco.forEach((s, dispositivo) -> oss.elaboraAggiunta(dispositivo)); //in modo da informare immediatamente l'osservatore dei dati gia' contenuti
-        osservatori.add(oss);
+        if (!osservatori.contains(oss)) {
+            elenco.forEach((s, dispositivo) -> oss.elaboraAggiunta(dispositivo)); //in modo da informare immediatamente l'osservatore dei dati gia' contenuti
+            osservatori.add(oss);
+        }
     }
 
     @Override

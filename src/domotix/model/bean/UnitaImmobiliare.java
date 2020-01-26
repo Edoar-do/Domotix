@@ -1,5 +1,7 @@
 package domotix.model.bean;
 
+import domotix.model.ElencoAttuatori;
+import domotix.model.ElencoSensori;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
@@ -22,12 +24,15 @@ public class UnitaImmobiliare {
     public UnitaImmobiliare(String nome) {
         this.nome = nome;
         this.stanze = new ArrayList<>();
-        this.stanze.add(new Stanza(NOME_STANZA_DEFAULT, this.nome)); // stanza di default
+        this.stanze.add(new Stanza(NOME_STANZA_DEFAULT)); // stanza di default
         this.sensori = new SommarioDispositivi();
         this.attuatori = new SommarioDispositivi();
 
-        getStanzaDefault().addOsservatoreListaAttuatori(attuatori);
-        getStanzaDefault().addOsservatoreListaSensori(sensori);
+        this.getStanzaDefault().setUnitaOwner(this.getNome());
+        this.getStanzaDefault().addOsservatoreListaAttuatori(ElencoAttuatori.getInstance());
+        this.getStanzaDefault().addOsservatoreListaSensori(ElencoSensori.getInstance());
+        this.getStanzaDefault().addOsservatoreListaAttuatori(attuatori);
+        this.getStanzaDefault().addOsservatoreListaSensori(sensori);
     }
 
     public boolean addStanza(Stanza stanza) {
@@ -36,6 +41,7 @@ public class UnitaImmobiliare {
                 return false;
             }
         }
+        stanza.setUnitaOwner(this.getNome());
         stanza.addOsservatoreListaSensori(sensori);
         stanza.addOsservatoreListaAttuatori(attuatori);
         this.stanze.add(stanza);
@@ -49,7 +55,7 @@ public class UnitaImmobiliare {
     public void removeStanza(String nome) {
         for (int i = 0; i < stanze.size(); i++) {
             if (stanze.get(i).getNome().equals(nome)) {
-                stanze.get(i).distruggi(); //TODO: decidere se fare questa cosa drastica o meno in rimozione di una stanza
+                stanze.get(i).distruggi();
                 stanze.remove(i);
                 break;
             }
@@ -59,7 +65,8 @@ public class UnitaImmobiliare {
     public boolean setStanzaDefault(Stanza stanza) {
         if (stanza.getNome().equals(NOME_STANZA_DEFAULT)) {
             getStanzaDefault().distruggi(); //distruggo la precedente
-            
+
+            stanza.setUnitaOwner(this.getNome());
             stanza.addOsservatoreListaSensori(sensori);
             stanza.addOsservatoreListaAttuatori(attuatori);
             stanze.set(POS_STANZA_DEFAULT, stanza);
@@ -101,5 +108,4 @@ public class UnitaImmobiliare {
         Dispositivo[] arrayAttuatori = attuatori.getDispositivi();
         return Arrays.copyOf(arrayAttuatori, arrayAttuatori.length, Attuatore[].class);
     }
-
 }

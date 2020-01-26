@@ -3,6 +3,8 @@ package domotix.model.io.datilocali;
 import domotix.model.util.Costanti;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe che implementa il pattern Singleton per la gestione dei percorsi dei file locali in cui sono salvati i dati del programma.
@@ -13,6 +15,8 @@ import java.io.File;
  * @see DatiLocali
  */
 public class PercorsiFile {
+
+    private static final String NOME_GENERICO_ENTITA = ".*";
 
     private static PercorsiFile instance = null;
 
@@ -41,7 +45,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.CategoriaSensore
      */
     public String getCategoriaSensore(String cat) {
-        return Costanti.PERCORSO_CARTELLA_CATEGORIE_SENSORI + File.separator + getNomeCategoriaSensore(cat);
+        return Costanti.PERCORSO_CARTELLA_CATEGORIE_SENSORI + File.separator + componiNomeCategoriaSensore(cat);
     }
 
     /**
@@ -50,8 +54,25 @@ public class PercorsiFile {
      * @return  Nome del file dove risiedono i dati locali relativi all'entita'
      * @see domotix.model.bean.device.CategoriaSensore
      */
-    public String getNomeCategoriaSensore(String cat) {
+    public String componiNomeCategoriaSensore(String cat) {
         return cat == null ? "" : cat;
+    }
+
+    /**
+     * Ritorna una lista di nomi delle entita' presenti nei file memorizzati
+     *
+     * @return  Lista di nomi delle entita' presenti
+     * @see domotix.model.bean.device.CategoriaSensore
+     */
+    public List<String> getNomiCategorieSensori() {
+        ArrayList<String> ret = new ArrayList<>();
+        File cartella = new File(Costanti.PERCORSO_CARTELLA_CATEGORIE_SENSORI);
+
+        for(File f : cartella.listFiles()) {
+            ret.add(f.getName());
+        }
+
+        return ret;
     }
 
     /**
@@ -61,7 +82,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.CategoriaAttuatore
      */
     public String getCategoriaAttuatore(String cat) {
-        return Costanti.PERCORSO_CARTELLA_CATEGORIE_ATTUATORI + File.separator + getNomeCategoriaAttuatore(cat);
+        return Costanti.PERCORSO_CARTELLA_CATEGORIE_ATTUATORI + File.separator + componiNomeCategoriaAttuatore(cat);
     }
 
     /**
@@ -70,8 +91,25 @@ public class PercorsiFile {
      * @return  Nome del file dove risiedono i dati locali relativi all'entita'
      * @see domotix.model.bean.device.CategoriaAttuatore
      */
-    public String getNomeCategoriaAttuatore(String cat) {
+    public String componiNomeCategoriaAttuatore(String cat) {
         return cat == null ? "" : cat;
+    }
+
+    /**
+     * Ritorna una lista di nomi delle entita' presenti nei file memorizzati
+     *
+     * @return  Lista di nomi delle entita' presenti
+     * @see domotix.model.bean.device.CategoriaAttuatore
+     */
+    public List<String> getNomiCategorieAttuatori() {
+        ArrayList<String> ret = new ArrayList<>();
+        File cartella = new File(Costanti.PERCORSO_CARTELLA_CATEGORIE_ATTUATORI);
+
+        for(File f : cartella.listFiles()) {
+            ret.add(f.getName());
+        }
+
+        return ret;
     }
 
     /**
@@ -82,7 +120,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.Modalita
      */
     public String getModalita(String modalita, String cat) {
-        return Costanti.PERCORSO_CARTELLA_MODALITA + File.separator + getNomeModalita(modalita, cat);
+        return Costanti.PERCORSO_CARTELLA_MODALITA + File.separator + componiNomeModalita(modalita, cat);
     }
 
     /**
@@ -92,8 +130,30 @@ public class PercorsiFile {
      * @return  Nome del file dove risiedono i dati locali relativi all'entita'
      * @see domotix.model.bean.device.Modalita
      */
-    public String getNomeModalita(String modalita, String cat) {
+    public String componiNomeModalita(String modalita, String cat) {
         return componi(modalita, cat);
+    }
+
+    /**
+     * Ritorna una lista di nomi delle entita' presenti nei file memorizzati
+     *
+     * @return  Lista di nomi delle entita' presenti
+     * @see domotix.model.bean.device.Modalita
+     */
+    public List<String> getNomiModalita(String categoriaAttuatore) {
+        ArrayList<String> ret = new ArrayList<>();
+        File cartella = new File(Costanti.PERCORSO_CARTELLA_MODALITA);
+        File[] elencoFile = cartella.listFiles((dir, name) -> name.matches(componiNomeModalita(NOME_GENERICO_ENTITA, categoriaAttuatore)));
+
+        for(File f : elencoFile) {
+            int indice = f.getName().indexOf(categoriaAttuatore) - 1;
+            if (indice >= 0) {
+                String scomposto = f.getName().substring(0, indice); //rimuovo nome categoria dal nome file
+                ret.add(scomposto);
+            }
+        }
+
+        return ret;
     }
 
     /**
@@ -103,7 +163,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.UnitaImmobiliare
      */
     public String getUnitaImmobiliare(String unita) {
-        return Costanti.PERCORSO_CARTELLA_UNITA_IMMOB + File.separator + getNomeUnitaImmobiliare(unita);
+        return Costanti.PERCORSO_CARTELLA_UNITA_IMMOB + File.separator + componiNomeUnitaImmobiliare(unita);
     }
 
     /**
@@ -112,8 +172,25 @@ public class PercorsiFile {
      * @return  Nome del file dove risiedono i dati locali relativi all'entita'
      * @see domotix.model.bean.UnitaImmobiliare
      */
-    public String getNomeUnitaImmobiliare(String unita) {
+    public String componiNomeUnitaImmobiliare(String unita) {
         return unita == null ? "" : unita;
+    }
+
+    /**
+     * Ritorna una lista di nomi delle entita' presenti nei file memorizzati
+     *
+     * @return  Lista di nomi delle entita' presenti
+     * @see domotix.model.bean.UnitaImmobiliare
+     */
+    public List<String> getNomiUnitaImmobiliare() {
+        ArrayList<String> ret = new ArrayList<>();
+        File cartella = new File(Costanti.PERCORSO_CARTELLA_UNITA_IMMOB);
+
+        for(File f : cartella.listFiles()) {
+            ret.add(f.getName());
+        }
+
+        return ret;
     }
 
     /**
@@ -124,7 +201,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.system.Stanza
      */
     public String getStanza(String stanza, String unita) {
-        return Costanti.PERCORSO_CARTELLA_STANZE + File.separator + getNomeStanza(stanza, unita);
+        return Costanti.PERCORSO_CARTELLA_STANZE + File.separator + componiNomeStanza(stanza, unita);
     }
 
     /**
@@ -134,8 +211,30 @@ public class PercorsiFile {
      * @return  Nome del file dove risiedono i dati locali relativi all'entita'
      * @see domotix.model.bean.system.Stanza
      */
-    public String getNomeStanza(String stanza, String unita) {
+    public String componiNomeStanza(String stanza, String unita) {
         return componi(stanza, unita);
+    }
+
+    /**
+     * Ritorna una lista di nomi delle entita' presenti nei file memorizzati
+     *
+     * @return  Lista di nomi delle entita' presenti
+     * @see domotix.model.bean.system.Stanza
+     */
+    public List<String> getNomiStanze(String unitaImmobiliare) {
+        ArrayList<String> ret = new ArrayList<>();
+        File cartella = new File(Costanti.PERCORSO_CARTELLA_STANZE);
+        File[] elencoFile = cartella.listFiles((dir, name) -> name.matches(componiNomeStanza(NOME_GENERICO_ENTITA, unitaImmobiliare)));
+
+        for(File f : elencoFile) {
+            int indice = f.getName().indexOf(unitaImmobiliare) - 1;
+            if (indice >= 0) {
+                String scomposto = f.getName().substring(0, indice); //rimuovo nome unitaImmob dal nome file
+                ret.add(scomposto);
+            }
+        }
+
+        return ret;
     }
 
     /**
@@ -146,7 +245,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.system.Artefatto
      */
     public String getArtefatto(String artefatto, String unita) {
-        return Costanti.PERCORSO_CARTELLA_ARTEFATTI + File.separator + getNomeArtefatto(artefatto, unita);
+        return Costanti.PERCORSO_CARTELLA_ARTEFATTI + File.separator + componiNomeArtefatto(artefatto, unita);
     }
 
     /**
@@ -156,8 +255,30 @@ public class PercorsiFile {
      * @return  Nome del file dove risiedono i dati locali relativi all'entita'
      * @see domotix.model.bean.system.Artefatto
      */
-    public String getNomeArtefatto(String artefatto, String unita) {
+    public String componiNomeArtefatto(String artefatto, String unita) {
         return componi(artefatto, unita);
+    }
+
+    /**
+     * Ritorna una lista di nomi delle entita' presenti nei file memorizzati
+     *
+     * @return  Lista di nomi delle entita' presenti
+     * @see domotix.model.bean.system.Artefatto
+     */
+    public List<String> getNomiArtefatti(String unitaImmobiliare) {
+        ArrayList<String> ret = new ArrayList<>();
+        File cartella = new File(Costanti.PERCORSO_CARTELLA_ARTEFATTI);
+        File[] elencoFile = cartella.listFiles((dir, name) -> name.matches(componiNomeArtefatto(NOME_GENERICO_ENTITA, unitaImmobiliare)));
+
+        for(File f : elencoFile) {
+            int indice = f.getName().indexOf(unitaImmobiliare) - 1;
+            if (indice >= 0) {
+                String scomposto = f.getName().substring(0, indice); //rimuovo nome unitaImmob dal nome file
+                ret.add(scomposto);
+            }
+        }
+
+        return ret;
     }
 
     /**
@@ -167,7 +288,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.Sensore
      */
     public String getSensore(String sensore) {
-        return Costanti.PERCORSO_CARTELLA_SENSORI + File.separator + getNomeSensore(sensore);
+        return Costanti.PERCORSO_CARTELLA_SENSORI + File.separator + componiNomeSensore(sensore);
     }
 
     /**
@@ -176,8 +297,25 @@ public class PercorsiFile {
      * @return  Nome del file dove risiedono i dati locali relativi all'entita'
      * @see domotix.model.bean.device.Sensore
      */
-    public String getNomeSensore(String sensore) {
+    public String componiNomeSensore(String sensore) {
         return sensore == null ? "" : sensore;
+    }
+
+    /**
+     * Ritorna una lista di nomi delle entita' presenti nei file memorizzati
+     *
+     * @return  Lista di nomi delle entita' presenti
+     * @see domotix.model.bean.device.Sensore
+     */
+    public List<String> getNomiSensori() {
+        ArrayList<String> ret = new ArrayList<>();
+        File cartella = new File(Costanti.PERCORSO_CARTELLA_SENSORI);
+
+        for(File f : cartella.listFiles()) {
+            ret.add(f.getName()); //nome composto con categoria e' da mantenere tale
+        }
+
+        return ret;
     }
 
     /**
@@ -187,7 +325,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.Attuatore
      */
     public String getAttuatore(String attuatore) {
-        return Costanti.PERCORSO_CARTELLA_ATTUATORI + File.separator + getNomeAttuatore(attuatore);
+        return Costanti.PERCORSO_CARTELLA_ATTUATORI + File.separator + componiNomeAttuatore(attuatore);
     }
 
     /**
@@ -196,8 +334,25 @@ public class PercorsiFile {
      * @return  Nome del file dove risiedono i dati locali relativi all'entita'
      * @see domotix.model.bean.device.Attuatore
      */
-    public String getNomeAttuatore(String attuatore) {
+    public String componiNomeAttuatore(String attuatore) {
         return attuatore == null ? "" : attuatore;
+    }
+
+    /**
+     * Ritorna una lista di nomi delle entita' presenti nei file memorizzati
+     *
+     * @return  Lista di nomi delle entita' presenti
+     * @see domotix.model.bean.device.Attuatore
+     */
+    public List<String> getNomiAttuatori() {
+        ArrayList<String> ret = new ArrayList<>();
+        File cartella = new File(Costanti.PERCORSO_CARTELLA_ATTUATORI);
+
+        for(File f : cartella.listFiles()) {
+            ret.add(f.getName()); //nome composto con categoria e' da mantenere tale
+        }
+
+        return ret;
     }
 
 }

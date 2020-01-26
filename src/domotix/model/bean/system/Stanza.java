@@ -11,9 +11,9 @@ public class Stanza extends Sistema {
     private Map<String, Artefatto> artefatti;
     private String unitaOwner;
 
-    public Stanza(String nome, String unitaOwner) {
+    public Stanza(String nome) {
         super(nome);
-        this.unitaOwner = unitaOwner;
+        this.unitaOwner = null;
         artefatti = new HashMap<>();
     }
 
@@ -25,12 +25,13 @@ public class Stanza extends Sistema {
         Artefatto a = artefatti.get(nome);
         if (a != null) {
             artefatti.remove(nome);
-            a.distruggi(); //TODO: decidere se fare questa cosa drastica o meno in rimozione di una stanza
+            a.distruggi();
         }
     }
 
     public boolean addArtefatto(Artefatto artefatto) {
         if (artefatti.get(artefatto.getNome()) == null) {
+            artefatto.setUnitaOwner(this.getUnitaOwner());
             artefatto.ereditaOsservatoriLista(this);
             artefatti.put(artefatto.getNome(), artefatto);
             return true;
@@ -45,6 +46,11 @@ public class Stanza extends Sistema {
 
     public Artefatto getArtefatto(String nome) {
         return artefatti.get(nome);
+    }
+
+
+    public void setUnitaOwner(String unitaOwner) {
+        this.unitaOwner = unitaOwner;
     }
 
     public String getUnitaOwner() {
