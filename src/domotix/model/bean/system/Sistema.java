@@ -1,10 +1,12 @@
 package domotix.model.bean.system;
 
+import domotix.model.ElencoAttuatori;
+import domotix.model.ElencoSensori;
 import domotix.model.util.ElencoDispositivi;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
-import domotix.model.util.OsservatoreLista;
+import domotix.model.util.ObserverList;
 
 import java.util.Arrays;
 
@@ -14,15 +16,15 @@ public abstract class Sistema implements Osservabile, Azionabile {
     private ElencoDispositivi attuatori;
 
     public Sistema(String nome) {
-        this.nome = nome;
-        this.sensori = new ElencoDispositivi();
-        this.attuatori = new ElencoDispositivi();
+        this(nome, new ElencoDispositivi(), new ElencoDispositivi());
     }
 
     public Sistema(String nome, ElencoDispositivi sensoriIniziali, ElencoDispositivi attuatoriIniziali) {
         this.nome = nome;
         this.attuatori = attuatoriIniziali;
         this.sensori = sensoriIniziali;
+        this.addOsservatoreListaAttuatori(ElencoAttuatori.getInstance());
+        this.addOsservatoreListaSensori(ElencoSensori.getInstance());
     }
 
     public String getNome() {
@@ -49,16 +51,16 @@ public abstract class Sistema implements Osservabile, Azionabile {
         sis.sensori.getOsservatori().forEach(dispositivoOsservatoreLista -> this.sensori.aggiungiOsservatore(dispositivoOsservatoreLista));
         sis.attuatori.getOsservatori().forEach(dispositivoOsservatoreLista -> this.attuatori.aggiungiOsservatore(dispositivoOsservatoreLista));
     }
-    public void addOsservatoreListaSensori(OsservatoreLista<Dispositivo> oss) {
+    public void addOsservatoreListaSensori(ObserverList<Dispositivo> oss) {
         sensori.aggiungiOsservatore(oss);
     }
-    public void removeOsservatoreListaSensori(OsservatoreLista<Dispositivo> oss) {
+    public void removeOsservatoreListaSensori(ObserverList<Dispositivo> oss) {
         sensori.rimuoviOsservatore(oss);
     }
-    public void addOsservatoreListaAttuatori(OsservatoreLista<Dispositivo> oss) {
+    public void addOsservatoreListaAttuatori(ObserverList<Dispositivo> oss) {
         attuatori.aggiungiOsservatore(oss);
     }
-    public void removeOsservatoreListaAttuatori(OsservatoreLista<Dispositivo> oss) {
+    public void removeOsservatoreListaAttuatori(ObserverList<Dispositivo> oss) {
         attuatori.rimuoviOsservatore(oss);
     }
 

@@ -1,20 +1,15 @@
 package domotix.model.io.datilocali;
 
-import domotix.model.ElencoCategorieAttuatori;
-import domotix.model.ElencoCategorieSensori;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.model.util.Costanti;
 import org.w3c.dom.*;
-import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
-import java.util.NoSuchElementException;
 
 /**
  * Classe enum per contenere tutti i compilatori in elementi XML delle entita' presenti nel programma.
@@ -22,7 +17,7 @@ import java.util.NoSuchElementException;
  * Si intende creare un punto comune per facilitare l'aggiunta, la modifica o la rimozione di un'entita'.
  *
  * @author paolopasqua
- * @see DatiLocali
+ * @see LetturaDatiLocali
  */
 public enum ScrittoriXML {
     /**

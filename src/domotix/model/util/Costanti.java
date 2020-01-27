@@ -21,6 +21,8 @@ public final class Costanti {
     public static final String PERCORSO_CARTELLA_UNITA_IMMOB = PERCORSO_CARTELLA_DATI + File.separator + "unita_immob";
     public static final String PERCORSO_CARTELLA_STANZE = PERCORSO_CARTELLA_DATI + File.separator + "stanze";
     public static final String PERCORSO_CARTELLA_ARTEFATTI = PERCORSO_CARTELLA_DATI + File.separator + "artefatti";
+    public static final String NOME_CARTELLA_STANZE = "stanze";
+    public static final String NOME_CARTELLA_ARTEFATTI = "artefatti";
     public static final String PERCORSO_CARTELLA_SENSORI = PERCORSO_CARTELLA_DATI + File.separator + "sensori";
     public static final String PERCORSO_CARTELLA_ATTUATORI = PERCORSO_CARTELLA_DATI + File.separator + "attuatori";
 
@@ -56,6 +58,6 @@ public final class Costanti {
     public static final String NODO_XML_ATTUATORE = "attuatore";
     public static final String NODO_XML_ATTUATORE_NOME = "nome";
     public static final String NODO_XML_ATTUATORE_STATO = "stato";
-    public static final String NODO_XML_ATTUATORE_CATEGORIA = "categoira";
+    public static final String NODO_XML_ATTUATORE_CATEGORIA = "categoria";
     public static final String NODO_XML_ATTUATORE_MODALITA = "modalita";
 }

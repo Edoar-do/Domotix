@@ -1,15 +1,10 @@
 package domotix.model.bean;
 
-import domotix.model.ElencoAttuatori;
-import domotix.model.ElencoSensori;
 import domotix.model.bean.device.Attuatore;
-import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.system.Stanza;
-import domotix.model.util.SommarioDispositivi;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class UnitaImmobiliare {
@@ -18,21 +13,13 @@ public class UnitaImmobiliare {
 
     private String nome;
     private List<Stanza> stanze;
-    private SommarioDispositivi sensori;
-    private SommarioDispositivi attuatori;
 
     public UnitaImmobiliare(String nome) {
         this.nome = nome;
         this.stanze = new ArrayList<>();
         this.stanze.add(new Stanza(NOME_STANZA_DEFAULT)); // stanza di default
-        this.sensori = new SommarioDispositivi();
-        this.attuatori = new SommarioDispositivi();
 
         this.getStanzaDefault().setUnitaOwner(this.getNome());
-        this.getStanzaDefault().addOsservatoreListaAttuatori(ElencoAttuatori.getInstance());
-        this.getStanzaDefault().addOsservatoreListaSensori(ElencoSensori.getInstance());
-        this.getStanzaDefault().addOsservatoreListaAttuatori(attuatori);
-        this.getStanzaDefault().addOsservatoreListaSensori(sensori);
     }
 
     public boolean addStanza(Stanza stanza) {
@@ -42,8 +29,6 @@ public class UnitaImmobiliare {
             }
         }
         stanza.setUnitaOwner(this.getNome());
-        stanza.addOsservatoreListaSensori(sensori);
-        stanza.addOsservatoreListaAttuatori(attuatori);
         this.stanze.add(stanza);
         return true;
     }
@@ -67,8 +52,6 @@ public class UnitaImmobiliare {
             getStanzaDefault().distruggi(); //distruggo la precedente
 
             stanza.setUnitaOwner(this.getNome());
-            stanza.addOsservatoreListaSensori(sensori);
-            stanza.addOsservatoreListaAttuatori(attuatori);
             stanze.set(POS_STANZA_DEFAULT, stanza);
             return true;
         }
@@ -91,21 +74,11 @@ public class UnitaImmobiliare {
         this.nome = nome;
     }
 
-    public Sensore getSensore(String nome) {
-        return (Sensore) sensori.getDispositivo(nome);
-    }
-
     public Sensore[] getSensori() {
-        Dispositivo[] arraySensori = sensori.getDispositivi();
-        return Arrays.copyOf(arraySensori, arraySensori.length, Sensore[].class);
-    }
-
-    public Attuatore getAttuatore(String nome) {
-        return (Attuatore) attuatori.getDispositivo(nome);
+        return null; //TODO
     }
 
     public Attuatore[] getAttuatori() {
-        Dispositivo[] arrayAttuatori = attuatori.getDispositivi();
-        return Arrays.copyOf(arrayAttuatori, arrayAttuatori.length, Attuatore[].class);
+        return null; //TODO
     }
 }

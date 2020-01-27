@@ -5,7 +5,7 @@ import domotix.model.bean.device.Dispositivo;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SommarioDispositivi implements OsservatoreLista<Dispositivo> {
+public class SommarioDispositivi implements ObserverList<Dispositivo> {
     private Map<String, Dispositivo> elenco;
 
     public SommarioDispositivi() {

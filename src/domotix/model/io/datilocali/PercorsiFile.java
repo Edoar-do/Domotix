@@ -12,7 +12,7 @@ import java.util.List;
  * Aggiungere qui la gestione di percorsi per eventuali nuove entita' salvate.
  *
  * @author paolopasqua
- * @see DatiLocali
+ * @see LetturaDatiLocali
  */
 public class PercorsiFile {
 
@@ -163,17 +163,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.UnitaImmobiliare
      */
     public String getUnitaImmobiliare(String unita) {
-        return Costanti.PERCORSO_CARTELLA_UNITA_IMMOB + File.separator + componiNomeUnitaImmobiliare(unita);
-    }
-
-    /**
-     * Genera il nome del file specifico per un'entita' UnitaImmobiliare identificata dalla stringa passata
-     * @param unita identificativo stringa dell'entita'
-     * @return  Nome del file dove risiedono i dati locali relativi all'entita'
-     * @see domotix.model.bean.UnitaImmobiliare
-     */
-    public String componiNomeUnitaImmobiliare(String unita) {
-        return unita == null ? "" : unita;
+        return Costanti.PERCORSO_CARTELLA_UNITA_IMMOB + File.separator + unita;
     }
 
     /**
@@ -201,18 +191,18 @@ public class PercorsiFile {
      * @see domotix.model.bean.system.Stanza
      */
     public String getStanza(String stanza, String unita) {
-        return Costanti.PERCORSO_CARTELLA_STANZE + File.separator + componiNomeStanza(stanza, unita);
+        //return Costanti.PERCORSO_CARTELLA_STANZE + File.separator + componiNomeStanza(stanza, unita);
+        return getPercorsoStanze(unita) + File.separator + stanza;
     }
 
     /**
-     * Genera il nome del file specifico per un'entita' Stanza identificata dalla stringa passata
-     * @param stanza identificativo stringa dell'entita'
+     * Genera il percorso della cartella contenente le entita' Stanza appartenente alla unita immobiliare indicata
      * @param unita     identificativo stringa dell'unita' immobiliare contenente la stanza
      * @return  Nome del file dove risiedono i dati locali relativi all'entita'
      * @see domotix.model.bean.system.Stanza
      */
-    public String componiNomeStanza(String stanza, String unita) {
-        return componi(stanza, unita);
+    public String getPercorsoStanze(String unita) {
+        return Costanti.PERCORSO_CARTELLA_UNITA_IMMOB + unita;
     }
 
     /**
@@ -223,10 +213,9 @@ public class PercorsiFile {
      */
     public List<String> getNomiStanze(String unitaImmobiliare) {
         ArrayList<String> ret = new ArrayList<>();
-        File cartella = new File(Costanti.PERCORSO_CARTELLA_STANZE);
-        File[] elencoFile = cartella.listFiles((dir, name) -> name.matches(componiNomeStanza(NOME_GENERICO_ENTITA, unitaImmobiliare)));
+        File cartella = new File(getPercorsoStanze(unitaImmobiliare));
 
-        for(File f : elencoFile) {
+        for(File f : cartella.listFiles()) {
             int indice = f.getName().indexOf(unitaImmobiliare) - 1;
             if (indice >= 0) {
                 String scomposto = f.getName().substring(0, indice); //rimuovo nome unitaImmob dal nome file
@@ -245,18 +234,17 @@ public class PercorsiFile {
      * @see domotix.model.bean.system.Artefatto
      */
     public String getArtefatto(String artefatto, String unita) {
-        return Costanti.PERCORSO_CARTELLA_ARTEFATTI + File.separator + componiNomeArtefatto(artefatto, unita);
+        return getPercorsoStanze(unita) + File.separator + artefatto;
     }
 
     /**
      * Genera il nome del file specifico per un'entita' Artefatto identificata dalla stringa passata
-     * @param artefatto identificativo stringa dell'entita'
      * @param unita     identificativo stringa dell'unita' immobiliare contenente l'artefatto'
      * @return  Nome del file dove risiedono i dati locali relativi all'entita'
      * @see domotix.model.bean.system.Artefatto
      */
-    public String componiNomeArtefatto(String artefatto, String unita) {
-        return componi(artefatto, unita);
+    public String getPercorsoArtefatti(String unita) {
+        return Costanti.PERCORSO_CARTELLA_UNITA_IMMOB + unita;
     }
 
     /**
@@ -267,8 +255,8 @@ public class PercorsiFile {
      */
     public List<String> getNomiArtefatti(String unitaImmobiliare) {
         ArrayList<String> ret = new ArrayList<>();
-        File cartella = new File(Costanti.PERCORSO_CARTELLA_ARTEFATTI);
-        File[] elencoFile = cartella.listFiles((dir, name) -> name.matches(componiNomeArtefatto(NOME_GENERICO_ENTITA, unitaImmobiliare)));
+        File cartella = new File(getPercorsoArtefatti(unitaImmobiliare));
+        File[] elencoFile = cartella.listFiles();
 
         for(File f : elencoFile) {
             int indice = f.getName().indexOf(unitaImmobiliare) - 1;

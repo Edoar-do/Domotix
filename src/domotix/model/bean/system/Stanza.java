@@ -2,7 +2,7 @@ package domotix.model.bean.system;
 
 
 import domotix.model.bean.device.Dispositivo;
-import domotix.model.util.OsservatoreLista;
+import domotix.model.util.ObserverList;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +32,7 @@ public class Stanza extends Sistema {
     public boolean addArtefatto(Artefatto artefatto) {
         if (artefatti.get(artefatto.getNome()) == null) {
             artefatto.setUnitaOwner(this.getUnitaOwner());
-            artefatto.ereditaOsservatoriLista(this);
+            //artefatto.ereditaOsservatoriLista(this);
             artefatti.put(artefatto.getNome(), artefatto);
             return true;
         } else {
@@ -58,25 +58,25 @@ public class Stanza extends Sistema {
     }
 
     @Override
-    public void addOsservatoreListaSensori(OsservatoreLista<Dispositivo> oss) {
+    public void addOsservatoreListaSensori(ObserverList<Dispositivo> oss) {
         super.addOsservatoreListaSensori(oss);
         artefatti.forEach((s, artefatto) -> artefatto.addOsservatoreListaSensori(oss)); //per riportare anche agli artefatti gli osservatori aggiunti
     }
 
     @Override
-    public void removeOsservatoreListaSensori(OsservatoreLista<Dispositivo> oss) {
+    public void removeOsservatoreListaSensori(ObserverList<Dispositivo> oss) {
         super.removeOsservatoreListaSensori(oss);
         artefatti.forEach((s, artefatto) -> artefatto.removeOsservatoreListaSensori(oss)); //per riportare anche agli artefatti gli osservatori rimossi
     }
 
     @Override
-    public void addOsservatoreListaAttuatori(OsservatoreLista<Dispositivo> oss) {
+    public void addOsservatoreListaAttuatori(ObserverList<Dispositivo> oss) {
         super.addOsservatoreListaAttuatori(oss);
         artefatti.forEach((s, artefatto) -> artefatto.addOsservatoreListaAttuatori(oss)); //per riportare anche agli artefatti gli osservatori aggiunti
     }
 
     @Override
-    public void removeOsservatoreListaAttuatori(OsservatoreLista<Dispositivo> oss) {
+    public void removeOsservatoreListaAttuatori(ObserverList<Dispositivo> oss) {
         super.removeOsservatoreListaAttuatori(oss);
         artefatti.forEach((s, artefatto) -> artefatto.removeOsservatoreListaAttuatori(oss)); //per riportare anche agli artefatti gli osservatori rimossi
     }

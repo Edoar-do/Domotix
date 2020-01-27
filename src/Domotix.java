@@ -5,13 +5,13 @@ import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-import domotix.model.io.AccessoDatiSalvati;
-import domotix.model.io.datilocali.DatiLocali;
+import domotix.model.io.LetturaDatiSalvati;
+import domotix.model.io.ScritturaDatiSalvati;
+import domotix.model.io.datilocali.LetturaDatiLocali;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.IOException;
 
 public class Domotix {
@@ -54,7 +54,7 @@ public class Domotix {
 
             ElencoCategorieSensori.getInstance().getCategorie().forEach(categoriaSensore -> {
                 try {
-                    AccessoDatiSalvati.getInstance().salva(categoriaSensore);
+                    ScritturaDatiSalvati.getInstance().salva(categoriaSensore);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -62,23 +62,23 @@ public class Domotix {
 
             ElencoCategorieAttuatori.getInstance().getCategorie().forEach(categoriaAttuatore -> {
                 try {
-                    AccessoDatiSalvati.getInstance().salva(categoriaAttuatore);
+                    ScritturaDatiSalvati.getInstance().salva(categoriaAttuatore);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
 
             try {
-                AccessoDatiSalvati.getInstance().salva(ui);
+                ScritturaDatiSalvati.getInstance().salva(ui);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         else {
             try {
-                DatiLocali.getInstance().leggiCategorieSensori().forEach(categoriaSensore -> ElencoCategorieSensori.getInstance().add(categoriaSensore));
-                DatiLocali.getInstance().leggiCategorieAttuatori().forEach(categoriaAttuatore -> ElencoCategorieAttuatori.getInstance().add(categoriaAttuatore));
-                DatiLocali.getInstance().leggiUnitaImmobiliare().forEach(unitaImmobiliare -> ElencoUnitaImmobiliari.getInstance().add(unitaImmobiliare));
+                LetturaDatiLocali.getInstance().leggiCategorieSensori().forEach(categoriaSensore -> ElencoCategorieSensori.getInstance().add(categoriaSensore));
+                LetturaDatiLocali.getInstance().leggiCategorieAttuatori().forEach(categoriaAttuatore -> ElencoCategorieAttuatori.getInstance().add(categoriaAttuatore));
+                LetturaDatiLocali.getInstance().leggiUnitaImmobiliare().forEach(unitaImmobiliare -> ElencoUnitaImmobiliari.getInstance().add(unitaImmobiliare));
 
                 System.out.println("DONE");
 

@@ -4,9 +4,7 @@ import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-import org.xml.sax.SAXException;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,7 +13,7 @@ import java.util.List;
  *
  * @author paolopasqua
  */
-public abstract class AccessoDatiSalvatiAdapter implements AccessoDatiSalvati {
+public abstract class LetturaDatiSalvatiAdapter implements LetturaDatiSalvati {
     @Override
     public List<String> getNomiCategorieSensori() {
         return null;
@@ -119,45 +117,5 @@ public abstract class AccessoDatiSalvatiAdapter implements AccessoDatiSalvati {
     @Override
     public Attuatore leggiAttuatore(String nome) throws Exception {
         return null;
-    }
-
-    @Override
-    public void salva(CategoriaSensore cat) throws Exception {
-
-    }
-
-    @Override
-    public void salva(CategoriaAttuatore cat) throws Exception {
-
-    }
-
-    @Override
-    public void salva(Modalita modalita, String cat) throws Exception {
-
-    }
-
-    @Override
-    public void salva(UnitaImmobiliare unita) throws Exception {
-
-    }
-
-    @Override
-    public void salva(Stanza stanza, String unita) throws Exception {
-
-    }
-
-    @Override
-    public void salva(Artefatto artefatto, String unita) throws Exception {
-
-    }
-
-    @Override
-    public void salva(Sensore sensore) throws Exception {
-
-    }
-
-    @Override
-    public void salva(Attuatore attuatore) throws Exception {
-
     }
 }

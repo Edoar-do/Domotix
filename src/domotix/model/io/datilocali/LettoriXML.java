@@ -5,7 +5,7 @@ import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-import domotix.model.io.AccessoDatiSalvati;
+import domotix.model.io.LetturaDatiSalvati;
 import domotix.model.util.Costanti;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -178,7 +178,7 @@ public enum LettoriXML {
                     }
                     //se sensore ancora sconosciuto lo leggo
                     else {
-                        s = AccessoDatiSalvati.getInstance().leggiSensore(sensore);
+                        s = LetturaDatiSalvati.getInstance().leggiSensore(sensore);
                     }
 
                     artefatto.addSensore(s);
@@ -197,7 +197,7 @@ public enum LettoriXML {
                     }
                     //se sensore ancora sconosciuto lo leggo
                     else {
-                        a = AccessoDatiSalvati.getInstance().leggiAttuatore(attuatore);
+                        a = LetturaDatiSalvati.getInstance().leggiAttuatore(attuatore);
                     }
 
                     artefatto.addAttuatore(a);
@@ -253,7 +253,7 @@ public enum LettoriXML {
                     }
                     //se sensore ancora sconosciuto lo leggo
                     else {
-                        s = AccessoDatiSalvati.getInstance().leggiSensore(sensore);
+                        s = LetturaDatiSalvati.getInstance().leggiSensore(sensore);
                     }
 
                     stanza.addSensore(s);
@@ -272,7 +272,7 @@ public enum LettoriXML {
                     }
                     //se sensore ancora sconosciuto lo leggo
                     else {
-                        a = AccessoDatiSalvati.getInstance().leggiAttuatore(attuatore);
+                        a = LetturaDatiSalvati.getInstance().leggiAttuatore(attuatore);
                     }
 
                     stanza.addAttuatore(a);
@@ -283,7 +283,7 @@ public enum LettoriXML {
             if (childs.getLength() > 0) {
                 for (int i = 0; i < childs.getLength(); i++) {
                     String artefatto = childs.item(i).getTextContent();
-                    Artefatto a = AccessoDatiSalvati.getInstance().leggiArtefatto(artefatto, unitImmob);
+                    Artefatto a = LetturaDatiSalvati.getInstance().leggiArtefatto(artefatto, unitImmob);
                     stanza.addArtefatto(a);
                 }
             }
@@ -314,11 +314,11 @@ public enum LettoriXML {
             unit = new UnitaImmobiliare(nome);
 
             //Lettura e aggiunta di tutte le stanze
-            for (String stanza : AccessoDatiSalvati.getInstance().getNomiStanze(unit.getNome())) {
+            for (String stanza : LetturaDatiSalvati.getInstance().getNomiStanze(unit.getNome())) {
                 if (stanza.equals(UnitaImmobiliare.NOME_STANZA_DEFAULT))
-                    unit.setStanzaDefault(AccessoDatiSalvati.getInstance().leggiStanza(stanza, unit.getNome()));
+                    unit.setStanzaDefault(LetturaDatiSalvati.getInstance().leggiStanza(stanza, unit.getNome()));
                 else
-                    unit.addStanza(AccessoDatiSalvati.getInstance().leggiStanza(stanza, unit.getNome()));
+                    unit.addStanza(LetturaDatiSalvati.getInstance().leggiStanza(stanza, unit.getNome()));
             }
 
             //ritorno istanza corretta
@@ -377,8 +377,8 @@ public enum LettoriXML {
             c = new CategoriaAttuatore(nome, testoLibero);
 
             //Lettura e aggiunta delle modalita
-            for(String modalita : AccessoDatiSalvati.getInstance().getNomiModalita(c.getNome())) {
-                c.addModalita(AccessoDatiSalvati.getInstance().leggiModalita(modalita, c.getNome()));
+            for(String modalita : LetturaDatiSalvati.getInstance().getNomiModalita(c.getNome())) {
+                c.addModalita(LetturaDatiSalvati.getInstance().leggiModalita(modalita, c.getNome()));
             }
 
             //ritorno istanza corretta
@@ -455,7 +455,7 @@ public enum LettoriXML {
      * @return  Istanza dell'elemento
      * @throws NullPointerException Eccezione scatenata dal passaggio di un riferimento a null per il documento.
      * @throws Exception Eccezione scatenata dall'accesso ai contenuti dati salvati tramite AccessoDatiSalvati
-     * @see AccessoDatiSalvati
+     * @see LetturaDatiSalvati
      */
     public Object getInstance(Element el) throws Exception {
         if (el == null)
