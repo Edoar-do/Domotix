@@ -2,7 +2,7 @@ package domotix.model.bean.device;
 
 /**@author Edoardo Coppola */
 public class Attuatore extends Dispositivo {
-
+    private static final String TOSTRING_TEMPLATE = "%s: %s";
     private CategoriaAttuatore categoria;
     private Modalita modoOp;
 
@@ -25,4 +25,8 @@ public class Attuatore extends Dispositivo {
         modoOp = nuovaModalita;
     }
 
+    @Override
+    public String toString() {
+        return String.format(this.TOSTRING_TEMPLATE, this.getNome(), this.getModoOp().toString());
+    }
 }

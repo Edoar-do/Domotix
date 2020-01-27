@@ -1,7 +1,9 @@
 package domotix.model.bean.system;
 
 
+import domotix.logicUtil.StringUtil;
 import domotix.model.bean.device.Dispositivo;
+import domotix.model.bean.device.Sensore;
 import domotix.model.util.ObserverList;
 
 import java.util.HashMap;
@@ -60,24 +62,44 @@ public class Stanza extends Sistema {
     @Override
     public void addOsservatoreListaSensori(ObserverList<Dispositivo> oss) {
         super.addOsservatoreListaSensori(oss);
-        artefatti.forEach((s, artefatto) -> artefatto.addOsservatoreListaSensori(oss)); //per riportare anche agli artefatti gli osservatori aggiunti
+        if (artefatti != null) {
+            artefatti.forEach((s, artefatto) -> artefatto.addOsservatoreListaSensori(oss)); //per riportare anche agli artefatti gli osservatori aggiunti
+        }
     }
 
     @Override
     public void removeOsservatoreListaSensori(ObserverList<Dispositivo> oss) {
         super.removeOsservatoreListaSensori(oss);
-        artefatti.forEach((s, artefatto) -> artefatto.removeOsservatoreListaSensori(oss)); //per riportare anche agli artefatti gli osservatori rimossi
+        if (artefatti != null) {
+            artefatti.forEach((s, artefatto) -> artefatto.removeOsservatoreListaSensori(oss)); //per riportare anche agli artefatti gli osservatori rimossi
+        }
     }
 
     @Override
     public void addOsservatoreListaAttuatori(ObserverList<Dispositivo> oss) {
         super.addOsservatoreListaAttuatori(oss);
-        artefatti.forEach((s, artefatto) -> artefatto.addOsservatoreListaAttuatori(oss)); //per riportare anche agli artefatti gli osservatori aggiunti
+        if (artefatti != null) {
+            artefatti.forEach((s, artefatto) -> artefatto.addOsservatoreListaAttuatori(oss)); //per riportare anche agli artefatti gli osservatori aggiunti
+        }
     }
 
     @Override
     public void removeOsservatoreListaAttuatori(ObserverList<Dispositivo> oss) {
         super.removeOsservatoreListaAttuatori(oss);
-        artefatti.forEach((s, artefatto) -> artefatto.removeOsservatoreListaAttuatori(oss)); //per riportare anche agli artefatti gli osservatori rimossi
+        if (artefatti != null) {
+            artefatti.forEach((s, artefatto) -> artefatto.removeOsservatoreListaAttuatori(oss)); //per riportare anche agli artefatti gli osservatori rimossi
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(super.toString() + "\n");
+        buffer.append("\tARTEFATTI:");
+        for (Artefatto artefatto : getArtefatti()) {
+            String stringaArtefatto = "\n" + artefatto.toString();
+            buffer.append(StringUtil.indent(stringaArtefatto, 2));
+        }
+        return buffer.toString();
     }
 }

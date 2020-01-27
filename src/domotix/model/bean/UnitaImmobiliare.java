@@ -1,5 +1,6 @@
 package domotix.model.bean;
 
+import domotix.logicUtil.StringUtil;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.system.Stanza;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UnitaImmobiliare {
-    public static final String NOME_STANZA_DEFAULT = "";
+    public static final String NOME_STANZA_DEFAULT = "ESTERNO";
     private static final int POS_STANZA_DEFAULT = 0;
 
     private String nome;
@@ -80,5 +81,17 @@ public class UnitaImmobiliare {
 
     public Attuatore[] getAttuatori() {
         return null; //TODO
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(getNome() + ":\n");
+        buffer.append("\tSTANZE:");
+        for (Stanza stanza : getStanze()) {
+            String stringaStanza = "\n" + stanza.toString();
+            buffer.append(StringUtil.indent(stringaStanza, 2));
+        }
+        return buffer.toString();
     }
 }

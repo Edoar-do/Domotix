@@ -1,5 +1,6 @@
 package domotix.model.bean.system;
 
+import domotix.logicUtil.StringUtil;
 import domotix.model.ElencoAttuatori;
 import domotix.model.ElencoSensori;
 import domotix.model.util.ElencoDispositivi;
@@ -104,5 +105,26 @@ public abstract class Sistema implements Osservabile, Azionabile {
     public Attuatore[] getAttuatori() {
         Dispositivo[] arrayAttuatori = attuatori.getDispositivi();
         return Arrays.copyOf(arrayAttuatori, arrayAttuatori.length, Attuatore[].class);
+    }
+
+    private String getStringaDispositivi(Dispositivo[] dispositivi) {
+        StringBuffer buffer = new StringBuffer();
+        for (int i = 0; i < dispositivi.length; i++) {
+            buffer.append(dispositivi[i].toString() + (i < dispositivi.length - 1 ? "\n" : ""));
+        }
+        return buffer.toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(getNome() + ":" + "\n");
+        buffer.append("\tSENSORI:");
+        String stringaSensori = getStringaDispositivi(getSensori());
+        buffer.append(StringUtil.indent("\n" + stringaSensori, 2) + "\n");
+        buffer.append("\tATTUATORI:");
+        String stringaAttuatori = "\n" + getStringaDispositivi(getAttuatori());
+        buffer.append(StringUtil.indent(stringaAttuatori, 2));
+        return buffer.toString();
     }
 }

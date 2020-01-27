@@ -98,4 +98,13 @@ public class ElencoDispositivi implements ObservableList<Dispositivo> {
     public void informaAggiunta(Dispositivo dato) {
         osservatori.forEach(osservatore -> osservatore.elaboraAggiunta(dato));
     }
+
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        for (Dispositivo dispositivo : getDispositivi()) {
+            buffer.append(dispositivo.toString() + "\n");
+        }
+        return buffer.toString();
+    }
 }
