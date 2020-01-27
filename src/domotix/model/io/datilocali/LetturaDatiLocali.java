@@ -49,15 +49,7 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
 
     private LetturaDatiLocali() throws NotDirectoryException, ParserConfigurationException, TransformerConfigurationException {
         //test esistenza struttura dati
-        controllaCartella(Costanti.PERCORSO_CARTELLA_DATI);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_CATEGORIE_SENSORI);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_CATEGORIE_ATTUATORI);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_MODALITA);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_UNITA_IMMOB);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_STANZE);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_ARTEFATTI);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_SENSORI);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_ATTUATORI);
+        PercorsiFile.getInstance().controllaStruttura();
 
         documentFactory = DocumentBuilderFactory.newInstance();
         documentBuilder = documentFactory.newDocumentBuilder();
@@ -72,16 +64,6 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
         lettori.put(Costanti.NODO_XML_MODALITA, LettoriXML.MODALITA);
         lettori.put(Costanti.NODO_XML_CATEGORIA_ATTUATORE, LettoriXML.CATEGORIA_ATTUATORE);
         lettori.put(Costanti.NODO_XML_CATEGORIA_SENSORE, LettoriXML.CATEGORIA_SENSORE);
-    }
-
-    private void controllaCartella(String percorso) throws NotDirectoryException {
-        File cartella = new File(percorso);
-        if (!cartella.exists()) {
-            cartella.mkdirs();
-        }
-        if (!cartella.isDirectory()) {
-            throw new NotDirectoryException(this.getClass().getName() + ": " + percorso + " esiste come file.");
-        }
     }
 
     @Override
@@ -177,7 +159,7 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
 
     @Override
     public CategoriaSensore leggiCategoriaSensore(String nome) throws Exception {
-        String path = PercorsiFile.getInstance().getCategoriaSensore(nome);
+        String path = PercorsiFile.getInstance().getPercorsoCategoriaSensore(nome);
         return (CategoriaSensore)leggi(path);
     }
 
@@ -194,13 +176,13 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
 
     @Override
     public CategoriaAttuatore leggiCategoriaAttuatore(String nome) throws Exception {
-        String path = PercorsiFile.getInstance().getCategoriaAttuatore(nome);
+        String path = PercorsiFile.getInstance().getPercorsoCategoriaAttuatore(nome);
         return (CategoriaAttuatore) leggi(path);
     }
 
     @Override
     public Modalita leggiModalita(String nome, String categoria) throws Exception {
-        String path = PercorsiFile.getInstance().getModalita(nome, categoria);
+        String path = PercorsiFile.getInstance().getPercorsoModalita(nome, categoria);
         return (Modalita) leggi(path);
     }
 
@@ -217,25 +199,25 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
 
     @Override
     public UnitaImmobiliare leggiUnitaImmobiliare(String nome) throws Exception {
-        String path = PercorsiFile.getInstance().getUnitaImmobiliare(nome);
+        String path = PercorsiFile.getInstance().getPercorsoUnitaImmobiliare(nome);
         return (UnitaImmobiliare) leggi(path);
     }
 
     @Override
     public Stanza leggiStanza(String nome, String unitaImmob) throws Exception {
-        String path = PercorsiFile.getInstance().getStanza(nome, unitaImmob);
+        String path = PercorsiFile.getInstance().getPercorsoStanza(nome, unitaImmob);
         return (Stanza) leggi(path);
     }
 
     @Override
     public Artefatto leggiArtefatto(String nome, String unitaImmob) throws Exception {
-        String path = PercorsiFile.getInstance().getArtefatto(nome, unitaImmob);
+        String path = PercorsiFile.getInstance().getPercorsoArtefatto(nome, unitaImmob);
         return (Artefatto) leggi(path);
     }
 
     @Override
     public Sensore leggiSensore(String nome) throws Exception {
-        String path = PercorsiFile.getInstance().getSensore(nome);
+        String path = PercorsiFile.getInstance().getPercorsoSensore(nome);
         return (Sensore) leggi(path);
     }
 

@@ -314,11 +314,16 @@ public enum LettoriXML {
             unit = new UnitaImmobiliare(nome);
 
             //Lettura e aggiunta di tutte le stanze
-            for (String stanza : LetturaDatiSalvati.getInstance().getNomiStanze(unit.getNome())) {
-                if (stanza.equals(UnitaImmobiliare.NOME_STANZA_DEFAULT))
-                    unit.setStanzaDefault(LetturaDatiSalvati.getInstance().leggiStanza(stanza, unit.getNome()));
-                else
-                    unit.addStanza(LetturaDatiSalvati.getInstance().leggiStanza(stanza, unit.getNome()));
+            NodeList childs = el.getElementsByTagName(Costanti.NODO_XML_UNITA_IMMOB_STANZA);
+            if (childs.getLength() > 0) {
+                for (int i = 0; i < childs.getLength(); i++) {
+                    String stanza = childs.item(i).getTextContent();
+                    Stanza s = LetturaDatiSalvati.getInstance().leggiStanza(stanza, nome);
+                    if (stanza.equals(UnitaImmobiliare.NOME_STANZA_DEFAULT))
+                        unit.setStanzaDefault(s);
+                    else
+                        unit.addStanza(s);
+                }
             }
 
             //ritorno istanza corretta
@@ -377,8 +382,12 @@ public enum LettoriXML {
             c = new CategoriaAttuatore(nome, testoLibero);
 
             //Lettura e aggiunta delle modalita
-            for(String modalita : LetturaDatiSalvati.getInstance().getNomiModalita(c.getNome())) {
-                c.addModalita(LetturaDatiSalvati.getInstance().leggiModalita(modalita, c.getNome()));
+            childs = el.getElementsByTagName(Costanti.NODO_XML_CATEGORIA_ATTUATORE_MODALITA);
+            if (childs.getLength() > 0) {
+                for (int i = 0; i < childs.getLength(); i++) {
+                    String modalita = childs.item(i).getTextContent();
+                    c.addModalita(LetturaDatiSalvati.getInstance().leggiModalita(modalita, c.getNome()));
+                }
             }
 
             //ritorno istanza corretta

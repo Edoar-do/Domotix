@@ -51,15 +51,7 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
 
     private ScritturaDatiLocali() throws NotDirectoryException, ParserConfigurationException, TransformerConfigurationException {
         //test esistenza struttura dati
-        controllaCartella(Costanti.PERCORSO_CARTELLA_DATI);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_CATEGORIE_SENSORI);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_CATEGORIE_ATTUATORI);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_MODALITA);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_UNITA_IMMOB);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_STANZE);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_ARTEFATTI);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_SENSORI);
-        controllaCartella(Costanti.PERCORSO_CARTELLA_ATTUATORI);
+        PercorsiFile.getInstance().controllaStruttura();
 
         documentFactory = DocumentBuilderFactory.newInstance();
         documentBuilder = documentFactory.newDocumentBuilder();
@@ -78,16 +70,6 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
         scrittori.put(CategoriaSensore.class, ScrittoriXML.CATEGORIA_SENSORE);
     }
 
-    private void controllaCartella(String percorso) throws NotDirectoryException {
-        File cartella = new File(percorso);
-        if (!cartella.exists()) {
-            cartella.mkdirs();
-        }
-        if (!cartella.isDirectory()) {
-            throw new NotDirectoryException(this.getClass().getName() + ": " + percorso + " esiste come file.");
-        }
-    }
-
     private void salva(String path, Object obj) throws TransformerException, IOException, ParserConfigurationException {
         Document doc = documentBuilder.newDocument();
         File docFile = new File(path);
@@ -100,6 +82,7 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
                 throw new FileSystemException(this.getClass().getName() + ": " + path + " impossibile scrivere.");
         }
         else {
+            docFile.getParentFile().mkdirs();
             docFile.createNewFile();
             docFile.setWritable(true);
             docFile.setReadable(true);
@@ -122,7 +105,7 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
 
     @Override
     public void salva(CategoriaSensore cat) throws TransformerException, IOException, ParserConfigurationException {
-        String path = PercorsiFile.getInstance().getCategoriaSensore(cat.getNome());
+        String path = PercorsiFile.getInstance().getPercorsoCategoriaSensore(cat.getNome());
         salva(path, cat);
     }
 
@@ -134,13 +117,13 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
         }
 
         //salva la categoria
-        String path = PercorsiFile.getInstance().getCategoriaAttuatore(cat.getNome());
+        String path = PercorsiFile.getInstance().getPercorsoCategoriaAttuatore(cat.getNome());
         salva(path, cat);
     }
 
     @Override
     public void salva(Modalita modalita, String cat) throws TransformerException, IOException, ParserConfigurationException {
-        String path = PercorsiFile.getInstance().getModalita(modalita.getNome(), cat);
+        String path = PercorsiFile.getInstance().getPercorsoModalita(modalita.getNome(), cat);
         salva(path, modalita);
     }
 
@@ -161,7 +144,7 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
          */
 
         //salva l'unita immobiliare
-        String path = PercorsiFile.getInstance().getUnitaImmobiliare(unita.getNome());
+        String path = PercorsiFile.getInstance().getPercorsoUnitaImmobiliare(unita.getNome());
         salva(path, unita);
     }
 
@@ -179,7 +162,7 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
         }
 
         //salva l'unita immobiliare
-        String path = PercorsiFile.getInstance().getStanza(stanza.getNome(), unita);
+        String path = PercorsiFile.getInstance().getPercorsoStanza(stanza.getNome(), unita);
         salva(path, stanza);
     }
 
@@ -194,13 +177,13 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
         }
 
         //salva l'unita immobiliare
-        String path = PercorsiFile.getInstance().getArtefatto(artefatto.getNome(), unita);
+        String path = PercorsiFile.getInstance().getPercorsoArtefatto(artefatto.getNome(), unita);
         salva(path, artefatto);
     }
 
     @Override
     public void salva(Sensore sensore) throws TransformerException, IOException, ParserConfigurationException {
-        String path = PercorsiFile.getInstance().getSensore(sensore.getNome());
+        String path = PercorsiFile.getInstance().getPercorsoSensore(sensore.getNome());
         salva(path, sensore);
     }
 

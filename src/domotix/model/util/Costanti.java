@@ -17,10 +17,11 @@ public final class Costanti {
     public static final String PERCORSO_CARTELLA_DATI = PERCORSO_CARTELLA_APP + File.separator + "dati";
     public static final String PERCORSO_CARTELLA_CATEGORIE_SENSORI = PERCORSO_CARTELLA_DATI + File.separator + "categorie_sensori";
     public static final String PERCORSO_CARTELLA_CATEGORIE_ATTUATORI = PERCORSO_CARTELLA_DATI + File.separator + "categorie_attuatori";
-    public static final String PERCORSO_CARTELLA_MODALITA = PERCORSO_CARTELLA_DATI + File.separator + "modalita";
+    //public static final String PERCORSO_CARTELLA_MODALITA = PERCORSO_CARTELLA_DATI + File.separator + "modalita";
+    public static final String NOME_CARTELLA_MODALITA = "modalita";
     public static final String PERCORSO_CARTELLA_UNITA_IMMOB = PERCORSO_CARTELLA_DATI + File.separator + "unita_immob";
-    public static final String PERCORSO_CARTELLA_STANZE = PERCORSO_CARTELLA_DATI + File.separator + "stanze";
-    public static final String PERCORSO_CARTELLA_ARTEFATTI = PERCORSO_CARTELLA_DATI + File.separator + "artefatti";
+    //public static final String PERCORSO_CARTELLA_STANZE = PERCORSO_CARTELLA_DATI + File.separator + "stanze";
+    //public static final String PERCORSO_CARTELLA_ARTEFATTI = PERCORSO_CARTELLA_DATI + File.separator + "artefatti";
     public static final String NOME_CARTELLA_STANZE = "stanze";
     public static final String NOME_CARTELLA_ARTEFATTI = "artefatti";
     public static final String PERCORSO_CARTELLA_SENSORI = PERCORSO_CARTELLA_DATI + File.separator + "sensori";

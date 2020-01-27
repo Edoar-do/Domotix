@@ -189,17 +189,13 @@ public enum ScrittoriXML {
             //popola elemento base
             Element elem = null;
 
-            /* Sensori salvati a livello di stanza/artefatto
-            Inoltre le stanze sono lette esternamente in base ai file presenti
-
             for (Stanza s : unitaImmobiliare.getStanze()) {
                 elem = doc.createElement(Costanti.NODO_XML_UNITA_IMMOB_STANZA);
                 elem.appendChild(doc.createTextNode(s.getNome()));
                 root.appendChild(elem);
-
-                //salva la stanza sui file locali
-                DatiLocali.getInstance().salva(s, unitaImmobiliare.getNome());
             }
+
+            /* Sensori salvati a livello di stanza/artefatto
 
             //salva i sensori e attuatori presenti nell'unita' immobiliare (essendo qui presenti tutti i riferimenti)
             for (Sensore s : unitaImmobiliare.getSensori()) {
@@ -255,14 +251,11 @@ public enum ScrittoriXML {
             elem.appendChild(doc.createTextNode(cat.getTestoLibero()));
             root.appendChild(elem);
 
-            /* Le modalita' non sono piu' forzate, leggo tutte quelle presenti nella cartella legata alla categoria
-
             for (Modalita modalita : cat.getElencoModalita()) {
-                Element el = doc.createElement(Costanti.NODO_XML_CATEGORIA_ATTUATORE_MODALITA);
-                el.appendChild(doc.createTextNode(modalita.getNome()));
-                root.appendChild(el);
+                elem = doc.createElement(Costanti.NODO_XML_CATEGORIA_ATTUATORE_MODALITA);
+                elem.appendChild(doc.createTextNode(modalita.getNome()));
+                root.appendChild(elem);
             }
-            */
 
             return root;
         } else
