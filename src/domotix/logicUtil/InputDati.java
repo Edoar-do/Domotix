@@ -1,7 +1,11 @@
 package domotix.logicUtil;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.*;
 public class InputDati 
 {
+	  public static InputStream in = System.in;
+	  public static PrintStream out = System.out;
 	  private static Scanner lettore = creaScanner();
 	  
 	  private final static String ERRORE_FORMATO = "Attenzione: il dato inserito non e' nel formato corretto";
@@ -13,18 +17,25 @@ public class InputDati
 	  private final static char RISPOSTA_SI='S';
 	  private final static char RISPOSTA_NO='N';
 
-	  
- 
-	  private static Scanner creaScanner ()
+	  public static void setIn(InputStream in) {
+		InputDati.in = in;
+		InputDati.lettore = creaScanner();
+	  }
+
+	  public static void setOut(PrintStream out) {
+		InputDati.out = out;
+	  }
+
+	private static Scanner creaScanner ()
 	  {
-	   Scanner creato = new Scanner(System.in);
+	   Scanner creato = new Scanner(in);
 	   creato.useDelimiter(System.getProperty("line.separator"));
 	   return creato;
 	  }
 	  
 	  public static String leggiStringa (String messaggio)
 	  {
-		  System.out.print(messaggio);
+		  out.print(messaggio);
 		  return lettore.next();
 	  }
 	  
@@ -39,7 +50,7 @@ public class InputDati
 		 if (lettura.length() > 0)
 		  finito=true;
 		 else
-		  System.out.println(ERRORE_STRINGA_VUOTA);
+		  out.println(ERRORE_STRINGA_VUOTA);
 	   } while (!finito);
 	   
 	   return lettura;
@@ -51,7 +62,7 @@ public class InputDati
 	   char valoreLetto = '\0';
 	   do
 	    {
-	     System.out.print(messaggio);
+	     out.print(messaggio);
 	     String lettura = lettore.next();
 	     if (lettura.length() > 0)
 	      {
@@ -60,7 +71,7 @@ public class InputDati
 	      }
 	     else
 	      {
-	       System.out.println(ERRORE_STRINGA_VUOTA);
+	       out.println(ERRORE_STRINGA_VUOTA);
 	      }
 	    } while (!finito);
 	   return valoreLetto;
@@ -77,7 +88,7 @@ public class InputDati
 	    if (ammissibili.indexOf(valoreLetto) != -1)
 		 finito  = true;
 	    else
-	     System.out.println(MESSAGGIO_AMMISSIBILI + ammissibili);
+	     out.println(MESSAGGIO_AMMISSIBILI + ammissibili);
 	   } while (!finito);
 	   return valoreLetto;
 	  }
@@ -89,7 +100,7 @@ public class InputDati
 	   int valoreLetto = 0;
 	   do
 	    {
-	     System.out.print(messaggio);
+	     out.print(messaggio);
 	     try
 	      {
 	       valoreLetto = lettore.nextInt();
@@ -97,7 +108,7 @@ public class InputDati
 	      }
 	     catch (InputMismatchException e)
 	      {
-	       System.out.println(ERRORE_FORMATO);
+	       out.println(ERRORE_FORMATO);
 	       String daButtare = lettore.next();
 	      }
 	    } while (!finito);
@@ -125,7 +136,7 @@ public class InputDati
 	     if (valoreLetto >= minimo)
 	      finito = true;
 	     else
-	      System.out.println(ERRORE_MINIMO + minimo);
+	      out.println(ERRORE_MINIMO + minimo);
 	    } while (!finito);
 	     
 	   return valoreLetto;
@@ -142,9 +153,9 @@ public class InputDati
 	      finito = true;
 	     else
 	      if (valoreLetto < minimo)
-	         System.out.println(ERRORE_MINIMO + minimo);
+	         out.println(ERRORE_MINIMO + minimo);
 	      else
-	    	 System.out.println(ERRORE_MASSIMO + massimo); 
+	    	 out.println(ERRORE_MASSIMO + massimo);
 	    } while (!finito);
 	     
 	   return valoreLetto;
@@ -157,7 +168,7 @@ public class InputDati
 	   double valoreLetto = 0;
 	   do
 	    {
-	     System.out.print(messaggio);
+	     out.print(messaggio);
 	     try
 	      {
 	       valoreLetto = lettore.nextDouble();
@@ -165,7 +176,7 @@ public class InputDati
 	      }
 	     catch (InputMismatchException e)
 	      {
-	       System.out.println(ERRORE_FORMATO);
+	       out.println(ERRORE_FORMATO);
 	       String daButtare = lettore.next();
 	      }
 	    } while (!finito);
@@ -182,7 +193,7 @@ public class InputDati
 	     if (valoreLetto >= minimo)
 	      finito = true;
 	     else
-	      System.out.println(ERRORE_MINIMO + minimo);
+	      out.println(ERRORE_MINIMO + minimo);
 	    } while (!finito);
 	     
 	   return valoreLetto;
