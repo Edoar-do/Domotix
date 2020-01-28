@@ -1,28 +1,33 @@
 package domotix.model.bean.system;
 
+import domotix.logicUtil.StringUtil;
+import domotix.model.ElencoAttuatori;
+import domotix.model.ElencoSensori;
 import domotix.model.util.ElencoDispositivi;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
-import domotix.model.util.OsservatoreLista;
+import domotix.model.util.ObserverList;
 
 import java.util.Arrays;
 
 public abstract class Sistema implements Osservabile, Azionabile {
+    private static final String NO_SENSORI = "Non e' presente alcun sensore";
+    private static final String NO_ATTUATORI = "Non e' presente alcun attuatore";
     private String nome;
     private ElencoDispositivi sensori;
     private ElencoDispositivi attuatori;
 
     public Sistema(String nome) {
-        this.nome = nome;
-        this.sensori = new ElencoDispositivi();
-        this.attuatori = new ElencoDispositivi();
+        this(nome, new ElencoDispositivi(), new ElencoDispositivi());
     }
 
     public Sistema(String nome, ElencoDispositivi sensoriIniziali, ElencoDispositivi attuatoriIniziali) {
         this.nome = nome;
         this.attuatori = attuatoriIniziali;
         this.sensori = sensoriIniziali;
+        this.addOsservatoreListaAttuatori(ElencoAttuatori.getInstance());
+        this.addOsservatoreListaSensori(ElencoSensori.getInstance());
     }
 
     public String getNome() {
@@ -49,16 +54,16 @@ public abstract class Sistema implements Osservabile, Azionabile {
         sis.sensori.getOsservatori().forEach(dispositivoOsservatoreLista -> this.sensori.aggiungiOsservatore(dispositivoOsservatoreLista));
         sis.attuatori.getOsservatori().forEach(dispositivoOsservatoreLista -> this.attuatori.aggiungiOsservatore(dispositivoOsservatoreLista));
     }
-    public void addOsservatoreListaSensori(OsservatoreLista<Dispositivo> oss) {
+    public void addOsservatoreListaSensori(ObserverList<Dispositivo> oss) {
         sensori.aggiungiOsservatore(oss);
     }
-    public void removeOsservatoreListaSensori(OsservatoreLista<Dispositivo> oss) {
+    public void removeOsservatoreListaSensori(ObserverList<Dispositivo> oss) {
         sensori.rimuoviOsservatore(oss);
     }
-    public void addOsservatoreListaAttuatori(OsservatoreLista<Dispositivo> oss) {
+    public void addOsservatoreListaAttuatori(ObserverList<Dispositivo> oss) {
         attuatori.aggiungiOsservatore(oss);
     }
-    public void removeOsservatoreListaAttuatori(OsservatoreLista<Dispositivo> oss) {
+    public void removeOsservatoreListaAttuatori(ObserverList<Dispositivo> oss) {
         attuatori.rimuoviOsservatore(oss);
     }
 
@@ -102,5 +107,34 @@ public abstract class Sistema implements Osservabile, Azionabile {
     public Attuatore[] getAttuatori() {
         Dispositivo[] arrayAttuatori = attuatori.getDispositivi();
         return Arrays.copyOf(arrayAttuatori, arrayAttuatori.length, Attuatore[].class);
+    }
+
+    private String getStringaDispositivi(Dispositivo[] dispositivi) {
+        StringBuffer buffer = new StringBuffer();
+        for (int i = 0; i < dispositivi.length; i++) {
+            buffer.append(dispositivi[i].toString() + (i < dispositivi.length - 1 ? "\n" : ""));
+        }
+        return buffer.toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(getNome() + ":" + "\n");
+        buffer.append("\tSENSORI:");
+        if (getSensori().length > 0) {
+            String stringaSensori = getStringaDispositivi(getSensori());
+            buffer.append(StringUtil.indent("\n" + stringaSensori, 2) + "\n");
+        } else {
+            buffer.append(StringUtil.indent("\n" + NO_SENSORI, 2) + "\n");
+        }
+        buffer.append("\tATTUATORI:");
+        if (getAttuatori().length > 0) {
+            String stringaAttuatori = "\n" + getStringaDispositivi(getAttuatori());
+            buffer.append(StringUtil.indent(stringaAttuatori, 2));
+        } else {
+            buffer.append(StringUtil.indent("\n" + NO_ATTUATORI, 2));
+        }
+        return buffer.toString();
     }
 }

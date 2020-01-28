@@ -1,5 +1,6 @@
 package domotix.model;
 
+import domotix.logicUtil.StringUtil;
 import domotix.model.bean.UnitaImmobiliare;
 
 import java.util.ArrayList;
@@ -43,5 +44,14 @@ public class ElencoUnitaImmobiliari {
 
     public void add(UnitaImmobiliare ca){
         unita.put(ca.getNome(), ca);
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        unita.forEach((k, v) -> {
+            buffer.append(v.toString() + "\n");
+        });
+        return StringUtil.removeLast(buffer.toString());
     }
 }

@@ -1,19 +1,22 @@
 package domotix.model.bean.system;
 
 
+import domotix.logicUtil.StringUtil;
 import domotix.model.bean.device.Dispositivo;
-import domotix.model.util.OsservatoreLista;
+import domotix.model.bean.device.Sensore;
+import domotix.model.util.ObserverList;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Stanza extends Sistema {
+    private static final String NO_ARTEFATTI = "Non e' presente alcun artefatto";
     private Map<String, Artefatto> artefatti;
     private String unitaOwner;
 
-    public Stanza(String nome, String unitaOwner) {
+    public Stanza(String nome) {
         super(nome);
-        this.unitaOwner = unitaOwner;
+        this.unitaOwner = null;
         artefatti = new HashMap<>();
     }
 
@@ -25,13 +28,14 @@ public class Stanza extends Sistema {
         Artefatto a = artefatti.get(nome);
         if (a != null) {
             artefatti.remove(nome);
-            a.distruggi(); //TODO: decidere se fare questa cosa drastica o meno in rimozione di una stanza
+            a.distruggi();
         }
     }
 
     public boolean addArtefatto(Artefatto artefatto) {
         if (artefatti.get(artefatto.getNome()) == null) {
-            artefatto.ereditaOsservatoriLista(this);
+            artefatto.setUnitaOwner(this.getUnitaOwner());
+            //artefatto.ereditaOsservatoriLista(this);
             artefatti.put(artefatto.getNome(), artefatto);
             return true;
         } else {
@@ -47,31 +51,60 @@ public class Stanza extends Sistema {
         return artefatti.get(nome);
     }
 
+
+    public void setUnitaOwner(String unitaOwner) {
+        this.unitaOwner = unitaOwner;
+    }
+
     public String getUnitaOwner() {
         return unitaOwner;
     }
 
     @Override
-    public void addOsservatoreListaSensori(OsservatoreLista<Dispositivo> oss) {
+    public void addOsservatoreListaSensori(ObserverList<Dispositivo> oss) {
         super.addOsservatoreListaSensori(oss);
-        artefatti.forEach((s, artefatto) -> artefatto.addOsservatoreListaSensori(oss)); //per riportare anche agli artefatti gli osservatori aggiunti
+        if (artefatti != null) {
+            artefatti.forEach((s, artefatto) -> artefatto.addOsservatoreListaSensori(oss)); //per riportare anche agli artefatti gli osservatori aggiunti
+        }
     }
 
     @Override
-    public void removeOsservatoreListaSensori(OsservatoreLista<Dispositivo> oss) {
+    public void removeOsservatoreListaSensori(ObserverList<Dispositivo> oss) {
         super.removeOsservatoreListaSensori(oss);
-        artefatti.forEach((s, artefatto) -> artefatto.removeOsservatoreListaSensori(oss)); //per riportare anche agli artefatti gli osservatori rimossi
+        if (artefatti != null) {
+            artefatti.forEach((s, artefatto) -> artefatto.removeOsservatoreListaSensori(oss)); //per riportare anche agli artefatti gli osservatori rimossi
+        }
     }
 
     @Override
-    public void addOsservatoreListaAttuatori(OsservatoreLista<Dispositivo> oss) {
+    public void addOsservatoreListaAttuatori(ObserverList<Dispositivo> oss) {
         super.addOsservatoreListaAttuatori(oss);
-        artefatti.forEach((s, artefatto) -> artefatto.addOsservatoreListaAttuatori(oss)); //per riportare anche agli artefatti gli osservatori aggiunti
+        if (artefatti != null) {
+            artefatti.forEach((s, artefatto) -> artefatto.addOsservatoreListaAttuatori(oss)); //per riportare anche agli artefatti gli osservatori aggiunti
+        }
     }
 
     @Override
-    public void removeOsservatoreListaAttuatori(OsservatoreLista<Dispositivo> oss) {
+    public void removeOsservatoreListaAttuatori(ObserverList<Dispositivo> oss) {
         super.removeOsservatoreListaAttuatori(oss);
-        artefatti.forEach((s, artefatto) -> artefatto.removeOsservatoreListaAttuatori(oss)); //per riportare anche agli artefatti gli osservatori rimossi
+        if (artefatti != null) {
+            artefatti.forEach((s, artefatto) -> artefatto.removeOsservatoreListaAttuatori(oss)); //per riportare anche agli artefatti gli osservatori rimossi
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(super.toString() + "\n");
+        buffer.append("\tARTEFATTI:");
+        if (getArtefatti().length > 0) {
+            for (Artefatto artefatto : getArtefatti()) {
+                String stringaArtefatto = "\n" + artefatto.toString();
+                buffer.append(StringUtil.indent(stringaArtefatto, 2));
+            }
+        } else {
+            buffer.append(StringUtil.indent("\n" + NO_ARTEFATTI, 2));
+        }
+        return buffer.toString();
     }
 }

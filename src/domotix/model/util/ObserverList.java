@@ -1,6 +1,6 @@
 package domotix.model.util;
 
-public interface OsservatoreLista<T> {
+public interface ObserverList<T> {
     void elaboraRimozione(T dato);
     void elaboraAggiunta(T dato);
 }

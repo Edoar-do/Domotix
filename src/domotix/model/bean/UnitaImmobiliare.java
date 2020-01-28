@@ -1,33 +1,26 @@
 package domotix.model.bean;
 
+import domotix.logicUtil.StringUtil;
 import domotix.model.bean.device.Attuatore;
-import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.system.Stanza;
-import domotix.model.util.SommarioDispositivi;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class UnitaImmobiliare {
-    public static final String NOME_STANZA_DEFAULT = "";
+    public static final String NOME_STANZA_DEFAULT = "esterno";
     private static final int POS_STANZA_DEFAULT = 0;
 
     private String nome;
     private List<Stanza> stanze;
-    private SommarioDispositivi sensori;
-    private SommarioDispositivi attuatori;
 
     public UnitaImmobiliare(String nome) {
         this.nome = nome;
         this.stanze = new ArrayList<>();
-        this.stanze.add(new Stanza(NOME_STANZA_DEFAULT, this.nome)); // stanza di default
-        this.sensori = new SommarioDispositivi();
-        this.attuatori = new SommarioDispositivi();
+        this.stanze.add(new Stanza(NOME_STANZA_DEFAULT)); // stanza di default
 
-        getStanzaDefault().addOsservatoreListaAttuatori(attuatori);
-        getStanzaDefault().addOsservatoreListaSensori(sensori);
+        this.getStanzaDefault().setUnitaOwner(this.getNome());
     }
 
     public boolean addStanza(Stanza stanza) {
@@ -36,8 +29,7 @@ public class UnitaImmobiliare {
                 return false;
             }
         }
-        stanza.addOsservatoreListaSensori(sensori);
-        stanza.addOsservatoreListaAttuatori(attuatori);
+        stanza.setUnitaOwner(this.getNome());
         this.stanze.add(stanza);
         return true;
     }
@@ -49,7 +41,7 @@ public class UnitaImmobiliare {
     public void removeStanza(String nome) {
         for (int i = 0; i < stanze.size(); i++) {
             if (stanze.get(i).getNome().equals(nome)) {
-                stanze.get(i).distruggi(); //TODO: decidere se fare questa cosa drastica o meno in rimozione di una stanza
+                stanze.get(i).distruggi();
                 stanze.remove(i);
                 break;
             }
@@ -59,9 +51,8 @@ public class UnitaImmobiliare {
     public boolean setStanzaDefault(Stanza stanza) {
         if (stanza.getNome().equals(NOME_STANZA_DEFAULT)) {
             getStanzaDefault().distruggi(); //distruggo la precedente
-            
-            stanza.addOsservatoreListaSensori(sensori);
-            stanza.addOsservatoreListaAttuatori(attuatori);
+
+            stanza.setUnitaOwner(this.getNome());
             stanze.set(POS_STANZA_DEFAULT, stanza);
             return true;
         }
@@ -84,24 +75,14 @@ public class UnitaImmobiliare {
         this.nome = nome;
     }
 
-    public Sensore getSensore(String nome) {
-        return (Sensore) sensori.getDispositivo(nome);
-    }
-
     public Sensore[] getSensori() {
-        Dispositivo[] arraySensori = sensori.getDispositivi();
-        return Arrays.copyOf(arraySensori, arraySensori.length, Sensore[].class);
-    }
-
-    public Attuatore getAttuatore(String nome) {
-        return (Attuatore) attuatori.getDispositivo(nome);
+        return null; //TODO
     }
 
     public Attuatore[] getAttuatori() {
-        Dispositivo[] arrayAttuatori = attuatori.getDispositivi();
-        return Arrays.copyOf(arrayAttuatori, arrayAttuatori.length, Attuatore[].class);
+        return null; //TODO
     }
-
+    
     public boolean isPresent(String nome){
         for (Stanza s: stanze){
             if(s.getNome().equals(nome))
@@ -109,6 +90,18 @@ public class UnitaImmobiliare {
             }
             return false;
 
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(getNome() + ":\n");
+        buffer.append("\tSTANZE:");
+        for (Stanza stanza : getStanze()) {
+            String stringaStanza = "\n" + stanza.toString();
+            buffer.append(StringUtil.indent(stringaStanza, 2));
+        }
+        return buffer.toString();
     }
 
 }

@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ElencoDispositivi implements ListaOsservabile<Dispositivo> {
+public class ElencoDispositivi implements ObservableList<Dispositivo> {
     private Map<String, Dispositivo> elenco;
-    private ArrayList<OsservatoreLista<Dispositivo>> osservatori;
+    private ArrayList<ObserverList<Dispositivo>> osservatori;
 
     public ElencoDispositivi(Map<String, Dispositivo> elencoIniziale) {
         elenco = elencoIniziale;
@@ -67,18 +67,20 @@ public class ElencoDispositivi implements ListaOsservabile<Dispositivo> {
     }
 
     @Override
-    public void aggiungiOsservatore(OsservatoreLista<Dispositivo> oss) {
-        elenco.forEach((s, dispositivo) -> oss.elaboraAggiunta(dispositivo)); //in modo da informare immediatamente l'osservatore dei dati gia' contenuti
-        osservatori.add(oss);
+    public void aggiungiOsservatore(ObserverList<Dispositivo> oss) {
+        if (!osservatori.contains(oss)) {
+            elenco.forEach((s, dispositivo) -> oss.elaboraAggiunta(dispositivo)); //in modo da informare immediatamente l'osservatore dei dati gia' contenuti
+            osservatori.add(oss);
+        }
     }
 
     @Override
-    public void rimuoviOsservatore(OsservatoreLista<Dispositivo> oss) {
+    public void rimuoviOsservatore(ObserverList<Dispositivo> oss) {
         osservatori.remove(oss);
     }
 
     @Override
-    public List<OsservatoreLista<Dispositivo>> getOsservatori() {
+    public List<ObserverList<Dispositivo>> getOsservatori() {
         return osservatori;
     }
 
@@ -95,5 +97,14 @@ public class ElencoDispositivi implements ListaOsservabile<Dispositivo> {
     @Override
     public void informaAggiunta(Dispositivo dato) {
         osservatori.forEach(osservatore -> osservatore.elaboraAggiunta(dato));
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        for (Dispositivo dispositivo : getDispositivi()) {
+            buffer.append(dispositivo.toString() + "\n");
+        }
+        return buffer.toString();
     }
 }

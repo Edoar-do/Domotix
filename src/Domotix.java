@@ -5,13 +5,13 @@ import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-import domotix.model.io.AccessoDatiSalvati;
-import domotix.model.io.datilocali.DatiLocali;
+import domotix.model.io.LetturaDatiSalvati;
+import domotix.model.io.ScritturaDatiSalvati;
+import domotix.model.io.datilocali.LetturaDatiLocali;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.IOException;
 
 import domotix.logicUtil.*;
@@ -47,7 +47,7 @@ public class Domotix {
                                                             "Rimuovi un artefatto", "Gestione artefatto"};
 
     private static final String OPERATION_NOT_POSSIBLE_DUE_TO_UNIT_INEXISTENCE = "Operazione non effettuabile al momento. Devi prima creare un'unità immobiliare";
-    private  static final String UNITA_GIA_CREATA = "Unità Immobiliare già creata. Impossibile crearne un'altra."
+    private  static final String UNITA_GIA_CREATA = "Unità Immobiliare già creata. Impossibile crearne un'altra.";
 
     private static void showMenuUtente(){
 

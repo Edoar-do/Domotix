@@ -1,11 +1,12 @@
 package domotix.model.util;
 
+import domotix.logicUtil.StringUtil;
 import domotix.model.bean.device.Dispositivo;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class SommarioDispositivi implements OsservatoreLista<Dispositivo> {
+public class SommarioDispositivi implements ObserverList<Dispositivo> {
     private Map<String, Dispositivo> elenco;
 
     public SommarioDispositivi() {
@@ -44,5 +45,14 @@ public class SommarioDispositivi implements OsservatoreLista<Dispositivo> {
         if (!elenco.containsKey(dato.getNome())) {
             elenco.put(dato.getNome(), dato);
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        elenco.forEach((k, v) -> {
+            buffer.append(v.toString() + "\n");
+        });
+        return StringUtil.removeLast(buffer.toString());
     }
 }

@@ -1,4 +1,7 @@
 package domotix.model.bean.device;
+
+import domotix.logicUtil.StringUtil;
+
 /** @author Edoardo Coppola */
 public class CategoriaSensore {
 
@@ -30,5 +33,16 @@ public class CategoriaSensore {
 
     public String getInformazioneRilevabile() {
         return informazioneRilevabile;
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(getNome() + ":\n");
+        buffer.append("\tTESTO LIBERO:\n");
+        buffer.append(StringUtil.indent(getTestoLibero() + "\n", 2));
+        buffer.append("\tINFORMAZIONE RILEVABILE:");
+        buffer.append(StringUtil.indent("\n" + getInformazioneRilevabile(), 2));
+        return buffer.toString();
     }
 }
