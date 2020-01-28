@@ -12,4 +12,13 @@ public class StringUtil {
         }
         return s;
     }
+
+    public static String removeLast(String s, int n) {
+        if (n <= 0 || n > s.length()) return s;
+        return s.substring(0, s.length() - n);
+    }
+
+    public static String removeLast(String s) {
+        return removeLast(s, 1);
+    }
 }

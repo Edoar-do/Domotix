@@ -12,6 +12,8 @@ import domotix.model.util.ObserverList;
 import java.util.Arrays;
 
 public abstract class Sistema implements Osservabile, Azionabile {
+    private static final String NO_SENSORI = "Non e' presente alcun sensore";
+    private static final String NO_ATTUATORI = "Non e' presente alcun attuatore";
     private String nome;
     private ElencoDispositivi sensori;
     private ElencoDispositivi attuatori;
@@ -120,11 +122,19 @@ public abstract class Sistema implements Osservabile, Azionabile {
         StringBuffer buffer = new StringBuffer();
         buffer.append(getNome() + ":" + "\n");
         buffer.append("\tSENSORI:");
-        String stringaSensori = getStringaDispositivi(getSensori());
-        buffer.append(StringUtil.indent("\n" + stringaSensori, 2) + "\n");
+        if (getSensori().length > 0) {
+            String stringaSensori = getStringaDispositivi(getSensori());
+            buffer.append(StringUtil.indent("\n" + stringaSensori, 2) + "\n");
+        } else {
+            buffer.append(StringUtil.indent("\n" + NO_SENSORI, 2) + "\n");
+        }
         buffer.append("\tATTUATORI:");
-        String stringaAttuatori = "\n" + getStringaDispositivi(getAttuatori());
-        buffer.append(StringUtil.indent(stringaAttuatori, 2));
+        if (getAttuatori().length > 0) {
+            String stringaAttuatori = "\n" + getStringaDispositivi(getAttuatori());
+            buffer.append(StringUtil.indent(stringaAttuatori, 2));
+        } else {
+            buffer.append(StringUtil.indent("\n" + NO_ATTUATORI, 2));
+        }
         return buffer.toString();
     }
 }

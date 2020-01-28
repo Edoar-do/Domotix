@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UnitaImmobiliare {
-    public static final String NOME_STANZA_DEFAULT = "ESTERNO";
+    public static final String NOME_STANZA_DEFAULT = "esterno";
     private static final int POS_STANZA_DEFAULT = 0;
 
     private String nome;

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Stanza extends Sistema {
+    private static final String NO_ARTEFATTI = "Non e' presente alcun artefatto";
     private Map<String, Artefatto> artefatti;
     private String unitaOwner;
 
@@ -96,9 +97,13 @@ public class Stanza extends Sistema {
         StringBuffer buffer = new StringBuffer();
         buffer.append(super.toString() + "\n");
         buffer.append("\tARTEFATTI:");
-        for (Artefatto artefatto : getArtefatti()) {
-            String stringaArtefatto = "\n" + artefatto.toString();
-            buffer.append(StringUtil.indent(stringaArtefatto, 2));
+        if (getArtefatti().length > 0) {
+            for (Artefatto artefatto : getArtefatti()) {
+                String stringaArtefatto = "\n" + artefatto.toString();
+                buffer.append(StringUtil.indent(stringaArtefatto, 2));
+            }
+        } else {
+            buffer.append(StringUtil.indent("\n" + NO_ARTEFATTI, 2));
         }
         return buffer.toString();
     }
