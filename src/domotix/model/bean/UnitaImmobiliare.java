@@ -102,4 +102,13 @@ public class UnitaImmobiliare {
         return Arrays.copyOf(arrayAttuatori, arrayAttuatori.length, Attuatore[].class);
     }
 
+    public boolean isPresent(String nome){
+        for (Stanza s: stanze){
+            if(s.getNome().equals(nome))
+                return true;
+            }
+            return false;
+
+    }
+
 }
