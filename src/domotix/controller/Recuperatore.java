@@ -14,12 +14,12 @@ import java.util.stream.Stream;
 
 /**@author andrea*/
 public class Recuperatore {
-    private static UnitaImmobiliare getUnita(String nomeUnita) {
+    static UnitaImmobiliare getUnita(String nomeUnita) {
         UnitaImmobiliare unita = ElencoUnitaImmobiliari.getInstance().getUnita(nomeUnita);
         return unita;
     }
 
-    private static Stanza getStanza(String nomeStanza, String nomeUnita) {
+    static Stanza getStanza(String nomeStanza, String nomeUnita) {
         Stanza[] stanze = getUnita(nomeUnita).getStanze();
         Stanza stanza = null;
         for (Stanza s : stanze) {
@@ -31,7 +31,7 @@ public class Recuperatore {
         return stanza;
     }
 
-    private static Artefatto getArtefatto(String nomeArtefatto, String nomeStanza, String nomeUnita) {
+    static Artefatto getArtefatto(String nomeArtefatto, String nomeStanza, String nomeUnita) {
         Artefatto[] artefatti = getStanza(nomeStanza, nomeUnita).getArtefatti();
         Artefatto artefatto = null;
         for (Artefatto a : artefatti) {
@@ -75,6 +75,20 @@ public class Recuperatore {
     public static String[] getNomiArtefatti(String nomeStanza, String nomeUnita) {
         Artefatto[] artefatti = getStanza(nomeStanza, nomeUnita).getArtefatti();
         return Stream.of(artefatti).map(a -> a.getNome()).toArray(String[]::new);
+    }
+
+    public static String[] getNomiCategorieSensori() {
+        return ElencoCategorieSensori.getInstance().getCategorie()
+                .stream()
+                .map(cs -> cs.getNome())
+                .toArray(String[]::new);
+    }
+
+    public static String[] getNomiCategorieAttuatori() {
+        return ElencoCategorieAttuatori.getInstance().getCategorie()
+                .stream()
+                .map(cs -> cs.getNome())
+                .toArray(String[]::new);
     }
 
     public static String[] getDescrizioniCategorieSensori() {
