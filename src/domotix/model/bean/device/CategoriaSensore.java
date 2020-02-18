@@ -45,4 +45,12 @@ public class CategoriaSensore {
         buffer.append(StringUtil.indent("\n" + getInformazioneRilevabile(), 2));
         return buffer.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof CategoriaSensore)) return false;
+        CategoriaSensore other = (CategoriaSensore) obj;
+        return other.nome.equals(this.nome);
+    }
 }

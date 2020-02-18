@@ -68,4 +68,12 @@ public class CategoriaAttuatore {
         });
         return buffer.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof CategoriaSensore)) return false;
+        CategoriaAttuatore other = (CategoriaAttuatore) obj;
+        return other.nome.equals(this.nome);
+    }
 }

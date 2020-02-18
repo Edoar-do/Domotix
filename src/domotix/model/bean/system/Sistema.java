@@ -3,10 +3,8 @@ package domotix.model.bean.system;
 import domotix.logicUtil.StringUtil;
 import domotix.model.ElencoAttuatori;
 import domotix.model.ElencoSensori;
+import domotix.model.bean.device.*;
 import domotix.model.util.ElencoDispositivi;
-import domotix.model.bean.device.Attuatore;
-import domotix.model.bean.device.Dispositivo;
-import domotix.model.bean.device.Sensore;
 import domotix.model.util.ObserverList;
 
 import java.util.Arrays;
@@ -136,5 +134,21 @@ public abstract class Sistema implements Osservabile, Azionabile {
             buffer.append(StringUtil.indent("\n" + NO_ATTUATORI, 2));
         }
         return buffer.toString();
+    }
+
+    public boolean contieneCategoria(CategoriaSensore categoriaSensore) {
+        for (Dispositivo d : sensori.getDispositivi()) {
+            Sensore s = (Sensore) d;
+            if (categoriaSensore.equals(s.getCategoria())) return true;
+        }
+        return false;
+    }
+
+    public boolean contieneCategoria(CategoriaAttuatore categoriaAttuatore) {
+        for (Dispositivo d : attuatori.getDispositivi()) {
+            Attuatore a = (Attuatore) d;
+            if (categoriaAttuatore.equals(a.getCategoria())) return true;
+        }
+        return false;
     }
 }
