@@ -4,12 +4,14 @@ import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
+import domotix.model.io.RimozioneDatiSalvati;
 import domotix.model.io.RimozioneDatiSalvatiAdapter;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import java.io.File;
 import java.nio.file.NotDirectoryException;
+import java.util.List;
 
 /**
  * Classe che implementa l'interfaccia RimozioneDatiSalvati per definire un meccanismo di rimozione dei dati su file memorizzati
@@ -112,5 +114,121 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         String percorso = PercorsiFile.getInstance().getAttuatore(attuatore);
         File f = new File(percorso);
         rimuoviRicorsivo(f);
+    }
+
+
+    @Override
+    public void sincronizzaCategorieSensore(List<CategoriaSensore> entita) throws Exception {
+        List<String> nomiDati = PercorsiFile.getInstance().getNomiCategorieSensori();
+
+        //rimuovo le entita logiche presenti
+        entita.forEach(catSens -> nomiDati.remove(catSens.getNome()) );
+        //elaboro i nomi rimasti
+        for (String catSens : nomiDati) {
+            RimozioneDatiSalvati.getInstance().rimuoviCategoriaSensore(catSens);
+        }
+    }
+
+    @Override
+    public void sincronizzaCategorieAttuatore(List<CategoriaAttuatore> entita) throws Exception {
+        List<String> nomiDati = PercorsiFile.getInstance().getNomiCategorieAttuatori();
+
+        //rimuovo le entita logiche presenti
+        for (CategoriaAttuatore catAtt : entita) {
+            nomiDati.remove(catAtt.getNome());
+            sincronizzaModalita(catAtt); //se entita logica presente allora sincronizzo le componenti
+        }
+        //elaboro i nomi rimasti
+        for (String catAtt : nomiDati) {
+            RimozioneDatiSalvati.getInstance().rimuoviCategoriaAttuatore(catAtt);
+        }
+    }
+
+    @Override
+    public void sincronizzaModalita(CategoriaAttuatore entita) throws Exception {
+        List<String> nomiDati = PercorsiFile.getInstance().getNomiModalita(entita.getNome());
+
+        //rimuovo le entita logiche presenti
+        for (Modalita modalita : entita.getElencoModalita()) {
+            nomiDati.remove(modalita.getNome());
+        }
+        //elaboro i nomi rimasti
+        for (String modalita : nomiDati) {
+            RimozioneDatiSalvati.getInstance().rimuoviModalita(modalita, entita.getNome());
+        }
+    }
+
+    @Override
+    public void sincronizzaUnitaImmobiliari(List<UnitaImmobiliare> entita) throws Exception {
+        List<String> nomiDati = PercorsiFile.getInstance().getNomiUnitaImmobiliare();
+
+        //rimuovo le entita logiche presenti
+        for (UnitaImmobiliare unita : entita) {
+            nomiDati.remove(unita.getNome());
+            sincronizzaStanze(unita); //se entita logica presente allora sincronizzo le componenti
+            sincronizzaArtefatti(unita); //se entita logica presente allora sincronizzo le componenti
+        }
+        //elaboro i nomi rimasti
+        for (String unita : nomiDati) {
+            RimozioneDatiSalvati.getInstance().rimuoviUnitaImmobiliare(unita);
+        }
+    }
+
+    @Override
+    public void sincronizzaStanze(UnitaImmobiliare entita) throws Exception {
+        List<String> nomiDati = PercorsiFile.getInstance().getNomiStanze(entita.getNome());
+
+        //rimuovo le entita logiche presenti
+        for (Stanza stanza : entita.getStanze()) {
+            nomiDati.remove(stanza.getNome());
+        }
+        //elaboro i nomi rimasti
+        for (String stanza : nomiDati) {
+            RimozioneDatiSalvati.getInstance().rimuoviStanza(stanza, entita.getNome());
+        }
+    }
+
+    @Override
+    public void sincronizzaArtefatti(UnitaImmobiliare entita) throws Exception {
+        List<String> nomiDati = PercorsiFile.getInstance().getNomiArtefatti(entita.getNome());
+
+        //rimuovo le entita logiche presenti
+        for (Stanza stanza : entita.getStanze()) {
+            for (Artefatto artefatto : stanza.getArtefatti()) {
+                nomiDati.remove(artefatto.getNome());
+            }
+        }
+        //elaboro i nomi rimasti
+        for (String artefatto : nomiDati) {
+            RimozioneDatiSalvati.getInstance().rimuoviArtefatto(artefatto, entita.getNome());
+        }
+    }
+
+    @Override
+    public void sincronizzaSensori(List<Sensore> entita) throws Exception {
+        List<String> nomiDati = PercorsiFile.getInstance().getNomiSensori();
+
+        //rimuovo le entita logiche presenti
+        for (Sensore sensore : entita) {
+            nomiDati.remove(sensore.getNome());
+        }
+        //elaboro i nomi rimasti
+        for (String sensore : nomiDati) {
+            RimozioneDatiSalvati.getInstance().rimuoviSensore(sensore);
+        }
+    }
+
+    @Override
+    public void sincronizzaAttuatori(List<Attuatore> entita) throws Exception {
+        List<String> nomiDati = PercorsiFile.getInstance().getNomiAttuatori();
+
+        //rimuovo le entita logiche presenti
+        for (Attuatore attuatore : entita) {
+            nomiDati.remove(attuatore.getNome());
+        }
+        //elaboro i nomi rimasti
+        for (String attuatore : nomiDati) {
+            RimozioneDatiSalvati.getInstance().rimuoviAttuatore(attuatore);
+        }
     }
 }

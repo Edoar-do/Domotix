@@ -6,6 +6,8 @@ import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.model.io.datilocali.RimozioneDatiLocali;
 
+import java.util.List;
+
 /**
  * Interfaccia per l'implementazione di strutture per la rimozione dei dati.
  * Si intende semplificare l'aggiunta di un'eventuale alternativa per i meccanismi di rimozione dei dati salvati.
@@ -116,4 +118,96 @@ public interface RimozioneDatiSalvati {
      * @see Attuatore
      */
     void rimuoviAttuatore(String attuatore) throws Exception;
+
+
+    /**
+     * Confronta tutte le CategoriaSensore presenti nei dati salvati con la lista indicata.
+     * Tutti quelli assenti nella lista parametro saranno eliminati per mantenere sincronizzati i dati
+     * salvati con le entita' logiche.
+     *
+     * @param entita    lista di entita' logiche presenti
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see CategoriaSensore
+     */
+    void sincronizzaCategorieSensore(List<CategoriaSensore> entita) throws Exception;
+
+    /**
+     * Confronta tutte le CategoriaAttuatore presenti nei dati salvati con la lista indicata.
+     * Tutti quelli assenti nella lista parametro saranno eliminati per mantenere sincronizzati i dati
+     * salvati con le entita' logiche.
+     *
+     * @param entita    lista di entita' logiche presenti
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see CategoriaAttuatore
+     */
+    void sincronizzaCategorieAttuatore(List<CategoriaAttuatore> entita) throws Exception;
+
+    /**
+     * Confronta tutte le Modalita di CategoriaAttuatore presenti nei dati salvati con la lista indicata.
+     * Tutti quelli assenti nella lista parametro saranno eliminati per mantenere sincronizzati i dati
+     * salvati con le entita' logiche.
+     *
+     * @param entita    istanza di CategoriaAttuatore di cui effettuare la sincronizzazione delle Modalita
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see CategoriaAttuatore
+     * @see Modalita
+     */
+    void sincronizzaModalita(CategoriaAttuatore entita) throws Exception;
+
+    /**
+     * Confronta tutte le UnitaImmobiliari presenti nei dati salvati con la lista indicata.
+     * Tutti quelli assenti nella lista parametro saranno eliminati per mantenere sincronizzati i dati
+     * salvati con le entita' logiche.
+     *
+     * @param entita    lista di entita' logiche presenti
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see UnitaImmobiliare
+     */
+    void sincronizzaUnitaImmobiliari(List<UnitaImmobiliare> entita) throws Exception;
+
+    /**
+     * Confronta tutte le Stanza di UnitaImmobiliare presenti nei dati salvati con la lista indicata.
+     * Tutti quelli assenti nella lista parametro saranno eliminati per mantenere sincronizzati i dati
+     * salvati con le entita' logiche.
+     *
+     * @param entita    istanza di UnitaImmobiliare di cui effettuare la sincronizzazione delle Stanze
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see UnitaImmobiliare
+     * @see Stanza
+     */
+    void sincronizzaStanze(UnitaImmobiliare entita) throws Exception;
+
+    /**
+     * Confronta tutte i Artefatto di UnitaImmobiliare presenti nei dati salvati con la lista indicata.
+     * Tutti quelli assenti nella lista parametro saranno eliminati per mantenere sincronizzati i dati
+     * salvati con le entita' logiche.
+     *
+     * @param entita    istanza di UnitaImmobiliare di cui effettuare la sincronizzazione dei Artefatto
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see Stanza
+     * @see Artefatto
+     */
+    void sincronizzaArtefatti(UnitaImmobiliare entita) throws Exception;
+
+    /**
+     * Confronta tutte i Sensore presenti nei dati salvati con la lista indicata.
+     * Tutti quelli assenti nella lista parametro saranno eliminati per mantenere sincronizzati i dati
+     * salvati con le entita' logiche.
+     *
+     * @param entita    lista di entita' logiche presenti
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see Sensore
+     */
+    void sincronizzaSensori(List<Sensore> entita) throws Exception;
+
+    /**
+     * Confronta tutte i Attuatore presenti nei dati salvati con la lista indicata.
+     * Tutti quelli assenti nella lista parametro saranno eliminati per mantenere sincronizzati i dati
+     * salvati con le entita' logiche.
+     *
+     * @param entita    lista di entita' logiche presenti
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see Attuatore
+     */
+    void sincronizzaAttuatori(List<Attuatore> entita) throws Exception;
 }

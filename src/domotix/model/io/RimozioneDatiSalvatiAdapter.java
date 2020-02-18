@@ -5,6 +5,8 @@ import domotix.model.bean.device.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
+import java.util.List;
+
 
 /**
  * Classe che implementa l'interfaccia RimozioneDatiSalvati come base per le implementazioni complesse.
@@ -50,6 +52,46 @@ public class RimozioneDatiSalvatiAdapter implements RimozioneDatiSalvati {
 
     @Override
     public void rimuoviAttuatore(String attuatore) throws Exception {
+
+    }
+
+    @Override
+    public void sincronizzaCategorieSensore(List<CategoriaSensore> entita) throws Exception {
+
+    }
+
+    @Override
+    public void sincronizzaCategorieAttuatore(List<CategoriaAttuatore> entita) throws Exception {
+
+    }
+
+    @Override
+    public void sincronizzaModalita(CategoriaAttuatore entita) throws Exception {
+
+    }
+
+    @Override
+    public void sincronizzaUnitaImmobiliari(List<UnitaImmobiliare> entita) throws Exception {
+
+    }
+
+    @Override
+    public void sincronizzaStanze(UnitaImmobiliare entita) throws Exception {
+
+    }
+
+    @Override
+    public void sincronizzaArtefatti(UnitaImmobiliare entita) throws Exception {
+
+    }
+
+    @Override
+    public void sincronizzaSensori(List<Sensore> entita) throws Exception {
+
+    }
+
+    @Override
+    public void sincronizzaAttuatori(List<Attuatore> entita) throws Exception {
 
     }
 }
