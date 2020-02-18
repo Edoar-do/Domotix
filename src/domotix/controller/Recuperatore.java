@@ -120,7 +120,7 @@ public class Recuperatore {
     private static String[] getNomiSensoriAggiungibiliSistema(Sistema sistema, String nomeUnita) {
         Sensore[] sensori = getUnita(nomeUnita).getSensori();
         return Stream.of(sensori)
-                .filter(s -> !sistema.contieneCategoria(s.getCategoria()))
+                .filter(s -> !sistema.contieneCategoriaSensore(s.getCategoria().getNome()))
                 .map(s -> s.getNome())
                 .toArray(String[]::new);
     }
@@ -128,7 +128,7 @@ public class Recuperatore {
     private static String[] getNomiAttuatoriAggiungibiliSistema(Sistema sistema, String nomeUnita) {
         Attuatore[] attuatori = getUnita(nomeUnita).getAttuatori();
         return Stream.of(attuatori)
-                .filter(a -> !sistema.contieneCategoria(a.getCategoria()))
+                .filter(a -> !sistema.contieneCategoriaAttuatore(a.getCategoria().getNome()))
                 .map(a -> a.getNome())
                 .toArray(String[]::new);
     }

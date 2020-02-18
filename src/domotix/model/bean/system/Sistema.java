@@ -136,18 +136,26 @@ public abstract class Sistema implements Osservabile, Azionabile {
         return buffer.toString();
     }
 
-    public boolean contieneCategoria(CategoriaSensore categoriaSensore) {
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof Sistema)) return false;
+        Sistema other = (Sistema) obj;
+        return this.nome.equals(((Sistema) obj).nome);
+    }
+
+    public boolean contieneCategoriaSensore(String categoriaSensore) {
         for (Dispositivo d : sensori.getDispositivi()) {
             Sensore s = (Sensore) d;
-            if (categoriaSensore.equals(s.getCategoria())) return true;
+            if (categoriaSensore.equals(s.getCategoria().getNome())) return true;
         }
         return false;
     }
 
-    public boolean contieneCategoria(CategoriaAttuatore categoriaAttuatore) {
+    public boolean contieneCategoriaAttuatore(String categoriaAttuatore) {
         for (Dispositivo d : attuatori.getDispositivi()) {
             Attuatore a = (Attuatore) d;
-            if (categoriaAttuatore.equals(a.getCategoria())) return true;
+            if (categoriaAttuatore.equals(a.getCategoria().getNome())) return true;
         }
         return false;
     }
