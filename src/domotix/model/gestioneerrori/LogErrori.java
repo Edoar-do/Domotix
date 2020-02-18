@@ -1,4 +1,6 @@
-package domotix.io;
+package domotix.model.gestioneerrori;
+
+import domotix.controller.OperazioniIniziali;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.List;
  * Classe per emulare uno stack per i messaggi di errore che possono presentarsi nella fase di lettura e scrittura dei dati.
  *
  * @author paolopasqua
- * @see OperazioniInizialiFinali
+ * @see OperazioniIniziali
  */
 public class LogErrori {
 

@@ -1,15 +1,16 @@
-import domotix.io.OperazioniInizialiFinali;
+import domotix.controller.OperazioniFinali;
+import domotix.controller.OperazioniIniziali;
 
 public class Domotix {
 
     public static void main(String ...args) {
-        boolean esegui = OperazioniInizialiFinali.getInstance().apri(System.in, System.out);
+        boolean esegui = OperazioniIniziali.getInstance().apri();
 
         while (esegui) {
 
             //TODO inizia menu
 
-            esegui = !OperazioniInizialiFinali.getInstance().chiudi(System.in, System.out);
+            esegui = !OperazioniFinali.getInstance().chiudi();
         }
     }
 
