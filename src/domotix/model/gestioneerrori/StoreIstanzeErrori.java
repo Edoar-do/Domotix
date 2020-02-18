@@ -1,4 +1,6 @@
-package domotix.io;
+package domotix.model.gestioneerrori;
+
+import domotix.controller.OperazioniIniziali;
 
 import java.util.*;
 
@@ -6,7 +8,7 @@ import java.util.*;
  * Classe per emulare uno stack per le istanze andate in errore nel salvataggio
  *
  * @author paolopasqua
- * @see OperazioniInizialiFinali
+ * @see OperazioniIniziali
  */
 public class StoreIstanzeErrori {
     private static StoreIstanzeErrori instance = null;

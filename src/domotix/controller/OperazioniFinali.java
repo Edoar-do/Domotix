@@ -1,4 +1,4 @@
-package domotix.io;
+package domotix.controller;
 
 import domotix.logicUtil.MyMenu;
 import domotix.model.ElencoCategorieAttuatori;
@@ -7,164 +7,66 @@ import domotix.model.ElencoUnitaImmobiliari;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.CategoriaAttuatore;
 import domotix.model.bean.device.CategoriaSensore;
+import domotix.model.gestioneerrori.LogErrori;
+import domotix.model.gestioneerrori.StoreIstanzeErrori;
 import domotix.model.io.LetturaDatiSalvati;
+import domotix.model.io.RimozioneDatiSalvati;
 import domotix.model.io.ScritturaDatiSalvati;
+import domotix.view.menus.MenuErroreChiusura;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Classe di una sola istanza per le operazioni iniziali e finali del programma.
- * Ovvero, la lettura dei dati iniziali con la gestione degli errori e la richiesta all'utente di come procedere nel caso
- * e la scrittura dei dati in uso con la gestione degli errori e la richiesta all'utente di come procedere se presenti.
+ * Classe di una sola istanza per le operazioni finali del programma.
+ * Ovvero, la scrittura dei dati in uso con la gestione degli errori e la richiesta all'utente di come procedere se presenti.
  *
  * @author paolopasqua
  */
-public class OperazioniInizialiFinali {
+public class OperazioniFinali {
 
-    private static OperazioniInizialiFinali instance = null;
+    private static OperazioniFinali instance = null;
 
     /**
      * Recupera la unica istanza della classe
      * @return  unica istanza della classe
      */
-    public static OperazioniInizialiFinali getInstance() {
+    public static OperazioniFinali getInstance() {
         if (instance == null)
-            instance = new OperazioniInizialiFinali();
+            instance = new OperazioniFinali();
         return instance;
     }
 
-    private OperazioniInizialiFinali() { }
-
-    /**
-     * Metodo di esecuzione delle operazioni di apertura del programma, con verifica della lettura e richiesta all'utente di come agire in caso di errore.
-     *
-     * @param in InputStream su cui eseguire le letture per le scelte utente
-     * @param out PrintStream su cui far visualizzare all'utente il contenuto
-     * @return  false se in caso di errore l'utente sceglie di uscire dal programma; true se il programma puo' aprirsi.
-     */
-    public boolean apri(InputStream in, PrintStream out) {
-        boolean esito = popolaDati();
-
-        if (!esito) {
-            out.println("Errore/i in lettura dati salvati:");
-            List<String> errori = LogErrori.getInstance().popAll();
-            if (errori.isEmpty())
-                out.println("errore sconosciuto");
-            else
-                errori.forEach(s -> out.println(s));
-
-            MyMenu erroreApertura = new MyMenu("Proseguire con l'apertura del programma?", new String[]{"Continua"});
-            return erroreApertura.scegli(in, out) == 1; //false: esci dal programma; true: entra nel programma
-        }
-
-        return true;
-    }
+    private OperazioniFinali() { }
 
     /**
      * Metodo di esecuzione delle operazioni di chiusura del programma, con verifica della scrittura e richiesta all'utente di come agire in caso di errore.
      *
-     * @param in InputStream su cui eseguire le letture per le scelte utente
-     * @param out PrintStream su cui far visualizzare all'utente il contenuto
      * @return false se in caso di errore non chiudere il programma; true se il programma puo' terminare.
      */
-    public boolean chiudi(InputStream in, PrintStream out) {
+    public boolean chiudi() {
         boolean esito = salvaDati();
 
         //finche' non ho un esito positivo del salvataggio (o utente sceglie altre azioni)
         while(!esito) {
-            out.println("Errore/i in salvataggio dati salvati:");
             List<String> errori = LogErrori.getInstance().popAll();
-            if (errori.isEmpty())
-                out.println("errore sconosciuto");
-            else
-                errori.forEach(s -> out.println(s));
-
             //Chiedo all'utente se mantenere il programma aperto (1), ritentare il salvataggio (2) o uscire senza salvare (0)
-            MyMenu erroreChiusura = new MyMenu("Proseguire con l'apertura del programma?", new String[]{"Annulla chiusura", "Ritenta salvataggio"});
-            switch (erroreChiusura.scegli(in, out)) {
-                case 0:
+            int scelta = MenuErroreChiusura.avvia(errori);
+            switch (scelta) {
+                case MenuErroreChiusura.ESCI:
                     return true;
-                case 1:
+                case MenuErroreChiusura.ANNULLA_CHIUSURA:
                     return false;
-                case 2:
+                case MenuErroreChiusura.RITENTA_SALVATAGGIO:
                     esito = risalvaDati(StoreIstanzeErrori.getInstance().popAll());
             }
         }
 
         return true;
-    }
-
-    /**
-     * Metodo per popolare il model del programma con i dati salvati.
-     * Gestisce gli errori di lettura singolarmente per entita' letta, in modo da lasciare all'utente la scelta se proseguire
-     * con l'apertura del programma anche se non tutto e' stato caricato.
-     * In caso di errore popola lo stack di messaggi di errore LogErrori (svutato ad inizio metodo) e svuota lo stack di istanze in
-     * errore StoreIstanzeErrori per sincronia degli stack.
-     * In questo modo si possono riportare all'utente i messaggi di errore.
-     *
-     * @return  true non vi sono stati errori in lettura; false altrimenti
-     * @see LogErrori
-     * @see StoreIstanzeErrori
-     */
-    private boolean popolaDati() {
-        AtomicBoolean result = new AtomicBoolean(true);
-
-        LogErrori.getInstance().clear();
-        StoreIstanzeErrori.getInstance().clear(); //ripulisco per sincronizzazione degli stack
-
-        //popolo le categorie sensori
-        try {
-            LetturaDatiSalvati.getInstance().getNomiCategorieSensori().forEach(s -> {
-                try {
-                    ElencoCategorieSensori.getInstance().add(LetturaDatiSalvati.getInstance().leggiCategoriaSensore(s));
-                } catch (Exception e) {
-                    LogErrori.getInstance().put(e.getMessage());
-                    result.set(false);
-                }
-            });
-        } catch (Exception e) {
-            LogErrori.getInstance().put(e.getMessage());
-            result.set(false);
-        }
-
-        //popolo le categorie attuatori
-        try {
-            LetturaDatiSalvati.getInstance().getNomiCategorieAttuatori().forEach(s -> {
-                try {
-                    ElencoCategorieAttuatori.getInstance().add(LetturaDatiSalvati.getInstance().leggiCategoriaAttuatore(s));
-                } catch (Exception e) {
-                    LogErrori.getInstance().put(e.getMessage());
-                    result.set(false);
-                }
-            });
-        } catch (Exception e) {
-            LogErrori.getInstance().put(e.getMessage());
-            result.set(false);
-        }
-
-        //popolo le unita immobiliari
-        try {
-            LetturaDatiSalvati.getInstance().getNomiUnitaImmobiliare().forEach(s -> {
-                try {
-                    ElencoUnitaImmobiliari.getInstance().add(LetturaDatiSalvati.getInstance().leggiUnitaImmobiliare(s));
-                } catch (Exception e) {
-                    LogErrori.getInstance().put(e.getMessage());
-                    result.set(false);
-                }
-            });
-        } catch (Exception e) {
-            LogErrori.getInstance().put(e.getMessage());
-            result.set(false);
-        }
-
-        return result.get();
     }
 
     /**
@@ -186,9 +88,21 @@ public class OperazioniInizialiFinali {
         LogErrori.getInstance().clear();
         StoreIstanzeErrori.getInstance().clear();
 
+        List<String> nomiDatiSalvati = null;
+
+        //Recupero nomi categorie sensori salvate
+        try {
+            nomiDatiSalvati = LetturaDatiSalvati.getInstance().getNomiCategorieSensori();
+        } catch (Exception e) {
+            LogErrori.getInstance().put(e.getMessage());
+            result.set(false);
+        }
+        List<String> catSensSalvati = nomiDatiSalvati;
+        //Salvo categorie sensori logiche presenti
         ElencoCategorieSensori.getInstance().getCategorie().forEach(categoriaSensore -> {
             try {
                 ScritturaDatiSalvati.getInstance().salva(categoriaSensore);
+                catSensSalvati.remove(categoriaSensore.getNome());
             } catch (Exception e) {
                 LogErrori.getInstance().put(e.getMessage());
                 StoreIstanzeErrori.getInstance().put(categoriaSensore.getNome(), categoriaSensore.getClass());
@@ -196,9 +110,19 @@ public class OperazioniInizialiFinali {
             }
         });
 
+        //Recupero nomi categorie attuatori salvate
+        try {
+            nomiDatiSalvati = LetturaDatiSalvati.getInstance().getNomiCategorieAttuatori();
+        } catch (Exception e) {
+            LogErrori.getInstance().put(e.getMessage());
+            result.set(false);
+        }
+        List<String> catAttSalvati = nomiDatiSalvati;
+        //Salvo categorie attuatori logiche presenti
         ElencoCategorieAttuatori.getInstance().getCategorie().forEach(categoriaAttuatore -> {
             try {
                 ScritturaDatiSalvati.getInstance().salva(categoriaAttuatore);
+                catAttSalvati.remove(categoriaAttuatore.getNome());
             } catch (Exception e) {
                 LogErrori.getInstance().put(e.getMessage());
                 StoreIstanzeErrori.getInstance().put(categoriaAttuatore.getNome(), categoriaAttuatore.getClass());
@@ -206,12 +130,51 @@ public class OperazioniInizialiFinali {
             }
         });
 
+        //Recupero nomi unita immobiliare salvate
+        try {
+            nomiDatiSalvati = LetturaDatiSalvati.getInstance().getNomiUnitaImmobiliare();
+        } catch (Exception e) {
+            LogErrori.getInstance().put(e.getMessage());
+            result.set(false);
+        }
+        List<String> unitaImmobSalvati = nomiDatiSalvati;
+        //Salvo unita immobiliare logiche presenti
         ElencoUnitaImmobiliari.getInstance().getUnita().forEach(unitaImmobiliare -> {
             try {
                 ScritturaDatiSalvati.getInstance().salva(unitaImmobiliare);
+                unitaImmobSalvati.remove(unitaImmobiliare.getNome());
             } catch (Exception e) {
                 LogErrori.getInstance().put(e.getMessage());
                 StoreIstanzeErrori.getInstance().put(unitaImmobiliare.getNome(), unitaImmobiliare.getClass());
+                result.set(false);
+            }
+        });
+
+        //RIMOZIONE ENTITA' CANCELLATE LOGICAMENTE
+
+        unitaImmobSalvati.forEach( nomeUnita -> {
+            try {
+                RimozioneDatiSalvati.getInstance().rimuoviUnitaImmobiliare(nomeUnita);
+            } catch (Exception e) {
+                LogErrori.getInstance().put(e.getMessage());
+                result.set(false);
+            }
+        });
+
+        catAttSalvati.forEach( catAtt -> {
+            try {
+                RimozioneDatiSalvati.getInstance().rimuoviCategoriaAttuatore(catAtt);
+            } catch (Exception e) {
+                LogErrori.getInstance().put(e.getMessage());
+                result.set(false);
+            }
+        });
+
+        catSensSalvati.forEach( cattSens -> {
+            try {
+                RimozioneDatiSalvati.getInstance().rimuoviCategoriaSensore(cattSens);
+            } catch (Exception e) {
+                LogErrori.getInstance().put(e.getMessage());
                 result.set(false);
             }
         });
