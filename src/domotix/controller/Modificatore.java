@@ -16,7 +16,9 @@ import domotix.model.bean.system.Stanza;
 public class Modificatore {
 
     public static boolean aggiungiCategoriaSensore(CategoriaSensore cat) {
-        return false;
+        if (!Verificatore.checkValiditaCategoriaSensore(cat.getNome())) return false;
+        ElencoCategorieSensori.getInstance().add(cat);
+        return true;
     }
 
     public static void rimuoviCategoriaSensore(String cat) {
@@ -24,7 +26,9 @@ public class Modificatore {
     }
 
     public static boolean aggiungiCategoriaAttuatore(CategoriaAttuatore cat) {
-        return false;
+        if (Verificatore.checkValiditaCategoriaAttuatore(cat.getNome())) return false;
+        ElencoCategorieAttuatori.getInstance().add(cat);
+        return true;
     }
 
     public static void rimuoviCategoriaAttuatore(String cat) {
@@ -32,7 +36,9 @@ public class Modificatore {
     }
 
     public static boolean aggiungiStanza(Stanza stanza, String unita) {
-        return false;
+        if (Verificatore.checkValiditaStanza(stanza.getNome(), unita)) return false;
+        Recuperatore.getUnita(unita).addStanza(stanza);
+        return true;
     }
 
     public static boolean rimuoviStanza(String stanza, String unita) {
@@ -45,7 +51,9 @@ public class Modificatore {
     }
 
     public static boolean aggiungiArtefatto(Artefatto artefatto, String stanza, String unita) {
-        return false;
+        if (!Verificatore.checkValiditaArtefatto(artefatto.getNome(), unita)) return false;
+        Recuperatore.getStanza(stanza, unita).addArtefatto(artefatto);
+        return true;
     }
 
     public static boolean rimuoviArtefatto(String artefatto, String stanza, String unita) {
@@ -58,7 +66,9 @@ public class Modificatore {
     }
 
     public static boolean aggiungiSensore(Sensore sensore, String stanza, String unita) {
-        return false;
+        if (!Verificatore.checkValiditaSensore(sensore.getNome(), sensore.getCategoria().getNome(), stanza, unita)) return false;
+        Recuperatore.getStanza(stanza, unita).addSensore(sensore);
+        return true;
     }
 
     public static boolean rimuoviSensore(String sensore, String stanza, String unita) {
@@ -75,7 +85,9 @@ public class Modificatore {
     }
 
     public static boolean aggiungiSensore(Sensore sensore, String artefatto, String stanza, String unita) {
-        return false;
+        if (!Verificatore.checkValiditaSensore(sensore.getNome(), sensore.getCategoria().getNome(), artefatto, stanza, unita)) return false;
+        Recuperatore.getArtefatto(artefatto, stanza, unita).addSensore(sensore);
+        return true;
     }
 
     public static boolean rimuoviSensore(String sensore, String artefatto, String stanza, String unita) {
@@ -92,7 +104,9 @@ public class Modificatore {
     }
 
     public static boolean aggiungiAttuatore(Attuatore attuatore, String stanza, String unita) {
-        return false;
+        if (!Verificatore.checkValiditaAttuatore(attuatore.getNome(), attuatore.getCategoria().getNome(), stanza, unita)) return false;
+        Recuperatore.getStanza(stanza, unita).addAttuatore(attuatore);
+        return true;
     }
 
     public static boolean rimuoviAttuatore(String attuatore, String stanza, String unita) {
@@ -109,7 +123,9 @@ public class Modificatore {
     }
 
     public static boolean aggiungiAttuatore(Attuatore attuatore, String artefatto, String stanza, String unita) {
-        return false;
+        if (!Verificatore.checkValiditaAttuatore(attuatore.getNome(), attuatore.getCategoria().getNome(), artefatto, stanza, unita)) return false;
+        Recuperatore.getArtefatto(artefatto, stanza, unita).addAttuatore(attuatore);
+        return true;
     }
 
     public static boolean rimuoviAttuatore(String attuatore, String artefatto, String stanza, String unita) {

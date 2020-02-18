@@ -43,6 +43,20 @@ public class Recuperatore {
         return artefatto;
     }
 
+    public static String[] getNomiUnita() {
+        return ElencoUnitaImmobiliari.getInstance().getUnita()
+                .stream()
+                .map(u -> u.getNome())
+                .toArray(String[]::new);
+    }
+
+    public static String[] getDescrizioniUnita() {
+        return ElencoUnitaImmobiliari.getInstance().getUnita()
+                .stream()
+                .map(u -> u.toString())
+                .toArray(String[]::new);
+    }
+
     public static String[] getNomiStanze(String nomeUnita) {
         UnitaImmobiliare unita = getUnita(nomeUnita);
         return Stream.of(unita.getStanze()).map(s -> s.getNome()).toArray(String[]::new);
