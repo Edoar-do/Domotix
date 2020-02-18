@@ -61,7 +61,7 @@ public class Verificatore {
 
     public static boolean checkValiditaAttuatoreStanza(String nomeAttuatore, String nomeCategoria, String nomeStanza, String nomeUnita) {
         return isNomeValido(nomeAttuatore) &&
-                checkUnivocitaSensore(nomeAttuatore) &&
+                checkUnivocitaAttuatore(nomeAttuatore) &&
                 !Recuperatore.getStanza(nomeStanza, nomeUnita).contieneCategoriaAttuatore(nomeCategoria);
     }
 
@@ -73,7 +73,7 @@ public class Verificatore {
 
     public static boolean checkValiditaAttuatoreArtefatto(String nomeAttuatore, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
         return isNomeValido(nomeAttuatore) &&
-                checkUnivocitaSensore(nomeAttuatore) &&
+                checkUnivocitaAttuatore(nomeAttuatore) &&
                 !Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita).contieneCategoriaAttuatore(nomeCategoria);
     }
 }
