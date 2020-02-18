@@ -56,19 +56,19 @@ public class Recuperatore {
         return Stream.of(sistema.getSensori()).map(s -> s.getNome()).toArray(String[]::new);
     }
 
-    public static String[] getNomiAttuatoriStanza(String nomeStanza, String nomeUnita) {
+    public static String[] getNomiAttuatori(String nomeStanza, String nomeUnita) {
         return getNomiAttuatoriSistema(getStanza(nomeStanza, nomeUnita));
     }
 
-    public static String[] getNomiSensoriStanza(String nomeStanza, String nomeUnita) {
+    public static String[] getNomiSensori(String nomeStanza, String nomeUnita) {
         return getNomiSensoriSistema(getStanza(nomeStanza, nomeUnita));
     }
 
-    public static String[] getNomiAttuatoriArtefatto(String nomeArtefatto, String nomeStanza, String nomeUnita) {
+    public static String[] getNomiAttuatori(String nomeArtefatto, String nomeStanza, String nomeUnita) {
         return getNomiAttuatoriSistema(getArtefatto(nomeArtefatto, nomeStanza, nomeUnita));
     }
 
-    public static String[] getNomiSensoriArtefatto(String nomeArtefatto, String nomeStanza, String nomeUnita) {
+    public static String[] getNomiSensori(String nomeArtefatto, String nomeStanza, String nomeUnita) {
         return getNomiSensoriSistema(getArtefatto(nomeArtefatto, nomeStanza, nomeUnita));
     }
 

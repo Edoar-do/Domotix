@@ -53,27 +53,31 @@ public class Verificatore {
         return true;
     }
 
-    public static boolean checkValiditaSensoreStanza(String nomeSensore, String nomeCategoria, String nomeStanza, String nomeUnita) {
+    public static boolean checkValiditaSensore(String nomeSensore, String nomeCategoria, String nomeStanza, String nomeUnita) {
         return isNomeValido(nomeSensore) &&
                 checkUnivocitaSensore(nomeSensore) &&
+                Recuperatore.getStanza(nomeStanza, nomeUnita) != null &&
                 !Recuperatore.getStanza(nomeStanza, nomeUnita).contieneCategoriaSensore(nomeCategoria);
     }
 
-    public static boolean checkValiditaAttuatoreStanza(String nomeAttuatore, String nomeCategoria, String nomeStanza, String nomeUnita) {
+    public static boolean checkValiditaAttuatore(String nomeAttuatore, String nomeCategoria, String nomeStanza, String nomeUnita) {
         return isNomeValido(nomeAttuatore) &&
                 checkUnivocitaAttuatore(nomeAttuatore) &&
+                Recuperatore.getStanza(nomeStanza, nomeUnita) != null &&
                 !Recuperatore.getStanza(nomeStanza, nomeUnita).contieneCategoriaAttuatore(nomeCategoria);
     }
 
-    public static boolean checkValiditaSensoreArtefatto(String nomeSensore, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
+    public static boolean checkValiditaSensore(String nomeSensore, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
         return isNomeValido(nomeSensore) &&
                 checkUnivocitaSensore(nomeSensore) &&
+                Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita) != null &&
                 !Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita).contieneCategoriaSensore(nomeCategoria);
     }
 
-    public static boolean checkValiditaAttuatoreArtefatto(String nomeAttuatore, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
+    public static boolean checkValiditaAttuatore(String nomeAttuatore, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
         return isNomeValido(nomeAttuatore) &&
                 checkUnivocitaAttuatore(nomeAttuatore) &&
+                Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita) != null &&
                 !Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita).contieneCategoriaAttuatore(nomeCategoria);
     }
 }
