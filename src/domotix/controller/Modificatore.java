@@ -25,10 +25,15 @@ public class Modificatore {
         ElencoCategorieSensori.getInstance().remove(cat);
     }
 
-    public static boolean aggiungiCategoriaAttuatore(CategoriaAttuatore cat, List<Modalita> modalita) {
-        if (Verificatore.checkValiditaCategoriaAttuatore(cat.getNome())) return false;
-        modalita.forEach(m -> cat.addModalita(m));
-        ElencoCategorieAttuatori.getInstance().add(cat);
+    public static boolean aggiungiCategoriaAttuatore(String nomeCat, String testoLibero) {
+        if (Verificatore.checkValiditaCategoriaAttuatore(nomeCat)) return false;
+        ElencoCategorieAttuatori.getInstance().add(new CategoriaAttuatore(nomeCat, testoLibero));
+        return true;
+    }
+
+    public static boolean aggiungiModalitaCategoriaAttuatore(String nomeCat, String nomeModalita) {
+        if (!Verificatore.checkValiditaModalitaOperativa(nomeModalita)) return false;
+        Recuperatore.getCategoriaAttuatore(nomeCat).addModalita(new Modalita(nomeModalita));
         return true;
     }
 
@@ -36,9 +41,9 @@ public class Modificatore {
         ElencoCategorieAttuatori.getInstance().remove(cat);
     }
 
-    public static boolean aggiungiStanza(Stanza stanza, String unita) {
-        if (Verificatore.checkValiditaStanza(stanza.getNome(), unita)) return false;
-        Recuperatore.getUnita(unita).addStanza(stanza);
+    public static boolean aggiungiStanza(String nomeStanza, String unita) {
+        if (Verificatore.checkValiditaStanza(nomeStanza, unita)) return false;
+        Recuperatore.getUnita(unita).addStanza(new Stanza(nomeStanza));
         return true;
     }
 
@@ -51,9 +56,9 @@ public class Modificatore {
         return true;
     }
 
-    public static boolean aggiungiArtefatto(Artefatto artefatto, String stanza, String unita) {
-        if (!Verificatore.checkValiditaArtefatto(artefatto.getNome(), unita)) return false;
-        Recuperatore.getStanza(stanza, unita).addArtefatto(artefatto);
+    public static boolean aggiungiArtefatto(String artefatto, String stanza, String unita) {
+        if (!Verificatore.checkValiditaArtefatto(artefatto, unita)) return false;
+        Recuperatore.getStanza(stanza, unita).addArtefatto(new Artefatto(artefatto));
         return true;
     }
 
