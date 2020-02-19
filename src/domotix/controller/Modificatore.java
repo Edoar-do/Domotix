@@ -15,9 +15,9 @@ import java.util.List;
  **/
 public class Modificatore {
 
-    public static boolean aggiungiCategoriaSensore(CategoriaSensore cat) {
-        if (!Verificatore.checkValiditaCategoriaSensore(cat.getNome())) return false;
-        ElencoCategorieSensori.getInstance().add(cat);
+    public static boolean aggiungiCategoriaSensore(String nomeCat, String testoLibero, String infoRilevabile) {
+        if (!Verificatore.checkValiditaCategoriaSensore(nomeCat)) return false;
+        ElencoCategorieSensori.getInstance().add(new CategoriaSensore(nomeCat, testoLibero, infoRilevabile));
         return true;
     }
 
