@@ -3,10 +3,12 @@ package domotix.model.bean;
 import domotix.logicUtil.StringUtil;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Sensore;
+import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class UnitaImmobiliare {
     public static final String NOME_STANZA_DEFAULT = "esterno";
@@ -76,11 +78,33 @@ public class UnitaImmobiliare {
     }
 
     public Sensore[] getSensori() {
-        return null; //TODO
+        List<Sensore> sensori = new ArrayList<>();
+        for (Stanza stanza : stanze) {
+            for (Sensore sensore : stanza.getSensori()) {
+                sensori.add(sensore);
+            }
+            for (Artefatto artefatto : stanza.getArtefatti()) {
+                for (Sensore sensoreArtefatto : artefatto.getSensori()) {
+                    sensori.add(sensoreArtefatto);
+                }
+            }
+        }
+        return sensori.toArray(new Sensore[0]);
     }
 
     public Attuatore[] getAttuatori() {
-        return null; //TODO
+        List<Attuatore> attuatori = new ArrayList<>();
+        for (Stanza stanza : stanze) {
+            for (Attuatore attuatore : stanza.getAttuatori()) {
+                attuatori.add(attuatore);
+            }
+            for (Artefatto artefatto : stanza.getArtefatti()) {
+                for (Attuatore attuatoreArtefatto : artefatto.getAttuatori()) {
+                    attuatori.add(attuatoreArtefatto);
+                }
+            }
+        }
+        return attuatori.toArray(new Attuatore[0]);
     }
     
     public boolean isPresent(String nome){
