@@ -9,10 +9,15 @@ import domotix.model.bean.system.Stanza;
 
 /**@author andrea*/
 public class Verificatore {
-    private static final String REGEX_NOMI = "^([A-Za-z][A-Za-z0-9]*)$";
+    private static final String REGEX_NOMI = "[A-Za-z][A-Za-z0-9]*";
+    private static final String REGEX_NOMI_DISPOSITIVI = REGEX_NOMI + "_" + REGEX_NOMI;
 
     private static boolean isNomeValido(String nome) {
-        return nome.matches(REGEX_NOMI);
+        return nome.matches("^(" + REGEX_NOMI + ")$");
+    }
+
+    private static boolean isNomeDispositivoValido(String nome) {
+        return nome.matches("^(" + REGEX_NOMI_DISPOSITIVI + ")$");
     }
 
     public static boolean checkValiditaModalitaOperativa(String nome) {
@@ -60,34 +65,34 @@ public class Verificatore {
         return true;
     }
 
-    public static boolean checkValiditaSensore(String nomeFantasia, String nomeCategoria, String nomeStanza, String nomeUnita) {
-        return isNomeValido(nomeFantasia) &&
-                checkUnivocitaSensore(StringUtil.componiNome(nomeFantasia, nomeCategoria)) &&
+    public static boolean checkValiditaSensore(String nomeComposto, String nomeCategoria, String nomeStanza, String nomeUnita) {
+        return isNomeDispositivoValido(nomeComposto) &&
+                checkUnivocitaSensore(StringUtil.componiNome(nomeComposto, nomeCategoria)) &&
                 Recuperatore.getUnita(nomeUnita) != null &&
                 Recuperatore.getStanza(nomeStanza, nomeUnita) != null &&
                 !Recuperatore.getStanza(nomeStanza, nomeUnita).contieneCategoriaSensore(nomeCategoria);
     }
 
-    public static boolean checkValiditaAttuatore(String nomeFantasia, String nomeCategoria, String nomeStanza, String nomeUnita) {
-        return isNomeValido(nomeFantasia) &&
-                checkUnivocitaAttuatore(StringUtil.componiNome(nomeFantasia, nomeCategoria)) &&
+    public static boolean checkValiditaAttuatore(String nomeComposto, String nomeCategoria, String nomeStanza, String nomeUnita) {
+        return isNomeDispositivoValido(nomeComposto) &&
+                checkUnivocitaAttuatore(nomeComposto) &&
                 Recuperatore.getUnita(nomeUnita) != null &&
                 Recuperatore.getStanza(nomeStanza, nomeUnita) != null &&
                 !Recuperatore.getStanza(nomeStanza, nomeUnita).contieneCategoriaAttuatore(nomeCategoria);
     }
 
-    public static boolean checkValiditaSensore(String nomeFantasia, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
-        return isNomeValido(nomeFantasia) &&
-                checkUnivocitaSensore(StringUtil.componiNome(nomeFantasia, nomeCategoria)) &&
+    public static boolean checkValiditaSensore(String nomeComposto, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
+        return isNomeDispositivoValido(nomeComposto) &&
+                checkUnivocitaSensore(nomeComposto) &&
                 Recuperatore.getUnita(nomeUnita) != null &&
                 Recuperatore.getStanza(nomeStanza, nomeUnita) != null &&
                 Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita) != null &&
                 !Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita).contieneCategoriaSensore(nomeCategoria);
     }
 
-    public static boolean checkValiditaAttuatore(String nomeFantasia, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
-        return isNomeValido(nomeFantasia) &&
-                checkUnivocitaAttuatore(StringUtil.componiNome(nomeFantasia, nomeCategoria)) &&
+    public static boolean checkValiditaAttuatore(String nomeComposto, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
+        return isNomeDispositivoValido(nomeComposto) &&
+                checkUnivocitaAttuatore(nomeComposto) &&
                 Recuperatore.getUnita(nomeUnita) != null &&
                 Recuperatore.getStanza(nomeStanza, nomeUnita) != null &&
                 Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita) != null &&
