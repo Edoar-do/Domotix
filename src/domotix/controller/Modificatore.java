@@ -2,12 +2,11 @@ package domotix.controller;
 
 import domotix.model.*;
 import domotix.model.bean.UnitaImmobiliare;
-import domotix.model.bean.device.Attuatore;
-import domotix.model.bean.device.CategoriaAttuatore;
-import domotix.model.bean.device.CategoriaSensore;
-import domotix.model.bean.device.Sensore;
+import domotix.model.bean.device.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
+
+import java.util.List;
 
 /**
  * Classe per implementare una parte di logica controller relativa all'aggiunta e rimozione di entita'.
@@ -25,8 +24,9 @@ public class Modificatore {
         ElencoCategorieSensori.getInstance().remove(cat);
     }
 
-    public static boolean aggiungiCategoriaAttuatore(CategoriaAttuatore cat) {
+    public static boolean aggiungiCategoriaAttuatore(CategoriaAttuatore cat, List<Modalita> modalita) {
         if (Verificatore.checkValiditaCategoriaAttuatore(cat.getNome())) return false;
+        modalita.forEach(m -> cat.addModalita(m));
         ElencoCategorieAttuatori.getInstance().add(cat);
         return true;
     }

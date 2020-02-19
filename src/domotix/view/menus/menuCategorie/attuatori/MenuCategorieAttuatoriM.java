@@ -6,6 +6,10 @@ import domotix.controller.Verificatore;
 import domotix.logicUtil.InputDati;
 import domotix.logicUtil.MyMenu;
 import domotix.model.bean.device.CategoriaAttuatore;
+import domotix.model.bean.device.Modalita;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /** @author Edoardo Coppola*/
 public class MenuCategorieAttuatoriM {
@@ -16,7 +20,11 @@ public class MenuCategorieAttuatoriM {
     private static final String INSERIMENTO_CATEGORIA_ATTUATORE = "Inserisci un nome per la nuova categoria di attuatore";
     private static final String INSERIMENTO_TESTO_LIBERO = "Inserisci un testo libero di descrizione del attuatore";
     private static final String CATEGORIE_ESISTENTI_ATTUATORI = "Elenco delle categorie di sensori esistenti: ";
-    private static final String INVALID_NAME = "Il nome della categoria inserita non è valido. Consultare la guida in linea per maggiori informazioni";
+    private static final String GUIDA_IN_LINEA = "Consultare la guida in linea per maggiori informazioni";
+    private static final String INVALID_NAME = "Il nome della categoria inserita non è valido. " + GUIDA_IN_LINEA;
+    private static final String TERMINATORE = "-q";
+    private static final String INSERIMENTO_NOME_MODALITA_OPERATIVA = "Inserisci un nome per la nuova modalita' operativa (inserire " + TERMINATORE + " per terminare)";
+    private static final String NOME_MODALITA_INVALIDO = "Il nome della modalita' operativa e' invalido. " + GUIDA_IN_LINEA;
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
@@ -31,17 +39,28 @@ public class MenuCategorieAttuatoriM {
                 case 0://Indietro
                     return;
                 case 1: // aggiungi categoria attuatori
-                    while(true){
+                    CategoriaAttuatore categoriaAttuatore = null;
+                    List<Modalita> modalita = new ArrayList<>();
+
+                    while (true) {
                         nome = InputDati.leggiStringaNonVuota(INSERIMENTO_CATEGORIA_ATTUATORE);
-                        if(Verificatore.checkValiditaCategoriaAttuatore(nome)){
-                            Modificatore.aggiungiCategoriaAttuatore(new CategoriaAttuatore(nome,InputDati.leggiStringaNonVuota(INSERIMENTO_TESTO_LIBERO)));
+                        if (Verificatore.checkValiditaCategoriaAttuatore(nome)) {
+                            categoriaAttuatore = new CategoriaAttuatore(nome,InputDati.leggiStringaNonVuota(INSERIMENTO_TESTO_LIBERO));
                             break;
-                        }else{
+                        } else {
                             System.out.println(INVALID_NAME);
                         }
                     }
-                    //TODO GESTIRE INSERIMENTO DELLE MODALITA OPERATIVE
-
+                    while (true) {
+                        String nomeModalita = InputDati.leggiStringaNonVuota(INSERIMENTO_NOME_MODALITA_OPERATIVA);
+                        if (nomeModalita.equals(TERMINATORE)) break;
+                        if (Verificatore.checkValiditaModalitaOperativa(nomeModalita)) {
+                            modalita.add(new Modalita(nomeModalita));
+                        } else {
+                            System.out.println(NOME_MODALITA_INVALIDO);
+                        }
+                    }
+                    Modificatore.aggiungiCategoriaAttuatore(categoriaAttuatore, modalita);
                     break;
                 case 2: //rimuovi categoria attuatori
                     String nomeCategoriaDaRimuovere = premenu();

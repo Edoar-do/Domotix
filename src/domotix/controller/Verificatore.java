@@ -14,6 +14,10 @@ public class Verificatore {
         return nome.matches(REGEX_NOMI);
     }
 
+    public static boolean checkValiditaModalitaOperativa(String nome) {
+        return isNomeValido(nome);
+    }
+
     public static boolean checkValiditaCategoriaSensore(String nome) {
         return isNomeValido(nome) &&
                 !ElencoCategorieSensori.getInstance().contains(nome);
