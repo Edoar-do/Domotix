@@ -1,5 +1,6 @@
 package domotix.controller;
 
+import domotix.logicUtil.StringUtil;
 import domotix.model.*;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Sensore;
@@ -59,34 +60,34 @@ public class Verificatore {
         return true;
     }
 
-    public static boolean checkValiditaSensore(String nomeSensore, String nomeCategoria, String nomeStanza, String nomeUnita) {
-        return isNomeValido(nomeSensore) &&
-                checkUnivocitaSensore(nomeSensore) &&
+    public static boolean checkValiditaSensore(String nomeFantasia, String nomeCategoria, String nomeStanza, String nomeUnita) {
+        return isNomeValido(nomeFantasia) &&
+                checkUnivocitaSensore(StringUtil.componiNome(nomeFantasia, nomeCategoria)) &&
                 Recuperatore.getUnita(nomeUnita) != null &&
                 Recuperatore.getStanza(nomeStanza, nomeUnita) != null &&
                 !Recuperatore.getStanza(nomeStanza, nomeUnita).contieneCategoriaSensore(nomeCategoria);
     }
 
-    public static boolean checkValiditaAttuatore(String nomeAttuatore, String nomeCategoria, String nomeStanza, String nomeUnita) {
-        return isNomeValido(nomeAttuatore) &&
-                checkUnivocitaAttuatore(nomeAttuatore) &&
+    public static boolean checkValiditaAttuatore(String nomeFantasia, String nomeCategoria, String nomeStanza, String nomeUnita) {
+        return isNomeValido(nomeFantasia) &&
+                checkUnivocitaAttuatore(StringUtil.componiNome(nomeFantasia, nomeCategoria)) &&
                 Recuperatore.getUnita(nomeUnita) != null &&
                 Recuperatore.getStanza(nomeStanza, nomeUnita) != null &&
                 !Recuperatore.getStanza(nomeStanza, nomeUnita).contieneCategoriaAttuatore(nomeCategoria);
     }
 
-    public static boolean checkValiditaSensore(String nomeSensore, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
-        return isNomeValido(nomeSensore) &&
-                checkUnivocitaSensore(nomeSensore) &&
+    public static boolean checkValiditaSensore(String nomeFantasia, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
+        return isNomeValido(nomeFantasia) &&
+                checkUnivocitaSensore(StringUtil.componiNome(nomeFantasia, nomeCategoria)) &&
                 Recuperatore.getUnita(nomeUnita) != null &&
                 Recuperatore.getStanza(nomeStanza, nomeUnita) != null &&
                 Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita) != null &&
                 !Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita).contieneCategoriaSensore(nomeCategoria);
     }
 
-    public static boolean checkValiditaAttuatore(String nomeAttuatore, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
-        return isNomeValido(nomeAttuatore) &&
-                checkUnivocitaAttuatore(nomeAttuatore) &&
+    public static boolean checkValiditaAttuatore(String nomeFantasia, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
+        return isNomeValido(nomeFantasia) &&
+                checkUnivocitaAttuatore(StringUtil.componiNome(nomeFantasia, nomeCategoria)) &&
                 Recuperatore.getUnita(nomeUnita) != null &&
                 Recuperatore.getStanza(nomeStanza, nomeUnita) != null &&
                 Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita) != null &&

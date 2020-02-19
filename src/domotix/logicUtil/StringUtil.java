@@ -21,4 +21,8 @@ public class StringUtil {
     public static String removeLast(String s) {
         return removeLast(s, 1);
     }
+
+    public static String componiNome(String fantasia, String categoria) {
+        return fantasia + "_" + categoria;
+    }
 }
