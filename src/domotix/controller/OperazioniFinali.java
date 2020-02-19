@@ -1,25 +1,21 @@
 package domotix.controller;
 
-import domotix.logicUtil.MyMenu;
-import domotix.model.ElencoCategorieAttuatori;
-import domotix.model.ElencoCategorieSensori;
-import domotix.model.ElencoUnitaImmobiliari;
+import domotix.model.*;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.CategoriaAttuatore;
 import domotix.model.bean.device.CategoriaSensore;
 import domotix.model.gestioneerrori.LogErrori;
 import domotix.model.gestioneerrori.StoreIstanzeErrori;
-import domotix.model.io.LetturaDatiSalvati;
 import domotix.model.io.RimozioneDatiSalvati;
 import domotix.model.io.ScritturaDatiSalvati;
 import domotix.view.menus.MenuErroreChiusura;
 
-import java.io.InputStream;
-import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Classe di una sola istanza per le operazioni finali del programma.
@@ -88,96 +84,67 @@ public class OperazioniFinali {
         LogErrori.getInstance().clear();
         StoreIstanzeErrori.getInstance().clear();
 
-        List<String> nomiDatiSalvati = null;
-
-        //Recupero nomi categorie sensori salvate
-        try {
-            nomiDatiSalvati = LetturaDatiSalvati.getInstance().getNomiCategorieSensori();
-        } catch (Exception e) {
-            LogErrori.getInstance().put(e.getMessage());
-            result.set(false);
-        }
-        List<String> catSensSalvati = nomiDatiSalvati;
         //Salvo categorie sensori logiche presenti
         ElencoCategorieSensori.getInstance().getCategorie().forEach(categoriaSensore -> {
             try {
                 ScritturaDatiSalvati.getInstance().salva(categoriaSensore);
-                catSensSalvati.remove(categoriaSensore.getNome());
             } catch (Exception e) {
                 LogErrori.getInstance().put(e.getMessage());
                 StoreIstanzeErrori.getInstance().put(categoriaSensore.getNome(), categoriaSensore.getClass());
                 result.set(false);
             }
         });
-
-        //Recupero nomi categorie attuatori salvate
-        try {
-            nomiDatiSalvati = LetturaDatiSalvati.getInstance().getNomiCategorieAttuatori();
-        } catch (Exception e) {
-            LogErrori.getInstance().put(e.getMessage());
-            result.set(false);
-        }
-        List<String> catAttSalvati = nomiDatiSalvati;
         //Salvo categorie attuatori logiche presenti
         ElencoCategorieAttuatori.getInstance().getCategorie().forEach(categoriaAttuatore -> {
             try {
                 ScritturaDatiSalvati.getInstance().salva(categoriaAttuatore);
-                catAttSalvati.remove(categoriaAttuatore.getNome());
             } catch (Exception e) {
                 LogErrori.getInstance().put(e.getMessage());
                 StoreIstanzeErrori.getInstance().put(categoriaAttuatore.getNome(), categoriaAttuatore.getClass());
                 result.set(false);
             }
         });
-
-        //Recupero nomi unita immobiliare salvate
-        try {
-            nomiDatiSalvati = LetturaDatiSalvati.getInstance().getNomiUnitaImmobiliare();
-        } catch (Exception e) {
-            LogErrori.getInstance().put(e.getMessage());
-            result.set(false);
-        }
-        List<String> unitaImmobSalvati = nomiDatiSalvati;
         //Salvo unita immobiliare logiche presenti
         ElencoUnitaImmobiliari.getInstance().getUnita().forEach(unitaImmobiliare -> {
             try {
                 ScritturaDatiSalvati.getInstance().salva(unitaImmobiliare);
-                unitaImmobSalvati.remove(unitaImmobiliare.getNome());
             } catch (Exception e) {
                 LogErrori.getInstance().put(e.getMessage());
                 StoreIstanzeErrori.getInstance().put(unitaImmobiliare.getNome(), unitaImmobiliare.getClass());
                 result.set(false);
             }
         });
-
-        //RIMOZIONE ENTITA' CANCELLATE LOGICAMENTE
-
-        unitaImmobSalvati.forEach( nomeUnita -> {
-            try {
-                RimozioneDatiSalvati.getInstance().rimuoviUnitaImmobiliare(nomeUnita);
-            } catch (Exception e) {
-                LogErrori.getInstance().put(e.getMessage());
-                result.set(false);
-            }
-        });
-
-        catAttSalvati.forEach( catAtt -> {
-            try {
-                RimozioneDatiSalvati.getInstance().rimuoviCategoriaAttuatore(catAtt);
-            } catch (Exception e) {
-                LogErrori.getInstance().put(e.getMessage());
-                result.set(false);
-            }
-        });
-
-        catSensSalvati.forEach( cattSens -> {
-            try {
-                RimozioneDatiSalvati.getInstance().rimuoviCategoriaSensore(cattSens);
-            } catch (Exception e) {
-                LogErrori.getInstance().put(e.getMessage());
-                result.set(false);
-            }
-        });
+        //Sincronizzo le entita' logiche con quelle fisiche (elimino i dati salvati cancellati logicamente)
+        try {
+            RimozioneDatiSalvati.getInstance().sincronizzaCategorieSensore(ElencoCategorieSensori.getInstance().getCategorie());
+        } catch (Exception e) {
+            LogErrori.getInstance().put(e.getMessage());
+            result.set(false);
+        }
+        try {
+            RimozioneDatiSalvati.getInstance().sincronizzaCategorieAttuatore(ElencoCategorieAttuatori.getInstance().getCategorie());
+        } catch (Exception e) {
+            LogErrori.getInstance().put(e.getMessage());
+            result.set(false);
+        }
+        try {
+            RimozioneDatiSalvati.getInstance().sincronizzaUnitaImmobiliari(ElencoUnitaImmobiliari.getInstance().getUnita());
+        } catch (Exception e) {
+            LogErrori.getInstance().put(e.getMessage());
+            result.set(false);
+        }
+        try {
+            RimozioneDatiSalvati.getInstance().sincronizzaSensori(Stream.of(ElencoSensori.getInstance().getDispositivi()).collect(Collectors.toList()));
+        } catch (Exception e) {
+            LogErrori.getInstance().put(e.getMessage());
+            result.set(false);
+        }
+        try {
+            RimozioneDatiSalvati.getInstance().sincronizzaAttuatori(Stream.of(ElencoAttuatori.getInstance().getDispositivi()).collect(Collectors.toList()));
+        } catch (Exception e) {
+            LogErrori.getInstance().put(e.getMessage());
+            result.set(false);
+        }
 
         return result.get();
     }
