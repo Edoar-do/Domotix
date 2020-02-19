@@ -8,7 +8,7 @@ import domotix.view.menus.menuUnita.MenuUnitaF;
 public class MenuFruitore {
     private static final String TITOLO = "Menu Fruitore ";
     private static final String[] VOCI = {"MenuCategorieDispositivi", "MenuUnita"};
-    private static final boolean INDIETRO = true;
+    private static final String INDIETRO = "Indietro";
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 

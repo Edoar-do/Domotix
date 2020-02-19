@@ -9,7 +9,7 @@ public class MenuLogin {
 
     private static final String TITOLO = "Menu di login: Manutentore o Fruitore";
     private static final String[] VOCI = {"Manutentore", "Fruitore"};
-    private static final boolean SALVA_ED_ESCI = false;
+    private static final String SALVA_ED_ESCI = "Salva ed Esci";
 
     private static MyMenu menuLogin = new MyMenu(TITOLO, VOCI);
 
