@@ -8,7 +8,7 @@ import domotix.view.menus.menuCategorie.sensori.MenuCategorieSensoriF;
 public class MenuCategorieF {
     private static final String TITOLO = "Menu Categorie Fruitore ";
     private static final String[] VOCI = {"Menu Categorie Sensori Fruitore", "Menu Categorie Attuatori Fruitore"};
-    private static final boolean INDIETRO = true;
+    private static final String INDIETRO = "Indietro";
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 

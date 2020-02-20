@@ -26,6 +26,14 @@ public class MyMenu
         this.voci = voci;
     }
 
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
+    }
+
+    public void setVoci(String[] voci) {
+        this.voci = voci;
+    }
+
     public int scegli (String voceUscita)
     {
         stampaMenu(voceUscita);

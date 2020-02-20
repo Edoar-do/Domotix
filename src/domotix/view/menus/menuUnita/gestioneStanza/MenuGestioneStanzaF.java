@@ -4,13 +4,14 @@ import domotix.controller.Modificatore;
 import domotix.controller.Recuperatore;
 import domotix.logicUtil.InputDati;
 import domotix.logicUtil.MyMenu;
+import domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto.MenuGestioneArtefattoF;
 import domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto.MenuGestioneArtefattoM;
 
 /** @author Edoardo Coppola*/
 public class MenuGestioneStanzaF {
 
-    private static final String TITOLO = "Menu Gestione Stanza Manutentore ";
-    private static final String[] VOCI = {"Visualizza Descrizione Stanza", "Menu Gestione Artefatto Manutentore" };
+    private static final String TITOLO = "Menu Gestione Stanza Fruitore ";
+    private static final String[] VOCI = {"Visualizza Descrizione Stanza", "Menu Gestione Artefatto Fruitore" };
     private static final String INDIETRO = "Indietro";
 
 
@@ -31,8 +32,8 @@ public class MenuGestioneStanzaF {
                 case 1: //visualizza descrizione stanza
                     System.out.println(Recuperatore.getDescrizioneStanza(nomeStanza, nomeUnitaSuCuiLavorare));
                     break;
-                case 2://menu gestione artefatto manutentore
-                    MenuGestioneArtefattoM.avvia();
+                case 2://menu gestione artefatto fruitore
+                    MenuGestioneArtefattoF.avvia(nomeUnitaSuCuiLavorare, nomeStanza);
                     break;
             }
         } while (sceltaMenu != 0);
