@@ -15,7 +15,7 @@ import java.util.List;
 public class MenuCategorieAttuatoriM {
     private static final String TITOLO = "Menu Categorie Attuatori Manutentore ";
     private static final String[] VOCI = {"Aggiungi Categoria Attuatore", "Rimuovi Categoria Attuatore", "Visualizza Categorie Attuatori"};
-    private static final boolean INDIETRO = true;
+    private static final String INDIETRO = "Indietro";
 
     private static final String INSERIMENTO_CATEGORIA_ATTUATORE = "Inserisci un nome per la nuova categoria di attuatore";
     private static final String INSERIMENTO_TESTO_LIBERO = "Inserisci un testo libero di descrizione del attuatore";

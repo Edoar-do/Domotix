@@ -8,7 +8,7 @@ import domotix.logicUtil.MyMenu;
 public class MenuCategorieSensoriF {
     private static final String TITOLO = "Menu Categorie Sensori Fruitore ";
     private static final String[] VOCI = { "Visualizza Categorie Sensori"};
-    private static final boolean INDIETRO = true;
+    private static final String INDIETRO = "Indietro";
 
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);

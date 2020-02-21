@@ -1,8 +1,6 @@
 package domotix.controller;
 
-import domotix.model.ElencoCategorieAttuatori;
-import domotix.model.ElencoCategorieSensori;
-import domotix.model.ElencoUnitaImmobiliari;
+import domotix.model.*;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.CategoriaAttuatore;
@@ -43,6 +41,14 @@ public class Recuperatore {
             }
         }
         return artefatto;
+    }
+
+    static Sensore getSensore(String nomeSensore) {
+        return ElencoSensori.getInstance().getDispositivo(nomeSensore);
+    }
+
+    static Attuatore getAttuatore(String nomeAttuatore) {
+        return ElencoAttuatori.getInstance().getDispositivo(nomeAttuatore);
     }
 
     static CategoriaSensore getCategoriaSensore(String nomeCategoria) {

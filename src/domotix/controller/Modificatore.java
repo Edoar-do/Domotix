@@ -79,12 +79,25 @@ public class Modificatore {
         return true;
     }
 
+    public static boolean collegaSensore(String nomeSensore, String nomeStanza, String nomeUnita) {
+        Sensore sens = Recuperatore.getSensore(nomeSensore);
+        Stanza stanza = Recuperatore.getStanza(nomeStanza, nomeUnita);
+
+        if (sens == null)
+            return false;
+        if (stanza == null)
+            return false;
+
+        stanza.addSensore(sens);
+        return true;
+    }
+
     public static boolean rimuoviSensore(String sensore, String stanza, String unita) {
         Stanza stanzaInst = Recuperatore.getStanza(stanza, unita);
         if (stanza == null)
             return false;
 
-        Sensore sens = ElencoSensori.getInstance().getDispositivo(sensore);
+        Sensore sens = Recuperatore.getSensore(sensore);
         if (sens == null)
             return false;
 
@@ -99,12 +112,25 @@ public class Modificatore {
         return true;
     }
 
+    public static boolean collegaSensore(String nomeSensore, String nomeArtefatto, String nomeStanza, String nomeUnita) {
+        Sensore sens = Recuperatore.getSensore(nomeSensore);
+        Artefatto artefatto = Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita);
+
+        if (sens == null)
+            return false;
+        if (artefatto == null)
+            return false;
+
+        artefatto.addSensore(sens);
+        return true;
+    }
+
     public static boolean rimuoviSensore(String sensore, String artefatto, String stanza, String unita) {
         Artefatto artefattoInst = Recuperatore.getArtefatto(artefatto, stanza, unita);
         if (stanza == null)
             return false;
 
-        Sensore sens = ElencoSensori.getInstance().getDispositivo(sensore);
+        Sensore sens = Recuperatore.getSensore(sensore);
         if (sens == null)
             return false;
 
@@ -119,12 +145,25 @@ public class Modificatore {
         return true;
     }
 
+    public static boolean collegaAttuatore(String nomeAttuatore, String nomeStanza, String nomeUnita) {
+        Attuatore attuatore = Recuperatore.getAttuatore(nomeAttuatore);
+        Stanza stanza = Recuperatore.getStanza(nomeStanza, nomeUnita);
+
+        if (attuatore == null)
+            return false;
+        if (stanza == null)
+            return false;
+
+        stanza.addAttuatore(attuatore);
+        return true;
+    }
+
     public static boolean rimuoviAttuatore(String attuatore, String stanza, String unita) {
         Stanza stanzaInst = Recuperatore.getStanza(stanza, unita);
         if (stanza == null)
             return false;
 
-        Attuatore att = ElencoAttuatori.getInstance().getDispositivo(attuatore);
+        Attuatore att = Recuperatore.getAttuatore(attuatore);
         if (att == null)
             return false;
 
@@ -139,12 +178,24 @@ public class Modificatore {
         return true;
     }
 
+    public static boolean collegaAttuatore(String nomeAttuatore, String nomeArtefatto, String nomeStanza, String nomeUnita) {
+        Attuatore attuatore = Recuperatore.getAttuatore(nomeAttuatore);
+        Artefatto artefatto = Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita);
+
+        if (attuatore == null)
+            return false;
+        if (artefatto == null)
+            return false;
+
+        artefatto.addAttuatore(attuatore);
+        return true;
+    }
     public static boolean rimuoviAttuatore(String attuatore, String artefatto, String stanza, String unita) {
         Artefatto artefattoInst = Recuperatore.getArtefatto(artefatto, stanza, unita);
         if (stanza == null)
             return false;
 
-        Attuatore att = ElencoAttuatori.getInstance().getDispositivo(attuatore);
+        Attuatore att = Recuperatore.getAttuatore(attuatore);
         if (att == null)
             return false;
 

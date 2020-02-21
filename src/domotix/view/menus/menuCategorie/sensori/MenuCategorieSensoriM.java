@@ -13,7 +13,7 @@ import domotix.model.bean.device.CategoriaSensore;
 public class MenuCategorieSensoriM {
     private static final String TITOLO = "Menu Categorie Sensori Manutentore ";
     private static final String[] VOCI = {"Aggiungi Categoria Sensore", "Rimuovi Categoria Sensore", "Visualizza Categorie Sensori"};
-    private static final boolean INDIETRO = true;
+    private static final String INDIETRO = "Indietro";
 
     private static final String INSERIMENTO_CATEGORIA_SENSORE = "Inserisci un nome per la nuova categoria di sensore";
     private static final String INSERIMENTO_TESTO_LIBERO = "Inserisci un testo libero di descrizione del sensore";
@@ -37,8 +37,7 @@ public class MenuCategorieSensoriM {
                     while(true){
                         nome = InputDati.leggiStringaNonVuota(INSERIMENTO_CATEGORIA_SENSORE);
                         if(Verificatore.checkValiditaCategoriaSensore(nome)){
-                            Modificatore.aggiungiCategoriaSensore(new CategoriaSensore(nome,
-                                    InputDati.leggiStringaNonVuota(INSERIMENTO_TESTO_LIBERO), InputDati.leggiStringaNonVuota(INSERIMENTO_INFO_RILEVABILE)));
+                            Modificatore.aggiungiCategoriaSensore(nome, InputDati.leggiStringaNonVuota(INSERIMENTO_TESTO_LIBERO), InputDati.leggiStringaNonVuota(INSERIMENTO_INFO_RILEVABILE));
                             break;
                         }else{
                             System.out.println(INVALID_NAME);

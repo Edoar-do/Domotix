@@ -9,7 +9,7 @@ import domotix.logicUtil.MyMenu;
 public class MenuCategorieAttuatoriF {
     private static final String TITOLO = "Menu Categorie Attuatori Fruitore ";
     private static final String[] VOCI = { "Visualizza Categorie Attuatori"};
-    private static final boolean INDIETRO = true;
+    private static final String INDIETRO = "Indietro";
 
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);

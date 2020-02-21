@@ -14,9 +14,8 @@ e sia presentata in testa al menu
 public class MyMenu
 {
     final private static String CORNICE = "--------------------------------";
-    final private static String VOCE_INDIETRO = "0\tIndietro";
+
     final private static String RICHIESTA_INSERIMENTO = "Digita il numero dell'opzione desiderata > ";
-    final private static String VOCE_SALVA_ESCI = "Salva ed esci";
 
     private String titolo;
     private String [] voci;
@@ -27,66 +26,36 @@ public class MyMenu
         this.voci = voci;
     }
 
-    /*
-    public int scegli (InputStream in, PrintStream out, Boolean backOrExit) {
-        InputDati.setIn(in);
-        InputDati.setOut(out);
-        stampaMenu(out, backOrExit);
-        return InputDati.leggiIntero(RICHIESTA_INSERIMENTO, 0, voci.length);
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
     }
 
-    public int scegli (boolean backOrExit) {
-        return scegli(System.in, System.out, backOrExit);
+    public void setVoci(String[] voci) {
+        this.voci = voci;
     }
 
-    public void stampaMenu (PrintStream out, boolean backOrExit) {
-        out.println(CORNICE);
-        out.println(titolo);
-        out.println(CORNICE);
-
-        if(backOrExit){
-            out.println();
-            out.println(VOCE_INDIETRO);
-            out.println();
-        }else{
-            out.println();
-            out.println(VOCE_SALVA_ESCI);
-            out.println();
-        }
-
-
-        for (int i=0; i<voci.length; i++)
-        {
-            out.println( (i+1) + "\t" + voci[i]);
-        }
-
-    }
-
-    public void stampaMenu () {
-        stampaMenu(System.out);
-    }*/
-
-    public int scegli (boolean backOrExit)
+    public int scegli (String voceUscita)
     {
-        stampaMenu(backOrExit);
+        stampaMenu(voceUscita);
         return InputDati.leggiIntero(RICHIESTA_INSERIMENTO, 0, voci.length);
     }
 
-    public void stampaMenu (boolean backOrExit)
+    public void stampaMenu (String voceUscita)
     {
         System.out.println(CORNICE);
         System.out.println(titolo);
         System.out.println(CORNICE);
         System.out.println();
-        if(backOrExit)
-            System.out.println(VOCE_INDIETRO);
-        else
-            System.out.print(VOCE_SALVA_ESCI);
+        System.out.print("\t" + voceUscita);
         for (int i=0; i<voci.length; i++)
         {
             System.out.println( (i+1) + "\t" + voci[i]);
         }
 
+    }
+
+    public void scegli(){
+        scegli("Esci");
     }
 }
 
