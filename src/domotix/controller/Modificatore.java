@@ -6,9 +6,6 @@ import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-
-import java.util.List;
-
 /**
  * Classe per implementare una parte di logica controller relativa all'aggiunta e rimozione di entita'.
  * @author andrea e paolopasqua
@@ -21,8 +18,10 @@ public class Modificatore {
         return true;
     }
 
-    public static void rimuoviCategoriaSensore(String cat) {
+    public static boolean rimuoviCategoriaSensore(String cat) {
+        if (Recuperatore.getCategoriaSensore(cat) == null) return false;
         ElencoCategorieSensori.getInstance().remove(cat);
+        return true;
     }
 
     public static boolean aggiungiCategoriaAttuatore(String nomeCat, String testoLibero) {
@@ -37,8 +36,10 @@ public class Modificatore {
         return true;
     }
 
-    public static void rimuoviCategoriaAttuatore(String cat) {
+    public static boolean rimuoviCategoriaAttuatore(String cat) {
+        if (Recuperatore.getCategoriaAttuatore(cat) == null) return false;
         ElencoCategorieAttuatori.getInstance().remove(cat);
+        return true;
     }
 
     public static boolean aggiungiStanza(String nomeStanza, String unita) {
