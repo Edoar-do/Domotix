@@ -1,5 +1,6 @@
 package domotix.logicUtil;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 
@@ -13,17 +14,36 @@ e sia presentata in testa al menu
 /** @author Edoardo Coppola*/
 public class MyMenu
 {
-    final private static String CORNICE = "--------------------------------";
+    final private static String CORNICE_CHAR = "-";
 
     final private static String RICHIESTA_INSERIMENTO = "Digita il numero dell'opzione desiderata > ";
 
+    private String cornice;
     private String titolo;
+    private String sottotitolo;
     private String [] voci;
 
-    public MyMenu (String titolo, String [] voci)
+    public MyMenu (String titolo, String [] voci) {
+        this(titolo, "", voci);
+    }
+
+    public MyMenu (String titolo, String sottotitolo, String [] voci)
     {
-        this.titolo = titolo;
+        setTitolo(titolo);
+        this.sottotitolo = sottotitolo;
         this.voci = voci;
+    }
+
+    private void impostaCornice() {
+        cornice = CORNICE_CHAR.repeat(Math.max(titolo.length(), componiSottotitolo().length()) + 1);
+    }
+
+    private String componiSottotitolo() {
+        return "    " + (sottotitolo == null ? "" : sottotitolo);
+    }
+
+    public void setSottotitolo(String sottotitolo) {
+        this.sottotitolo = sottotitolo;
     }
 
     public void setTitolo(String titolo) {
@@ -42,11 +62,14 @@ public class MyMenu
 
     public void stampaMenu (String voceUscita)
     {
-        System.out.println(CORNICE);
+        impostaCornice();
+        System.out.println(cornice);
         System.out.println(titolo);
-        System.out.println(CORNICE);
+        if (sottotitolo != null && !sottotitolo.trim().isEmpty())
+            System.out.println(componiSottotitolo());
+        System.out.println(cornice);
         System.out.println();
-        System.out.print("\t" + voceUscita);
+        System.out.println("0" + "\t" + voceUscita);
         for (int i=0; i<voci.length; i++)
         {
             System.out.println( (i+1) + "\t" + voci[i]);
@@ -54,8 +77,8 @@ public class MyMenu
 
     }
 
-    public void scegli(){
-        scegli("Esci");
+    public int scegli(){
+        return scegli("Esci");
     }
 }
 

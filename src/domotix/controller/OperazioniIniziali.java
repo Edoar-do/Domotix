@@ -60,6 +60,27 @@ public class OperazioniIniziali {
     }
 
     /**
+     * Controlla l'esistenza dell'unita immobiliare base, ovvero la presenza di almeno un'unita' immobiliare.
+     * Questo perche' vi deve essere una sola (o almeno una) unita immobiliare, la quale viene generata vuota con
+     * un nome scolpito all'avvio del programma nel caso non sia gia' presente.
+     *
+     * @return  true: esiste almeno un'unita immobiliare; false: l'elenco e' vuoto
+     */
+    public boolean controlloEsistenzaUnita() {
+        return !ElencoUnitaImmobiliari.getInstance().getUnita().isEmpty();
+    }
+
+    /**
+     * Genera l'unita' base che deve esistere per il funzionamento del programma.
+     *
+     * @return  istanza di una nuova unita immobiliare inizializzata con i dati di default del programma
+     */
+    public UnitaImmobiliare generaUnitaBase() {
+        UnitaImmobiliare unita = new UnitaImmobiliare(UnitaImmobiliare.NOME_UNITA_DEFAULT);
+        return unita;
+    }
+
+    /**
      * Metodo per popolare il model del programma con i dati salvati.
      * Gestisce gli errori di lettura singolarmente per entita' letta, in modo da lasciare all'utente la scelta se proseguire
      * con l'apertura del programma anche se non tutto e' stato caricato.

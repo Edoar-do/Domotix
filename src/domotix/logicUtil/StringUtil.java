@@ -25,4 +25,12 @@ public class StringUtil {
     public static String componiNome(String fantasia, String categoria) {
         return fantasia + "_" + categoria;
     }
+
+    public static String componiPercorso(String base, String ...figli) {
+        String ret = base;
+        for (String s : figli){
+            ret += " > " + s;
+        }
+        return ret;
+    }
 }

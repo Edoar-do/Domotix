@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class UnitaImmobiliare {
+    public static final String NOME_UNITA_DEFAULT = "casa";
     public static final String NOME_STANZA_DEFAULT = "esterno";
     private static final int POS_STANZA_DEFAULT = 0;
 
@@ -41,6 +42,10 @@ public class UnitaImmobiliare {
     }
 
     public void removeStanza(String nome) {
+        //non posso eliminare la stanza di default
+        if (nome.equals(NOME_STANZA_DEFAULT))
+            return;
+
         for (int i = 0; i < stanze.size(); i++) {
             if (stanze.get(i).getNome().equals(nome)) {
                 stanze.get(i).distruggi();

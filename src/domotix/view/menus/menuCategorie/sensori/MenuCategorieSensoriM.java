@@ -45,10 +45,12 @@ public class MenuCategorieSensoriM {
                      break;
                 case 2: //rimuovi categoria sensori
                     nome = premenu();
-                    if(Modificatore.rimuoviCategoriaSensore(nome))
-                        System.out.println(SUCCESSO_RIMOZIONE_CATEGORIA);
-                    else
-                        System.out.println(ERRORE_RIMOZIONE_CATEGORIA);
+                    if (nome != null) {
+                        if (Modificatore.rimuoviCategoriaSensore(nome))
+                            System.out.println(SUCCESSO_RIMOZIONE_CATEGORIA);
+                        else
+                            System.out.println(ERRORE_RIMOZIONE_CATEGORIA);
+                    }
                     break;
                 case 3: //visualizza categorie sensori
                     for (String descrizione: Recuperatore.getDescrizioniCategorieSensori()) {
@@ -63,6 +65,6 @@ public class MenuCategorieSensoriM {
         String[] nomiCategorie = Recuperatore.getNomiCategorieSensori();
         MyMenu m = new MyMenu(CATEGORIE_ESISTENTI_SENSORI, nomiCategorie);
         int scelta = m.scegli(INDIETRO);
-        return nomiCategorie[scelta-1];
+        return scelta == 0 ? null : nomiCategorie[scelta-1];
     }
 }

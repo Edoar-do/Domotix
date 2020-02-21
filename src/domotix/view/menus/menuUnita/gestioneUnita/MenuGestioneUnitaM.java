@@ -6,11 +6,13 @@ import domotix.controller.Verificatore;
 import domotix.logicUtil.InputDati;
 import domotix.logicUtil.MyMenu;
 
+import domotix.logicUtil.StringUtil;
 import domotix.model.bean.system.Stanza;
 
 /** @author Edoardo Coppola*/
 public class MenuGestioneUnitaM {
     private static final String TITOLO = "Menu Gestione Unità Manutentore ";
+    private static final String SOTTOTITOLO = "oggetto: ";
     private static final String[] VOCI = {"Visualizza Descrizione Unita", "Aggiungi Stanza all'unita", "Rimuovi Stanza dall'unita"};
     private static final String INDIETRO = "Indietro";
 
@@ -26,6 +28,8 @@ public class MenuGestioneUnitaM {
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
     public static void avvia(String nomeUnitaSuCuiLavorare){
+
+        menu.setSottotitolo(SOTTOTITOLO + StringUtil.componiPercorso(nomeUnitaSuCuiLavorare));
 
         String nomeStanzaDaAggiungere, nomeStanzaDaRimuovere;
 
@@ -49,10 +53,12 @@ public class MenuGestioneUnitaM {
                     break;
                 case 3: //rimuovi stanza all'unità
                     nomeStanzaDaRimuovere = premenuStanze(nomeUnitaSuCuiLavorare);
-                    if(Modificatore.rimuoviStanza(nomeStanzaDaRimuovere, nomeUnitaSuCuiLavorare))
-                        System.out.println(SUCCESSO_RIMOZIONE_STANZA);
-                    else
-                        System.out.println(ERRORE_RIMOZIONE_STANZA);
+                    if (nomeStanzaDaRimuovere != null) {
+                        if (Modificatore.rimuoviStanza(nomeStanzaDaRimuovere, nomeUnitaSuCuiLavorare))
+                            System.out.println(SUCCESSO_RIMOZIONE_STANZA);
+                        else
+                            System.out.println(ERRORE_RIMOZIONE_STANZA);
+                    }
                     break;
             }
         }while(sceltaMenu != 0);
@@ -61,9 +67,9 @@ public class MenuGestioneUnitaM {
 
 
     private static String premenuStanze(String unita){
-        String[] nomiStanze = Recuperatore.getNomiStanze(unita);
+        String[] nomiStanze = Recuperatore.getNomiStanze(unita, false);
         MyMenu m = new MyMenu(ELENCO_STANZE, nomiStanze);
         int scelta = m.scegli(INDIETRO);
-        return nomiStanze[scelta-1];
+        return scelta == 0 ? null : nomiStanze[scelta-1];
     }
 }

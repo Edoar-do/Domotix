@@ -4,11 +4,13 @@ import domotix.controller.Modificatore;
 import domotix.controller.Recuperatore;
 import domotix.logicUtil.InputDati;
 import domotix.logicUtil.MyMenu;
+import domotix.logicUtil.StringUtil;
 
 /** @author Edoardo Coppola*/
 public class MenuGestioneArtefattoF {
 
     private static final String TITOLO = "Menu Gestione Artefatto Fruitore ";
+    private static final String SOTTOTITOLO = "oggetto: ";
     private static final String[] VOCI = {"Visualizza Descrizione Artefatto"};
     private static final String INDIETRO = "Indietro";
 
@@ -19,6 +21,10 @@ public class MenuGestioneArtefattoF {
     public static void avvia(String nomeUnitaSuCuiLavorare, String nomeStanza) {
 
         String nomeArtefatto = premenuArtefatto(nomeUnitaSuCuiLavorare, nomeStanza);
+
+        if (nomeArtefatto == null) return;
+
+        menu.setSottotitolo(SOTTOTITOLO + StringUtil.componiPercorso(nomeUnitaSuCuiLavorare, nomeStanza, nomeArtefatto));
 
         int sceltaMenu = 0;
         do {
@@ -36,8 +42,13 @@ public class MenuGestioneArtefattoF {
 
     private static String premenuArtefatto(String unita, String stanza) {
         String[] nomiArtefatti = Recuperatore.getNomiArtefatti(stanza, unita);
+
+        //se solo una scelta allora seleziono quella e procedo automaticamente
+        if (nomiArtefatti.length == 1)
+            return nomiArtefatti[0];
+
         MyMenu m = new MyMenu(ELENCO_ARTEFATTI, nomiArtefatti);
         int scelta = m.scegli(INDIETRO);
-        return nomiArtefatti[scelta - 1];
+        return scelta == 0 ? null : nomiArtefatti[scelta - 1];
     }
 }

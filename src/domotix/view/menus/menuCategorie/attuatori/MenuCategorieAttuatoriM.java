@@ -29,6 +29,7 @@ public class MenuCategorieAttuatoriM {
     private static final String INSERIMENTO_SUCCESSO_MODALITA = "Inserimento della modalità avvenuta con successo";
     private static final String ERRORE_RIMOZIONE_CATEGORIA = "Rimozione della categoria fallita. " + GUIDA_IN_LINEA;
     private static final String SUCCESSO_RIMOZIONE_CATEGORIA = "Rimozione della categoria avvenuta con successo";
+    private static final String ERRORE_MODALITA_DEFAULT_MANCANTE = "Inserire almeno la modalita' di default!";
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
@@ -50,20 +51,32 @@ public class MenuCategorieAttuatoriM {
                         System.out.println(ERRORE_INSERIMENTO);
                         break;
                     }
+                    boolean modalitaDefault = false;
                     while (true) {
                         String nomeModalita = InputDati.leggiStringaNonVuota(INSERIMENTO_NOME_MODALITA_OPERATIVA);
-                        if (nomeModalita.equals(TERMINATORE)) break;
-                        if (Modificatore.aggiungiModalitaCategoriaAttuatore(nome, nomeModalita)) {
-                            System.out.println(INSERIMENTO_SUCCESSO_MODALITA);
-                        } else{ System.out.println(ERRORE_INSERIMENTO_MODALITA);}
+                        if (nomeModalita.equals(TERMINATORE)) {
+                            if (modalitaDefault)
+                                break;
+                            System.out.println(ERRORE_MODALITA_DEFAULT_MANCANTE);
+                        }
+                        else {
+                            if (Modificatore.aggiungiModalitaCategoriaAttuatore(nome, nomeModalita)) {
+                                modalitaDefault = true;
+                                System.out.println(INSERIMENTO_SUCCESSO_MODALITA);
+                            } else {
+                                System.out.println(ERRORE_INSERIMENTO_MODALITA);
+                            }
+                        }
                     }
                     break;
                 case 2: //rimuovi categoria attuatori
                     nome = premenu();
-                    if(Modificatore.rimuoviCategoriaAttuatore(nome))
-                        System.out.println(SUCCESSO_RIMOZIONE_CATEGORIA);
-                    else
-                        System.out.println(ERRORE_RIMOZIONE_CATEGORIA);
+                    if (nome != null) {
+                        if (Modificatore.rimuoviCategoriaAttuatore(nome))
+                            System.out.println(SUCCESSO_RIMOZIONE_CATEGORIA);
+                        else
+                            System.out.println(ERRORE_RIMOZIONE_CATEGORIA);
+                    }
                     break;
                 case 3: //visualizza categorie attuatori
                     for (String descrizione: Recuperatore.getDescrizioniCategorieAttuatori()) {
@@ -78,6 +91,6 @@ public class MenuCategorieAttuatoriM {
         String[] nomiCategorie = Recuperatore.getNomiCategorieAttuatori();
         MyMenu m = new MyMenu(CATEGORIE_ESISTENTI_ATTUATORI, nomiCategorie);
         int scelta = m.scegli(INDIETRO);
-        return nomiCategorie[scelta-1];
+        return scelta == 0 ? null : nomiCategorie[scelta-1];
     }
 }

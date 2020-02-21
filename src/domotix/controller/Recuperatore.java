@@ -74,8 +74,12 @@ public class Recuperatore {
     }
 
     public static String[] getNomiStanze(String nomeUnita) {
+        return getNomiStanze(nomeUnita, true);
+    }
+
+    public static String[] getNomiStanze(String nomeUnita, boolean elencaStanzaDefault) {
         UnitaImmobiliare unita = getUnita(nomeUnita);
-        return Stream.of(unita.getStanze()).map(s -> s.getNome()).toArray(String[]::new);
+        return Stream.of(unita.getStanze()).map(s -> s.getNome()).filter(s -> elencaStanzaDefault || !s.equals(UnitaImmobiliare.NOME_STANZA_DEFAULT)).toArray(String[]::new);
     }
 
     private static String[] getNomiAttuatoriSistema(Sistema sistema) {

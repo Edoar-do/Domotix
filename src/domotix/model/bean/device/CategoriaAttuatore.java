@@ -37,6 +37,8 @@ public class CategoriaAttuatore {
         return elencoModalita.get(index);
     }
 
+    public Modalita getModalitaDefault() { return elencoModalita.get(0); }
+
     public ArrayList<Modalita> getElencoModalita(){
         return elencoModalita;
     }

@@ -25,7 +25,7 @@ public class Modificatore {
     }
 
     public static boolean aggiungiCategoriaAttuatore(String nomeCat, String testoLibero) {
-        if (Verificatore.checkValiditaCategoriaAttuatore(nomeCat)) return false;
+        if (!Verificatore.checkValiditaCategoriaAttuatore(nomeCat)) return false;
         ElencoCategorieAttuatori.getInstance().add(new CategoriaAttuatore(nomeCat, testoLibero));
         return true;
     }
@@ -43,7 +43,7 @@ public class Modificatore {
     }
 
     public static boolean aggiungiStanza(String nomeStanza, String unita) {
-        if (Verificatore.checkValiditaStanza(nomeStanza, unita)) return false;
+        if (!Verificatore.checkValiditaStanza(nomeStanza, unita)) return false;
         Recuperatore.getUnita(unita).addStanza(new Stanza(nomeStanza));
         return true;
     }
@@ -75,7 +75,9 @@ public class Modificatore {
     public static boolean aggiungiSensore(String fantasia, String categoria, String stanza, String unita) {
         String nomeComposto = StringUtil.componiNome(fantasia, categoria);
         if (!Verificatore.checkValiditaSensore(nomeComposto, categoria, stanza, unita)) return false;
-        Recuperatore.getStanza(stanza, unita).addSensore(new Sensore(nomeComposto, Recuperatore.getCategoriaSensore(categoria)));
+        Sensore sensore = new Sensore(nomeComposto, Recuperatore.getCategoriaSensore(categoria));
+        sensore.setStato(true);
+        Recuperatore.getStanza(stanza, unita).addSensore(sensore);
         return true;
     }
 
@@ -108,7 +110,9 @@ public class Modificatore {
     public static boolean aggiungiSensore(String fantasia, String categoria, String artefatto, String stanza, String unita) {
         String nomeComposto = StringUtil.componiNome(fantasia, categoria);
         if (!Verificatore.checkValiditaSensore(nomeComposto, categoria, artefatto, stanza, unita)) return false;
-        Recuperatore.getArtefatto(artefatto, stanza, unita).addSensore(new Sensore(nomeComposto, Recuperatore.getCategoriaSensore(categoria)));
+        Sensore sensore = new Sensore(nomeComposto, Recuperatore.getCategoriaSensore(categoria));
+        sensore.setStato(true);
+        Recuperatore.getArtefatto(artefatto, stanza, unita).addSensore(sensore);
         return true;
     }
 
@@ -141,7 +145,9 @@ public class Modificatore {
     public static boolean aggiungiAttuatore(String fantasia, String categoria, String stanza, String unita) {
         String nomeComposto = StringUtil.componiNome(fantasia, categoria);
         if (!Verificatore.checkValiditaAttuatore(nomeComposto, categoria, stanza, unita)) return false;
-        Recuperatore.getStanza(stanza, unita).addAttuatore(new Attuatore(nomeComposto, Recuperatore.getCategoriaAttuatore(categoria), Recuperatore.getCategoriaAttuatore(categoria).getModalita(0)));
+        Attuatore attuatore = new Attuatore(nomeComposto, Recuperatore.getCategoriaAttuatore(categoria), Recuperatore.getCategoriaAttuatore(categoria).getModalitaDefault());
+        attuatore.setStato(true);
+        Recuperatore.getStanza(stanza, unita).addAttuatore(attuatore);
         return true;
     }
 
@@ -174,7 +180,9 @@ public class Modificatore {
     public static boolean aggiungiAttuatore(String fantasia, String categoria, String artefatto, String stanza, String unita) {
         String nomeComposto = StringUtil.componiNome(fantasia, categoria);
         if (!Verificatore.checkValiditaAttuatore(nomeComposto, categoria, artefatto, stanza, unita)) return false;
-        Recuperatore.getArtefatto(artefatto, stanza, unita).addAttuatore(new Attuatore(nomeComposto, Recuperatore.getCategoriaAttuatore(categoria), Recuperatore.getCategoriaAttuatore(categoria).getModalita(0)));
+        Attuatore attuatore = new Attuatore(nomeComposto, Recuperatore.getCategoriaAttuatore(categoria), Recuperatore.getCategoriaAttuatore(categoria).getModalitaDefault());
+        attuatore.setStato(true);
+        Recuperatore.getArtefatto(artefatto, stanza, unita).addAttuatore(attuatore);
         return true;
     }
 

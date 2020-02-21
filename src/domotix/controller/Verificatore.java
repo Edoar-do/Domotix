@@ -2,6 +2,7 @@ package domotix.controller;
 
 import domotix.logicUtil.StringUtil;
 import domotix.model.*;
+import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.system.Artefatto;
@@ -36,13 +37,14 @@ public class Verificatore {
 
     public static boolean checkValiditaStanza(String nomeStanza, String nomeUnita) {
         return isNomeValido(nomeStanza) &&
+                !nomeStanza.equals(UnitaImmobiliare.NOME_STANZA_DEFAULT) &&
                 Recuperatore.getUnita(nomeUnita) != null &&
                 Recuperatore.getStanza(nomeStanza, nomeUnita) == null;
     }
 
     public static boolean checkValiditaArtefatto(String nomeArtefatto, String nomeUnita) {
         if (!isNomeValido(nomeArtefatto)) return false;
-        if (Recuperatore.getUnita(nomeUnita) != null) return false;
+        if (Recuperatore.getUnita(nomeUnita) == null) return false;
         for (Stanza s : Recuperatore.getUnita(nomeUnita).getStanze()) {
             for (Artefatto a : s.getArtefatti()) {
                 if (a.getNome().equals(nomeArtefatto)) return false;
@@ -67,7 +69,7 @@ public class Verificatore {
 
     public static boolean checkValiditaSensore(String nomeComposto, String nomeCategoria, String nomeStanza, String nomeUnita) {
         return isNomeDispositivoValido(nomeComposto) &&
-                checkUnivocitaSensore(StringUtil.componiNome(nomeComposto, nomeCategoria)) &&
+                checkUnivocitaSensore(nomeComposto) &&
                 Recuperatore.getUnita(nomeUnita) != null &&
                 Recuperatore.getStanza(nomeStanza, nomeUnita) != null &&
                 !Recuperatore.getStanza(nomeStanza, nomeUnita).contieneCategoriaSensore(nomeCategoria);

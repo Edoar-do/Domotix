@@ -4,6 +4,7 @@ import domotix.controller.Modificatore;
 import domotix.controller.Recuperatore;
 import domotix.logicUtil.InputDati;
 import domotix.logicUtil.MyMenu;
+import domotix.logicUtil.StringUtil;
 import domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto.MenuGestioneArtefattoF;
 import domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto.MenuGestioneArtefattoM;
 
@@ -11,6 +12,7 @@ import domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto.MenuGestion
 public class MenuGestioneStanzaF {
 
     private static final String TITOLO = "Menu Gestione Stanza Fruitore ";
+    private static final String SOTTOTITOLO = "oggetto: ";
     private static final String[] VOCI = {"Visualizza Descrizione Stanza", "Menu Gestione Artefatto Fruitore" };
     private static final String INDIETRO = "Indietro";
 
@@ -21,6 +23,10 @@ public class MenuGestioneStanzaF {
 
     public static void avvia(String nomeUnitaSuCuiLavorare) {
         String nomeStanza = premenuStanze(nomeUnitaSuCuiLavorare);
+
+        if (nomeStanza == null) return;
+
+        menu.setSottotitolo(SOTTOTITOLO + StringUtil.componiPercorso(nomeUnitaSuCuiLavorare, nomeStanza));
 
         int sceltaMenu = 0;
         do {
@@ -41,8 +47,13 @@ public class MenuGestioneStanzaF {
 
     private static String premenuStanze(String unita){
         String[] nomiStanze = Recuperatore.getNomiStanze(unita);
+
+        //se solo una scelta allora seleziono quella e procedo automaticamente
+        if (nomiStanze.length == 1)
+            return nomiStanze[0];
+
         MyMenu m = new MyMenu(ELENCO_STANZE, nomiStanze);
         int scelta = m.scegli(INDIETRO);
-        return nomiStanze[scelta-1];
+        return scelta == 0 ? null : nomiStanze[scelta-1];
     }
 }
