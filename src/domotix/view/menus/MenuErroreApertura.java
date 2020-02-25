@@ -1,6 +1,6 @@
 package domotix.view.menus;
 
-import domotix.logicUtil.MyMenu;
+import domotix.view.MyMenu;
 
 import java.util.List;
 

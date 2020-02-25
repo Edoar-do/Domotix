@@ -1,6 +1,6 @@
 package domotix.model.bean;
 
-import domotix.logicUtil.StringUtil;
+import domotix.controller.util.StringUtil;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.system.Artefatto;
@@ -8,7 +8,6 @@ import domotix.model.bean.system.Stanza;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class UnitaImmobiliare {
     public static final String NOME_UNITA_DEFAULT = "casa";

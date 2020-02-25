@@ -1,12 +1,9 @@
 package domotix.view.menus.menuUnita.gestioneStanza;
 
-import domotix.controller.Modificatore;
 import domotix.controller.Recuperatore;
-import domotix.logicUtil.InputDati;
-import domotix.logicUtil.MyMenu;
-import domotix.logicUtil.StringUtil;
+import domotix.view.MyMenu;
+import domotix.controller.util.StringUtil;
 import domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto.MenuGestioneArtefattoF;
-import domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto.MenuGestioneArtefattoM;
 
 /** @author Edoardo Coppola*/
 public class MenuGestioneStanzaF {

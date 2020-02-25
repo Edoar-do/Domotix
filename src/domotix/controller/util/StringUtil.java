@@ -1,4 +1,4 @@
-package domotix.logicUtil;
+package domotix.controller.util;
 
 public class StringUtil {
     public static String indent(String s) {

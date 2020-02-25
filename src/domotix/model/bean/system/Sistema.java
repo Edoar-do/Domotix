@@ -1,6 +1,6 @@
 package domotix.model.bean.system;
 
-import domotix.logicUtil.StringUtil;
+import domotix.controller.util.StringUtil;
 import domotix.model.ElencoAttuatori;
 import domotix.model.ElencoSensori;
 import domotix.model.bean.device.*;

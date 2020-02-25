@@ -2,14 +2,8 @@ package domotix.view.menus.menuCategorie.attuatori;
 
 import domotix.controller.Modificatore;
 import domotix.controller.Recuperatore;
-import domotix.controller.Verificatore;
-import domotix.logicUtil.InputDati;
-import domotix.logicUtil.MyMenu;
-import domotix.model.bean.device.CategoriaAttuatore;
-import domotix.model.bean.device.Modalita;
-
-import java.util.ArrayList;
-import java.util.List;
+import domotix.view.InputDati;
+import domotix.view.MyMenu;
 
 /** @author Edoardo Coppola*/
 public class MenuCategorieAttuatoriM {

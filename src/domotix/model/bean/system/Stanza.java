@@ -1,9 +1,8 @@
 package domotix.model.bean.system;
 
 
-import domotix.logicUtil.StringUtil;
+import domotix.controller.util.StringUtil;
 import domotix.model.bean.device.Dispositivo;
-import domotix.model.bean.device.Sensore;
 import domotix.model.util.ObserverList;
 
 import java.util.HashMap;

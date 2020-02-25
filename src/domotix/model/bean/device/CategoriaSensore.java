@@ -1,6 +1,6 @@
 package domotix.model.bean.device;
 
-import domotix.logicUtil.StringUtil;
+import domotix.controller.util.StringUtil;
 
 /** @author Edoardo Coppola */
 public class CategoriaSensore {

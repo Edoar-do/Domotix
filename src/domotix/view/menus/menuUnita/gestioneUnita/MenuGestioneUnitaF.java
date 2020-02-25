@@ -2,8 +2,8 @@ package domotix.view.menus.menuUnita.gestioneUnita;
 
 
 import domotix.controller.Recuperatore;
-import domotix.logicUtil.MyMenu;
-import domotix.logicUtil.StringUtil;
+import domotix.view.MyMenu;
+import domotix.controller.util.StringUtil;
 
 
 /** @author Edoardo Coppola*/

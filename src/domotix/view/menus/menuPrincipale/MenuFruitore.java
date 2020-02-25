@@ -1,6 +1,6 @@
 package domotix.view.menus.menuPrincipale;
 
-import domotix.logicUtil.MyMenu;
+import domotix.view.MyMenu;
 import domotix.view.menus.menuCategorie.MenuCategorieF;
 import domotix.view.menus.menuUnita.MenuUnitaF;
 

@@ -1,21 +1,14 @@
 package domotix.controller;
 
-import domotix.logicUtil.MyMenu;
 import domotix.model.ElencoCategorieAttuatori;
 import domotix.model.ElencoCategorieSensori;
 import domotix.model.ElencoUnitaImmobiliari;
 import domotix.model.bean.UnitaImmobiliare;
-import domotix.model.bean.device.CategoriaAttuatore;
-import domotix.model.bean.device.CategoriaSensore;
 import domotix.model.gestioneerrori.LogErrori;
 import domotix.model.gestioneerrori.StoreIstanzeErrori;
 import domotix.model.io.LetturaDatiSalvati;
-import domotix.model.io.RimozioneDatiSalvati;
-import domotix.model.io.ScritturaDatiSalvati;
 import domotix.view.menus.MenuErroreApertura;
 
-import java.io.InputStream;
-import java.io.PrintStream;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 

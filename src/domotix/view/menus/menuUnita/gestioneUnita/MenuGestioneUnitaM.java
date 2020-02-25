@@ -2,12 +2,10 @@ package domotix.view.menus.menuUnita.gestioneUnita;
 
 import domotix.controller.Modificatore;
 import domotix.controller.Recuperatore;
-import domotix.controller.Verificatore;
-import domotix.logicUtil.InputDati;
-import domotix.logicUtil.MyMenu;
+import domotix.view.InputDati;
+import domotix.view.MyMenu;
 
-import domotix.logicUtil.StringUtil;
-import domotix.model.bean.system.Stanza;
+import domotix.controller.util.StringUtil;
 
 /** @author Edoardo Coppola*/
 public class MenuGestioneUnitaM {

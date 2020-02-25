@@ -1,6 +1,6 @@
 package domotix.view.menus.menuCategorie;
 
-import domotix.logicUtil.MyMenu;
+import domotix.view.MyMenu;
 import domotix.view.menus.menuCategorie.attuatori.MenuCategorieAttuatoriM;
 import domotix.view.menus.menuCategorie.sensori.MenuCategorieSensoriM;
 

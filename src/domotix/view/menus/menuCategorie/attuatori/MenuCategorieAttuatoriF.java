@@ -3,7 +3,7 @@ package domotix.view.menus.menuCategorie.attuatori;
 
 import domotix.controller.Recuperatore;
 
-import domotix.logicUtil.MyMenu;
+import domotix.view.MyMenu;
 
 /** @author Edoardo Coppola*/
 public class MenuCategorieAttuatoriF {

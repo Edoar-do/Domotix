@@ -1,8 +1,4 @@
-package domotix.logicUtil;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintStream;
+package domotix.view;
 
 /*
 Questa classe rappresenta un menu testuale generico a piu' voci

@@ -2,7 +2,7 @@ package domotix.view.menus.menuCategorie.sensori;
 
 
 import domotix.controller.Recuperatore;
-import domotix.logicUtil.MyMenu;
+import domotix.view.MyMenu;
 
 /** @author Edoardo Coppola*/
 public class MenuCategorieSensoriF {

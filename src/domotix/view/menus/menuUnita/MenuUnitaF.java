@@ -1,8 +1,8 @@
 package domotix.view.menus.menuUnita;
 
 import domotix.controller.Recuperatore;
-import domotix.logicUtil.MyMenu;
-import domotix.logicUtil.StringUtil;
+import domotix.view.MyMenu;
+import domotix.controller.util.StringUtil;
 import domotix.view.menus.menuUnita.gestioneStanza.MenuGestioneStanzaF;
 import domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaF;
 

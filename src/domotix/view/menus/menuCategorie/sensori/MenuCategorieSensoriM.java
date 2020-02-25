@@ -2,11 +2,8 @@ package domotix.view.menus.menuCategorie.sensori;
 
 import domotix.controller.Modificatore;
 import domotix.controller.Recuperatore;
-import domotix.controller.Verificatore;
-import domotix.logicUtil.InputDati;
-import domotix.logicUtil.MyMenu;
-
-import domotix.model.bean.device.CategoriaSensore;
+import domotix.view.InputDati;
+import domotix.view.MyMenu;
 
 
 /** @author Edoardo Coppola*/

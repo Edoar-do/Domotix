@@ -1,4 +1,4 @@
-package domotix.logicUtil;
+package domotix.view;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.*;
