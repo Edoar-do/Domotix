@@ -12,7 +12,8 @@ import domotix.model.bean.system.Stanza;
 
 import java.util.stream.Stream;
 
-/**@author andrea*/
+/**Classe per implementare una parte di logica controller relativa al recupero di informazioni sulle entita'.
+ * @author andrea*/
 public class Recuperatore {
     static UnitaImmobiliare getUnita(String nomeUnita) {
         UnitaImmobiliare unita = ElencoUnitaImmobiliari.getInstance().getUnita(nomeUnita);

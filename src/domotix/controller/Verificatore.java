@@ -7,7 +7,8 @@ import domotix.model.bean.device.Sensore;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
-/**@author andrea*/
+/**Classe per implementare una parte di logica controller relativa alla verifica della validita' dei dati che dovranno essere aggiunti al model.
+ * @author andrea*/
 public class Verificatore {
     private static final String REGEX_NOMI = "[A-Za-z][A-Za-z0-9]*";
     private static final String REGEX_NOMI_DISPOSITIVI = REGEX_NOMI + "_" + REGEX_NOMI;
