@@ -36,7 +36,7 @@ public class InputDati
 	  public static String leggiStringa (String messaggio)
 	  {
 		  out.print(messaggio);
-		  return lettore.next();
+		  return lettore.nextLine();
 	  }
 	  
 	  public static String leggiStringaNonVuota(String messaggio)
@@ -103,7 +103,7 @@ public class InputDati
 	     out.print(messaggio);
 	     try
 	      {
-	       valoreLetto = lettore.nextInt();
+	       valoreLetto = Integer.parseInt(lettore.nextLine());
 	       finito = true;
 	      }
 	     catch (InputMismatchException e)
