@@ -7,6 +7,8 @@ e sia presentata in testa al menu
 
 */
 
+import domotix.controller.util.StringUtil;
+
 /** @author Edoardo Coppola*/
 public class MyMenu
 {
@@ -42,7 +44,7 @@ public class MyMenu
     }
 
     private void impostaCornice() {
-        cornice = CORNICE_CHAR.repeat(Math.max(titolo.length(), componiSottotitolo().length()) + 1);
+        cornice = StringUtil.repeat(CORNICE_CHAR, Math.max(titolo.length(), componiSottotitolo().length()) + 1);
     }
 
     private String componiSottotitolo() {
