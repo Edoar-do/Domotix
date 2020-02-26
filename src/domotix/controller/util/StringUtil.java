@@ -38,7 +38,7 @@ public class StringUtil {
         if (n <= 0 || s == null || s.equals("")) return "";
 
         String ns = "";
-        for (int i = 0; i < n - 1; i++)
+        for (int i = 0; i < n; i++)
             ns += s;
 
         return ns;
