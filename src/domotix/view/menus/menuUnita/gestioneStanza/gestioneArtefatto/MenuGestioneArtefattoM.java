@@ -46,6 +46,20 @@ public class MenuGestioneArtefattoM {
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
+    /**
+     * Presenta all'utente manutentore un menu che offre la possibilità di visualizzare la descrizione di un artefatto all'interno della stanza scelta al
+     * menu precedente e il cui nome è passato come parametro, di aggiungere/rimuovere un sensore da un artefatto oppure di aggiungere/rimuovere un attuatore
+     * da un artefatto. Il menu consente anche di tornare indietro e chiudere il menu stesso.
+     * Tale operazioni sono effettuabili solo dopo che l'utente manutentore ha scelto su quale artefatto operare. La scelta è pilota tramite un menu le cui voci
+     * sono i nomi degli artefatti all'interno della stanza fissata precedentemente
+     * L'aggiunta di sensori all'artefatto passa per la scelta di aggiungerne uno totalmente nuovo o di collegarne uno esistente, realizzando una condivisione
+     * di sensori fra più artefatti
+     * Vale lo stesso per l'aggiunta di attuatori all'artefatto
+     * La rimozione di un sensore da un attuatore passa dalla scelta da parte dell'utente manutentore di quale sensore rimuovere
+     * Vale lo stesso per la rimozione di attuatori
+     * @param nomeUnitaSuCuiLavorare
+     * @param nomeStanza
+     */
     public static void avvia(String nomeUnitaSuCuiLavorare, String nomeStanza) {
 
         String nomeDispositivoDaAggiungere, nomeDispositivoDaRimuovere, categoriaDispositivo;

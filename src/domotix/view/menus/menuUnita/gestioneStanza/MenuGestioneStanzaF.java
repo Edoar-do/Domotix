@@ -18,6 +18,13 @@ public class MenuGestioneStanzaF {
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
+    /**
+     * Presenta all'utente fruitore un menu che offre la possibilità di visualizzare la descrzione di una stanza interna all'unità (passata come parametro),
+     * aprire un menu per la gestione degli artefatti all'interno di una stanza oppure di tornare indietro e chiudere questo menu
+     * Tali operazioni sono effettuabili solo dopo che l'utente fruitore ha scelto su quale stanza operare da un menu le cui voci sono le stanze presenti
+     * nell'unità
+     * @param nomeUnitaSuCuiLavorare è il nome dell'unità dalla quale scegliere la stanza su cui lavorare
+     */
     public static void avvia(String nomeUnitaSuCuiLavorare) {
         String nomeStanza = premenuStanze(nomeUnitaSuCuiLavorare);
 

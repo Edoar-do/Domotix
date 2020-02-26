@@ -23,6 +23,11 @@ public class MenuCategorieSensoriM {
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
+    /**
+     * Presenta all'utente manutentore un menu che offre la possibilità di scegliere se aggiungere una nuova categoria di sensori, rimuoverne una da quelle
+     * esistenti (se ne esiste almeno una), di visualizzare le descrizioni di tutte le categorie di sensori esistenti oppure di tornare indietro e chiudere
+     * questo menu
+     */
     public static void avvia(){
 
         int sceltaMenu = 0;

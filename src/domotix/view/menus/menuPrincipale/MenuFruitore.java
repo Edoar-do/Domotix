@@ -12,6 +12,10 @@ public class MenuFruitore {
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
+    /**
+     * Presenta all'utente fruitore un menu che offre la possibilità di aprire un menu per fruitori per la gestione delle categorie di sensori ed
+     * attuatori oppure di aprire un menu per fruitori per la gestione dell'unità immobiliare oppure di tornare indietro e chiudere questo menu
+     */
     public static void avvia(){
 
         int sceltaMenu = 0;

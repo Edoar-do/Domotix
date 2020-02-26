@@ -12,6 +12,10 @@ public class MenuManutentore {
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
+    /**
+     * Presenta all'utente manutentore un menu che offre la possibilità di aprire un menu per menutentori per la gestione delle categorie di
+     * sensori e attuatori oppure di aprire un menu per la gestione dell'unità immobiliare oppure di tornare indietro e chiudere questo menu
+     */
     public static void avvia(){
 
         int sceltaMenu = 0;

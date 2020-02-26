@@ -55,6 +55,21 @@ public class MenuGestioneStanzaM {
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
+    /**
+     * Presenta all'utente manutentore un menu che offre la possibilità di visualizzare la descrizione di una stanza all'interno dell'unità (specificata tramite paramentro),
+     * aggiungere/rimuovere un sensore ad una stanza, aggiungere/rimuovere un attuatore ad una stanza, aggiungere/rimuovere un artefatto ad una stanza
+     * oppure di tornare indietro e chiudere questo menu.
+     * Tali operazioni vengono svolte dopo l'utente manutentore ha scelto su quale stanza, all'interno dell'unità, andare a lavorare. Tale scelta avviene
+     * attraverso un menu le cui voci sono le stanze presenti
+     * L'aggiunta di un sensore alla stanza scelta comporta prima la decisione di agguingerne uno completamente nuovo oppure collegarne uno già esistente
+     * mettendo quindi tale sensore in condivisione fra più stanze
+     * Vale lo stesso per l'aggiunta degli attuatori
+     * La rimozione dei sensori comporta prima la scelta di quale sensore rimuovere dalla stanza
+     * Vale lo stesso per gli attuatori
+     * Lo stesso ragionamento si applica alla rimozione di un artefatto dalla stanza (va prima specificato quale)
+     * L'aggiunta di un artefatto è invece normale e richiede solo le informazioni necessarie alla sua creazione
+     * @param nomeUnitaSuCuiLavorare è il nome dell'unità immobiliare dal quale scegliere la stanza su cui lavorare
+     */
     public static void avvia(String nomeUnitaSuCuiLavorare) {
 
         String nomeDispositivoDaAggiungere, nomeDispositivoDaRimuovere, categoriaDispositivo;

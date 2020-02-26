@@ -13,6 +13,10 @@ public class MenuCategorieSensoriF {
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
+    /**
+     * Presenta all'utente fruitore un menu che consente di visualizzare tutte le categorie di sensori presenti oppure di
+     * tornare indietro e chiuedere questo menu
+     */
     public static void avvia(){
 
         int sceltaMenu = 0;

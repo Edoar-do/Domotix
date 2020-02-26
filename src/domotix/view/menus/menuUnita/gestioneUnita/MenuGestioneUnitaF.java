@@ -15,6 +15,11 @@ public class MenuGestioneUnitaF {
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
+    /**
+     * Presenta all'utente fruitore un menu che offre la possibilità di visualizzare una descrizione dell'unità immobiliare
+     * Consente anche di tornare indietro e chiudere questo menu
+     * @param nomeUnitaSuCuiLavorare è il nome dell'unità immobiliare scelta nel menu precedente e su cui operare
+     */
     public static void avvia(String nomeUnitaSuCuiLavorare){
         menu.setSottotitolo(SOTTOTITOLO + StringUtil.componiPercorso(nomeUnitaSuCuiLavorare));
 

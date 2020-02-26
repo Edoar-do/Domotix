@@ -16,6 +16,14 @@ public class MenuGestioneArtefattoF {
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
+    /**
+     * Presenta all'utente fruitore un menu che offre la possibilità di scegliere di visualizzare la descrizione di un artefatto oppure di tornare indietro
+     * e chiudere questo menu. Entrambe le operazioni sono effettuabili solo dopo che si è scelto su quale artefatto lavorare all'interno della stanza scelta
+     * al menu precedente e il cui nome è passato come parametro. La scelta dell'artefatto avviene attraverso un menu le cui voci sono i nomi degli artefatti
+     * presenti nella stanza.
+     * @param nomeUnitaSuCuiLavorare è il nome dell'unità entro cui si trova la stanza scelta al menu precedente
+     * @param nomeStanza è il nome della stanza all'interno della quale si trova l'artefatto su cui lavoriamo
+     */
     public static void avvia(String nomeUnitaSuCuiLavorare, String nomeStanza) {
 
         String nomeArtefatto = premenuArtefatto(nomeUnitaSuCuiLavorare, nomeStanza);
