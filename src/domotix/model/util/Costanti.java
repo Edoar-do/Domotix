@@ -12,6 +12,9 @@ import java.io.File;
 public final class Costanti {
     private Costanti() {}
 
+    /*
+    Costanti utilizzate per la costruzione dei percorsi in cui trovare i dati locali del programma
+     */
     public static final String PERCORSO_RADICE_UTENTE = System.getProperty("user.home");
     public static final String PERCORSO_CARTELLA_APP = PERCORSO_RADICE_UTENTE + File.separator + ".DOMOTIX";
     public static final String PERCORSO_CARTELLA_DATI = PERCORSO_CARTELLA_APP + File.separator + "dati";
@@ -27,6 +30,9 @@ public final class Costanti {
     public static final String PERCORSO_CARTELLA_SENSORI = PERCORSO_CARTELLA_DATI + File.separator + "sensori";
     public static final String PERCORSO_CARTELLA_ATTUATORI = PERCORSO_CARTELLA_DATI + File.separator + "attuatori";
 
+    /*
+    Costanti utilizzate dai lettori e scrittori XML per il salvataggio e lettura dei dati locali
+     */
     public static final String NODO_XML_CATEGORIA_SENSORE = "categoria_sensore";
     public static final String NODO_XML_CATEGORIA_SENSORE_NOME = "nome";
     public static final String NODO_XML_CATEGORIA_SENSORE_TESTOLIBERO = "testolibero";

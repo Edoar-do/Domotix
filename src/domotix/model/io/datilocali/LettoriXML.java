@@ -15,12 +15,95 @@ import javax.xml.transform.TransformerConfigurationException;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 
+/**
+ * Enum contenente i lettori XML per i file salvati localmente
+ *
+ * @author paolopasqua
+ * @see LetturaDatiLocali
+ */
 public enum LettoriXML {
     /**
      * Entita' Attuatore
      * @see Attuatore
      */
-    ATTUATORE(el -> {
+    ATTUATORE(LettoriXML::leggiAttuatore),
+    /**
+     * Entita' Sensore
+     * @see Sensore
+     */
+    SENSORE(LettoriXML::leggiSensore),
+    /**
+     * Entita' Artefatto
+     * @see Artefatto
+     */
+    ARTEFATTO(LettoriXML::leggiArtefatto),
+    /**
+     * Entita' Stanza
+     * @see Stanza
+     */
+    STANZA(LettoriXML::leggiStanza),
+    /**
+     * Entita' UnitaImmobiliare
+     * @see UnitaImmobiliare
+     */
+    UNITA_IMMOB(LettoriXML::leggiUnitaImmobiliare),
+    /**
+     * Entita' Modalita
+     * @see Modalita
+     */
+    MODALITA(LettoriXML::leggiModalita),
+    /**
+     * Entita' CategoriaAttuatore
+     * @see CategoriaAttuatore
+     */
+    CATEGORIA_ATTUATORE(LettoriXML::leggiCategoriaAttuatore),
+    /**
+     * Entita' CategoriaSensore
+     * @see CategoriaSensore
+     */
+    CATEGORIA_SENSORE(LettoriXML::leggiCategoriaSensore);
+
+
+
+    private interface IstanziatoreXML {
+        /**
+         * Ritorna l'istanza ottenuta dai dati contenuti nell'elemento, se quest'ultimo rispetta la struttura designata.
+         * Assicurarsi di leggere il documento XML corretto per l'istanziatore utilizzato.
+         *
+         * @param el   elemento XML contenente i dati necessari all'istanziazione
+         * @return  Istanza dell'elemento
+         * @throws IOException  Eccezione scatenata dall'eventuale lettura di altri file XML collegati all'elemento.
+         * @throws ParserConfigurationException Eccezione scatenata dall'eventuale lettura di altri file XML collegati all'elemento.
+         * @throws TransformerConfigurationException    Eccezione scatenata dall'eventuale lettura di altri file XML collegati all'elemento.
+         * @throws SAXException Eccezione scatenata dall'eventuale lettura di altri file XML collegati all'elemento.
+         */
+        Object getInstance(Element el) throws Exception;
+    }
+
+    private IstanziatoreXML istanziatore;
+
+    private LettoriXML(IstanziatoreXML istanziatore) {
+        this.istanziatore = istanziatore;
+    }
+
+    /**
+     * Ritorna l'istanza ottenuta dai dati contenuti nel documento, se quest'ultimo rispetta la struttura designata.
+     * Assicurarsi di leggere il documento XML corretto per l'istanziatore utilizzato.
+     *
+     * @param el   documento XML contenente i dati necessari all'istanziazione
+     * @return  Istanza dell'elemento
+     * @throws NullPointerException Eccezione scatenata dal passaggio di un riferimento a null per il documento.
+     * @throws Exception Eccezione scatenata dall'accesso ai contenuti dati salvati tramite AccessoDatiSalvati
+     * @see LetturaDatiSalvati
+     */
+    public Object getInstance(Element el) throws Exception {
+        if (el == null)
+            throw new NullPointerException(this.getClass().getName() + ": elemento passato non puo' essere null");
+        return istanziatore.getInstance(el);
+    }
+
+    /** Metodo per lettore: ATTUATORE **/
+    private static Object leggiAttuatore(Element el) throws Exception {
         //controllo tag elemento
         if (el.getTagName().equals(Costanti.NODO_XML_ATTUATORE)) {
             String nome;
@@ -80,13 +163,10 @@ public enum LettoriXML {
         }
         else
             throw new NoSuchElementException("LettoriXML.ATTUATORE.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_ATTUATORE);
+    }
 
-    }),
-    /**
-     * Entita' Sensore
-     * @see Sensore
-     */
-    SENSORE(el -> {
+    /** Metodo per lettore: SENSORE **/
+    private static Object leggiSensore(Element el) throws Exception {
         //controllo tag elemento
         if (el.getTagName().equals(Costanti.NODO_XML_SENSORE)) {
             String nome;
@@ -135,13 +215,10 @@ public enum LettoriXML {
         }
         else
             throw new NoSuchElementException("LettoriXML.SENSORE.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_SENSORE);
+    }
 
-    }),
-    /**
-     * Entita' Artefatto
-     * @see Artefatto
-     */
-    ARTEFATTO(el -> {
+    /** Metodo per lettore: ARTEFATTO **/
+    private static Object leggiArtefatto(Element el) throws Exception {
         //controllo tag elemento
         if (el.getTagName().equals(Costanti.NODO_XML_ARTEFATTO)) {
             String nome;
@@ -209,14 +286,11 @@ public enum LettoriXML {
         }
         else
             throw new NoSuchElementException("LettoriXML.ARTEFATTO.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_ARTEFATTO);
+    }
 
-    }),
-    /**
-     * Entita' Stanza
-     * @see Stanza
-     */
-    STANZA(el -> {
-        //controllo tag elemento
+    /** Metodo per lettore: STANZA **/
+    private static Object leggiStanza(Element el) throws Exception {
+//controllo tag elemento
         if (el.getTagName().equals(Costanti.NODO_XML_STANZA)) {
             String nome;
             String unitImmob;
@@ -293,13 +367,10 @@ public enum LettoriXML {
         }
         else
             throw new NoSuchElementException("LettoriXML.STANZA.getInstance():  elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_STANZA);
+    }
 
-    }),
-    /**
-     * Entita' UnitaImmobiliare
-     * @see UnitaImmobiliare
-     */
-    UNITA_IMMOB(el -> {
+    /** Metodo per lettore: UNITA_IMMOB **/
+    private static Object leggiUnitaImmobiliare(Element el) throws Exception {
         //controllo tag elemento
         if (el.getTagName().equals(Costanti.NODO_XML_UNITA_IMMOB)) {
             String nome;
@@ -331,13 +402,10 @@ public enum LettoriXML {
         }
         else
             throw new NoSuchElementException("LettoriXML.UNITA_IMMOB.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_UNITA_IMMOB);
+    }
 
-    }),
-    /**
-     * Entita' Modalita
-     * @see Modalita
-     */
-    MODALITA(el -> {
+    /** Metodo per lettore: MODALITA **/
+    private static Object leggiModalita(Element el) throws Exception {
         //controllo tag elemento
         if (el.getTagName().equals(Costanti.NODO_XML_MODALITA)) {
             String nome;
@@ -353,13 +421,10 @@ public enum LettoriXML {
         }
         else
             throw new NoSuchElementException("LettoriXML.MODALITA.getInstance():  elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_MODALITA);
+    }
 
-    }),
-    /**
-     * Entita' CategoriaAttuatore
-     * @see CategoriaAttuatore
-     */
-    CATEGORIA_ATTUATORE(el -> {
+    /** Metodo per lettore: CATEGORIA_ATTUATORE **/
+    private static Object leggiCategoriaAttuatore(Element el) throws Exception {
         //controllo tag elemento
         if (el.getTagName().equals(Costanti.NODO_XML_CATEGORIA_ATTUATORE)) {
             String nome;
@@ -395,13 +460,10 @@ public enum LettoriXML {
         }
         else
             throw new NoSuchElementException("LettoriXML.CATEGORIA_ATTUATORE.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_CATEGORIA_ATTUATORE);
+    }
 
-    }),
-    /**
-     * Entita' CategoriaSensore
-     * @see CategoriaSensore
-     */
-    CATEGORIA_SENSORE(el -> {
+    /** Metodo per lettore: CATEGORIA_SENSORE **/
+    private static Object leggiCategoriaSensore(Element el) throws Exception {
         //controllo tag elemento
         if (el.getTagName().equals(Costanti.NODO_XML_CATEGORIA_SENSORE)) {
             String nome;
@@ -432,43 +494,5 @@ public enum LettoriXML {
         }
         else
             throw new NoSuchElementException("LettoriXML.CATEGORIA_SENSORE.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_CATEGORIA_SENSORE);
-
-    });
-
-    private interface IstanziatoreXML {
-        /**
-         * Ritorna l'istanza ottenuta dai dati contenuti nell'elemento, se quest'ultimo rispetta la struttura designata.
-         * Assicurarsi di leggere il documento XML corretto per l'istanziatore utilizzato.
-         *
-         * @param el   elemento XML contenente i dati necessari all'istanziazione
-         * @return  Istanza dell'elemento
-         * @throws IOException  Eccezione scatenata dall'eventuale lettura di altri file XML collegati all'elemento.
-         * @throws ParserConfigurationException Eccezione scatenata dall'eventuale lettura di altri file XML collegati all'elemento.
-         * @throws TransformerConfigurationException    Eccezione scatenata dall'eventuale lettura di altri file XML collegati all'elemento.
-         * @throws SAXException Eccezione scatenata dall'eventuale lettura di altri file XML collegati all'elemento.
-         */
-        Object getInstance(Element el) throws Exception;
-    }
-
-    private IstanziatoreXML istanziatore;
-
-    private LettoriXML(IstanziatoreXML istanziatore) {
-        this.istanziatore = istanziatore;
-    }
-
-    /**
-     * Ritorna l'istanza ottenuta dai dati contenuti nel documento, se quest'ultimo rispetta la struttura designata.
-     * Assicurarsi di leggere il documento XML corretto per l'istanziatore utilizzato.
-     *
-     * @param el   documento XML contenente i dati necessari all'istanziazione
-     * @return  Istanza dell'elemento
-     * @throws NullPointerException Eccezione scatenata dal passaggio di un riferimento a null per il documento.
-     * @throws Exception Eccezione scatenata dall'accesso ai contenuti dati salvati tramite AccessoDatiSalvati
-     * @see LetturaDatiSalvati
-     */
-    public Object getInstance(Element el) throws Exception {
-        if (el == null)
-            throw new NullPointerException(this.getClass().getName() + ": elemento passato non puo' essere null");
-        return istanziatore.getInstance(el);
     }
 }

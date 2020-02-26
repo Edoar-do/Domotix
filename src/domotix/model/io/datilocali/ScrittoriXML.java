@@ -24,7 +24,82 @@ public enum ScrittoriXML {
      * Entita' Attuatore
      * @see Attuatore
      */
-    ATTUATORE((obj, doc) -> {
+    ATTUATORE(ScrittoriXML::compilaAttuatore),
+    /**
+     * Entita' Sensore
+     * @see Sensore
+     */
+    SENSORE(ScrittoriXML::compilaSensore),
+    /**
+     * Entita' Artefatto
+     * @see Artefatto
+     */
+    ARTEFATTO(ScrittoriXML::compilaArtefatto),
+    /**
+     * Entita' Stanza
+     * @see Stanza
+     */
+    STANZA(ScrittoriXML::compilaStanza),
+    /**
+     * Entita' UnitaImmobiliare
+     * @see UnitaImmobiliare
+     */
+    UNITA_IMMOB(ScrittoriXML::compilaUnitaImmobiliare),
+    /**
+     * Entita' Modalita
+     * @see Modalita
+     */
+    MODALITA(ScrittoriXML::compilaModalita),
+    /**
+     * Entita' CategoriaAttuatore
+     * @see CategoriaAttuatore
+     */
+    CATEGORIA_ATTUATORE(ScrittoriXML::compilaCategoriaAttuatore),
+    /**
+     * Entita' CategoriaSensore
+     * @see CategoriaSensore
+     */
+    CATEGORIA_SENSORE(ScrittoriXML::compilaCategoriaSensore);
+
+
+
+    private interface CompilatoreXML<T> {
+        /**
+         * Ritorna l'elemento base contenente tutti i valori dell'istanza passata codificati in una struttura XML.
+         * Il documento XML passato come parametro deve essere utilizzato solo come generatore di elementi. Sara' compito
+         * dell'utilizzatore di questo metodo appendere l'elemento generato al documento come necessita.
+         *
+         * @param obj   istanza di cui eseguire la codifica
+         * @param doc   istanza del documento con cui generare gli elementi
+         * @return  Elemento base contenente tutti i valori dell'istanza passata. In caso di errori sul tipo di istanza viene lanciata eccezione.
+         * @throws IllegalArgumentException Eccezione lanciata in caso l'istanza indicata non appartenga ad un tipo gestito dal compilatore.
+         */
+        Element compileInstance(T obj, Document doc) throws IllegalArgumentException, IOException, ParserConfigurationException, TransformerException;
+    }
+    private CompilatoreXML compilatore;
+
+    private ScrittoriXML(CompilatoreXML compilatore) {
+        this.compilatore = compilatore;
+    }
+
+    /**
+     * Aggiunge in coda al documento passato l'elemento base contenente tutti i valori dell'istanza passata, codificati in una struttura XML.
+     *
+     * @param obj   istanza di cui eseguire la codifica
+     * @param doc   istanza del documento cui appendere i dati codificati
+     * @throws NullPointerException Eccezione scatenata dal passaggio di un riferimento a null per il documento o per l'oggetto da codificare.
+     * @throws IllegalArgumentException Eccezione lanciata in caso l'istanza indicata non appartenga ad un tipo gestito dal compilatore.
+     */
+    public void appendiDocumento(Object obj, Document doc) throws NullPointerException, IllegalArgumentException, IOException, TransformerException, ParserConfigurationException {
+        if (obj == null)
+            throw new NullPointerException(this.getClass().getName() + ": Object non puo' essere null");
+        if (doc == null)
+            throw new NullPointerException(this.getClass().getName() + ": Document non puo' essere null");
+        doc.appendChild(compilatore.compileInstance(obj, doc));
+    }
+
+    /** Metodo per scrittore: ATTUATORE **/
+    private static Element compilaAttuatore(Object obj, Document doc) {
         if (obj instanceof Attuatore) {
             Attuatore attuatore = (Attuatore) obj;
 
@@ -52,12 +127,10 @@ public enum ScrittoriXML {
             return root;
         } else
             throw new IllegalArgumentException("ScrittoriXML.ATTUATORE.compileInstance(): impossibile compilare oggetto non Attuatore");
-    }),
-    /**
-     * Entita' Sensore
-     * @see Sensore
-     */
-    SENSORE((obj, doc) -> {
+    }
+
+    /** Metodo per scrittore: SENSORE **/
+    private static Element compilaSensore(Object obj, Document doc) {
         if (obj instanceof Sensore) {
             Sensore sensore = (Sensore) obj;
 
@@ -85,12 +158,10 @@ public enum ScrittoriXML {
             return root;
         } else
             throw new IllegalArgumentException("ScrittoriXML.SENSORE.compileInstance(): impossibile compilare oggetto non Sensore");
-    }),
-    /**
-     * Entita' Artefatto
-     * @see Artefatto
-     */
-    ARTEFATTO((obj, doc) -> {
+    }
+
+    /** Metodo per scrittore: ARTEFATTO **/
+    private static Element compilaArtefatto(Object obj, Document doc) {
         if (obj instanceof Artefatto) {
             Artefatto artefatto = (Artefatto) obj;
 
@@ -124,12 +195,10 @@ public enum ScrittoriXML {
             return root;
         } else
             throw new IllegalArgumentException("ScrittoriXML.ARTEFATTO.compileInstance(): impossibile compilare oggetto non Artefatto");
-    }),
-    /**
-     * Entita' Stanza
-     * @see Stanza
-     */
-    STANZA((obj, doc) -> {
+    }
+
+    /** Metodo per scrittore: Stanza **/
+    private static Element compilaStanza(Object obj, Document doc) {
         if (obj instanceof Stanza) {
             Stanza stanza = (Stanza) obj;
 
@@ -169,12 +238,10 @@ public enum ScrittoriXML {
             return root;
         } else
             throw new IllegalArgumentException("ScrittoriXML.STANZA.compileInstance(): impossibile compilare oggetto non Stanza");
-    }),
-    /**
-     * Entita' UnitaImmobiliare
-     * @see UnitaImmobiliare
-     */
-    UNITA_IMMOB((obj, doc) -> {
+    }
+
+    /** Metodo per scrittore: UNITA_IMMOB **/
+    private static Element compilaUnitaImmobiliare(Object obj, Document doc) {
         if (obj instanceof UnitaImmobiliare) {
             UnitaImmobiliare unitaImmobiliare = (UnitaImmobiliare) obj;
 
@@ -209,12 +276,10 @@ public enum ScrittoriXML {
             return root;
         } else
             throw new IllegalArgumentException("ScrittoriXML.UNITA_IMMOB.compileInstance(): impossibile compilare oggetto non UnitaImmobiliare");
-    }),
-    /**
-     * Entita' Modalita
-     * @see Modalita
-     */
-    MODALITA((obj, doc) -> {
+    }
+
+    /** Metodo per scrittore: MODALITA **/
+    private static Element compilaModalita(Object obj, Document doc) {
         if (obj instanceof Modalita) {
             Modalita modalita = (Modalita)obj;
 
@@ -229,12 +294,10 @@ public enum ScrittoriXML {
             return root;
         } else
             throw new IllegalArgumentException("ScrittoriXML.MODALITA.compileInstance(): impossibile compilare oggetto non Modalita");
-    }),
-    /**
-     * Entita' CategoriaAttuatore
-     * @see CategoriaAttuatore
-     */
-    CATEGORIA_ATTUATORE((obj, doc) -> {
+    }
+
+    /** Metodo per scrittore: CATEGORIA_ATTUATORE **/
+    private static Element compilaCategoriaAttuatore(Object obj, Document doc) {
         if (obj instanceof CategoriaAttuatore) {
             CategoriaAttuatore cat = (CategoriaAttuatore)obj;
 
@@ -260,12 +323,10 @@ public enum ScrittoriXML {
             return root;
         } else
             throw new IllegalArgumentException("ScrittoriXML.CATEGORIA_ATTUATORE.compileInstance(): impossibile compilare oggetto non CategoriaAttuatore");
-    }),
-    /**
-     * Entita' CategoriaSensore
-     * @see CategoriaSensore
-     */
-    CATEGORIA_SENSORE((obj, doc) -> {
+    }
+
+    /** Metodo per scrittore: CATEGORIA_SENSORE **/
+    private static Element compilaCategoriaSensore(Object obj, Document doc) {
         if (obj instanceof CategoriaSensore) {
             CategoriaSensore cat = (CategoriaSensore)obj;
 
@@ -289,40 +350,6 @@ public enum ScrittoriXML {
             return root;
         } else
             throw new IllegalArgumentException("ScrittoriXML.CATEGORIA_SENSORE.compileInstance(): impossibile compilare oggetto non CategoriaSensore");
-    });
-
-    private interface CompilatoreXML<T> {
-        /**
-         * Ritorna l'elemento base contenente tutti i valori dell'istanza passata codificati in una struttura XML.
-         * Il documento XML passato come parametro deve essere utilizzato solo come generatore di elementi. Sara' compito
-         * dell'utilizzatore di questo metodo appendere l'elemento generato al documento come necessita.
-         *
-         * @param obj   istanza di cui eseguire la codifica
-         * @param doc   istanza del documento con cui generare gli elementi
-         * @return  Elemento base contenente tutti i valori dell'istanza passata. In caso di errori sul tipo di istanza viene lanciata eccezione.
-         * @throws IllegalArgumentException Eccezione lanciata in caso l'istanza indicata non appartenga ad un tipo gestito dal compilatore.
-         */
-        Element compileInstance(T obj, Document doc) throws IllegalArgumentException, IOException, ParserConfigurationException, TransformerException;
-    }
-    private CompilatoreXML compilatore;
-
-    private ScrittoriXML(CompilatoreXML compilatore) {
-        this.compilatore = compilatore;
     }
 
-    /**
-     * Aggiunge in coda al documento passato l'elemento base contenente tutti i valori dell'istanza passata, codificati in una struttura XML.
-     *
-     * @param obj   istanza di cui eseguire la codifica
-     * @param doc   istanza del documento cui appendere i dati codificati
-     * @throws NullPointerException Eccezione scatenata dal passaggio di un riferimento a null per il documento o per l'oggetto da codificare.
-     * @throws IllegalArgumentException Eccezione lanciata in caso l'istanza indicata non appartenga ad un tipo gestito dal compilatore.
-     */
-    public void appendiDocumento(Object obj, Document doc) throws NullPointerException, IllegalArgumentException, IOException, TransformerException, ParserConfigurationException {
-        if (obj == null)
-            throw new NullPointerException(this.getClass().getName() + ": Object non puo' essere null");
-        if (doc == null)
-            throw new NullPointerException(this.getClass().getName() + ": Document non puo' essere null");
-        doc.appendChild(compilatore.compileInstance(obj, doc));
-    }
 }
