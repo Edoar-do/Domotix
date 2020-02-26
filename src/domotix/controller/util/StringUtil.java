@@ -37,9 +37,10 @@ public class StringUtil {
     public static String repeat(String s, int n) {
         if (n <= 0 || s == null || s.equals("")) return "";
 
+        String ns = "";
         for (int i = 0; i < n - 1; i++)
-            s += s;
+            ns += s;
 
-        return s;
+        return ns;
     }
 }
