@@ -18,6 +18,12 @@ public class MenuUnitaM {
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
+    /**
+     * Presenta all'utente manutentore un menu che offre la possibilità di aprire un menu per manutentori per la gestione dell'unità immobiliare
+     * o di aprire un menu per manutentori per la gestione di una stanza all'interno dell'unità immobiliare. Entrambe le operazioni avvengono dopo che l'utente ha scelto
+     * su quale unità immobiliare lavorare. Se esiste solo un'unità immobiliare allora la scelta viene effettuata automaticamente. Il menu consete anche di tornare
+     * indietro e chiudere questo menu
+     */
     public static void avvia(){
 
         String nomeUnitaSuCuiLavorare = premenuUnita();

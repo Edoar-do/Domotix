@@ -27,6 +27,10 @@ public class MenuCategorieAttuatoriM {
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
+    /**
+     * Prensenta all'utente manutentore un menu che consente di aggiungere un nuova categoria di attuatori, rimuoverne una (se presente) oppure di
+     * visualizzare tutte le descrizioni delle categorie di attuatori presenti oppure consente di tornare indietro e chiudere questo menu
+     */
     public static void avvia(){
 
         int sceltaMenu = 0;

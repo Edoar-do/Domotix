@@ -25,6 +25,11 @@ public class MenuGestioneUnitaM {
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
+    /**
+     * Presenta all'utente manutentore un menu che offre la possibilità di aggiungere una stanza all'unità scelta (passata come parametro)
+     * rimuoverne una dall'unità scelta oppure di visualizzarne una descrizione. Consente anche di tornare indietro e chiudere questo menu
+     * @param nomeUnitaSuCuiLavorare è il nome dell'unità immobiliare scelta nel menu precedente e su cui operare
+     */
     public static void avvia(String nomeUnitaSuCuiLavorare){
 
         menu.setSottotitolo(SOTTOTITOLO + StringUtil.componiPercorso(nomeUnitaSuCuiLavorare));

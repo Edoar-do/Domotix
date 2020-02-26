@@ -13,6 +13,9 @@ public class MenuLogin {
 
     private static MyMenu menuLogin = new MyMenu(TITOLO, VOCI);
 
+    /**
+     * Presenta il menu di login all'utente di modo che possa accedere come manutentore o come fruitore oppure che possa salvare ed uscire dall'applicazione
+     */
     public static void avvia(){
 
         int sceltaMenu = 0;

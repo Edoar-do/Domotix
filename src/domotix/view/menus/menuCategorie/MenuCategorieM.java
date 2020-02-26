@@ -12,6 +12,10 @@ public class MenuCategorieM {
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
+    /**
+     * Prensenta all'utente manutentore un menu che consente di aprire un menu per la gestione delle categorie di sensori
+     * oppure un menu per la gestione delle categorie di attuatori oppure consente di tornare indietro e chiudere questo menu
+     */
     public static void avvia(){
 
         int sceltaMenu = 0;
