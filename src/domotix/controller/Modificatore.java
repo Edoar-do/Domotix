@@ -12,42 +12,83 @@ import domotix.model.bean.system.Stanza;
  **/
 public class Modificatore {
 
+    /**
+     * Aggiunge una CategoriaSensore al model
+     * @param nomeCat Nome della categoria da aggiungere
+     * @param testoLibero Testo libero della categoria da aggiungere
+     * @param infoRilevabile Informazione rilevabile dal sensore
+     * @return true se l'aggiunta e' andata a buon fine
+     */
     public static boolean aggiungiCategoriaSensore(String nomeCat, String testoLibero, String infoRilevabile) {
         if (!Verificatore.checkValiditaCategoriaSensore(nomeCat)) return false;
         ElencoCategorieSensori.getInstance().add(new CategoriaSensore(nomeCat, testoLibero, infoRilevabile));
         return true;
     }
 
+    /**
+     * Rimuove una CategoriaSensore dal model
+     * @param cat Nome della categoria da rimuovere
+     * @return true se la rimozione e' andata a buon fine
+     */
     public static boolean rimuoviCategoriaSensore(String cat) {
         if (Recuperatore.getCategoriaSensore(cat) == null) return false;
         ElencoCategorieSensori.getInstance().remove(cat);
         return true;
     }
 
+    /**
+     * Aggiunge una CategoriaAttuatore senza modalita' operative al model
+     * @param nomeCat Nome della categoria da aggiungere
+     * @param testoLibero Testo libero della categoria da aggiungere
+     * @return true se l'aggiunta e' andata a buon fine
+     */
     public static boolean aggiungiCategoriaAttuatore(String nomeCat, String testoLibero) {
         if (!Verificatore.checkValiditaCategoriaAttuatore(nomeCat)) return false;
         ElencoCategorieAttuatori.getInstance().add(new CategoriaAttuatore(nomeCat, testoLibero));
         return true;
     }
 
+    /**
+     * Aggiunge una ModalitaOperativa a una CategoriaAttuatore preesistente
+     * @param nomeCat Nome della categoria da selezionare
+     * @param nomeModalita Nome della modalita' da aggiungere
+     * @return true se l'aggiunta e' andata a buon fine
+     */
     public static boolean aggiungiModalitaCategoriaAttuatore(String nomeCat, String nomeModalita) {
         if (!Verificatore.checkValiditaModalitaOperativa(nomeModalita)) return false;
         Recuperatore.getCategoriaAttuatore(nomeCat).addModalita(new Modalita(nomeModalita));
         return true;
     }
 
+    /**
+     * Rimuove una CategoriaAttuatore dal model
+     * @param cat Nome della categoria da rimuovere
+     * @return true se la rimozione e' andata a buon fine
+     */
     public static boolean rimuoviCategoriaAttuatore(String cat) {
         if (Recuperatore.getCategoriaAttuatore(cat) == null) return false;
         ElencoCategorieAttuatori.getInstance().remove(cat);
         return true;
     }
 
+    /**
+     * Aggiunge una Stanza all'UnitaImmobiliare specificata
+     * @param nomeStanza Nome della stanza da aggiungere
+     * @param unita Nome dell'unita' immobiliare selezionata
+     * @return true se l'aggiunta e' andata a buon fine
+     */
     public static boolean aggiungiStanza(String nomeStanza, String unita) {
         if (!Verificatore.checkValiditaStanza(nomeStanza, unita)) return false;
         Recuperatore.getUnita(unita).addStanza(new Stanza(nomeStanza));
         return true;
     }
 
+    /**
+     * Rimuove una Stanza dall'UnitaImmobiliare specificata
+     * @param stanza Nome della stanza da rimuovere
+     * @param unita Nome dell'unita' immobiliare selezionata
+     * @return true se la rimozione e' andata a buon fine
+     */
     public static boolean rimuoviStanza(String stanza, String unita) {
         UnitaImmobiliare unitaImm = Recuperatore.getUnita(unita);
         if (unitaImm == null)
@@ -57,12 +98,28 @@ public class Modificatore {
         return true;
     }
 
+    /**
+     * Aggiunge un Artefatto al model. Per l'aggiunta occorre specificare
+     * Stanza e UnitaImmobiliare di appartenenza dell'artefatto.
+     * @param artefatto Nome dell'artefatto da aggiungere
+     * @param stanza Nome della stanza a cui aggiungere l'artefatto
+     * @param unita Nome dell'unita' immobiliare selezionata
+     * @return true se l'aggiunta e' andata a buon fine
+     */
     public static boolean aggiungiArtefatto(String artefatto, String stanza, String unita) {
         if (!Verificatore.checkValiditaArtefatto(artefatto, unita)) return false;
         Recuperatore.getStanza(stanza, unita).addArtefatto(new Artefatto(artefatto));
         return true;
     }
 
+    /**
+     * Rimuove un Artefatto dal model. Per la rimozione occorre specificare
+     * Stanza e UnitaImmobiliare di appartenenza dell'artefatto.
+     * @param artefatto Nome dell'artefatto da rimuovere
+     * @param stanza Nome della stanza a cui rimuovere l'artefatto
+     * @param unita Nome dell'unita' immobiliare selezionata
+     * @return true se la rimozione e' andata a buon fine
+     */
     public static boolean rimuoviArtefatto(String artefatto, String stanza, String unita) {
         Stanza stanzaInst = Recuperatore.getStanza(stanza, unita);
         if (stanza == null)
@@ -72,6 +129,14 @@ public class Modificatore {
         return true;
     }
 
+    /**
+     * Aggiunge un Sensore all'interno di una stanza.
+     * @param fantasia Nome di fantasia del sensore
+     * @param categoria Nome della categoria (preesistente) del sensore
+     * @param stanza Nome della stanza a cui aggiungere il sensore
+     * @param unita Nome dell'unita' immobiliare selezionata
+     * @return true se l'aggiunta e' andata a buon fine
+     */
     public static boolean aggiungiSensore(String fantasia, String categoria, String stanza, String unita) {
         String nomeComposto = StringUtil.componiNome(fantasia, categoria);
         if (!Verificatore.checkValiditaSensore(nomeComposto, categoria, stanza, unita)) return false;
@@ -81,6 +146,14 @@ public class Modificatore {
         return true;
     }
 
+    /**
+     * Collega un Sensore preesistente a una stanza. In sostanza, permette
+     * la condivisione di sensori tra artefatti e stanze.
+     * @param nomeSensore Nome del sensore
+     * @param nomeStanza Nome della stanza con cui condividere il sensore
+     * @param nomeUnita Nome dell'unita' immobiliare selezionata
+     * @return true se la condivisione e' andata a buon fine
+     */
     public static boolean collegaSensore(String nomeSensore, String nomeStanza, String nomeUnita) {
         Sensore sens = Recuperatore.getSensore(nomeSensore);
         Stanza stanza = Recuperatore.getStanza(nomeStanza, nomeUnita);
@@ -94,6 +167,13 @@ public class Modificatore {
         return true;
     }
 
+    /**
+     * Rimuove un Sensore da una stanza.
+     * @param sensore Nome del sensore da rimuovere
+     * @param stanza Nome della stanza a cui rimuovere il sensore
+     * @param unita Nome dell'unita' immobiliare selezionata
+     * @return true se la rimozione e' andata a buon fine
+     */
     public static boolean rimuoviSensore(String sensore, String stanza, String unita) {
         Stanza stanzaInst = Recuperatore.getStanza(stanza, unita);
         if (stanza == null)
@@ -107,6 +187,15 @@ public class Modificatore {
         return true;
     }
 
+    /**
+     * Aggiunge un Sensore all'interno di un artefatto.
+     * @param fantasia Nome di fantasia del sensore
+     * @param categoria Nome della categoria (preesistente) del sensore
+     * @param artefatto Nome dell'artefatto a cui aggiungere il sensore
+     * @param stanza Nome della stanza selezionata
+     * @param unita Nome dell'unita' immobiliare selezionata
+     * @return true se l'aggiunta e' andata a buon fine
+     */
     public static boolean aggiungiSensore(String fantasia, String categoria, String artefatto, String stanza, String unita) {
         String nomeComposto = StringUtil.componiNome(fantasia, categoria);
         if (!Verificatore.checkValiditaSensore(nomeComposto, categoria, artefatto, stanza, unita)) return false;
@@ -116,6 +205,15 @@ public class Modificatore {
         return true;
     }
 
+    /**
+     * Collega un Sensore preesistente a un artefatto. In sostanza, permette
+     * la condivisione di sensori tra artefatti e stanze.
+     * @param nomeSensore Nome del sensore
+     * @param nomeArtefatto Nome dell'artefatto con cui condividere il sensore
+     * @param nomeStanza Nome della stanza selezionata
+     * @param nomeUnita Nome dell'unita' immobiliare selezionata
+     * @return true se la condivisione e' andata a buon fine
+     */
     public static boolean collegaSensore(String nomeSensore, String nomeArtefatto, String nomeStanza, String nomeUnita) {
         Sensore sens = Recuperatore.getSensore(nomeSensore);
         Artefatto artefatto = Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita);
@@ -129,6 +227,14 @@ public class Modificatore {
         return true;
     }
 
+    /**
+     * Rimuove un Sensore da un Artefatto.
+     * @param sensore Nome del sensore da rimuovere
+     * @param artefatto Nome dell'artefatto a cui rimuovere il sensore
+     * @param stanza Nome della stanza selezionata
+     * @param unita Nome dell'unita' immobiliare selezionata
+     * @return true se la rimozione e' andata a buon fine
+     */
     public static boolean rimuoviSensore(String sensore, String artefatto, String stanza, String unita) {
         Artefatto artefattoInst = Recuperatore.getArtefatto(artefatto, stanza, unita);
         if (stanza == null)
@@ -142,6 +248,14 @@ public class Modificatore {
         return true;
     }
 
+    /**
+     * Aggiunge un Attuatore all'interno di una stanza.
+     * @param fantasia Nome di fantasia dell'attuatore
+     * @param categoria Nome della categoria (preesistente) dell'attuatore
+     * @param stanza Nome della stanza a cui aggiungere l'attuatore
+     * @param unita Nome dell'unita' immobiliare selezionata
+     * @return true se l'aggiunta e' andata a buon fine
+     */
     public static boolean aggiungiAttuatore(String fantasia, String categoria, String stanza, String unita) {
         String nomeComposto = StringUtil.componiNome(fantasia, categoria);
         if (!Verificatore.checkValiditaAttuatore(nomeComposto, categoria, stanza, unita)) return false;
@@ -151,6 +265,14 @@ public class Modificatore {
         return true;
     }
 
+    /**
+     * Collega un Attuatore preesistente a una stanza. In sostanza, permette
+     * la condivisione di attuatori tra artefatti e stanze.
+     * @param nomeAttuatore Nome dell'attuatore
+     * @param nomeStanza Nome della stanza con cui condividere l'attuatore
+     * @param nomeUnita Nome dell'unita' immobiliare selezionata
+     * @return true se la condivisione e' andata a buon fine
+     */
     public static boolean collegaAttuatore(String nomeAttuatore, String nomeStanza, String nomeUnita) {
         Attuatore attuatore = Recuperatore.getAttuatore(nomeAttuatore);
         Stanza stanza = Recuperatore.getStanza(nomeStanza, nomeUnita);
@@ -164,6 +286,13 @@ public class Modificatore {
         return true;
     }
 
+    /**
+     * Rimuove un Attuatore da una stanza.
+     * @param attuatore Nome dell'attuatore da rimuovere
+     * @param stanza Nome della stanza a cui rimuovere l'attuatore
+     * @param unita Nome dell'unita' immobiliare selezionata
+     * @return true se la rimozione e' andata a buon fine
+     */
     public static boolean rimuoviAttuatore(String attuatore, String stanza, String unita) {
         Stanza stanzaInst = Recuperatore.getStanza(stanza, unita);
         if (stanza == null)
@@ -177,6 +306,15 @@ public class Modificatore {
         return true;
     }
 
+    /**
+     * Aggiunge un Attuatore all'interno di un artefatto.
+     * @param fantasia Nome di fantasia del sensore
+     * @param categoria Nome della categoria (preesistente) dell'attuatore
+     * @param artefatto Nome dell'artefatto a cui aggiungere l'attuatore
+     * @param stanza Nome della stanza selezionata
+     * @param unita Nome dell'unita' immobiliare selezionata
+     * @return true se l'aggiunta e' andata a buon fine
+     */
     public static boolean aggiungiAttuatore(String fantasia, String categoria, String artefatto, String stanza, String unita) {
         String nomeComposto = StringUtil.componiNome(fantasia, categoria);
         if (!Verificatore.checkValiditaAttuatore(nomeComposto, categoria, artefatto, stanza, unita)) return false;
@@ -186,6 +324,15 @@ public class Modificatore {
         return true;
     }
 
+    /**
+     * Collega un Attuatore preesistente a un artefatto. In sostanza, permette
+     * la condivisione di attuatore tra artefatti e stanze.
+     * @param nomeAttuatore Nome dell'attuatore
+     * @param nomeArtefatto Nome dell'artefatto con cui condividere il sensore
+     * @param nomeStanza Nome della stanza selezionata
+     * @param nomeUnita Nome dell'unita' immobiliare selezionata
+     * @return true se la condivisione e' andata a buon fine
+     */
     public static boolean collegaAttuatore(String nomeAttuatore, String nomeArtefatto, String nomeStanza, String nomeUnita) {
         Attuatore attuatore = Recuperatore.getAttuatore(nomeAttuatore);
         Artefatto artefatto = Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita);
@@ -198,6 +345,15 @@ public class Modificatore {
         artefatto.addAttuatore(attuatore);
         return true;
     }
+
+    /**
+     * Rimuove un Attuatore da un Atyrfatto.
+     * @param attuatore Nome dell'attuatore da rimuovere
+     * @param artefatto Nome dell'artefatto a cui rimuovere l'attuatore
+     * @param stanza Nome della stanza selezionata
+     * @param unita Nome dell'unita' immobiliare selezionata
+     * @return true se la rimozione e' andata a buon fine
+     */
     public static boolean rimuoviAttuatore(String attuatore, String artefatto, String stanza, String unita) {
         Artefatto artefattoInst = Recuperatore.getArtefatto(artefatto, stanza, unita);
         if (stanza == null)
