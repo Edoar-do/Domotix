@@ -17,40 +17,82 @@ public class CategoriaAttuatore {
         this.elencoModalita = new ArrayList<>();
     }
 
+    /**
+     * Metodo per impostare il nome della CategoriaAttuatore.
+     * @param nome Il nome da impostare
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    /**
+     * Metodo che recupera il nome della CategoriaAttuatore.
+     * @return Il nome
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Metodo per impostare il testo libero descrittivo della CategoriaAttuatore.
+     * @param testoLibero Il testo libero
+     */
     public void setTestoLibero(String testoLibero) {
         this.testoLibero = testoLibero;
     }
 
+    /**
+     * Metodo che recupera il testo libero descrittivo della CategoriaAttuatore.
+     * @return Il testo libero
+     */
     public String getTestoLibero(){
         return testoLibero;
     }
 
+    /**
+     * Metodo che recupera una tra le modalita' operative di cui dispone la CategoriaAttuatore.
+     * In particolare, viene recuperata la modalita' che siede all'indice specificato.
+     * @param index L'indice specificato
+     * @return La modalita'
+     */
     public Modalita getModalita(int index){
         return elencoModalita.get(index);
     }
 
+    /**
+     * Metodo che recupera la modalita' di default della CategoriaAttuatore.
+     * @return La modalita' di default
+     */
     public Modalita getModalitaDefault() { return elencoModalita.get(0); }
 
+    /**
+     * Metodo che recupera la lista completa di tutte le modalita' disponibili alla CategoriaAttuatore.
+     * @return La lista di modalita'
+     */
     public ArrayList<Modalita> getElencoModalita(){
         return elencoModalita;
     }
 
+    /**
+     * Metodo di aggiunta di una nuova modalita' operativa per la CategoriaAttuatore.
+     * @param mode La modalita' da aggiungere
+     */
     public void addModalita(Modalita mode){
         elencoModalita.add(mode);
     }
 
+    /**
+     * Metodo di rimozione di una modalita' operativa dalla CategoriaAttuatore
+     * @param mode La modalita' da rimuovere
+     */
     public void removeModalita(Modalita mode){
         elencoModalita.remove(mode);
     }
 
+    /**
+     * Metodo di rimozione di una modalita' operativa dalla CategoriaAttuatore
+     * @param nomeMode Il nome della modalita' da rimuovere
+     */
     public void removeModalita(String nomeMode){
         for (Modalita m : elencoModalita) {
             if(nomeMode.equalsIgnoreCase(m.getNome()))

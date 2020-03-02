@@ -11,14 +11,26 @@ public class Sensore extends Dispositivo {
         super.setNome(nome);
     }
 
+    /**
+     * Metodo che recupera il valore rilevato dal sensore.
+     * @return Il valore rilevato
+     */
     public int getValore(){
         return valore;
     }
 
+    /**
+     * Metodo che recupera la CategoriaSensore del Sensore
+     * @return La CategoriaSensore
+     */
     public CategoriaSensore getCategoria() {
         return categoria;
     }
 
+    /**
+     * Metodo che imposta il valore rilevato dal Sensore.
+     * @param nuovoValore Il nuovo valore rilevato
+     */
     public void setValore(int nuovoValore){
         this.valore = nuovoValore;
     }

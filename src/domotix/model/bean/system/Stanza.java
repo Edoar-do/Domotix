@@ -19,10 +19,18 @@ public class Stanza extends Sistema {
         artefatti = new HashMap<>();
     }
 
+    /**
+     * Metodo di rimozione di un Artefatto dalla Stanza.
+     * @param artefatto L'Artefatto da rimuovere
+     */
     public void removeArtefatto(Artefatto artefatto) {
         removeArtefatto(artefatto.getNome());
     }
 
+    /**
+     * Metodo di rimozione di un Artefatto dalla Stanza.
+     * @param nome Nome dell'Artefatto da rimuovere
+     */
     public void removeArtefatto(String nome) {
         Artefatto a = artefatti.get(nome);
         if (a != null) {
@@ -31,6 +39,10 @@ public class Stanza extends Sistema {
         }
     }
 
+    /**
+     * Metodo di aggiunta di un Artefatto alla Stanza.
+     * @param artefatto L'Artefatto da aggiungere
+     */
     public boolean addArtefatto(Artefatto artefatto) {
         if (artefatti.get(artefatto.getNome()) == null) {
             artefatto.setUnitaOwner(this.getUnitaOwner());
@@ -42,19 +54,36 @@ public class Stanza extends Sistema {
         }
     }
 
+    /**
+     * Metodo che recupera una lista degli Artefatti presenti nella stanza.
+     * @return La lista di Artefatti
+     */
     public Artefatto[] getArtefatti() {
         return artefatti.values().toArray(new Artefatto[0]);
     }
 
+    /**
+     * Metodo che recupera l'istanza di un Artefatto nella Stanza dato il nome.
+     * @param nome Il nome dell'Artefatto
+     * @return L'istanza di Artefatto
+     */
     public Artefatto getArtefatto(String nome) {
         return artefatti.get(nome);
     }
 
 
+    /**
+     * Metodo che imposta il riferimento all'UnitaImmobiliare di appartenenza.
+     * @param unitaOwner Il nome dell'UnitaImmobiliare
+     */
     public void setUnitaOwner(String unitaOwner) {
         this.unitaOwner = unitaOwner;
     }
 
+    /**
+     * Metodo che ritorna il nome dell'UnitaImmobiliare di appartenenza.
+     * @return Il nome dell'UnitaImmobiliare
+     */
     public String getUnitaOwner() {
         return unitaOwner;
     }

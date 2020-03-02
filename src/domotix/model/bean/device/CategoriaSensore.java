@@ -15,22 +15,42 @@ public class CategoriaSensore {
         this.testoLibero = testoLibero;
     }
 
+    /**
+     * Metodo che recupera il nome della CategoriaSensore.
+     * @return Il nome
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Metodo che imposta il nome della CategoriaSensore.
+     * @param nome Il nome da impostare
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    /**
+     * Metodo che recupera il testo libero descrittivo della CategoriaSensore.
+     * @return Il testo libero
+     */
     public String getTestoLibero() {
         return testoLibero;
     }
 
+    /**
+     * Metodo che imposta il testo libero descrittivo della CategoriaSensore.
+     * @param testoLibero Il testo libero
+     */
     public void setTestoLibero(String testoLibero) {
         this.testoLibero = testoLibero;
     }
 
+    /**
+     * Metodo che recupera il tipo di informazione rilevabile dal Sensore di CategoriaSensore.
+     * @return L'informazione rilevabile
+     */
     public String getInformazioneRilevabile() {
         return informazioneRilevabile;
     }

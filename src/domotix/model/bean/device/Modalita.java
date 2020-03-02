@@ -8,10 +8,18 @@ public class Modalita {
         this.nome = nome;
     }
 
+    /**
+     * Metodo che recupera il nome della Modalita.
+     * @return Il nome
+     */
     public String getNome(){
         return nome;
     }
 
+    /**
+     * Metodo che imposta il nome della Modalita.
+     * @param nome Il nome
+     */
     public void setNome(String nome){
         this.nome = nome;
     }

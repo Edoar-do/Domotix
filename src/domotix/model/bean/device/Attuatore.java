@@ -13,14 +13,26 @@ public class Attuatore extends Dispositivo {
         this.modoOp = modoOpIniziale;
     }
 
+    /**
+     * Metodo che recupera la CategoriaAttuatore dell'Attuatore.
+     * @return La CategoriaAttuatore
+     */
     public CategoriaAttuatore getCategoria(){
         return categoria;
     }
 
+    /**
+     * Metodo che recupera la ModalitaOperativa attuale dell'Attuatore.
+     * @return La ModalitaOperativa
+     */
     public Modalita getModoOp() {
         return modoOp;
     }
 
+    /**
+     * Metodo per impostare la ModalitaOperativa dell'Attuatore.
+     * @param nuovaModalita La nuova ModalitaOperativa da impostare
+     */
     public void setModoOp(Modalita nuovaModalita){
         modoOp = nuovaModalita;
     }
