@@ -28,16 +28,24 @@ public abstract class Sistema implements Osservabile, Azionabile {
         this.addOsservatoreListaSensori(ElencoSensori.getInstance());
     }
 
+    /**
+     * Recupera il nome del Sistema.
+     * @return Il nome del Sistema
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Imposta il nome del Sistema.
+     * @param nome Nuovo nome del Sistema
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
     /**
-     * Per svuotare completamente il sistema, eliminando i vari sensori contenuti e i collegamenti agli osservatori
+     * Per svuotare completamente il sistema, eliminando i vari sensori contenuti e i collegamenti agli osservatori.
      */
     public void distruggi() {
         for (Dispositivo d : sensori.getDispositivi())
@@ -48,19 +56,48 @@ public abstract class Sistema implements Osservabile, Azionabile {
         attuatori.svuotaOsservatori();
     }
 
+    /**
+     * Metodo che, dato un altro Sistema, ne eredita tutti gli Osservatori, siano
+     * essi Osservatori dei Sensori o degli Attuatori.
+     * @param sis Il Sistema da cui ereditare gli Osservatori
+     */
     public void ereditaOsservatoriLista(Sistema sis) {
         sis.sensori.getOsservatori().forEach(dispositivoOsservatoreLista -> this.sensori.aggiungiOsservatore(dispositivoOsservatoreLista));
         sis.attuatori.getOsservatori().forEach(dispositivoOsservatoreLista -> this.attuatori.aggiungiOsservatore(dispositivoOsservatoreLista));
     }
+
+    /**
+     * Metodo di aggiunta di un osservatore (di tipo ObserverList)
+     * che dovrà osservare i Sensori del Sistema.
+     * @param oss Osservatore da aggiungere
+     */
     public void addOsservatoreListaSensori(ObserverList<Dispositivo> oss) {
         sensori.aggiungiOsservatore(oss);
     }
+
+    /**
+     * Metodo di rimozione di un osservatore (di tipo ObserverList)
+     * che sta osservando i Sensori del Sistema.
+     * @param oss Osservatore da rimuovere
+     */
     public void removeOsservatoreListaSensori(ObserverList<Dispositivo> oss) {
         sensori.rimuoviOsservatore(oss);
     }
+
+    /**
+     * Metodo di aggiunta di un osservatore (di tipo ObserverList)
+     * che dovrà osservare gli Attuatori del Sistema.
+     * @param oss Osservatore da aggiungere
+     */
     public void addOsservatoreListaAttuatori(ObserverList<Dispositivo> oss) {
         attuatori.aggiungiOsservatore(oss);
     }
+
+    /**
+     * Metodo di rimozione di un osservatore (di tipo ObserverList)
+     * che sta osservando gli Attuatori del Sistema.
+     * @param oss Osservatore da rimuovere
+     */
     public void removeOsservatoreListaAttuatori(ObserverList<Dispositivo> oss) {
         attuatori.rimuoviOsservatore(oss);
     }
@@ -144,6 +181,11 @@ public abstract class Sistema implements Osservabile, Azionabile {
         return this.nome.equals(((Sistema) obj).nome);
     }
 
+    /**
+     * Metodo che dice se il Sistema contiene gia' la categoria di sensore specificata.
+     * @param categoriaSensore Nome della categoria di sensore
+     * @return True se la categoria di sensore e' gia' presente
+     */
     public boolean contieneCategoriaSensore(String categoriaSensore) {
         for (Dispositivo d : sensori.getDispositivi()) {
             Sensore s = (Sensore) d;
@@ -152,6 +194,11 @@ public abstract class Sistema implements Osservabile, Azionabile {
         return false;
     }
 
+    /**
+     * Metodo che dice se il Sistema contiene gia' la categoria di attuatore specificata.
+     * @param categoriaAttuatore Nome della categoria di attuatore
+     * @return True se la categoria di attuatore e' gia' presente
+     */
     public boolean contieneCategoriaAttuatore(String categoriaAttuatore) {
         for (Dispositivo d : attuatori.getDispositivi()) {
             Attuatore a = (Attuatore) d;
