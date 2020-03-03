@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Classe di una sola istanza per il menu di scelta dell'utente su come proseguire in caso di errori in apertura.
+ * @author paolopasqua
  */
 public class MenuErroreApertura {
 

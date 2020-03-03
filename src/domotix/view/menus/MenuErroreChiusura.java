@@ -4,6 +4,10 @@ import domotix.view.MyMenu;
 
 import java.util.List;
 
+/**
+ * Classe di una sola istanza per il menu di scelta dell'utente su come proseguire in caso di errori in chiusura.
+ * @author paolopasqua
+ */
 public class MenuErroreChiusura {
 
     /** Scelta dell'utente di uscire **/

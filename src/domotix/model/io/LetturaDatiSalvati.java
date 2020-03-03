@@ -9,8 +9,8 @@ import domotix.model.io.datilocali.LetturaDatiLocali;
 import java.util.List;
 
 /**
- * Interfaccia per l'implementazione di strutture per il salvataggio e il caricamento dei dati.
- * Si intende semplificare l'aggiunta di un'eventuale alternativa per i meccanismi di salvataggio e caricamento dati.
+ * Interfaccia per l'implementazione di strutture per il caricamento dei dati.
+ * Si intende semplificare l'aggiunta di un'eventuale alternativa per i meccanismi di caricamento dati.
  *
  * A livello logico, per le connessioni tra le entità, si hanno delle precedenze di lettura da rispettare:
  *  -   Categorie dei Sensori

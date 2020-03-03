@@ -6,6 +6,25 @@ import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.model.io.datilocali.ScritturaDatiLocali;
 
+/**
+ * Interfaccia per l'implementazione di strutture per il salvataggio dei dati.
+ * Si intende semplificare l'aggiunta di un'eventuale alternativa per i meccanismi di salvataggio dati.
+ *
+ * A livello logico, non vi sono precedenze a livello di scrittura se viene salvato tutto.
+ * La sequenza completa di scrittura e':
+ *  -   Categorie dei Sensori
+ *  -   Categorie degli Attuatori
+ *      -   Modalita' della categoria
+ *  -   Unita immobiliare
+ *      -   Stanze
+ *          -   Sensori
+ *          -   Attuatori
+ *          -   Artefatti
+ *              -   Sensori
+ *              -   Attuatori
+ *
+ * @author paolopasqua
+ */
 public interface ScritturaDatiSalvati {
 
     /**
