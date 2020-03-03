@@ -1,0 +1,21 @@
+unnamed package
+domotix.controller
+domotix.controller.util
+domotix.model
+domotix.model.bean
+domotix.model.bean.device
+domotix.model.bean.system
+domotix.model.gestioneerrori
+domotix.model.io
+domotix.model.io.datilocali
+domotix.model.util
+domotix.view
+domotix.view.menus
+domotix.view.menus.menuCategorie
+domotix.view.menus.menuCategorie.attuatori
+domotix.view.menus.menuCategorie.sensori
+domotix.view.menus.menuPrincipale
+domotix.view.menus.menuUnita
+domotix.view.menus.menuUnita.gestioneStanza
+domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto
+domotix.view.menus.menuUnita.gestioneUnita
