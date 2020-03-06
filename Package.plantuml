@@ -1,0 +1,57 @@
+@startuml
+
+title __DOMOTIX's Package Diagram__\n
+
+namespace src {
+    namespace domotix {
+        namespace controller {
+            namespace util {
+            }
+        }
+        namespace model {
+            namespace bean {
+                namespace device {
+                }
+                namespace system {
+                }
+            }
+            namespace gestioneerrori {
+            }
+            namespace io {
+                namespace datilocali {
+                }
+            }
+            namespace util {
+            }
+        }
+        namespace view {
+            namespace menus {
+                namespace menuPrincipale {
+                }
+                namespace menuCategorie {
+                    namespace attuatori {
+                    }
+                    namespace sensori {
+                    }
+                }
+                namespace menuUnita {
+                    namespace gestioneUnita {
+                    }
+                    namespace gestioneStanza {
+                        namespace gestioneArtefatto {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+src.domotix.controller --> src.domotix.model
+src.domotix.controller -- src.domotix.view
+src.domotix.view.menus.menuPrincipale --> src.domotix.view.menus.menuUnita
+src.domotix.view.menus.menuPrincipale --> src.domotix.view.menus.menuCategorie
+src.domotix.model.bean --> src.domotix.model.util
+src.domotix.model.io --> src.domotix.model.util
+
+@enduml

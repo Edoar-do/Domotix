@@ -1,0 +1,134 @@
+@startuml
+
+title __DOMOTIX > CONTROLLER's Class Diagram__\n
+
+namespace src.domotix.controller {
+    class src.domotix.controller.Modificatore {
+        {static} + aggiungiArtefatto()
+        {static} + aggiungiAttuatore()
+        {static} + aggiungiAttuatore()
+        {static} + aggiungiCategoriaAttuatore()
+        {static} + aggiungiCategoriaSensore()
+        {static} + aggiungiModalitaCategoriaAttuatore()
+        {static} + aggiungiSensore()
+        {static} + aggiungiSensore()
+        {static} + aggiungiStanza()
+        {static} + collegaAttuatore()
+        {static} + collegaAttuatore()
+        {static} + collegaSensore()
+        {static} + collegaSensore()
+        {static} + rimuoviArtefatto()
+        {static} + rimuoviAttuatore()
+        {static} + rimuoviAttuatore()
+        {static} + rimuoviCategoriaAttuatore()
+        {static} + rimuoviCategoriaSensore()
+        {static} + rimuoviSensore()
+        {static} + rimuoviSensore()
+        {static} + rimuoviStanza()
+    }
+
+    class src.domotix.controller.OperazioniFinali {
+        {static} - instance : OperazioniFinali
+        + chiudi()
+        {static} + getInstance()
+        - OperazioniFinali()
+        - risalvaDati()
+        - salvaDati()
+    }
+
+    class src.domotix.controller.OperazioniIniziali {
+        {static} - instance : OperazioniIniziali
+        + apri()
+        + controlloEsistenzaUnita()
+        + generaUnitaBase()
+        {static} + getInstance()
+        - OperazioniIniziali()
+        - popolaDati()
+    }
+
+    class src.domotix.controller.Recuperatore {
+        {static} + getDescrizioneArtefatto()
+        {static} + getDescrizioneStanza()
+        {static} + getDescrizioneUnita()
+        {static} + getDescrizioniCategorieAttuatori()
+        {static} + getDescrizioniCategorieSensori()
+        {static} + getDescrizioniUnita()
+        {static} + getNomiArtefatti()
+        {static} + getNomiAttuatori()
+        {static} + getNomiAttuatori()
+        {static} + getNomiAttuatoriAggiungibiliArtefatto()
+        {static} + getNomiAttuatoriAggiungibiliStanza()
+        {static} + getNomiCategorieAttuatori()
+        {static} + getNomiCategorieSensori()
+        {static} + getNomiSensori()
+        {static} + getNomiSensori()
+        {static} + getNomiSensoriAggiungibiliArtefatto()
+        {static} + getNomiSensoriAggiungibiliStanza()
+        {static} + getNomiStanze()
+        {static} + getNomiStanze()
+        {static} + getNomiUnita()
+        {static} ~ getArtefatto()
+        {static} ~ getAttuatore()
+        {static} ~ getCategoriaAttuatore()
+        {static} ~ getCategoriaSensore()
+        {static} ~ getSensore()
+        {static} ~ getStanza()
+        {static} ~ getUnita()
+        {static} - getNomiAttuatoriAggiungibiliSistema()
+        {static} - getNomiAttuatoriSistema()
+        {static} - getNomiSensoriAggiungibiliSistema()
+        {static} - getNomiSensoriSistema()
+    }
+
+    class src.domotix.controller.Verificatore {
+        {static} - REGEX_NOMI : String
+        {static} - REGEX_NOMI_DISPOSITIVI : String
+        {static} + checkUnivocitaAttuatore()
+        {static} + checkUnivocitaSensore()
+        {static} + checkValiditaArtefatto()
+        {static} + checkValiditaAttuatore()
+        {static} + checkValiditaAttuatore()
+        {static} + checkValiditaCategoriaAttuatore()
+        {static} + checkValiditaCategoriaSensore()
+        {static} + checkValiditaModalitaOperativa()
+        {static} + checkValiditaSensore()
+        {static} + checkValiditaSensore()
+        {static} + checkValiditaStanza()
+        {static} - isNomeDispositivoValido()
+        {static} - isNomeValido()
+    }
+
+    namespace util {
+        class src.domotix.controller.util.StringUtil {
+            {static} + componiNome()
+            {static} + componiPercorso()
+            {static} + indent()
+            {static} + indent()
+            {static} + removeLast()
+            {static} + removeLast()
+            {static} + repeat()
+        }
+    }
+}
+
+namespace src.domotix.model {
+
+}
+
+src.domotix.controller.Modificatore --> src.domotix.controller.util.StringUtil
+src.domotix.controller.Modificatore --> src.domotix.controller.Recuperatore
+src.domotix.controller.Modificatore --> src.domotix.controller.Verificatore
+src.domotix.controller.Modificatore --> src.domotix.model
+
+src.domotix.controller.Verificatore --> src.domotix.controller.Recuperatore
+src.domotix.controller.Verificatore --> src.domotix.model
+
+src.domotix.controller.Recuperatore --> src.domotix.model
+
+src.domotix.controller.OperazioniIniziali --> src.domotix.model
+src.domotix.controller.OperazioniIniziali --> src.domotix.view.MenuErroreApertura
+
+src.domotix.controller.OperazioniFinali --> src.domotix.model
+src.domotix.controller.OperazioniFinali --> src.domotix.view.MenuErroreChiusura
+
+@enduml

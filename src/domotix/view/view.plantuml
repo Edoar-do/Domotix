@@ -1,0 +1,64 @@
+@startuml
+
+title __DOMOTIX > VIEW's Class Diagram__\n
+
+namespace src.domotix.view {
+
+    class src.domotix.view.InputDati {
+        {static} + in : InputStream
+        {static} + out : PrintStream
+        {static} - ERRORE_FORMATO : String
+        {static} - ERRORE_MASSIMO : String
+        {static} - ERRORE_MINIMO : String
+        {static} - ERRORE_STRINGA_VUOTA : String
+        {static} - MESSAGGIO_AMMISSIBILI : String
+        {static} - RISPOSTA_NO : char
+        {static} - RISPOSTA_SI : char
+        {static} - lettore : Scanner
+        {static} + leggiChar()
+        {static} + leggiDouble()
+        {static} + leggiDoubleConMinimo()
+        {static} + leggiIntero()
+        {static} + leggiIntero()
+        {static} + leggiInteroConMinimo()
+        {static} + leggiInteroNonNegativo()
+        {static} + leggiInteroPositivo()
+        {static} + leggiStringa()
+        {static} + leggiStringaNonVuota()
+        {static} + leggiUpperChar()
+        {static} + setIn()
+        {static} + setOut()
+        {static} + yesOrNo()
+        {static} - creaScanner()
+    }
+
+    class src.domotix.view.MyMenu {
+        {static} - CORNICE_CHAR : String
+        {static} - RICHIESTA_INSERIMENTO : String
+        - cornice : String
+        - sottotitolo : String
+        - titolo : String
+        - voci : String[]
+        + MyMenu()
+        + MyMenu()
+        + scegli()
+        + scegli()
+        + setSottotitolo()
+        + setTitolo()
+        + setVoci()
+        + stampaMenu()
+        - componiSottotitolo()
+        - impostaCornice()
+    }
+
+    namespace menus {
+    }
+
+}
+
+
+src.domotix.view.MyMenu --> src.domotix.view.InputDati
+src.domotix.view.menus --> src.domotix.view.MyMenu
+
+
+@enduml

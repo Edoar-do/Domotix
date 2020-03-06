@@ -1,0 +1,106 @@
+@startuml
+
+title __DOMOTIX > MODEL's Class Diagram__\n
+
+namespace src.domotix.model {
+    class src.domotix.model.ElencoAttuatori {
+        {static} - instance : ElencoAttuatori
+        + elaboraAggiunta()
+        + getDispositivi()
+        + getDispositivo()
+        {static} + getInstance()
+        - ElencoAttuatori()
+    }
+
+    class src.domotix.model.ElencoCategorieAttuatori {
+        - categorie : HashMap<String, CategoriaAttuatore>
+        {static} - instance : ElencoCategorieAttuatori
+        + add()
+        + contains()
+        + getCategoria()
+        + getCategorie()
+        {static} + getInstance()
+        + remove()
+        + remove()
+        - ElencoCategorieAttuatori()
+    }
+
+    class src.domotix.model.ElencoCategorieSensori {
+        - categorie : HashMap<String, CategoriaSensore>
+        {static} - instance : ElencoCategorieSensori
+        + add()
+        + contains()
+        + getCategoria()
+        + getCategorie()
+        {static} + getInstance()
+        + remove()
+        + remove()
+        - ElencoCategorieSensori()
+    }
+
+    class src.domotix.model.ElencoSensori {
+        {static} - instance : ElencoSensori
+        + elaboraAggiunta()
+        + getDispositivi()
+        + getDispositivo()
+        {static} + getInstance()
+        - ElencoSensori()
+    }
+
+    class src.domotix.model.ElencoUnitaImmobiliari {
+        {static} - instance : ElencoUnitaImmobiliari
+        - unita : HashMap<String, UnitaImmobiliare>
+        + add()
+        + contains()
+        {static} + getInstance()
+        + getUnita()
+        + getUnita()
+        + remove()
+        + remove()
+        + toString()
+        - ElencoUnitaImmobiliari()
+    }
+
+    namespace util {
+    }
+
+    namespace io {
+    }
+
+    namespace gestioneerrori {
+        class src.domotix.model.gestioneerrori.LogErrori {
+            - errori : ArrayList<String>
+            {static} - instance : LogErrori
+            + LogErrori()
+            + clear()
+            {static} + getInstance()
+            + popAll()
+            + put()
+        }
+
+        class src.domotix.model.gestioneerrori.StoreIstanzeErrori {
+            - entita : HashMap<String, Class>
+            {static} - instance : StoreIstanzeErrori
+            + StoreIstanzeErrori()
+            + clear()
+            {static} + getInstance()
+            + popAll()
+            + put()
+        }
+    }
+
+    namespace bean {
+        namespace device {
+        }
+    }
+}
+
+
+src.domotix.model.ElencoAttuatori --|> src.domotix.model.util.SommarioDispositivi
+src.domotix.model.ElencoSensori --|> src.domotix.model.util.SommarioDispositivi
+src.domotix.model.ElencoUnitaImmobiliari "*" o--> "1" src.domotix.model.bean.UnitaImmobiliare : unita
+src.domotix.model.ElencoCategorieAttuatori "*" o--> "1" src.domotix.model.bean.device.CategoriaAttuatore : categorie
+src.domotix.model.ElencoCategorieSensori "*" o--> "1" src.domotix.model.bean.device.CategoriaSensore : categorie
+
+
+@enduml

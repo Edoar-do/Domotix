@@ -1,0 +1,184 @@
+@startuml
+
+title __DOMOTIX > VIEW > MENUS > MENUUNITA's Class Diagram__\n
+
+namespace src.domotix.view.menus.menuUnita {
+    class src.domotix.view.menus.menuUnita.MenuUnitaF {
+        {static} - INDIETRO : String
+        {static} - SOTTOTITOLO : String
+        {static} - TITOLO : String
+        {static} - UNITA_IMMOBILIARI_ESISTENTI : String
+        {static} - VOCI : String[]
+        {static} - menu : MyMenu
+        {static} + avvia()
+        {static} - premenuUnita()
+    }
+
+    class src.domotix.view.menus.menuUnita.MenuUnitaM {
+        {static} - INDIETRO : String
+        {static} - SOTTOTITOLO : String
+        {static} - TITOLO : String
+        {static} - UNITA_IMMOBILIARI_ESISTENTI : String
+        {static} - VOCI : String[]
+        {static} - menu : MyMenu
+        {static} + avvia()
+        {static} - premenuUnita()
+    }
+
+    namespace gestioneUnita {
+        class src.domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaF {
+            {static} - INDIETRO : String
+            {static} - SOTTOTITOLO : String
+            {static} - TITOLO : String
+            {static} - VOCI : String[]
+            {static} - menu : MyMenu
+            {static} + avvia()
+        }
+
+        class src.domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaM {
+            {static} - ELENCO_STANZE : String
+            {static} - ERRORE_RIMOZIONE_STANZA : String
+            {static} - INDIETRO : String
+            {static} - INSERIMENTO_FALLITO : String
+            {static} - INSERIMENTO_NOME_STANZA : String
+            {static} - SOTTOTITOLO : String
+            {static} - SUCCESSO_INSERIMENTO_STANZA : String
+            {static} - SUCCESSO_RIMOZIONE_STANZA : String
+            {static} - TITOLO : String
+            {static} - VOCI : String[]
+            {static} - menu : MyMenu
+            {static} + avvia()
+            {static} - premenuStanze()
+        }
+    }
+
+    namespace gestioneStanza {
+        class src.domotix.view.menus.menuUnita.gestioneStanza.MenuGestioneStanzaF {
+            {static} - ELENCO_STANZE : String
+            {static} - INDIETRO : String
+            {static} - SOTTOTITOLO : String
+            {static} - TITOLO : String
+            {static} - VOCI : String[]
+            {static} - menu : MyMenu
+            {static} + avvia()
+            {static} - premenuStanze()
+        }
+
+        class src.domotix.view.menus.menuUnita.gestioneStanza.MenuGestioneStanzaM {
+            {static} - ATTENZIONE_NO_CATEGORIA_ATTUATORE : String
+            {static} - ATTENZIONE_NO_CATEGORIA_SENSORE : String
+            {static} - AZIONI_AGGIUNTA_ATTUATORE_STANZA : String[]
+            {static} - AZIONI_AGGIUNTA_SENSORE_STANZA : String[]
+            {static} - ELENCO_ARTEFATTI_STANZA : String
+            {static} - ELENCO_ATTUATORI_COLLEGABILI : String
+            {static} - ELENCO_ATTUATORI_STANZA : String
+            {static} - ELENCO_CATEGORIE_ATTUATORI : String
+            {static} - ELENCO_CATEGORIE_SENSORI : String
+            {static} - ELENCO_SENSORI_COLLEGABILI : String
+            {static} - ELENCO_SENSORI_STANZA : String
+            {static} - ELENCO_STANZE : String
+            {static} - ERRORE_INSERIMENTO_ARTEFATTO : String
+            {static} - ERRORE_INSERIMENTO_ATTUATORE : String
+            {static} - ERRORE_INSERIMENTO_SENSORE : String
+            {static} - ERRORE_RIMOZIONE_ARTEFATTO : String
+            {static} - ERRORE_RIMOZIONE_ATTUATORE : String
+            {static} - ERRORE_RIMOZIONE_SENSORE : String
+            {static} - INDIETRO : String
+            {static} - INSERIMENTO_NOME_ARTEFATTO : String
+            {static} - INSERIMENTO_NOME_ATTUATORE : String
+            {static} - INSERIMENTO_NOME_SENSORE : String
+            {static} - SOTTOTITOLO : String
+            {static} - SUCCESSO_INSERIMENTO_ARTEFATTO : String
+            {static} - SUCCESSO_INSERIMENTO_ATTUATORE : String
+            {static} - SUCCESSO_INSERIMENTO_SENSORE : String
+            {static} - SUCCESSO_RIMOZIONE_ARTEFATTO : String
+            {static} - SUCCESSO_RIMOZIONE_ATTUATORE : String
+            {static} - SUCCESSO_RIMOZIONE_SENSORE : String
+            {static} - TITOLO : String
+            {static} - TITOLO_AGGIUNTA_ATTUATORE_STANZA : String
+            {static} - TITOLO_AGGIUNTA_SENSORE_STANZA : String
+            {static} - VOCI : String[]
+            {static} - menu : MyMenu
+            {static} + avvia()
+            {static} - premenuArtefatti()
+            {static} - premenuAttuatori()
+            {static} - premenuAttuatoriCollegabili()
+            {static} - premenuCategoriaAttuatore()
+            {static} - premenuCategoriaSensore()
+            {static} - premenuSensori()
+            {static} - premenuSensoriCollegabili()
+            {static} - premenuStanze()
+        }
+
+        namespace gestioneArtefatto {
+            class src.domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto.MenuGestioneArtefattoF {
+                {static} - ELENCO_ARTEFATTI : String
+                {static} - INDIETRO : String
+                {static} - SOTTOTITOLO : String
+                {static} - TITOLO : String
+                {static} - VOCI : String[]
+                {static} - menu : MyMenu
+                {static} + avvia()
+                {static} - premenuArtefatto()
+            }
+
+            class src.domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto.MenuGestioneArtefattoM {
+                {static} - AZIONI_AGGIUNTA_ATTUATORE_ARTEFATTO : String[]
+                {static} - AZIONI_AGGIUNTA_SENSORE_ARTEFATTO : String[]
+                {static} - ELENCO_ARTEFATTI : String
+                {static} - ELENCO_ATTUATORI_ARTEFATTO : String
+                {static} - ELENCO_ATTUATORI_COLLEGABILI : String
+                {static} - ELENCO_CATEGORIE_ATTUATORI : String
+                {static} - ELENCO_CATEGORIE_SENSORI : String
+                {static} - ELENCO_SENSORI_ARTEFATTTO : String
+                {static} - ELENCO_SENSORI_COLLEGABILI : String
+                {static} - ERRORE_INSERIMENTO_ATTUATORE : String
+                {static} - ERRORE_INSERIMENTO_SENSORE : String
+                {static} - ERRORE_RIMOZIONE_ATTUATORE : String
+                {static} - ERRORE_RIMOZIONE_SENSORE : String
+                {static} - INDIETRO : String
+                {static} - INSERIMENTO_NOME_ATTUATORE : String
+                {static} - INSERIMENTO_NOME_SENSORE : String
+                {static} - SOTTOTITOLO : String
+                {static} - SUCCESSO_INSERIMENTO_ATTUATORE : String
+                {static} - SUCCESSO_INSERIMENTO_SENSORE : String
+                {static} - SUCCESSO_RIMOZIONE_ATTUATORE : String
+                {static} - SUCCESSO_RIMOZIONE_SENSORE : String
+                {static} - TITOLO : String
+                {static} - TITOLO_AGGIUNTA_ATTUATORE_ARTEFATTO : String
+                {static} - TITOLO_AGGIUNTA_SENSORE_ARTEFATTO : String
+                {static} - VOCI : String[]
+                {static} - menu : MyMenu
+                {static} + avvia()
+                {static} - premenuArtefatto()
+                {static} - premenuAttuatori()
+                {static} - premenuAttuatoriCollegabili()
+                {static} - premenuCategoriaAttuatore()
+                {static} - premenuCategoriaSensore()
+                {static} - premenuSensori()
+                {static} - premenuSensoriCollegabili()
+            }
+        }
+    }
+}
+
+src.domotix.view.menus.menuUnita.MenuUnitaM --> src.domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaM
+src.domotix.view.menus.menuUnita.MenuUnitaM --> src.domotix.view.menus.menuUnita.gestioneStanza.MenuGestioneStanzaM
+src.domotix.view.menus.menuUnita.gestioneStanza.MenuGestioneStanzaM --> src.domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto.MenuGestioneArtefattoM
+src.domotix.view.menus.menuUnita.MenuUnitaF --> src.domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaF
+src.domotix.view.menus.menuUnita.MenuUnitaF --> src.domotix.view.menus.menuUnita.gestioneStanza.MenuGestioneStanzaF
+src.domotix.view.menus.menuUnita.gestioneStanza.MenuGestioneStanzaF --> src.domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto.MenuGestioneArtefattoF
+
+src.domotix.view.menus.menuUnita.MenuUnitaM --> src.domotix.controller.Recuperatore
+src.domotix.view.menus.menuUnita.MenuUnitaF --> src.domotix.controller.Recuperatore
+src.domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaM --> src.domotix.controller.Modificatore
+src.domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaM --> src.domotix.controller.Recuperatore
+src.domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaF --> src.domotix.controller.Recuperatore
+src.domotix.view.menus.menuUnita.gestioneStanza.MenuGestioneStanzaM --> src.domotix.controller.Modificatore
+src.domotix.view.menus.menuUnita.gestioneStanza.MenuGestioneStanzaM --> src.domotix.controller.Recuperatore
+src.domotix.view.menus.menuUnita.gestioneStanza.MenuGestioneStanzaF --> src.domotix.controller.Recuperatore
+src.domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto.MenuGestioneArtefattoM --> src.domotix.controller.Modificatore
+src.domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto.MenuGestioneArtefattoM --> src.domotix.controller.Recuperatore
+src.domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto.MenuGestioneArtefattoF --> src.domotix.controller.Recuperatore
+
+@enduml

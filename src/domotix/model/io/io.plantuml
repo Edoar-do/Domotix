@@ -1,0 +1,288 @@
+@startuml
+
+title __DOMOTIX > MODEL > IO's Class Diagram__\n
+
+namespace src.domotix.model {
+    namespace util {
+    }
+
+    namespace io {
+        interface src.domotix.model.io.LetturaDatiSalvati {
+            {static} + getInstance()
+            {abstract} + getNomiArtefatti()
+            {abstract} + getNomiAttuatori()
+            {abstract} + getNomiCategorieAttuatori()
+            {abstract} + getNomiCategorieSensori()
+            {abstract} + getNomiModalita()
+            {abstract} + getNomiSensori()
+            {abstract} + getNomiStanze()
+            {abstract} + getNomiUnitaImmobiliare()
+            {abstract} + leggiArtefatto()
+            {abstract} + leggiAttuatore()
+            {abstract} + leggiAttuatori()
+            {abstract} + leggiCategoriaAttuatore()
+            {abstract} + leggiCategoriaSensore()
+            {abstract} + leggiCategorieAttuatori()
+            {abstract} + leggiCategorieSensori()
+            {abstract} + leggiModalita()
+            {abstract} + leggiSensore()
+            {abstract} + leggiSensori()
+            {abstract} + leggiStanza()
+            {abstract} + leggiUnitaImmobiliare()
+            {abstract} + leggiUnitaImmobiliare()
+        }
+
+        abstract class src.domotix.model.io.LetturaDatiSalvatiAdapter {
+            + getNomiArtefatti()
+            + getNomiAttuatori()
+            + getNomiCategorieAttuatori()
+            + getNomiCategorieSensori()
+            + getNomiModalita()
+            + getNomiSensori()
+            + getNomiStanze()
+            + getNomiUnitaImmobiliare()
+            + leggiArtefatto()
+            + leggiAttuatore()
+            + leggiAttuatori()
+            + leggiCategoriaAttuatore()
+            + leggiCategoriaSensore()
+            + leggiCategorieAttuatori()
+            + leggiCategorieSensori()
+            + leggiModalita()
+            + leggiSensore()
+            + leggiSensori()
+            + leggiStanza()
+            + leggiUnitaImmobiliare()
+            + leggiUnitaImmobiliare()
+        }
+
+        interface src.domotix.model.io.RimozioneDatiSalvati {
+            {static} + getInstance()
+            {abstract} + rimuoviArtefatto()
+            {abstract} + rimuoviAttuatore()
+            {abstract} + rimuoviCategoriaAttuatore()
+            {abstract} + rimuoviCategoriaSensore()
+            {abstract} + rimuoviModalita()
+            {abstract} + rimuoviSensore()
+            {abstract} + rimuoviStanza()
+            {abstract} + rimuoviUnitaImmobiliare()
+            {abstract} + sincronizzaArtefatti()
+            {abstract} + sincronizzaAttuatori()
+            {abstract} + sincronizzaCategorieAttuatore()
+            {abstract} + sincronizzaCategorieSensore()
+            {abstract} + sincronizzaModalita()
+            {abstract} + sincronizzaSensori()
+            {abstract} + sincronizzaStanze()
+            {abstract} + sincronizzaUnitaImmobiliari()
+        }
+
+        class src.domotix.model.io.RimozioneDatiSalvatiAdapter {
+            + rimuoviArtefatto()
+            + rimuoviAttuatore()
+            + rimuoviCategoriaAttuatore()
+            + rimuoviCategoriaSensore()
+            + rimuoviModalita()
+            + rimuoviSensore()
+            + rimuoviStanza()
+            + rimuoviUnitaImmobiliare()
+            + sincronizzaArtefatti()
+            + sincronizzaAttuatori()
+            + sincronizzaCategorieAttuatore()
+            + sincronizzaCategorieSensore()
+            + sincronizzaModalita()
+            + sincronizzaSensori()
+            + sincronizzaStanze()
+            + sincronizzaUnitaImmobiliari()
+        }
+
+        interface src.domotix.model.io.ScritturaDatiSalvati {
+            {static} + getInstance()
+            {abstract} + salva()
+            {abstract} + salva()
+            {abstract} + salva()
+            {abstract} + salva()
+            {abstract} + salva()
+            {abstract} + salva()
+            {abstract} + salva()
+            {abstract} + salva()
+        }
+
+        class src.domotix.model.io.ScritturaDatiSalvatiAdapter {
+            + salva()
+            + salva()
+            + salva()
+            + salva()
+            + salva()
+            + salva()
+            + salva()
+            + salva()
+        }
+
+        namespace datilocali {
+            enum src.domotix.model.io.datilocali.LettoriXML {
+                ARTEFATTO
+                ATTUATORE
+                CATEGORIA_ATTUATORE
+                CATEGORIA_SENSORE
+                MODALITA
+                SENSORE
+                STANZA
+                UNITA_IMMOB
+                istanziatore
+            }
+
+            interface src.domotix.model.io.datilocali.LettoriXML.IstanziatoreXML {
+                {abstract} + getInstance()
+            }
+
+            class src.domotix.model.io.datilocali.LetturaDatiLocali {
+                {static} - _instance : LetturaDatiLocali
+                - documentBuilder : DocumentBuilder
+                - documentFactory : DocumentBuilderFactory
+                - lettori : HashMap<String, LettoriXML>
+                {static} + getInstance()
+                + getNomiArtefatti()
+                + getNomiAttuatori()
+                + getNomiCategorieAttuatori()
+                + getNomiCategorieSensori()
+                + getNomiModalita()
+                + getNomiSensori()
+                + getNomiStanze()
+                + getNomiUnitaImmobiliare()
+                + leggiArtefatto()
+                + leggiAttuatore()
+                + leggiCategoriaAttuatore()
+                + leggiCategoriaSensore()
+                + leggiCategorieAttuatori()
+                + leggiCategorieSensori()
+                + leggiModalita()
+                + leggiSensore()
+                + leggiStanza()
+                + leggiUnitaImmobiliare()
+                + leggiUnitaImmobiliare()
+                - LetturaDatiLocali()
+                - leggi()
+            }
+
+            class src.domotix.model.io.datilocali.PercorsiFile {
+                {static} - instance : PercorsiFile
+                + controllaStruttura()
+                + getAttuatore()
+                + getCartellaArtefatti()
+                + getCartellaAttuatori()
+                + getCartellaCategoriaAttuatore()
+                + getCartellaCategoriaSensore()
+                + getCartellaModalita()
+                + getCartellaSensori()
+                + getCartellaStanze()
+                + getCartellaUnitaImmobiliare()
+                {static} + getInstance()
+                + getNomiArtefatti()
+                + getNomiAttuatori()
+                + getNomiCategorieAttuatori()
+                + getNomiCategorieSensori()
+                + getNomiModalita()
+                + getNomiSensori()
+                + getNomiStanze()
+                + getNomiUnitaImmobiliare()
+                + getPercorsoArtefatto()
+                + getPercorsoCategoriaAttuatore()
+                + getPercorsoCategoriaSensore()
+                + getPercorsoModalita()
+                + getPercorsoSensore()
+                + getPercorsoStanza()
+                + getPercorsoUnitaImmobiliare()
+                - PercorsiFile()
+                - controllaCartella()
+                - controllaCartellaEntita()
+                - getNomiCartella()
+            }
+
+            class src.domotix.model.io.datilocali.RimozioneDatiLocali {
+                {static} - _instance : RimozioneDatiLocali
+                {static} + getInstance()
+                + rimuoviArtefatto()
+                + rimuoviAttuatore()
+                + rimuoviCategoriaAttuatore()
+                + rimuoviCategoriaSensore()
+                + rimuoviModalita()
+                + rimuoviSensore()
+                + rimuoviStanza()
+                + rimuoviUnitaImmobiliare()
+                + sincronizzaArtefatti()
+                + sincronizzaAttuatori()
+                + sincronizzaCategorieAttuatore()
+                + sincronizzaCategorieSensore()
+                + sincronizzaModalita()
+                + sincronizzaSensori()
+                + sincronizzaStanze()
+                + sincronizzaUnitaImmobiliari()
+                - RimozioneDatiLocali()
+                - rimuoviRicorsivo()
+            }
+
+            enum src.domotix.model.io.datilocali.ScrittoriXML {
+                ARTEFATTO
+                ATTUATORE
+                CATEGORIA_ATTUATORE
+                CATEGORIA_SENSORE
+                MODALITA
+                SENSORE
+                STANZA
+                UNITA_IMMOB
+                compilatore
+            }
+
+            interface src.domotix.model.io.datilocali.ScrittoriXML.CompilatoreXML {
+                {abstract} + compileInstance()
+            }
+
+            class src.domotix.model.io.datilocali.ScritturaDatiLocali {
+                {static} - _instance : ScritturaDatiLocali
+                - documentBuilder : DocumentBuilder
+                - documentFactory : DocumentBuilderFactory
+                - scrittori : HashMap<Class, ScrittoriXML>
+                - transformer : Transformer
+                - transformerFactory : TransformerFactory
+                {static} + getInstance()
+                + salva()
+                + salva()
+                + salva()
+                + salva()
+                + salva()
+                + salva()
+                + salva()
+                + salva()
+                - ScritturaDatiLocali()
+                - salva()
+            }
+        }
+    }
+}
+  
+
+src.domotix.model.io.LetturaDatiSalvatiAdapter .up.|> src.domotix.model.io.LetturaDatiSalvati
+src.domotix.model.io.RimozioneDatiSalvatiAdapter .up.|> src.domotix.model.io.RimozioneDatiSalvati
+src.domotix.model.io.ScritturaDatiSalvatiAdapter .up.|> src.domotix.model.io.ScritturaDatiSalvati
+
+src.domotix.model.io.datilocali.LetturaDatiLocali -up-|> src.domotix.model.io.LetturaDatiSalvatiAdapter
+src.domotix.model.io.datilocali.RimozioneDatiLocali -up-|> src.domotix.model.io.RimozioneDatiSalvatiAdapter
+src.domotix.model.io.datilocali.ScritturaDatiLocali -up-|> src.domotix.model.io.ScritturaDatiSalvatiAdapter
+
+src.domotix.model.io.datilocali.LettoriXML "1" o-- "1" src.domotix.model.io.datilocali.LettoriXML.IstanziatoreXML : istanziatore
+src.domotix.model.io.datilocali.LettoriXML +-down- src.domotix.model.io.datilocali.LettoriXML.IstanziatoreXML : contiene >
+src.domotix.model.io.datilocali.ScrittoriXML "1" o-- "1" src.domotix.model.io.datilocali.ScrittoriXML.CompilatoreXML : compilatore
+src.domotix.model.io.datilocali.ScrittoriXML +-down- src.domotix.model.io.datilocali.ScrittoriXML.CompilatoreXML : contiene >
+
+src.domotix.model.io.datilocali.PercorsiFile -- src.domotix.model.util.Costanti : usa >
+src.domotix.model.io.datilocali.LettoriXML -- src.domotix.model.util.Costanti : usa >
+src.domotix.model.io.datilocali.ScrittoriXML -- src.domotix.model.util.Costanti : usa >
+src.domotix.model.io.datilocali.LetturaDatiLocali -- src.domotix.model.util.Costanti : usa >
+src.domotix.model.io.datilocali.LetturaDatiLocali -- src.domotix.model.io.datilocali.LettoriXML : usa >
+src.domotix.model.io.datilocali.ScritturaDatiLocali -- src.domotix.model.io.datilocali.ScrittoriXML : usa >
+
+src.domotix.model.io.datilocali.LettoriXML -- src.domotix.model.io.LetturaDatiSalvati
+src.domotix.model.io.datilocali.ScrittoriXML -- src.domotix.model.io.ScritturaDatiSalvati
+src.domotix.model.io.datilocali.RimozioneDatiLocali -- src.domotix.model.io.RimozioneDatiSalvati
+
+@enduml

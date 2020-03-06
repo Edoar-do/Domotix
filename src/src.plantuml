@@ -1,0 +1,17 @@
+@startuml
+
+title __DOMOTIX's Class Diagram__\n
+
+    namespace src {
+        class Domotix {
+            {static} + main()
+        }
+    }
+  
+    src.Domotix --> src.domotix.controller.OperazioniIniziali
+    src.Domotix --> src.domotix.controller.OperazioniFinali
+    src.Domotix --> src.domotix.view.MenuLogin
+    src.Domotix --> src.domotix.model.ElencoUnitaImmobiliare
+
+
+@enduml

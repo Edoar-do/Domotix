@@ -1,0 +1,118 @@
+@startuml
+
+title __DOMOTIX > MODEL > UTIL's Class Diagram__\n
+
+namespace src.domotix.model {
+    namespace util {
+        class src.domotix.model.util.Costanti {
+            {static} + NODO_XML_ARTEFATTO : String
+            {static} + NODO_XML_ARTEFATTO_ATTUATORE : String
+            {static} + NODO_XML_ARTEFATTO_NOME : String
+            {static} + NODO_XML_ARTEFATTO_SENSORE : String
+            {static} + NODO_XML_ARTEFATTO_UNITA_IMMOB : String
+            {static} + NODO_XML_ATTUATORE : String
+            {static} + NODO_XML_ATTUATORE_CATEGORIA : String
+            {static} + NODO_XML_ATTUATORE_MODALITA : String
+            {static} + NODO_XML_ATTUATORE_NOME : String
+            {static} + NODO_XML_ATTUATORE_STATO : String
+            {static} + NODO_XML_CATEGORIA_ATTUATORE : String
+            {static} + NODO_XML_CATEGORIA_ATTUATORE_MODALITA : String
+            {static} + NODO_XML_CATEGORIA_ATTUATORE_NOME : String
+            {static} + NODO_XML_CATEGORIA_ATTUATORE_TESTOLIBERO : String
+            {static} + NODO_XML_CATEGORIA_SENSORE : String
+            {static} + NODO_XML_CATEGORIA_SENSORE_INFORILEVABILE : String
+            {static} + NODO_XML_CATEGORIA_SENSORE_NOME : String
+            {static} + NODO_XML_CATEGORIA_SENSORE_TESTOLIBERO : String
+            {static} + NODO_XML_MODALITA : String
+            {static} + NODO_XML_MODALITA_NOME : String
+            {static} + NODO_XML_SENSORE : String
+            {static} + NODO_XML_SENSORE_CATEGORIA : String
+            {static} + NODO_XML_SENSORE_NOME : String
+            {static} + NODO_XML_SENSORE_STATO : String
+            {static} + NODO_XML_SENSORE_VALORE : String
+            {static} + NODO_XML_STANZA : String
+            {static} + NODO_XML_STANZA_ARTEFATTO : String
+            {static} + NODO_XML_STANZA_ATTUATORE : String
+            {static} + NODO_XML_STANZA_NOME : String
+            {static} + NODO_XML_STANZA_SENSORE : String
+            {static} + NODO_XML_STANZA_UNITA_IMMOB : String
+            {static} + NODO_XML_UNITA_IMMOB : String
+            {static} + NODO_XML_UNITA_IMMOB_NOME : String
+            {static} + NODO_XML_UNITA_IMMOB_STANZA : String
+            {static} + NOME_CARTELLA_ARTEFATTI : String
+            {static} + NOME_CARTELLA_MODALITA : String
+            {static} + NOME_CARTELLA_STANZE : String
+            {static} + PERCORSO_CARTELLA_APP : String
+            {static} + PERCORSO_CARTELLA_ATTUATORI : String
+            {static} + PERCORSO_CARTELLA_CATEGORIE_ATTUATORI : String
+            {static} + PERCORSO_CARTELLA_CATEGORIE_SENSORI : String
+            {static} + PERCORSO_CARTELLA_DATI : String
+            {static} + PERCORSO_CARTELLA_SENSORI : String
+            {static} + PERCORSO_CARTELLA_UNITA_IMMOB : String
+            {static} + PERCORSO_RADICE_UTENTE : String
+            - Costanti()
+        }
+
+        class src.domotix.model.util.ElencoDispositivi {
+            - elenco : Map<String, Dispositivo>
+            - osservatori : ArrayList<ObserverList<Dispositivo>>
+            + ElencoDispositivi()
+            + ElencoDispositivi()
+            + add()
+            + add()
+            + aggiungiOsservatore()
+            + contains()
+            + getDispositivi()
+            + getDispositivo()
+            + getOsservatori()
+            + informaAggiunta()
+            + informaRimozione()
+            + remove()
+            + remove()
+            + rimuoviOsservatore()
+            + svuotaOsservatori()
+            + toString()
+        }
+
+        interface src.domotix.model.util.ObservableList {
+            {abstract} + aggiungiOsservatore()
+            {abstract} + getOsservatori()
+            {abstract} + informaAggiunta()
+            {abstract} + informaRimozione()
+            {abstract} + rimuoviOsservatore()
+            {abstract} + svuotaOsservatori()
+        }
+
+        interface src.domotix.model.util.ObserverList {
+            {abstract} + elaboraAggiunta()
+            {abstract} + elaboraRimozione()
+        }
+
+        class src.domotix.model.util.SommarioDispositivi {
+            - elenco : Map<String, Dispositivo>
+            + SommarioDispositivi()
+            + contains()
+            + elaboraAggiunta()
+            + elaboraRimozione()
+            + getDispositivi()
+            + getDispositivo()
+            + toString()
+        }
+    }
+
+    namespace bean {
+        namespace device {
+            abstract class Dispositivo {
+            }
+        }
+    }
+}
+
+
+
+src.domotix.model.util.ElencoDispositivi ..|> src.domotix.model.util.ObservableList
+src.domotix.model.util.SommarioDispositivi ..|> src.domotix.model.util.ObserverList
+src.domotix.model.util.ElencoDispositivi "*" o--> "1" src.domotix.model.bean.device.Dispositivo : elenco
+src.domotix.model.util.SommarioDispositivi "*" o--> "1" src.domotix.model.bean.device.Dispositivo : elenco
+
+@enduml
