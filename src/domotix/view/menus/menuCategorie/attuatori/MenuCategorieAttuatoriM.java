@@ -24,6 +24,7 @@ public class MenuCategorieAttuatoriM {
     private static final String ERRORE_RIMOZIONE_CATEGORIA = "Rimozione della categoria fallita. " + GUIDA_IN_LINEA;
     private static final String SUCCESSO_RIMOZIONE_CATEGORIA = "Rimozione della categoria avvenuta con successo";
     private static final String ERRORE_MODALITA_DEFAULT_MANCANTE = "Inserire almeno la modalita' di default!";
+    private static final String IS_PARAMATRICA = "La modalità operativa %s è paramatrica? ";
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
@@ -50,20 +51,26 @@ public class MenuCategorieAttuatoriM {
                         break;
                     }
                     boolean modalitaDefault = false;
+                    //boolean parametrica;
+                    String nomeModalita;
                     while (true) {
-                        String nomeModalita = InputDati.leggiStringaNonVuota(INSERIMENTO_NOME_MODALITA_OPERATIVA);
+                        nomeModalita = InputDati.leggiStringaNonVuota(INSERIMENTO_NOME_MODALITA_OPERATIVA);
                         if (nomeModalita.equals(TERMINATORE)) {
                             if (modalitaDefault)
                                 break;
                             System.out.println(ERRORE_MODALITA_DEFAULT_MANCANTE);
-                        }
-                        else {
-                            if (Modificatore.aggiungiModalitaCategoriaAttuatore(nome, nomeModalita)) {
-                                modalitaDefault = true;
-                                System.out.println(INSERIMENTO_SUCCESSO_MODALITA);
-                            } else {
-                                System.out.println(ERRORE_INSERIMENTO_MODALITA);
-                            }
+                        }else{
+                            //parametrica = InputDati.yesOrNo(String.format(IS_PARAMATRICA, nomeModalita));
+                            //if(parametrica){
+                                //TODO: CICLO PARAMETRI DELLA MODALITA
+
+                            //}else {
+                                if (Modificatore.aggiungiModalitaCategoriaAttuatore(nome, nomeModalita)) {
+                                    modalitaDefault = true;
+                                    System.out.println(INSERIMENTO_SUCCESSO_MODALITA);
+                                } else
+                                    System.out.println(ERRORE_INSERIMENTO_MODALITA);
+                            //}
                         }
                     }
                     break;
