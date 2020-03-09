@@ -2,10 +2,7 @@ package domotix.controller;
 
 import domotix.model.*;
 import domotix.model.bean.UnitaImmobiliare;
-import domotix.model.bean.device.Attuatore;
-import domotix.model.bean.device.CategoriaAttuatore;
-import domotix.model.bean.device.CategoriaSensore;
-import domotix.model.bean.device.Sensore;
+import domotix.model.bean.device.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Sistema;
 import domotix.model.bean.system.Stanza;
@@ -58,6 +55,33 @@ public class Recuperatore {
 
     static CategoriaAttuatore getCategoriaAttuatore(String nomeCategoria) {
         return ElencoCategorieAttuatori.getInstance().getCategoria(nomeCategoria);
+    }
+
+    /**
+     * Metodo di recupero della modalita' operativa
+     * in cui si trova correntemente l'attuatore.
+     * @param nomeAttuatore Nome dell'Attuatore
+     * @return Il nome della Modalita corrente
+     */
+    public static String getModalitaOperativaCorrente(String nomeAttuatore) {
+        Attuatore attuatore = getAttuatore(nomeAttuatore);
+        Modalita modalitaCorrente = attuatore.getModoOp();
+        return modalitaCorrente.getNome();
+    }
+
+    /**
+     * Metodo di recupero di una lista di nomi delle modalita' operative
+     * di un attuatore, tranne quella in cui si trova correntemente.
+     * @return Array di nomi di Modalita
+     */
+    public static String[] getModalitaOperativeImpostabili(String nomeAttuatore) {
+        Attuatore attuatore = getAttuatore(nomeAttuatore);
+        Modalita modalitaCorrente = attuatore.getModoOp();
+        CategoriaAttuatore categoria = attuatore.getCategoria();
+        return categoria.getElencoModalita().stream()
+                .filter(mod -> !mod.getNome().equals(modalitaCorrente.getNome()))
+                .map(mod -> mod.getNome())
+                .toArray(String[]::new);
     }
 
     /**

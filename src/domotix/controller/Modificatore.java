@@ -13,6 +13,38 @@ import domotix.model.bean.system.Stanza;
 public class Modificatore {
 
     /**
+     * Aggiunge un'UnitaImmobiliare al model
+     * @param nomeUnita Nome dell'UnitaImmobiliare da aggiungere
+     * @return true se l'aggiunta e' andata a buon fine
+     */
+    public static boolean aggiungiUnitaImmobiliare(String nomeUnita) {
+        if (!Verificatore.checkValiditaUnitaImmobiliare(nomeUnita)) return false;
+        ElencoUnitaImmobiliari
+                .getInstance()
+                .add(new UnitaImmobiliare(nomeUnita));
+        return true;
+    }
+
+    /**
+     * Rimuove un'UnitaImmobiliare dal model
+     * @param nomeUnita Nome dell'UnitaImmobiliare da rimuovere
+     * @return true se la rimozione e' andata a buon fine
+     */
+    public static boolean rimuoviUnitaImmobiliare(String nomeUnita) {
+        if (Recuperatore.getUnita(nomeUnita) == null) return false;
+        ElencoUnitaImmobiliari.getInstance().remove(nomeUnita);
+        return true;
+    }
+
+    public static boolean setModalitaOperativa(String nomeAttuatore, String nomeModalita) {
+        if (!Verificatore.checkValiditaModalitaOperativaPerAttuatore(nomeAttuatore, nomeModalita)) return false;
+        Attuatore attuatore = Recuperatore.getAttuatore(nomeAttuatore);
+        CategoriaAttuatore categoriaAttuatore = attuatore.getCategoria();
+        attuatore.setModoOp(categoriaAttuatore.getModalita(nomeModalita));
+        return true;
+    }
+
+    /**
      * Aggiunge una CategoriaSensore al model
      * @param nomeCat Nome della categoria da aggiungere
      * @param testoLibero Testo libero della categoria da aggiungere

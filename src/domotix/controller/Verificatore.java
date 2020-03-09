@@ -3,6 +3,7 @@ package domotix.controller;
 import domotix.model.*;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.Attuatore;
+import domotix.model.bean.device.CategoriaAttuatore;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
@@ -21,6 +22,20 @@ public class Verificatore {
         return nome.matches("^(" + REGEX_NOMI_DISPOSITIVI + ")$");
     }
 
+    private static boolean checkUnivocitaUnitaImmobiliare(String nome) {
+        return ElencoUnitaImmobiliari.getInstance().getUnita(nome) == null;
+    }
+
+    /**
+     * Verifica che le informazioni fornite per la costruzione e l'aggiunta di
+     * un'UnitaImmobiliare all'interno del Model siano valide
+     * @param nome Nome dell'UnitaImmobiliare
+     * @return true se le informazioni sono valide
+     */
+    public static boolean checkValiditaUnitaImmobiliare(String nome) {
+        return isNomeValido(nome) && checkUnivocitaUnitaImmobiliare(nome);
+    }
+
     /**
      * Verifica che le informazioni fornite per la costruzione e l'aggiunta di
      * una ModalitaOperativa all'interno del Model siano valide
@@ -29,6 +44,14 @@ public class Verificatore {
      */
     public static boolean checkValiditaModalitaOperativa(String nome) {
         return isNomeValido(nome);
+    }
+
+    public static boolean checkValiditaModalitaOperativaPerAttuatore(String nomeAttuatore, String nomeModalita) {
+        Attuatore attuatore = Recuperatore.getAttuatore(nomeAttuatore);
+        if (attuatore == null) return false;
+        CategoriaAttuatore categoriaAttuatore = attuatore.getCategoria();
+        if (!categoriaAttuatore.hasModalita(nomeModalita)) return false;
+        return true;
     }
 
     /**

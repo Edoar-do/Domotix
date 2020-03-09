@@ -62,7 +62,10 @@ public class ElencoUnitaImmobiliari {
      * @param nome  stringa per identificare l'unita' immobiliare da eliminare
      */
     public void remove(String nome){
-        unita.remove(nome);
+        if (contains(nome)) {
+            unita.get(nome).distruggi();
+            unita.remove(nome);
+        }
     }
 
     /**

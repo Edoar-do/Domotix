@@ -60,6 +60,19 @@ public class CategoriaAttuatore {
     }
 
     /**
+     * Metodo che recupera una tra le modalita' operative di cui dispone la CategoriaAttuatore.
+     * In particolare, viene recuperata la modalita' con il nome specificato.
+     * @param nome Il nome specificato
+     * @return La modalita' se presente, null altrimenti
+     */
+    public Modalita getModalita(String nome) {
+        for (Modalita modalita : elencoModalita) {
+            if (modalita.getNome().equals(nome)) return modalita;
+        }
+        return null;
+    }
+
+    /**
      * Metodo che recupera la modalita' di default della CategoriaAttuatore.
      * @return La modalita' di default
      */
@@ -98,6 +111,23 @@ public class CategoriaAttuatore {
             if(nomeMode.equalsIgnoreCase(m.getNome()))
                 elencoModalita.remove(m);
         }
+    }
+
+    /**
+     * Metodo che verifica se la CategoriaAttuatore contiene
+     * gia' la modalita specificata.
+     * @param mod La modalita'
+     * @return True se modalita e' interna a CategoriaAttuatore
+     */
+    public boolean hasModalita(Modalita mod) {
+        return hasModalita(mod.getNome());
+    }
+
+    public boolean hasModalita(String nomeMod) {
+        for (Modalita modalita : elencoModalita) {
+            if (modalita.getNome().equals(nomeMod)) return true;
+        }
+        return false;
     }
 
     @Override

@@ -2,6 +2,7 @@ package domotix.model.bean;
 
 import domotix.controller.util.StringUtil;
 import domotix.model.bean.device.Attuatore;
+import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
@@ -175,6 +176,14 @@ public class UnitaImmobiliare {
             }
             return false;
 
+    }
+
+    /**
+     * Per svuotare completamente l'unita' immobiliare, eliminando stanze
+     * ad essa associate.
+     */
+    public void distruggi() {
+        stanze.forEach(stanza -> stanza.distruggi());
     }
 
     @Override
