@@ -16,7 +16,7 @@ public class CategoriaSensore {
      * @param nome  stringa contenente il nome della categoria
      * @param testoLibero   stringa contenente il testo libero della categoria
      */
-    private CategoriaSensore(String nome, String testoLibero) {
+    public CategoriaSensore(String nome, String testoLibero) {
         this.nome = nome;
         this.testoLibero = testoLibero;
     }

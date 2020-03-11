@@ -13,6 +13,22 @@ import domotix.model.bean.system.Stanza;
 public class Modificatore {
 
     /**
+     * Aggiunge un parametro a una modalità operativa parametrica
+     * @param nomeCategoria La categoria di attuatore
+     * @param nomeModalita Il nome della modalità parametrica
+     * @param nomeParametro Il nome del parametro
+     * @param valore Il valore assunto dal parametro
+     * @return True se l'aggiunta e' andata a buon fine
+     */
+    public static boolean aggiungiParametro(String nomeCategoria, String nomeModalita, String nomeParametro, double valore) {
+        if (!Verificatore.checkValiditaParametro(nomeCategoria, nomeModalita, nomeParametro)) return false;
+        CategoriaAttuatore categoria = Recuperatore.getCategoriaAttuatore(nomeCategoria);
+        Modalita modalita = categoria.getModalita(nomeModalita);
+        modalita.addParametro(new Parametro(nomeParametro, valore));
+        return true;
+    }
+
+    /**
      * Aggiunge un'UnitaImmobiliare al model
      * @param nomeUnita Nome dell'UnitaImmobiliare da aggiungere
      * @return true se l'aggiunta e' andata a buon fine
@@ -44,6 +60,13 @@ public class Modificatore {
         return true;
     }
 
+
+    public static boolean aggiungiInfoRilevabile(String nomeCat, String nome, boolean numerica) {
+        if (!Verificatore.checkValiditaInfoRilevabile(nomeCat, nome)) return false;
+        Recuperatore.getCategoriaSensore(nomeCat).addInformazioneRilevabile(new InfoRilevabile(nome, numerica));
+        return true;
+    }
+
     /**
      * Aggiunge una CategoriaSensore al model
      * @param nomeCat Nome della categoria da aggiungere
@@ -51,9 +74,22 @@ public class Modificatore {
      * @param infoRilevabile Informazione rilevabile dal sensore
      * @return true se l'aggiunta e' andata a buon fine
      */
+    @Deprecated
     public static boolean aggiungiCategoriaSensore(String nomeCat, String testoLibero, String infoRilevabile) {
         if (!Verificatore.checkValiditaCategoriaSensore(nomeCat)) return false;
         ElencoCategorieSensori.getInstance().add(new CategoriaSensore(nomeCat, testoLibero, infoRilevabile));
+        return true;
+    }
+
+    /**
+     * Aggiunge una CategoriaSensore al model
+     * @param nomeCat Nome della categoria da aggiungere
+     * @param testoLibero Testo libero della categoria da aggiungere
+     * @return true se l'aggiunta e' andata a buon fine
+     */
+    public static boolean aggiungiCategoriaSensore(String nomeCat, String testoLibero) {
+        if (!Verificatore.checkValiditaCategoriaSensore(nomeCat)) return false;
+        ElencoCategorieSensori.getInstance().add(new CategoriaSensore(nomeCat, testoLibero));
         return true;
     }
 

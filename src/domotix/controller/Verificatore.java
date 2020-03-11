@@ -2,9 +2,7 @@ package domotix.controller;
 
 import domotix.model.*;
 import domotix.model.bean.UnitaImmobiliare;
-import domotix.model.bean.device.Attuatore;
-import domotix.model.bean.device.CategoriaAttuatore;
-import domotix.model.bean.device.Sensore;
+import domotix.model.bean.device.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
@@ -24,6 +22,40 @@ public class Verificatore {
 
     private static boolean checkUnivocitaUnitaImmobiliare(String nome) {
         return ElencoUnitaImmobiliari.getInstance().getUnita(nome) == null;
+    }
+
+    /**
+     * Verifica che le informazioni fornite per la costruzione e l'aggiunta di
+     * un'InfoRilevabile all'interno del Model siano valide
+     * @param catSensore Nome della CategoriaSensore che misura l'InfoRilevabile
+     * @param nome Nome dell'InfoRilevabile
+     * @return true se le informazioni sono valide
+     */
+    public static boolean checkValiditaInfoRilevabile(String catSensore, String nome) {
+       // Il nome deve essere univoco a livello di categoria sensore
+        if (!isNomeValido(nome)) return false;
+        CategoriaSensore categoriaSensore = Recuperatore.getCategoriaSensore(catSensore);
+        if (categoriaSensore == null || categoriaSensore.containsInformazioneRilevabie(nome)) return false;
+        return true;
+    }
+
+    /**
+     * Verifica che le informazioni fornite per la costruzione e l'aggiunta di
+     * un Parametro all'interno del Model siano valide
+     * @param cat Nome della CategoriaAttuatore di appartenenza
+     * @param mod Nome della ModalitaOperativa di appartenenza
+     * @param nome Nome del Parametro
+     * @return true se le informazioni sono valide
+     */
+    public static boolean checkValiditaParametro(String cat, String mod, String nome) {
+        if (!isNomeValido(nome)) return false;
+        CategoriaAttuatore categoria = Recuperatore.getCategoriaAttuatore(cat);
+        if (cat == null) return false;
+        if (!categoria.hasModalita(mod)) return false;
+        Modalita modalita = categoria.getModalita(mod);
+        if (!modalita.isParametrica()) return false;
+        if (modalita.getParametro(nome) != null) return false;
+        return true;
     }
 
     /**
