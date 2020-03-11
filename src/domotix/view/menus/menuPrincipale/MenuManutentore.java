@@ -42,7 +42,7 @@ public class MenuManutentore {
                     MenuUnitaM.avvia();
                     break;
                 case 3: //aggiungi unità
-                    if(Modificatore.aggiungiUnitaImmmobiliare(InputDati.leggiStringaNonVuota(NOME_NUOVA_UNITA)))
+                    if(Modificatore.aggiungiUnitaImmobiliare(InputDati.leggiStringaNonVuota(NOME_NUOVA_UNITA)))
                         System.out.println(SUCCESSO_INSERIMENTO_UNITA);
                     else
                         System.out.println(ERRORE_INSERIMENTO_UNITA);
