@@ -1,11 +1,20 @@
 package domotix.model.bean.device;
+
+import domotix.controller.util.StringUtil;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /** @author Edoardo Coppola */
 public class Modalita {
     private static final String TOSTRING_TEMPLATE = "%s";
     private String nome;
+    private HashMap<String, Parametro> parametri;
 
     public Modalita(String nome){
         this.nome = nome;
+        parametri = new HashMap<>();
     }
 
     /**
@@ -24,8 +33,64 @@ public class Modalita {
         this.nome = nome;
     }
 
+    /**
+     * Ritorna l'elenco dei parametri per la modalita
+     * @return  ArrayList dei Parametro contenuti
+     */
+    public ArrayList<Parametro> getParametri() {
+        return new ArrayList<>(parametri.values());
+    }
+
+    /**
+     * Ritorna il parametro identificato dal nome indicato se presente.
+     * @param nome  stringa contenente il nome per identificare il parametro
+     * @return  parametro identificato dal nome se presente; null altrimenti
+     */
+    public Parametro getParametro(String nome) {
+        return parametri.get(nome);
+    }
+
+    /**
+     * Ritorna se la modalita e' parametrica o meno, ovvero se possiede parametri oppure no.
+     *
+     * @return  true: la modalita contiene almeno un parametro; false: altrimenti
+     */
+    public boolean isParametrica() {
+        return !parametri.isEmpty();
+    }
+
+    /**
+     * Verifica se il nome indicato identifica un parametro per la modalita
+     *
+     * @param nome  stringa contenente il nome di cui cercare un parametro
+     * @return  true: il nome identifica un parametro contenuto; false: altrimenti
+     */
+    public boolean containsParametro(String nome) {
+        return parametri.containsKey(nome);
+    }
+
+    /**
+     * Aggiunge un parametro alla modalita se non gia' presente (identificato per nome)
+     * @param parametro parametro da aggiungere
+     * @return  true; parametro aggiunto con successo; false: altrimenti
+     */
+    public boolean addParametro(Parametro parametro) {
+        if (parametri.containsKey(parametro.getNome()))
+            return false;
+
+        parametri.put(parametro.getNome(), parametro);
+        return true;
+    }
+
     @Override
     public String toString() {
-        return String.format(this.TOSTRING_TEMPLATE, this.getNome());
+        String str = "" + this.getNome();
+        if (!parametri.isEmpty()) {
+            str += "\n" + StringUtil.indent("PARAMETRI:", 1);
+            for (Parametro p : parametri.values()) {
+                str += "\n" + StringUtil.indent(p.toString(), 1);
+            }
+        }
+        return str;
     }
 }
