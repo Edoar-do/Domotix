@@ -35,7 +35,7 @@ public class Verificatore {
        // Il nome deve essere univoco a livello di categoria sensore
         if (!isNomeValido(nome)) return false;
         CategoriaSensore categoriaSensore = Recuperatore.getCategoriaSensore(catSensore);
-        if (categoriaSensore == null || categoriaSensore.containsInformazioneRilevabie(nome)) return false;
+        if (categoriaSensore == null) return false;
         return true;
     }
 
