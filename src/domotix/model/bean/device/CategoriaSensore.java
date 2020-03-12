@@ -63,7 +63,6 @@ public class CategoriaSensore {
      */
     public CategoriaSensore(String nome, String testoLibero, InfoRilevabile infoRilevabile, InfoRilevabile ...infoExtra) {
         this(nome, testoLibero, infoRilevabile);
-
     }
 
     /**

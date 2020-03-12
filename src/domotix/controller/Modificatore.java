@@ -63,8 +63,7 @@ public class Modificatore {
 
     public static boolean aggiungiInfoRilevabile(String nomeCat, String nome, boolean numerica) {
         if (!Verificatore.checkValiditaInfoRilevabile(nomeCat, nome)) return false;
-        Recuperatore.getCategoriaSensore(nomeCat).addInformazioneRilevabile(new InfoRilevabile(nome, numerica));
-        return true;
+        return Recuperatore.getCategoriaSensore(nomeCat).addInformazioneRilevabile(new InfoRilevabile(nome, numerica));
     }
 
     /**
