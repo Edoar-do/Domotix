@@ -25,12 +25,19 @@ public class MenuCategorieAttuatoriM {
     private static final String SUCCESSO_RIMOZIONE_CATEGORIA = "Rimozione della categoria avvenuta con successo";
     private static final String ERRORE_MODALITA_DEFAULT_MANCANTE = "Inserire almeno la modalita' di default!";
     private static final String IS_PARAMATRICA = "La modalità operativa %s è paramatrica? ";
+    private static final String INSERIMENTO_NOME_PARAMETRO = "Inserisci un nome per il parametro della modalità operativa parametrica (inserire " + TERMINATORE + " per terminare)";
+    private static final String SUCCESSO_INSERIMENTO_PARAMETRO = "Parametro inserito con successo";
+    private static final String ERRORE_ALMENO_UN_PARAMETRO = "Almeno un parametro deve essere inserito nella modalita' parametrica";
+    private static final String ERRORE_INSERIMENTO_PARAMETRO = "L'inserimento del parametro è fallito. " + GUIDA_IN_LINEA;
+    private static final String INSERIMENTO_VALORE_PARAMETRO = "Inserisci il valore desiderato per il parametro %s : ";
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
     /**
      * Prensenta all'utente manutentore un menu che consente di aggiungere un nuova categoria di attuatori, rimuoverne una (se presente) oppure di
-     * visualizzare tutte le descrizioni delle categorie di attuatori presenti oppure consente di tornare indietro e chiudere questo menu
+     * visualizzare tutte le descrizioni delle categorie di attuatori presenti oppure consente di tornare indietro e chiudere questo menu.
+     * L'aggiunta di una categoria comporta l'inserimento di almeno una modalità operativa la quale può essere parametrica o meno. Se sì
+     * è richiesto almeno un parametro per essa
      */
     public static void avvia(){
 
@@ -44,15 +51,15 @@ public class MenuCategorieAttuatoriM {
                     return;
                 case 1: // aggiungi categoria attuatori
                     nome = InputDati.leggiStringaNonVuota(INSERIMENTO_CATEGORIA_ATTUATORE);
-                    if(Modificatore.aggiungiCategoriaAttuatore(nome, InputDati.leggiStringaNonVuota(INSERIMENTO_TESTO_LIBERO)))
+                    if(Modificatore.aggiungiCategoriaAttuatore(nome, InputDati.leggiStringaNonVuota(INSERIMENTO_TESTO_LIBERO))) //creo la categoria vuota e la popolo poi con le modalità
                         System.out.println(INSERIMENTO_SUCCESSO);
                     else {
                         System.out.println(ERRORE_INSERIMENTO);
                         break;
                     }
-                    boolean modalitaDefault = false;
-                    //boolean parametrica;
-                    String nomeModalita;
+                    boolean parametrica, almenoUnParametro = false, modalitaDefault = false;
+                    String nomeModalita, parametro;
+                    //ciclo di popolamento della categoria vuota con le sue modalità parametriche o meno
                     while (true) {
                         nomeModalita = InputDati.leggiStringaNonVuota(INSERIMENTO_NOME_MODALITA_OPERATIVA);
                         if (nomeModalita.equals(TERMINATORE)) {
@@ -60,17 +67,30 @@ public class MenuCategorieAttuatoriM {
                                 break;
                             System.out.println(ERRORE_MODALITA_DEFAULT_MANCANTE);
                         }else{
-                            //parametrica = InputDati.yesOrNo(String.format(IS_PARAMATRICA, nomeModalita));
-                            //if(parametrica){
-                                //TODO: CICLO PARAMETRI DELLA MODALITA
-
-                            //}else {
-                                if (Modificatore.aggiungiModalitaCategoriaAttuatore(nome, nomeModalita)) {
-                                    modalitaDefault = true;
-                                    System.out.println(INSERIMENTO_SUCCESSO_MODALITA);
-                                } else
-                                    System.out.println(ERRORE_INSERIMENTO_MODALITA);
-                            //}
+                            parametrica = InputDati.yesOrNo(String.format(IS_PARAMATRICA, nomeModalita));
+                            if(parametrica){
+                                //se modalità parametrica -> inserimento nomi parametri
+                                while(true){
+                                    parametro = InputDati.leggiStringaNonVuota(INSERIMENTO_NOME_PARAMETRO);
+                                    if(parametro.equals(TERMINATORE)){
+                                        if(almenoUnParametro)
+                                            break;
+                                        System.out.println(ERRORE_ALMENO_UN_PARAMETRO);
+                                    }else{
+                                        if(Modificatore.aggiungiParametro(nome, nomeModalita, parametro, InputDati.leggiDouble(String.format(INSERIMENTO_VALORE_PARAMETRO, parametro)))){
+                                            System.out.println(SUCCESSO_INSERIMENTO_PARAMETRO);
+                                            almenoUnParametro = true;
+                                        }else
+                                            System.out.println(ERRORE_INSERIMENTO_PARAMETRO);
+                                    }
+                                }
+                            }
+                            //sia se modalità parametrica che non
+                            if (Modificatore.aggiungiModalitaCategoriaAttuatore(nome, nomeModalita)) {
+                                modalitaDefault = true;
+                                System.out.println(INSERIMENTO_SUCCESSO_MODALITA);
+                            } else
+                                System.out.println(ERRORE_INSERIMENTO_MODALITA);
                         }
                     }
                     break;
