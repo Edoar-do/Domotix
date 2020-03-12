@@ -67,6 +67,7 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
         scrittori.put(UnitaImmobiliare.class, ScrittoriXML.UNITA_IMMOB);
         scrittori.put(Modalita.class, ScrittoriXML.MODALITA);
         scrittori.put(CategoriaAttuatore.class, ScrittoriXML.CATEGORIA_ATTUATORE);
+        scrittori.put(InfoRilevabile.class, ScrittoriXML.INFORMAZIONE_RILEVABILE);
         scrittori.put(CategoriaSensore.class, ScrittoriXML.CATEGORIA_SENSORE);
     }
 
@@ -105,8 +106,19 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
 
     @Override
     public void salva(CategoriaSensore cat) throws TransformerException, IOException, ParserConfigurationException {
+        //salvo prima le entita' interne
+        for (InfoRilevabile info : cat.getInformazioniRilevabili()) {
+            salva(info, cat.getNome());
+        }
+
         String path = PercorsiFile.getInstance().getPercorsoCategoriaSensore(cat.getNome());
         salva(path, cat);
+    }
+
+    @Override
+    public void salva(InfoRilevabile info, String cat) throws TransformerException, IOException, ParserConfigurationException {
+        String path = PercorsiFile.getInstance().getPercorsoInformazioneRilevabile(info.getNome(), cat);
+        salva(path, info);
     }
 
     @Override

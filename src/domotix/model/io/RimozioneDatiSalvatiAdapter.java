@@ -21,6 +21,11 @@ public class RimozioneDatiSalvatiAdapter implements RimozioneDatiSalvati {
     }
 
     @Override
+    public void rimuoviInfoRilevabile(String info, String cat) throws Exception {
+
+    }
+
+    @Override
     public void rimuoviCategoriaAttuatore(String cat) throws Exception {
 
     }
@@ -57,6 +62,11 @@ public class RimozioneDatiSalvatiAdapter implements RimozioneDatiSalvati {
 
     @Override
     public void sincronizzaCategorieSensore(List<CategoriaSensore> entita) throws Exception {
+
+    }
+
+    @Override
+    public void sincronizzaInfoRilevabile(CategoriaSensore entita) throws Exception {
 
     }
 

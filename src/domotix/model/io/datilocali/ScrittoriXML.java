@@ -46,6 +46,12 @@ public enum ScrittoriXML {
      */
     UNITA_IMMOB(ScrittoriXML::compilaUnitaImmobiliare),
     /**
+     * Entita' Parametro per Modalita'
+     * @see Parametro
+     * @see Modalita
+     */
+    PARAMETRO_MODALITA(ScrittoriXML::compilaParametroModalita),
+    /**
      * Entita' Modalita
      * @see Modalita
      */
@@ -55,6 +61,11 @@ public enum ScrittoriXML {
      * @see CategoriaAttuatore
      */
     CATEGORIA_ATTUATORE(ScrittoriXML::compilaCategoriaAttuatore),
+    /**
+     * Entita' InfoRilevabile
+     * @see InfoRilevabile
+     */
+    INFORMAZIONE_RILEVABILE(ScrittoriXML::compilaInfoRilevabile),
     /**
      * Entita' CategoriaSensore
      * @see CategoriaSensore
@@ -278,8 +289,31 @@ public enum ScrittoriXML {
             throw new IllegalArgumentException("ScrittoriXML.UNITA_IMMOB.compileInstance(): impossibile compilare oggetto non UnitaImmobiliare");
     }
 
+    /** Metodo per scrittore: PARAMETRO_MODALITA **/
+    private static Element compilaParametroModalita(Object obj, Document doc) {
+        if (obj instanceof Parametro) {
+            Parametro parametro = (Parametro) obj;
+
+            //crea elemento base
+            Element root = doc.createElement(Costanti.NODO_XML_MODALITA_PARAMETRO);
+
+            //assegna attributo identificativo
+            Attr nome = doc.createAttribute(Costanti.NODO_XML_MODALITA_PARAMETRO_NOME);
+            nome.setValue(parametro.getNome());
+            root.setAttributeNode(nome);
+
+            Element elem;
+            elem = doc.createElement(Costanti.NODO_XML_MODALITA_PARAMETRO_VALORE);
+            elem.appendChild(doc.createTextNode(Double.toString(parametro.getValore())));
+            root.appendChild(elem);
+
+            return root;
+        } else
+            throw new IllegalArgumentException("ScrittoriXML.PARAMETRO_MODALITA.compileInstance(): impossibile compilare oggetto non Parametro");
+    }
+
     /** Metodo per scrittore: MODALITA **/
-    private static Element compilaModalita(Object obj, Document doc) {
+    private static Element compilaModalita(Object obj, Document doc) throws ParserConfigurationException, TransformerException, IOException {
         if (obj instanceof Modalita) {
             Modalita modalita = (Modalita)obj;
 
@@ -290,6 +324,12 @@ public enum ScrittoriXML {
             Attr nome = doc.createAttribute(Costanti.NODO_XML_MODALITA_NOME);
             nome.setValue(modalita.getNome());
             root.setAttributeNode(nome);
+
+            Element elem;
+            for (Parametro par : modalita.getParametri()) {
+                elem = PARAMETRO_MODALITA.compilatore.compileInstance(par, doc);
+                root.appendChild(elem);
+            }
 
             return root;
         } else
@@ -325,6 +365,29 @@ public enum ScrittoriXML {
             throw new IllegalArgumentException("ScrittoriXML.CATEGORIA_ATTUATORE.compileInstance(): impossibile compilare oggetto non CategoriaAttuatore");
     }
 
+    /** Metodo per scrittore: INFORMAZIONE_RILEVABILE **/
+    private static Element compilaInfoRilevabile(Object obj, Document doc) {
+        if (obj instanceof InfoRilevabile) {
+            InfoRilevabile info = (InfoRilevabile)obj;
+
+            //crea elemento base
+            Element root = doc.createElement(Costanti.NODO_XML_INFORILEVABILE);
+
+            //assegna attributo identificativo
+            Attr nome = doc.createAttribute(Costanti.NODO_XML_INFORILEVABILE_NOME);
+            nome.setValue(info.getNome());
+            root.setAttributeNode(nome);
+
+            //popola elemento base
+            Element elem = doc.createElement(Costanti.NODO_XML_INFORILEVABILE_NUMERICA);
+            elem.appendChild(doc.createTextNode(info.isNumerica() ? "1" : "0"));
+            root.appendChild(elem);
+
+            return root;
+        } else
+            throw new IllegalArgumentException("ScrittoriXML.INFORMAZIONE_RILEVABILE.compileInstance(): impossibile compilare oggetto non InfoRilevabile");
+    }
+
     /** Metodo per scrittore: CATEGORIA_SENSORE **/
     private static Element compilaCategoriaSensore(Object obj, Document doc) {
         if (obj instanceof CategoriaSensore) {
@@ -343,9 +406,11 @@ public enum ScrittoriXML {
             elem.appendChild(doc.createTextNode(cat.getTestoLibero()));
             root.appendChild(elem);
 
-            elem = doc.createElement(Costanti.NODO_XML_CATEGORIA_SENSORE_INFORILEVABILE);
-            elem.appendChild(doc.createTextNode(cat.getInformazioneRilevabile()));
-            root.appendChild(elem);
+            for (InfoRilevabile i : cat.getInformazioniRilevabili()) {
+                elem = doc.createElement(Costanti.NODO_XML_CATEGORIA_SENSORE_INFORILEVABILE);
+                elem.appendChild(doc.createTextNode(i.getNome()));
+                root.appendChild(elem);
+            }
 
             return root;
         } else

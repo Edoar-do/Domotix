@@ -68,6 +68,13 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
     }
 
     @Override
+    public void rimuoviInfoRilevabile(String info, String cat) throws Exception {
+        String percorso = PercorsiFile.getInstance().getPercorsoInformazioneRilevabile(info, cat);
+        File f = new File(percorso);
+        rimuoviRicorsivo(f);
+    }
+
+    @Override
     public void rimuoviCategoriaAttuatore(String cat) throws Exception {
         String percorso = PercorsiFile.getInstance().getCartellaCategoriaAttuatore(cat);
         File f = new File(percorso);
@@ -122,10 +129,27 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         List<String> nomiDati = PercorsiFile.getInstance().getNomiCategorieSensori();
 
         //rimuovo le entita logiche presenti
-        entita.forEach(catSens -> nomiDati.remove(catSens.getNome()) );
+        for (CategoriaSensore categoriaSensore : entita) {
+            nomiDati.remove(categoriaSensore.getNome());
+            sincronizzaInfoRilevabile(categoriaSensore); //se entita logica presente allora sincronizzo le componenti
+        }
         //elaboro i nomi rimasti
         for (String catSens : nomiDati) {
             RimozioneDatiSalvati.getInstance().rimuoviCategoriaSensore(catSens);
+        }
+    }
+
+    @Override
+    public void sincronizzaInfoRilevabile(CategoriaSensore entita) throws Exception {
+        List<String> nomiDati = PercorsiFile.getInstance().getNomiInformazioniRilevabili(entita.getNome());
+
+        //rimuovo le entita logiche presenti
+        for (InfoRilevabile info : entita.getInformazioniRilevabili()) {
+            nomiDati.remove(info.getNome());
+        }
+        //elaboro i nomi rimasti
+        for (String info : nomiDati) {
+            RimozioneDatiSalvati.getInstance().rimuoviInfoRilevabile(info, entita.getNome());
         }
     }
 

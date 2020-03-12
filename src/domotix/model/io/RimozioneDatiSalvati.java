@@ -22,6 +22,7 @@ import java.util.List;
  *
  *  Le rimozioni comportano a catena la cancellazione le entita' ad essa legate:
  *  -   Categorie dei Sensori
+ *      -   InfoRilevabile della categoria
  *  -   Categorie degli Attuatori
  *      -   Modalita' della categoria
  *  -   Unita immobiliare
@@ -52,6 +53,16 @@ public interface RimozioneDatiSalvati {
      * @see CategoriaSensore
      */
     void rimuoviCategoriaSensore(String cat) throws Exception;
+
+    /**
+     * Cancellazione nei dati memorizzati di una singola istanza di InfoRilevabile.
+     *
+     * @param info istanza da rimuovere
+     * @param cat  stringa identificativa cui l'informazione rilevabile riferisce
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see InfoRilevabile
+     */
+    void rimuoviInfoRilevabile(String info, String cat) throws Exception;
 
     /**
      * Cancellazione nei dati memorizzati di una singola istanza di CategoriaAttuatore.
@@ -130,6 +141,18 @@ public interface RimozioneDatiSalvati {
      * @see CategoriaSensore
      */
     void sincronizzaCategorieSensore(List<CategoriaSensore> entita) throws Exception;
+
+    /**
+     * Confronta tutte le InfoRilevabile di CategoriaSensore presenti nei dati salvati con la lista indicata.
+     * Tutti quelli assenti nella lista parametro saranno eliminati per mantenere sincronizzati i dati
+     * salvati con le entita' logiche.
+     *
+     * @param entita    istanza di CategoriaSensore di cui effettuare la sincronizzazione delle InfoRilevabili
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see CategoriaSensore
+     * @see InfoRilevabile
+     */
+    void sincronizzaInfoRilevabile(CategoriaSensore entita) throws Exception;
 
     /**
      * Confronta tutte le CategoriaAttuatore presenti nei dati salvati con la lista indicata.

@@ -13,6 +13,7 @@ import domotix.model.io.datilocali.ScritturaDatiLocali;
  * A livello logico, non vi sono precedenze a livello di scrittura se viene salvato tutto.
  * La sequenza completa di scrittura e':
  *  -   Categorie dei Sensori
+ *      -   InfoRilevabile
  *  -   Categorie degli Attuatori
  *      -   Modalita' della categoria
  *  -   Unita immobiliare
@@ -44,6 +45,16 @@ public interface ScritturaDatiSalvati {
      * @see CategoriaSensore
      */
     void salva(CategoriaSensore cat) throws Exception;
+
+    /**
+     * Scrittura/Sovrascrittura nei dati memorizzati di una singola istanza di InfoRilevabile.
+     *
+     * @param info istanza da salvare
+     * @param cat  stringa identificativa cui la InfoRilevabile riferisce
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see Modalita
+     */
+    void salva(InfoRilevabile info, String cat) throws Exception;
 
     /**
      * Scrittura/Sovrascrittura nei dati memorizzati di una singola istanza di CategoriaAttuatore.

@@ -82,6 +82,8 @@ public class PercorsiFile {
         //controllo l'esistenza di una cartella per categoria (in modo cioe' che non vi sia una categoria come file senza la propria cartella)
         for (String s : getNomiCategorieSensori()) {
             controllaCartellaEntita(getCartellaCategoriaSensore(s));
+            controllaCartella(getCartellaInformazioneRilevabile(s)); //controllo esistenza di una cartella informazioni rilevabile all'interno di ciascuna cartella
+            //le informazioni rilevabili sono gestite come singoli file contenuti nella cartella sopra
         }
 
         controllaCartella(Costanti.PERCORSO_CARTELLA_CATEGORIE_ATTUATORI);
@@ -134,6 +136,37 @@ public class PercorsiFile {
      */
     public List<String> getNomiCategorieSensori() {
         return getNomiCartella(Costanti.PERCORSO_CARTELLA_CATEGORIE_SENSORI);
+    }
+
+    /**
+     * Genera il percorso del file specifico per un'entita' InfoRilevabile identificata dalle stringhe passata.
+     * @param infoRilevabile  identificativo stringa dell'informazione rilevabile
+     * @param cat   identificativo stringa della categoria inerente all'informazione rilevabile
+     * @return  Percorso al file dove risiedono i dati locali relativi all'entita'
+     * @see domotix.model.bean.device.Modalita
+     */
+    public String getPercorsoInformazioneRilevabile(String infoRilevabile, String cat) {
+        return getCartellaInformazioneRilevabile(cat) + File.separator + infoRilevabile;
+    }
+
+    /**
+     * Genera il percorso della cartella contenente i dati relativi all'entita' InfoRilevabile identificata dalla stringa passata
+     * @param cat   identificativo stringa della categoria inerente alla modalita
+     * @return  Percorso della cartella dove risiedono i dati locali relativi all'entita'
+     * @see domotix.model.bean.device.Modalita
+     */
+    public String getCartellaInformazioneRilevabile(String cat) {
+        return getCartellaCategoriaSensore(cat) + File.separator + Costanti.NOME_CARTELLA_INFO_RILEVABILE;
+    }
+
+    /**
+     * Ritorna una lista di nomi delle entita' presenti nei file memorizzati
+     *
+     * @return  Lista di nomi delle entita' presenti
+     * @see domotix.model.bean.device.Modalita
+     */
+    public List<String> getNomiInformazioniRilevabili(String categoriaSensore) {
+        return getNomiCartella(getCartellaInformazioneRilevabile(categoriaSensore));
     }
 
     /**

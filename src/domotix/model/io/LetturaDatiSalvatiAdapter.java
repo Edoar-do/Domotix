@@ -20,6 +20,11 @@ public abstract class LetturaDatiSalvatiAdapter implements LetturaDatiSalvati {
     }
 
     @Override
+    public List<String> getNomiInformazioniRilevabili(String categoriaSensore) {
+        return null;
+    }
+
+    @Override
     public List<String> getNomiCategorieAttuatori() {
         return null;
     }
@@ -61,6 +66,11 @@ public abstract class LetturaDatiSalvatiAdapter implements LetturaDatiSalvati {
 
     @Override
     public CategoriaSensore leggiCategoriaSensore(String nome) throws Exception {
+        return null;
+    }
+
+    @Override
+    public InfoRilevabile leggiInfoRilevabile(String nome, String categoria) throws Exception {
         return null;
     }
 

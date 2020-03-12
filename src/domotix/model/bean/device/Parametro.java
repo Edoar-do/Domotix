@@ -40,6 +40,6 @@ public class Parametro {
 
     @Override
     public String toString() {
-        return nome + ": " + String.format("%.2d", valore);
+        return nome + ": " + String.format("%.2f", valore);
     }
 }

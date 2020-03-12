@@ -19,6 +19,7 @@ public final class Costanti {
     public static final String PERCORSO_CARTELLA_APP = PERCORSO_RADICE_UTENTE + File.separator + ".DOMOTIX";
     public static final String PERCORSO_CARTELLA_DATI = PERCORSO_CARTELLA_APP + File.separator + "dati";
     public static final String PERCORSO_CARTELLA_CATEGORIE_SENSORI = PERCORSO_CARTELLA_DATI + File.separator + "categorie_sensori";
+    public static final String NOME_CARTELLA_INFO_RILEVABILE = "info_rilevabile";
     public static final String PERCORSO_CARTELLA_CATEGORIE_ATTUATORI = PERCORSO_CARTELLA_DATI + File.separator + "categorie_attuatori";
     //public static final String PERCORSO_CARTELLA_MODALITA = PERCORSO_CARTELLA_DATI + File.separator + "modalita";
     public static final String NOME_CARTELLA_MODALITA = "modalita";
@@ -37,12 +38,18 @@ public final class Costanti {
     public static final String NODO_XML_CATEGORIA_SENSORE_NOME = "nome";
     public static final String NODO_XML_CATEGORIA_SENSORE_TESTOLIBERO = "testolibero";
     public static final String NODO_XML_CATEGORIA_SENSORE_INFORILEVABILE = "informazione_rilevabile";
+    public static final String NODO_XML_INFORILEVABILE = "informazione_rilevabile";
+    public static final String NODO_XML_INFORILEVABILE_NOME = "nome";
+    public static final String NODO_XML_INFORILEVABILE_NUMERICA = "numerica";
     public static final String NODO_XML_CATEGORIA_ATTUATORE = "categoria_attuatore";
     public static final String NODO_XML_CATEGORIA_ATTUATORE_NOME = "nome";
     public static final String NODO_XML_CATEGORIA_ATTUATORE_TESTOLIBERO = "testolibero";
     public static final String NODO_XML_CATEGORIA_ATTUATORE_MODALITA = "modalita";
     public static final String NODO_XML_MODALITA = "modalita";
     public static final String NODO_XML_MODALITA_NOME = "nome";
+    public static final String NODO_XML_MODALITA_PARAMETRO = "parametro";
+    public static final String NODO_XML_MODALITA_PARAMETRO_NOME = "nome";
+    public static final String NODO_XML_MODALITA_PARAMETRO_VALORE = "valore";
     public static final String NODO_XML_UNITA_IMMOB = "unita_immob";
     public static final String NODO_XML_UNITA_IMMOB_NOME = "nome";
     public static final String NODO_XML_UNITA_IMMOB_STANZA = "stanza";

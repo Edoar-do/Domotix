@@ -63,6 +63,8 @@ public class CategoriaSensore {
      */
     public CategoriaSensore(String nome, String testoLibero, InfoRilevabile infoRilevabile, InfoRilevabile ...infoExtra) {
         this(nome, testoLibero, infoRilevabile);
+        for (InfoRilevabile i : infoExtra)
+            addInformazioneRilevabile(i);
     }
 
     /**
@@ -163,10 +165,8 @@ public class CategoriaSensore {
      * @return  true: informazione rilevabile aggiunta senza problemi; false: altrimenti
      */
     public boolean addInformazioneRilevabile(InfoRilevabile infoRilevabile) {
-        for(InfoRilevabile i : informazioneRilevabile) {
-            if (i.getNome().equals(infoRilevabile.getNome()))
-                return false;
-        }
+        if (containsInformazioneRilevabie(infoRilevabile.getNome()))
+            return false;
 
         informazioneRilevabile.add(infoRilevabile);
         return true;

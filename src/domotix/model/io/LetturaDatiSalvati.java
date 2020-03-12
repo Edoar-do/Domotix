@@ -19,6 +19,7 @@ import java.util.List;
  *  Effettuate queste prime letture, e' possibile ri-effettuare la lettura di una qualsiasi entita' senza problemi.
  *  Ciascuna delle letture sopra comporta la lettura delle entita' da cui dipendono, infatti la sequenza completa di lettura e':
  *  -   Categorie dei Sensori
+ *      -   InfoRilevabile della categoria
  *  -   Categorie degli Attuatori
  *      -   Modalita' della categoria
  *  -   Unita immobiliare
@@ -51,6 +52,14 @@ public interface LetturaDatiSalvati {
      * @see CategoriaSensore
      */
     List<String> getNomiCategorieSensori();
+
+    /**
+     * Ritorna il nome di tutte le InfoRilevabile presenti nei dati memorizzati.
+     *
+     * @return  Lista di tutti i nomi delle istanze nei dati memorizzati.
+     * @see InfoRilevabile
+     */
+    List<String> getNomiInformazioniRilevabili(String categoriaSensore);
 
     /**
      * Ritorna il nome di tutte le CategoriaAttuatore presenti nei dati memorizzati.
@@ -127,6 +136,17 @@ public interface LetturaDatiSalvati {
      * @see CategoriaSensore
      */
     CategoriaSensore leggiCategoriaSensore(String nome) throws Exception;
+
+    /**
+     * Lettura di una singola InfoRilevabile presente nei dati memorizzati identificata dal nome e categoria indicata.
+     *
+     * @param nome  stringa identificativa dell'istanza da leggere
+     * @param categoria stringa identificativa della categoria cui la modalita riferisce
+     * @return  istanza presente nei dati memorizzati.
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see InfoRilevabile
+     */
+    InfoRilevabile leggiInfoRilevabile(String nome, String categoria) throws Exception;
 
     /**
      * Lettura di tutte le CategoriaAttuatore presenti nei dati memorizzati.

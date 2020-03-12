@@ -63,12 +63,18 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
         lettori.put(Costanti.NODO_XML_UNITA_IMMOB, LettoriXML.UNITA_IMMOB);
         lettori.put(Costanti.NODO_XML_MODALITA, LettoriXML.MODALITA);
         lettori.put(Costanti.NODO_XML_CATEGORIA_ATTUATORE, LettoriXML.CATEGORIA_ATTUATORE);
+        lettori.put(Costanti.NODO_XML_INFORILEVABILE, LettoriXML.INFORMAZIONE_RILEVABILE);
         lettori.put(Costanti.NODO_XML_CATEGORIA_SENSORE, LettoriXML.CATEGORIA_SENSORE);
     }
 
     @Override
     public List<String> getNomiCategorieSensori() {
         return PercorsiFile.getInstance().getNomiCategorieSensori();
+    }
+
+    @Override
+    public List<String> getNomiInformazioniRilevabili(String categoriaSensore) {
+        return PercorsiFile.getInstance().getNomiInformazioniRilevabili(categoriaSensore);
     }
 
     @Override
@@ -161,6 +167,12 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
     public CategoriaSensore leggiCategoriaSensore(String nome) throws Exception {
         String path = PercorsiFile.getInstance().getPercorsoCategoriaSensore(nome);
         return (CategoriaSensore)leggi(path);
+    }
+
+    @Override
+    public InfoRilevabile leggiInfoRilevabile(String nome, String categoria) throws Exception {
+        String path = PercorsiFile.getInstance().getPercorsoInformazioneRilevabile(nome, categoria);
+        return (InfoRilevabile)leggi(path);
     }
 
     @Override

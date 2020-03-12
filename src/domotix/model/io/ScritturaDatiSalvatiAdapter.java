@@ -12,6 +12,11 @@ public class ScritturaDatiSalvatiAdapter implements ScritturaDatiSalvati {
     }
 
     @Override
+    public void salva(InfoRilevabile info, String cat) throws Exception {
+
+    }
+
+    @Override
     public void salva(CategoriaAttuatore cat) throws Exception {
 
     }

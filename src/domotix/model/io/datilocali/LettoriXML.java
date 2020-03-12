@@ -48,6 +48,12 @@ public enum LettoriXML {
      */
     UNITA_IMMOB(LettoriXML::leggiUnitaImmobiliare),
     /**
+     * Entita' Parametro per Modalita'
+     * @see Parametro
+     * @see Modalita
+     */
+    PARAMETRO_MODALITA(LettoriXML::leggiParametroModalita),
+    /**
      * Entita' Modalita
      * @see Modalita
      */
@@ -57,6 +63,11 @@ public enum LettoriXML {
      * @see CategoriaAttuatore
      */
     CATEGORIA_ATTUATORE(LettoriXML::leggiCategoriaAttuatore),
+    /**
+     * Entita' InfoRilevabile
+     * @see InfoRilevabile
+     */
+    INFORMAZIONE_RILEVABILE(LettoriXML::leggiInfoRilevabile),
     /**
      * Entita' CategoriaSensore
      * @see CategoriaSensore
@@ -404,11 +415,39 @@ public enum LettoriXML {
             throw new NoSuchElementException("LettoriXML.UNITA_IMMOB.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_UNITA_IMMOB);
     }
 
+    /** Metodo per lettore: PARAMETRO_MODALITA **/
+    private static Object leggiParametroModalita(Element el) throws Exception {
+        //controllo tag elemento
+        if (el.getTagName().equals(Costanti.NODO_XML_MODALITA_PARAMETRO)) {
+            String nome;
+            double valore;
+
+            //estrazione attrubuti
+            if (el.hasAttribute(Costanti.NODO_XML_MODALITA_PARAMETRO_NOME)) {
+                nome = el.getAttribute(Costanti.NODO_XML_MODALITA_PARAMETRO_NOME);
+            } else
+                throw new NoSuchElementException("LettoriXML.PARAMETRO_MODALITA.getInstance(): attributo " + Costanti.NODO_XML_MODALITA_PARAMETRO_NOME + " assente.");
+
+            //Lettura e aggiunta dei parametri
+            NodeList childs = el.getElementsByTagName(Costanti.NODO_XML_MODALITA_PARAMETRO_VALORE);
+            if (childs.getLength() > 0) {
+                valore = Double.parseDouble(childs.item(0).getTextContent());
+            } else
+                throw new NoSuchElementException("LettoriXML.PARAMETRO_MODALITA.getInstance(): elemento " + Costanti.NODO_XML_MODALITA_PARAMETRO_VALORE + " assente.");
+
+            //ritorno istanza corretta
+            return new Parametro(nome, valore);
+        }
+        else
+            throw new NoSuchElementException("LettoriXML.PARAMETRO_MODALITA.getInstance():  elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_MODALITA_PARAMETRO);
+    }
+
     /** Metodo per lettore: MODALITA **/
     private static Object leggiModalita(Element el) throws Exception {
         //controllo tag elemento
         if (el.getTagName().equals(Costanti.NODO_XML_MODALITA)) {
             String nome;
+            Modalita m;
 
             //estrazione attrubuti
             if (el.hasAttribute(Costanti.NODO_XML_MODALITA_NOME)) {
@@ -416,8 +455,19 @@ public enum LettoriXML {
             } else
                 throw new NoSuchElementException("LettoriXML.MODALITA.getInstance(): attributo " + Costanti.NODO_XML_CATEGORIA_SENSORE_NOME + " assente.");
 
+            m = new Modalita(nome);
+
+            //Lettura e aggiunta dei parametri
+            NodeList childs = el.getElementsByTagName(Costanti.NODO_XML_MODALITA_PARAMETRO);
+            if (childs.getLength() > 0) {
+                for (int i = 0; i < childs.getLength(); i++) {
+                    Element e = (Element) childs.item(i);
+                    m.addParametro((Parametro) PARAMETRO_MODALITA.getInstance(e));
+                }
+            }
+
             //ritorno istanza corretta
-            return new Modalita(nome);
+            return m;
         }
         else
             throw new NoSuchElementException("LettoriXML.MODALITA.getInstance():  elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_MODALITA);
@@ -462,6 +512,33 @@ public enum LettoriXML {
             throw new NoSuchElementException("LettoriXML.CATEGORIA_ATTUATORE.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_CATEGORIA_ATTUATORE);
     }
 
+    /** Metodo per lettore: INFORMAZIONE_RILEVABILE **/
+    private static Object leggiInfoRilevabile(Element el) throws Exception {
+        //controllo tag elemento
+        if (el.getTagName().equals(Costanti.NODO_XML_INFORILEVABILE)) {
+            String nome;
+            boolean numerica;
+
+            //estrazione attrubuti
+            if (el.hasAttribute(Costanti.NODO_XML_INFORILEVABILE_NOME)) {
+                nome = el.getAttribute(Costanti.NODO_XML_INFORILEVABILE_NOME);
+            } else
+                throw new NoSuchElementException("LettoriXML.INFORMAZIONE_RILEVABILE.getInstance(): attributo " + Costanti.NODO_XML_INFORILEVABILE_NOME + " assente.");
+
+            //estrazione elementi
+            NodeList childs = el.getElementsByTagName(Costanti.NODO_XML_INFORILEVABILE_NUMERICA);
+            if (childs.getLength() > 0) {
+                numerica = childs.item(0).getTextContent().equalsIgnoreCase("1") ? true : false;
+            } else
+                throw new NoSuchElementException("LettoriXML.INFORMAZIONE_RILEVABILE.getInstance(): elemento " + Costanti.NODO_XML_INFORILEVABILE_NUMERICA + " assente.");
+
+            //ritorno istanza corretta
+            return new InfoRilevabile(nome, numerica);
+        }
+        else
+            throw new NoSuchElementException("LettoriXML.INFORMAZIONE_RILEVABILE.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_INFORILEVABILE);
+    }
+
     /** Metodo per lettore: CATEGORIA_SENSORE **/
     private static Object leggiCategoriaSensore(Element el) throws Exception {
         //controllo tag elemento
@@ -469,6 +546,7 @@ public enum LettoriXML {
             String nome;
             String testoLibero;
             String infoRilev;
+            CategoriaSensore c;
 
             //estrazione attrubuti
             if (el.hasAttribute(Costanti.NODO_XML_CATEGORIA_SENSORE_NOME)) {
@@ -485,12 +563,41 @@ public enum LettoriXML {
 
             childs = el.getElementsByTagName(Costanti.NODO_XML_CATEGORIA_SENSORE_INFORILEVABILE);
             if (childs.getLength() > 0) {
-                infoRilev = childs.item(0).getTextContent();
+                //Per retro-compatibilita' con la versione 1, dove ogni categoria ha una sola informazione rilevabile e questa e' salvata direttamente
+                //nella descrizione della categoria senza un file apposito, si verifica qui il numero di informazioni rilevabili e se corrisponde a 1
+                //allora la si prova a leggere. In caso di fallimento di lettura allora si procede ad utilizzare il vecchio istanziamento.
+                //Altrimenti si procede ad utilizzare quello nuovo
+                if (childs.getLength() == 1) {
+                    InfoRilevabile i = null;
+                    String info = childs.item(0).getTextContent();
+                    try {
+                        i = LetturaDatiSalvati.getInstance().leggiInfoRilevabile(info, nome);
+                    }
+                    catch (Exception e) {
+                        i = null;
+                    }
+                    //se l'informazione letta fosse null allora si procede alla vecchia istanzazione
+                    if (i == null)
+                        c = new CategoriaSensore(nome, testoLibero, info);
+                    else //altrimenti e' della nuova versione ma con una sola informazione rilevabile
+                        c = new CategoriaSensore(nome, testoLibero, i);
+                }
+                else {
+                    //Altrimenti procedo ad istanziare la categoria ed ad aggiungere le varie informazioni rilevabili
+                    String info = childs.item(0).getTextContent();
+
+                    c = new CategoriaSensore(nome, testoLibero, LetturaDatiSalvati.getInstance().leggiInfoRilevabile(info, nome));
+
+                    for (int i = 1; i < childs.getLength(); i++) {
+                        info = childs.item(i).getTextContent();
+                        c.addInformazioneRilevabile(LetturaDatiSalvati.getInstance().leggiInfoRilevabile(info, c.getNome()));
+                    }
+                }
             } else
                 throw new NoSuchElementException("LettoriXML.CATEGORIA_SENSORE.getInstance(): elemento " + Costanti.NODO_XML_CATEGORIA_SENSORE_INFORILEVABILE + " assente.");
 
             //ritorno istanza corretta
-            return new CategoriaSensore(nome, testoLibero, infoRilev);
+            return c;
         }
         else
             throw new NoSuchElementException("LettoriXML.CATEGORIA_SENSORE.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_CATEGORIA_SENSORE);
