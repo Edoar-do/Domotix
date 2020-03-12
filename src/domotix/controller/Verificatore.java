@@ -53,7 +53,7 @@ public class Verificatore {
         if (categoria == null) return false;
         if (!categoria.hasModalita(mod)) return false;
         Modalita modalita = categoria.getModalita(mod);
-        if (!modalita.isParametrica()) return false;
+        //if (!modalita.isParametrica()) return false;
         if (modalita.getParametro(nome) != null) return false;
         return true;
     }
