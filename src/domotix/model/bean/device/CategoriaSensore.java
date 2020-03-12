@@ -19,6 +19,7 @@ public class CategoriaSensore {
     public CategoriaSensore(String nome, String testoLibero) {
         this.nome = nome;
         this.testoLibero = testoLibero;
+        this.informazioneRilevabile = new ArrayList<>();
     }
 
     /**
@@ -34,7 +35,6 @@ public class CategoriaSensore {
     @Deprecated
     public CategoriaSensore(String nome, String testoLibero, String informazioneRilevabile){
         this(nome, testoLibero);
-        this.informazioneRilevabile = new ArrayList<>();
 
         this.informazioneRilevabile.add(new InfoRilevabile(informazioneRilevabile, true));
     }
@@ -48,7 +48,6 @@ public class CategoriaSensore {
      */
     public CategoriaSensore(String nome, String testoLibero, InfoRilevabile infoRilevabile) {
         this(nome, testoLibero);
-        this.informazioneRilevabile = new ArrayList<>();
         this.informazioneRilevabile.add(infoRilevabile);
     }
 
