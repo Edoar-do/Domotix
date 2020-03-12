@@ -50,7 +50,7 @@ public class Verificatore {
     public static boolean checkValiditaParametro(String cat, String mod, String nome) {
         if (!isNomeValido(nome)) return false;
         CategoriaAttuatore categoria = Recuperatore.getCategoriaAttuatore(cat);
-        if (cat == null) return false;
+        if (categoria == null) return false;
         if (!categoria.hasModalita(mod)) return false;
         Modalita modalita = categoria.getModalita(mod);
         if (!modalita.isParametrica()) return false;

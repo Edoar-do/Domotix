@@ -23,7 +23,7 @@ public class MenuCategorieSensoriM {
     private static final String SUCCESSO_INSERIMENTO_INFO = "L'informazione rilevabile è stata inserita con successo";
     private static final String ERRORE_INSERIMENTO_INFO = "L'inserimento dell'informazione rilevabile è fallito. Consultare la guida in linea per maggiori informazioni" ;
     private static final String INSERIMENTO_NOME_INFO = "Inserisci il nome dell'informazione rilevabile (inserire " + TERMINATORE + " per terminare) ";
-    private static final String ALMENO_UNA_INFO = "Deve essere presente almeno un'informazioni rilevabile per la categoria di sensori creata!";
+    private static final String ALMENO_UNA_INFO = "Deve essere presente almeno un'informazione rilevabile per la categoria di sensori creata!";
     private static final String IS_NUMERICA = "L'informazione %s è numerica? ";
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
@@ -61,14 +61,14 @@ public class MenuCategorieSensoriM {
                             if(almenoUna)
                                 break;
                             System.out.println(ALMENO_UNA_INFO);
+                        }else {
+                            numerica = InputDati.yesOrNo(String.format(IS_NUMERICA, info));
+                            if (Modificatore.aggiungiInfoRilevabile(nome, info, numerica)) {
+                                System.out.println(SUCCESSO_INSERIMENTO_INFO);
+                                almenoUna = true;
+                            } else
+                                System.out.println(ERRORE_INSERIMENTO_INFO);
                         }
-                        numerica = InputDati.yesOrNo(String.format(IS_NUMERICA, info));
-                        if(Modificatore.aggiungiInfoRilevabile(nome, info, numerica)) {
-                            System.out.println(SUCCESSO_INSERIMENTO_INFO);
-                            almenoUna = true;
-                        }
-                        else
-                            System.out.println(ERRORE_INSERIMENTO_INFO);
                     }
                      break;
                 case 2: //rimuovi categoria sensori

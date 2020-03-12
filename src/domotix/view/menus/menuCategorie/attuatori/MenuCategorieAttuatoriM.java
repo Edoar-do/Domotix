@@ -24,7 +24,7 @@ public class MenuCategorieAttuatoriM {
     private static final String ERRORE_RIMOZIONE_CATEGORIA = "Rimozione della categoria fallita. " + GUIDA_IN_LINEA;
     private static final String SUCCESSO_RIMOZIONE_CATEGORIA = "Rimozione della categoria avvenuta con successo";
     private static final String ERRORE_MODALITA_DEFAULT_MANCANTE = "Inserire almeno la modalita' di default!";
-    private static final String IS_PARAMATRICA = "La modalità operativa %s è paramatrica? ";
+    private static final String IS_PARAMATRICA = "La modalità operativa %s è parametrica? ";
     private static final String INSERIMENTO_NOME_PARAMETRO = "Inserisci un nome per il parametro della modalità operativa parametrica (inserire " + TERMINATORE + " per terminare)";
     private static final String SUCCESSO_INSERIMENTO_PARAMETRO = "Parametro inserito con successo";
     private static final String ERRORE_ALMENO_UN_PARAMETRO = "Almeno un parametro deve essere inserito nella modalita' parametrica";

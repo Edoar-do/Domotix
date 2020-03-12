@@ -63,7 +63,7 @@ public class InputDati
 	   do
 	    {
 	     out.print(messaggio);
-	     String lettura = lettore.next();
+	     String lettura = lettore.nextLine();
 	     if (lettura.length() > 0)
 	      {
 	       valoreLetto = lettura.charAt(0);
@@ -171,13 +171,13 @@ public class InputDati
 	     out.print(messaggio);
 	     try
 	      {
-	       valoreLetto = lettore.nextDouble();
+	       valoreLetto = Double.parseDouble(lettore.nextLine());
 	       finito = true;
 	      }
 	     catch (InputMismatchException e)
 	      {
 	       out.println(ERRORE_FORMATO);
-	       String daButtare = lettore.next();
+	       String daButtare = lettore.nextLine();
 	      }
 	    } while (!finito);
 	   return valoreLetto;
