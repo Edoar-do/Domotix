@@ -7,8 +7,10 @@ public class InputDati
 	  public static InputStream in = System.in;
 	  public static PrintStream out = System.out;
 	  private static Scanner lettore = creaScanner();
-	  
-	  private final static String ERRORE_FORMATO = "Attenzione: il dato inserito non e' nel formato corretto";
+
+	  private static final String PUNTO_NON_VIRGOLA = "  Ad esempio per i numeri decimali si usa il . anziche' la virgola. ";
+	  private static final String INVIO_PER_CONTINUARE = "(Premi Invio per continuare: ";
+	  private final static String ERRORE_FORMATO = "Attenzione: il dato inserito non e' nel formato corretto" + PUNTO_NON_VIRGOLA + INVIO_PER_CONTINUARE;
 	  private final static String ERRORE_MINIMO= "Attenzione: e' richiesto un valore maggiore o uguale a ";
 	  private final static String ERRORE_STRINGA_VUOTA= "Attenzione: non hai inserito alcun carattere";
 	  private final static String ERRORE_MASSIMO= "Attenzione: e' richiesto un valore minore o uguale a ";
@@ -174,7 +176,7 @@ public class InputDati
 	       valoreLetto = Double.parseDouble(lettore.nextLine());
 	       finito = true;
 	      }
-	     catch (InputMismatchException e)
+	     catch (InputMismatchException | NumberFormatException e)
 	      {
 	       out.println(ERRORE_FORMATO);
 	       String daButtare = lettore.nextLine();
