@@ -21,6 +21,7 @@ public class Azione {
         this.attuatore = attuatore;
         this.modalita = modalita;
         this.parametri = parametri;
+        checkParametri();
     }
 
     private void checkParametri() {
