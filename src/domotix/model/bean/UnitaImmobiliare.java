@@ -191,18 +191,36 @@ public class UnitaImmobiliare {
         stanze.forEach(stanza -> stanza.distruggi());
     }
 
+    /**
+     * Metodo per l'aggiunta di una regola all'unita' immobiliare
+     * @param regola Regola da aggiungere
+     */
     public void addRegola(Regola regola) {
         this.regole.put(regola.getId(), regola);
     }
 
+    /**
+     * Metodo di rimozione di una regola dall'UnitaImmobiliare
+     * @param id ID della regola
+     * @return true se la rimozione va a buon fine, false altrimenti
+     */
     public boolean removeRegola(String id) {
         return this.regole.remove(id) == null ? false : true;
     }
 
+    /**
+     * Metodo che ritorna una regola dell'unita' dato l'ID
+     * @param id ID della regola
+     * @return Regola cercata
+     */
     public Regola getRegola(String id) {
         return this.regole.get(id);
     }
 
+    /**
+     * Metodo che ritorna l'elenco di tutte le regole dell'unita'
+     * @return L'elenco di regole
+     */
     public Regola[] getRegole() {
         return this.regole.values().toArray(new Regola[0]);
     }
