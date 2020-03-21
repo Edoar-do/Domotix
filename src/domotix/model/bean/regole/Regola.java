@@ -34,25 +34,32 @@ public class Regola {
     }
 
     /**
-     * Metodo per settare la prima condizione dell'antecedente.
-     * Se non viene fissato, l'antecedente e' supposto sempre true.
-     * @param antecedente Antecedente iniziale
-     */
-    public void initAntecedente(Antecedente antecedente) {
-        this.antecedente = antecedente;
-    }
-
-    /**
-     * Metodo per settare la prima condizione dell'antecedente.
-     * Se non viene fissato, l'antecedente e' supposto sempre true.
-     * @param condizione La prima condizione dell'antecedente
-     */
-    public void initAntecedente(Condizione condizione) {
-        this.initAntecedente(new Antecedente(condizione));
-    }
-
-    /**
      * Metodo di aggiunta di una condizione all'antecedente
+     * @param condizione La condizione da aggiungere
+     */
+    public void addCondizone(Condizione condizione) {
+        if (antecedente == null) {
+            antecedente = new Antecedente(condizione);
+        } else {
+            antecedente.addCondizione(condizione);
+        }
+    }
+
+    /**
+     * Metodo di aggiunta di un operatore pendente tra condizioni dell'antecedente
+     * @param op Operatore logico di collegamento tra condizioni
+     */
+    public void addOperatore(String op) {
+        if (antecedente == null) {
+            throw new IllegalArgumentException("Non si possono aggiungere operazioni quando non sono state inserite condizioni");
+        } else {
+            antecedente.addOperatore(op);
+        }
+    }
+
+    /**
+     * Metodo di aggiunta di una condizione all'antecedente.
+     * L'operatore logico e' appeso all'antecedente che e' in coda prima della chiamata del metodo.
      * @param operatore Operatore logico di collegamento tra condizioni
      * @param condizione La condizione da aggiungere
      */
