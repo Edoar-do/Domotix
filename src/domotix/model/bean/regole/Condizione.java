@@ -9,6 +9,14 @@ public class Condizione {
         this.sinistra = sinistra;
         this.operatore = operatore;
         this.destra = destra;
+        if (!checkOperatore(operatore)) {
+            throw new IllegalArgumentException("Operatore " + operatore + " non ammesso.");
+        }
+    }
+
+    private boolean checkOperatore(String op) {
+        // si potrebbe fare un array / enum con gli operatori ammissibili comunque
+        return op.equals(">") || op.equals(">=") || op.equals("<") || op.equals("<=") || op.equals("=");
     }
 
     private boolean areNumeriche(Object valSinistro, Object valDestro) {
@@ -33,8 +41,6 @@ public class Condizione {
                 return (Double) valSinistro <= (Double) valDestro;
             case "=":
                 return valSinistro.equals(valDestro);
-            default:
-                // exception
         }
         return false;
     }
