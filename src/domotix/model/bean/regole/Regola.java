@@ -3,6 +3,7 @@ package domotix.model.bean.regole;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Regola {
     private String id; //UUID
@@ -56,5 +57,12 @@ public class Regola {
 
     public void setStato(boolean stato) {
         this.stato = stato;
+    }
+
+    @Override
+    public String toString() {
+        String antstr = antecedente == null ? "true" : antecedente.toString();
+        String consstr = conseguente.stream().map(a -> a.toString()).collect(Collectors.joining(", "));
+        return "if " + antstr + " then " + consstr;
     }
 }

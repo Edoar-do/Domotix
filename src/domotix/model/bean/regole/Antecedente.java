@@ -48,4 +48,12 @@ public class Antecedente {
         }
         return sinistro;
     }
+
+    @Override
+    public String toString() {
+        String lhs = condizione.toString();
+        String opstr = operatoreLogico == null ? "" : " " + operatoreLogico + " ";
+        String rhs = prossimoAntecedente == null ? "" : prossimoAntecedente.toString();
+        return lhs + opstr + rhs;
+    }
 }

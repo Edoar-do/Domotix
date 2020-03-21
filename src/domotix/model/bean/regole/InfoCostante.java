@@ -11,4 +11,9 @@ public class InfoCostante implements InfoSensoriale {
     public Object getValore() {
         return this.info;
     }
+
+    @Override
+    public String toString() {
+        return info.toString();
+    }
 }

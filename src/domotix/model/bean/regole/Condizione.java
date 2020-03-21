@@ -38,4 +38,9 @@ public class Condizione {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return sinistra.toString() + " " + operatore + " " + destra.toString();
+    }
 }

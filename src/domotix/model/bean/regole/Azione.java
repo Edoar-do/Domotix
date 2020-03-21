@@ -29,4 +29,9 @@ public class Azione {
         parametri.forEach(p -> modalita.setNuovoParametro(p));
         attuatore.setModoOp(modalita);
     }
+
+    @Override
+    public String toString() {
+        return attuatore.getNome() + " := " + modalita.getNome() + parametri.toString();
+    }
 }
