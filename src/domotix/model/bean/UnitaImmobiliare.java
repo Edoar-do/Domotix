@@ -4,11 +4,14 @@ import domotix.controller.util.StringUtil;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
+import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe che implementa l'entita' unita' immobiliare: un insieme di stanze al cui interno vi sono artefatti/sensori/attuatori.
@@ -21,6 +24,7 @@ public class UnitaImmobiliare {
 
     private String nome;
     private List<Stanza> stanze;
+    private Map<String, Regola> regole;
 
     /**
      * Costruttore di base.
@@ -32,6 +36,7 @@ public class UnitaImmobiliare {
         this.stanze.add(new Stanza(NOME_STANZA_DEFAULT)); // stanza di default
 
         this.getStanzaDefault().setUnitaOwner(this.getNome());
+        this.regole = new HashMap<>();
     }
 
     /**
@@ -184,6 +189,22 @@ public class UnitaImmobiliare {
      */
     public void distruggi() {
         stanze.forEach(stanza -> stanza.distruggi());
+    }
+
+    public void addRegola(Regola regola) {
+        this.regole.put(regola.getId(), regola);
+    }
+
+    public boolean removeRegola(String id) {
+        return this.regole.remove(id) == null ? false : true;
+    }
+
+    public Regola getRegola(String id) {
+        return this.regole.get(id);
+    }
+
+    public Regola[] getRegole() {
+        return this.regole.values().toArray(new Regola[0]);
     }
 
     @Override
