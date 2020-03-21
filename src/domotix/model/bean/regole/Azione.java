@@ -41,6 +41,7 @@ public class Azione {
 
     @Override
     public String toString() {
-        return attuatore.getNome() + " := " + modalita.getNome() + parametri.toString();
+        String parstr = parametri.size() > 0 ? parametri.toString() : "";
+        return attuatore.getNome() + " := " + modalita.getNome() + parstr;
     }
 }
