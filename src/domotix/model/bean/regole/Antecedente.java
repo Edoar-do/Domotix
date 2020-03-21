@@ -20,7 +20,31 @@ public class Antecedente {
     }
 
     /**
+     * Metodo per aggiungere un operatore (pendente) di collegamento all'ultima condizione.
+     * @param nuovoOperatore Operatore logico di collegamento tra condizioni.
+     */
+    public void addOperatore(String nuovoOperatore) {
+        if (!checkOperatore(nuovoOperatore)) {
+            throw new IllegalArgumentException("Operatore logico " + nuovoOperatore + " non valido.");
+        }
+        Antecedente current = this;
+        while (current.prossimoAntecedente != null) current = current.prossimoAntecedente;
+        current.operatoreLogico = nuovoOperatore;
+    }
+
+    /**
      * Metodo per aggiungere una condizione all'antecedente.
+     * @param nuovaCondizione Nuova condizione
+     */
+    public void addCondizione(Condizione nuovaCondizione) {
+        Antecedente current = this;
+        while (current.prossimoAntecedente != null) current = current.prossimoAntecedente;
+        current.prossimoAntecedente = new Antecedente(condizione);
+    }
+
+    /**
+     * Metodo per aggiungere una condizione all'antecedente.
+     * L'operatore logico e' appeso all'antecedente che e' in coda prima della chiamata del metodo.
      * @param nuovoOperatore Operatore logico di collegamento tra condizioni.
      * @param nuovaCondizione Nuova condizione
      */
@@ -48,8 +72,15 @@ public class Antecedente {
     }
 
     private boolean orExpr(Antecedente corrente) {
+        if (corrente.prossimoAntecedente != null && corrente.operatoreLogico == null) {
+            throw new IllegalArgumentException("Condizione pendente");
+        }
+
         boolean sinistro = andExpr(corrente);
         while (corrente.operatoreLogico.equals("||")) {
+            if (corrente.prossimoAntecedente == null) {
+                throw new IllegalArgumentException("Operatore pendente: " + corrente.operatoreLogico);
+            }
             boolean destro = andExpr(corrente.prossimoAntecedente);
             sinistro = sinistro || destro;
             corrente = corrente.prossimoAntecedente;
@@ -58,8 +89,15 @@ public class Antecedente {
     }
 
     private boolean andExpr(Antecedente corrente) {
+        if (corrente.prossimoAntecedente != null && corrente.operatoreLogico == null) {
+            throw new IllegalArgumentException("Condizione pendente");
+        }
+
         boolean sinistro = corrente.condizione.valuta();
         while (corrente.operatoreLogico.equals("&&")) {
+            if (corrente.prossimoAntecedente == null) {
+                throw new IllegalArgumentException("Operatore pendente: " + corrente.operatoreLogico);
+            }
             boolean destro = corrente.prossimoAntecedente.condizione.valuta();
             sinistro = sinistro && destro;
             corrente = corrente.prossimoAntecedente;
