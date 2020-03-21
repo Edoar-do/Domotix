@@ -3,7 +3,6 @@ package domotix.model.bean.regole;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * Classe che rappresenta una delle regole periodicamente eseguite.
@@ -13,9 +12,9 @@ public class Regola {
     private String id; //UUID
     private boolean stato;
     private Antecedente antecedente;
-    private List<Azione> conseguente;
+    private Conseguente conseguente;
 
-    public Regola(boolean stato, Antecedente antecedente, List<Azione> conseguente) {
+    public Regola(boolean stato, Antecedente antecedente, Conseguente conseguente) {
         this.id = UUID.randomUUID().toString();
         this.stato = stato;
         this.antecedente = antecedente;
@@ -23,7 +22,7 @@ public class Regola {
     }
 
     public Regola() {
-        this(false, null, new ArrayList<>());
+        this(false, null, new Conseguente());
     }
 
     /**
@@ -31,7 +30,7 @@ public class Regola {
      * @param azione Azione da aggiungere
      */
     public void addAzione(Azione azione) {
-        this.conseguente.add(azione);
+        this.conseguente.addAzione(azione);
     }
 
     /**
@@ -70,7 +69,7 @@ public class Regola {
 
         // antecedente == null equivale a dire condizione sempre true
         if (antecedente == null || antecedente.valuta()) {
-            conseguente.forEach(a -> a.esegui());
+            conseguente.esegui();
         }
     }
 
@@ -110,14 +109,14 @@ public class Regola {
      * Metodo che restituisce il conseguente
      * @return Il conseguente
      */
-    public Azione[] getConseguente() {
-        return conseguente.toArray(new Azione[0]);
+    public Conseguente getConseguente() {
+        return conseguente;
     }
 
     @Override
     public String toString() {
         String antstr = antecedente == null ? "true" : antecedente.toString();
-        String consstr = conseguente.stream().map(a -> a.toString()).collect(Collectors.joining(", "));
+        String consstr = conseguente.toString();
         return "if " + antstr + " then " + consstr;
     }
 }
