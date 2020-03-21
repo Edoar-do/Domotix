@@ -7,6 +7,7 @@ import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Sistema;
 import domotix.model.bean.system.Stanza;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 /**Classe per implementare una parte di logica controller relativa al recupero di informazioni sulle entita'.
@@ -339,4 +340,44 @@ public class Recuperatore {
     public static String[] getNomiAttuatoriAggiungibiliArtefatto(String nomeArtefatto, String nomeStanza, String nomeUnita) {
         return getNomiAttuatoriAggiungibiliSistema(getArtefatto(nomeArtefatto, nomeStanza, nomeUnita), nomeUnita);
     }
+
+    /**
+     * TODO
+     * Metodo che recupera i nomi dei sensori presenti in un'unità immobiliare
+     * @param unita da cui pescare i nomi dei sensori
+     * @return un array dei nomi dei sensori dell'unità immobiliare
+     */
+    public static String[] getNomiSensori(String unita){
+        Sensore [] sensori = getUnita(unita).getSensori();
+        return Stream.of(sensori).map(a -> a.getNome()).toArray(String[]::new);
+    }
+
+    /**
+     * TODO
+     * Metodo che recupera i nomi degli attuatori presenti in un'unità immobiliare
+     * @param unita da cui pescare i nomi degli attuatori
+     * @return un array dei nomi degli attuatori dell'unità immobiliare
+     */
+    public static String[] getNomiAttuatori(String unita){
+        Attuatore [] attuatori = getUnita(unita).getAttuatori();
+        return Stream.of(attuatori).map(a -> a.getNome()).toArray(String[]::new);
+    }
+
+    /**
+     * TODO
+     * Metodo che ritorna un array dei nomi delle informazioni rilevabili da un sensore
+     * @param nomeSensore di cui sapere le info rilevabili
+     * @return un array dei nomi delle info rilevabili dal sensore
+     */
+    public static String[] getInformazioniRilevabili(String nomeSensore){
+        String[] campi = nomeSensore.split("_");
+        ArrayList<InfoRilevabile> infoRilevabili = getCategoriaSensore(campi[1]).getInformazioniRilevabili();
+        ArrayList<String> nomiInfo = new ArrayList<>();
+        for (InfoRilevabile i : infoRilevabili) {
+            nomiInfo.add(i.getNome());
+        }
+        return nomiInfo.toArray(new String[infoRilevabili.size()]);
+    }
+
+
 }
