@@ -83,12 +83,14 @@ public class Modalita {
     }
 
     /**
-     * Aggiunge un parametro alla modalita se non gia' presente (identificato per nome).
-     * Altrimenti sovrascrive quello presente.
+     * Sovrascrive un parametro alla modalita se gia' presente (identificato per nome).
      * @param parametro parametro da aggiungere
+     * @return true; parametro modificato con successo; false: altrimenti
      */
-    public void setParametro(Parametro parametro) {
+    public boolean setNuovoParametro(Parametro parametro) {
+        if (!this.containsParametro(parametro.getNome())) return false;
         parametri.put(parametro.getNome(), parametro);
+        return true;
     }
 
     @Override

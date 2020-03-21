@@ -17,8 +17,16 @@ public class Azione {
         this.parametri = parametri;
     }
 
+    private void checkParametri() {
+        parametri.forEach(p -> {
+            if (!modalita.containsParametro(p.getNome())) {
+                throw new IllegalArgumentException("Parametro " + p.getNome() + " non presente in modalita' " + modalita.getNome());
+            }
+        });
+    }
+
     public void esegui() {
-        parametri.forEach(p -> modalita.setParametro(p));
+        parametri.forEach(p -> modalita.setNuovoParametro(p));
         attuatore.setModoOp(modalita);
     }
 }
