@@ -98,6 +98,22 @@ public class Regola {
         this.stato = stato;
     }
 
+    /**
+     * Metodo che restituisce l'antecedente
+     * @return L'antecedente
+     */
+    public Antecedente getAntecedente() {
+        return this.antecedente;
+    }
+
+    /**
+     * Metodo che restituisce il conseguente
+     * @return Il conseguente
+     */
+    public Azione[] getConseguente() {
+        return conseguente.toArray(new Azione[0]);
+    }
+
     @Override
     public String toString() {
         String antstr = antecedente == null ? "true" : antecedente.toString();
