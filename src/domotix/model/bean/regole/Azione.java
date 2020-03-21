@@ -6,6 +6,12 @@ import domotix.model.bean.device.Parametro;
 
 import java.util.List;
 
+
+/**
+ * Calsse che rappresenta un'azione che puo' comparire nel conseguente di
+ * una regola.
+ * @author andrea
+ */
 public class Azione {
     private Attuatore attuatore;
     private Modalita modalita;
@@ -25,6 +31,9 @@ public class Azione {
         });
     }
 
+    /**
+     * Metodo che esegue l'azione (i.e. l'assegnamento).
+     */
     public void esegui() {
         parametri.forEach(p -> modalita.setNuovoParametro(p));
         attuatore.setModoOp(modalita);

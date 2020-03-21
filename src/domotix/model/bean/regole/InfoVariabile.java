@@ -2,6 +2,11 @@ package domotix.model.bean.regole;
 
 import domotix.model.bean.device.Sensore;
 
+/**
+ * Classe che rappresenta un InfoSensoriale variabile (i.e. che dipende dal valore del sensore)
+ * @author andrea
+ */
+
 public class InfoVariabile implements InfoSensoriale {
     private Sensore sensore;
     private String nomeInfo;

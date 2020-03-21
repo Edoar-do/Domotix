@@ -1,10 +1,22 @@
 package domotix.model.bean.regole;
 
+/**
+ * Classe che rappresenta una condizione che puo' apparire nell'antecedente di
+ * una regola.
+ * @author andrea
+ */
 public class Condizione {
     private InfoSensoriale sinistra;
     private String operatore;
     private InfoSensoriale destra;
 
+    /**
+     * Costruttore della classe.
+     * @param sinistra InfoSensoriale che compare sul lato sinistro dell'espressione
+     * @param operatore Operatore relazionale
+     * @param destra InfoSensoriale che compare sul lato destro dell'espressione
+     * @throws IllegalArgumentException Eccezione lanciata nel caso che l'operatore non sia tra quelli supportati
+     */
     public Condizione(InfoSensoriale sinistra, String operatore, InfoSensoriale destra) {
         this.sinistra = sinistra;
         this.operatore = operatore;
@@ -23,6 +35,10 @@ public class Condizione {
         return (valSinistro instanceof Number) && (valDestro instanceof Number);
     }
 
+    /**
+     * Metodo che valuta la condizione.
+     * @return Il valore della condizione.
+     */
     public boolean valuta() {
         Object valSinistro = sinistra.getValore();
         Object valDestro = destra.getValore();

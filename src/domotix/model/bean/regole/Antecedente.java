@@ -1,16 +1,29 @@
 package domotix.model.bean.regole;
 
+/**
+ * Classe che rappresenta l'antecedente di una regola.
+ * @author andrea
+ */
 public class Antecedente {
     private Condizione condizione;
     private String operatoreLogico;
     private Antecedente prossimoAntecedente; // una sorta di linked list
 
+    /**
+     * Costruttore della classe.
+     * @param condizione La prima condizione dell'antecedente
+     */
     public Antecedente(Condizione condizione) {
         this.condizione = condizione;
         this.operatoreLogico = null;
         this.prossimoAntecedente = null;
     }
 
+    /**
+     * Metodo per aggiungere una condizione all'antecedente.
+     * @param nuovoOperatore Operatore logico di collegamento tra condizioni.
+     * @param nuovaCondizione Nuova condizione
+     */
     public void addCondizione(String nuovoOperatore, Condizione nuovaCondizione) {
         if (!checkOperatore(nuovoOperatore)) {
             throw new IllegalArgumentException("Operatore logico " + nuovoOperatore + " non valido.");
@@ -26,6 +39,10 @@ public class Antecedente {
         return nuovoOperatore.equals("||") || nuovoOperatore.equals("&&");
     }
 
+    /**
+     * Metodo che valuta il valore dell'espressione antecedente.
+     * @return Il valore dell'espressione.
+     */
     public boolean valuta() {
         return orExpr(this);
     }
