@@ -148,7 +148,7 @@ public class MenuUnitaF {
                                 while(true) {
                                     String logicOp = premenuLogicOp(); // && o ||
                                     if(logicOp != null) {
-                                        if (Modificatore.aggiungiOperatoreLogico(logicOp, IDregolaNuova, nomeUnitaSuCuiLavorare))
+                                        if (Modificatore.aggiungiOperatoreLogico(nomeUnitaSuCuiLavorare, IDregolaNuova, logicOp))
                                             break; //si può proseguire con nuovi componenti
                                         System.out.println(ERRORE_INSERIMENTO_OP_LOGICO);
                                     }else
