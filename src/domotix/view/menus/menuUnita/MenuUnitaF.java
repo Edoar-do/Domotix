@@ -34,7 +34,7 @@ public class MenuUnitaF {
     private static final String RELOP_NECESSARIO = "Operatore relazionale necessario";
     private static final String LHS_NECESSARIO = "Variabile sensoriale necessaria!";
     private static final String RHS_NECESSARIO = "Variabile sensoriale o costante necessaria";
-    private static final String RHS_IS_COSTANTE = "Vuoi inserire un valore costante per completare la condizione? ";
+    private static final String RHS_IS_COSTANTE = "Vuoi inserire un valore costante numerico per completare la condizione? ";
     private static final String INSERIMENTO_COSTANTE_RHS = "Inserisci un valore numerico: ";
     private static final String CONTINUARE_CON_ANTECEDENTE = "Desideri continuare con la costruzione dell'antecedente? ";
     private static final String LOGIC_OP_NECESSARIO = "Operatore logico necessario!";
@@ -52,6 +52,8 @@ public class MenuUnitaF {
     private static final String LHS_ATT_NECESSARIO = "E' necessario specificare l'attuatore per un'azione!";
     private static final String RHS_ATT_NECESSARIO = "E' necessario specificare una modalita' da assegnare all'attuatore!";
     private static final String ELENCO_MODALITA_ATTUATORE = "Elenco di tutte le modalità dell'attuatore: ";
+    private static final String STRINGA_COST = "Vuoi inserire una stringa costante come secondo termine della condizione? (se no allora sceglierai una variabile sensoriale): ";
+    private static final String INSERIMENTO_STRINGA_COSTANTE_RHS = "Inserisci una stringa costante come secondo termine della condizione: ";
 
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
@@ -119,9 +121,19 @@ public class MenuUnitaF {
                                     continue;
                                 }
                             } else { // RHS NON NUMERICO
-                                String rhs = sceltaLhs(nomeUnitaSuCuiLavorare);
-                                if(rhs == null){ System.out.println(RHS_NECESSARIO); continue; }
-                                if(Modificatore.aggiungiComponenteAntecedente(lhs,relOp,rhs)){ //inserimento componente
+                                String rhs; boolean scalare;
+                                if(InputDati.yesOrNo(STRINGA_COST)){ //Stringa costante come "presenza di persone"
+                                    rhs = InputDati.leggiStringaNonVuota(INSERIMENTO_STRINGA_COSTANTE_RHS);
+                                    scalare = true;
+                                }else { //variabile sensoriale
+                                    rhs = sceltaLhs(nomeUnitaSuCuiLavorare);
+                                    scalare = false;
+                                    if (rhs == null) {
+                                        System.out.println(RHS_NECESSARIO);
+                                        continue;
+                                    }
+                                }
+                                if(Modificatore.aggiungiComponenteAntecedente(lhs,relOp,rhs, scalare)){ //inserimento componente
                                     System.out.println(SUCCESSO_INSERIMENTO_COMPONENTE);
                                     almenoUnaComponente = true;
                                 }else {
