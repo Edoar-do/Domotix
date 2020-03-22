@@ -3,11 +3,13 @@ package domotix.controller;
 import domotix.model.*;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Sistema;
 import domotix.model.bean.system.Stanza;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**Classe per implementare una parte di logica controller relativa al recupero di informazioni sulle entita'.
@@ -342,8 +344,7 @@ public class Recuperatore {
     }
 
     /**
-     * TODO
-     * Metodo che recupera i nomi dei sensori presenti in un'unità immobiliare
+     * Metodo che recupera i nomi dei sensori presenti in un'unita' immobiliare
      * @param unita da cui pescare i nomi dei sensori
      * @return un array dei nomi dei sensori dell'unità immobiliare
      */
@@ -353,7 +354,6 @@ public class Recuperatore {
     }
 
     /**
-     * TODO
      * Metodo che recupera i nomi degli attuatori presenti in un'unità immobiliare
      * @param unita da cui pescare i nomi degli attuatori
      * @return un array dei nomi degli attuatori dell'unità immobiliare
@@ -364,20 +364,68 @@ public class Recuperatore {
     }
 
     /**
-     * TODO
      * Metodo che ritorna un array dei nomi delle informazioni rilevabili da un sensore
      * @param nomeSensore di cui sapere le info rilevabili
      * @return un array dei nomi delle info rilevabili dal sensore
      */
-    public static String[] getInformazioniRilevabili(String nomeSensore){
-        String[] campi = nomeSensore.split("_");
-        ArrayList<InfoRilevabile> infoRilevabili = getCategoriaSensore(campi[1]).getInformazioniRilevabili();
-        ArrayList<String> nomiInfo = new ArrayList<>();
-        for (InfoRilevabile i : infoRilevabili) {
-            nomiInfo.add(i.getNome());
-        }
-        return nomiInfo.toArray(new String[infoRilevabili.size()]);
+    public static String[] getInformazioniRilevabili(String nomeSensore) {
+        return getSensore(nomeSensore)
+                .getCategoria()
+                .getInformazioniRilevabili()
+                .stream()
+                .map(i -> i.getNome())
+                .toArray(String[]::new);
     }
 
+    /**
+     * Metodo che ritorna la lista delle descrizioni delle regole relative a un'unita'.
+     * @param unita UnitaImmobiliare selezionata
+     * @return La lista delle descrizioni
+     */
+    public static String[] getRegoleUnita(String unita) {
+        Regola[] regole = getUnita(unita).getRegole();
+        return Stream.of(regole).map(r -> r.toString()).toArray(String[]::new);
+    }
 
+    public static boolean isInfoNumerica(String nsensoreDestro, String info) {
+        //todo
+        return true;
+    }
+
+    /**
+     * Metodo che ritorna la lista delle descrizioni degli antecedenti delle regole relative a un'unita'.
+     * @param unita UnitaImmobiliare selezionata
+     * @return La lista delle descrizioni
+     */
+    public static String[] getAntecedentiRegoleUnita(String unita) {
+        Regola[] regole = getUnita(unita).getRegole();
+        return Stream.of(regole)
+                .map(r -> r.getAntecedente())
+                .map(a -> a.toString())
+                .toArray(String[]::new);
+    }
+
+    public static boolean isModalitaParametrica(String attuatore, String modalita) {
+        //todo
+        return true;
+    }
+
+    public static String[] getNomiParametriModalita(String attuatore, String modalita) {
+        //todo
+        return null;
+    }
+
+    /**
+     * Metodo che ritorna la lista delle descrizioni delle modalita' relative a un attuatore.
+     * @param attuatore Attuatore selezionato
+     * @return La lista delle descrizioni
+     */
+    public static String[] getModalitaTutte(String attuatore) {
+        return getAttuatore(attuatore)
+                .getCategoria()
+                .getElencoModalita()
+                .stream()
+                .map(c -> c.toString())
+                .toArray(String[]::new);
+    }
 }

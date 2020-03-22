@@ -10,6 +10,7 @@ import domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaF;
 
 import javax.swing.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /** @author Edoardo Coppola*/
 public class MenuUnitaF {
@@ -263,7 +264,7 @@ public class MenuUnitaF {
             //da fare solo se la modalità è parametrica
             if (Recuperatore.isModalitaParametrica(attuatore, modalita)) {
                 String[] params = Recuperatore.getNomiParametriModalita(attuatore, modalita);
-                HashMap<String, Double> listaParams = new HashMap<>();
+                Map<String, Double> listaParams = new HashMap<>();
                 for (int i = 0; i < params.length; i++) {
                     double nuovoValore = InputDati.leggiDouble(String.format("Imposta un nuovo valore per il parametro %s della modalita %s di %s", params[i], modalita, attuatore));
                     listaParams.put(params[i], nuovoValore);
@@ -291,7 +292,7 @@ public class MenuUnitaF {
     }
 
     private static String premenuModalita(String attuatore){
-        String[] modes = Recuperatore. getModalitaTutte(attuatore);
+        String[] modes = Recuperatore.getModalitaTutte(attuatore);
         MyMenu m = new MyMenu(ELENCO_MODALITA_ATTUATORE, modes);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : modes[scelta-1];

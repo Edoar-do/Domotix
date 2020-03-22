@@ -4,8 +4,12 @@ import domotix.controller.util.StringUtil;
 import domotix.model.*;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
+
+import java.util.Map;
+
 /**
  * Classe per implementare una parte di logica controller relativa all'aggiunta e rimozione di entita'.
  * @author andrea e paolopasqua
@@ -431,6 +435,49 @@ public class Modificatore {
             return false;
 
         artefattoInst.removeAttuatore(att);
+        return true;
+    }
+
+    public static String aggiungiRegola(String nomeUnita) {
+        UnitaImmobiliare unita = Recuperatore.getUnita(nomeUnita);
+        if (unita == null) return null;
+        Regola regola = new Regola();
+        unita.addRegola(regola);
+        return regola.getId();
+    }
+
+    public static boolean aggiungiComponenteAntecedente(String sinistroVar, String op, String destroVar) {
+        // todo controlli validita'
+        return true;
+    }
+
+    public static boolean aggiungiComponenteAntecedente(String sinistro, String op, String destro, boolean scalare) {
+        //todo
+        return true;
+    }
+
+    public static boolean aggiungiComponenteAntecedente(String sinistroVar, String op, double destroConst) {
+        //todo
+        return true;
+    }
+
+    public static boolean aggiungiOperatoreLogico(String op) {
+        //todo
+        return true;
+    }
+
+    public static boolean rimuoviRegola(String unita, String idRegola) {
+        //todo
+        return true;
+    }
+
+    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, Map<String, Double> listaParams) {
+        //todo
+        return true;
+    }
+
+    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita) {
+        //todo
         return true;
     }
 }
