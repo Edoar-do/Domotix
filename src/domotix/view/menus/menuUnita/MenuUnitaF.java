@@ -55,6 +55,7 @@ public class MenuUnitaF {
     private static final String ELENCO_MODALITA_ATTUATORE = "Elenco di tutte le modalità dell'attuatore: ";
     private static final String STRINGA_COST = "Vuoi inserire una stringa costante come secondo termine della condizione? (se no allora sceglierai una variabile sensoriale): ";
     private static final String INSERIMENTO_STRINGA_COSTANTE_RHS = "Inserisci una stringa costante come secondo termine della condizione: ";
+    private static final String ATTUATORI_UNITA = "Attuatori presenti nell'unita'%s: ";
 
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
@@ -97,7 +98,7 @@ public class MenuUnitaF {
                     if(premenuAttuatori(nomeUnitaSuCuiLavorare).equals(ZERO_ATTUATORI)){ System.out.println(ZERO_ATTUATORI); break;}
                     boolean almenoUnaComponente = false;
                     String IDregolaNuova = Modificatore.aggiungiRegola(nomeUnitaSuCuiLavorare);
-                    if(IDregolaNuova != null)    System.out.println(SUCCESSO_INSERIMENTO_REGOLA);
+                    if(IDregolaNuova != null)    System.out.println(String.format(SUCCESSO_INSERIMENTO_REGOLA, IDregolaNuova));
                     else{
                         System.out.println(ERRORE_INSERIMENTO_REGOLA);
                         break;
@@ -284,9 +285,9 @@ public class MenuUnitaF {
 
     private static String premenuAttuatori(String unita){
         String[] attuatori = Recuperatore.getNomiAttuatori(unita);
-        if(attuatori.length == 0) return ZERO_SENSORI;
+        if(attuatori.length == 0) return ZERO_ATTUATORI;
         if(attuatori.length == 1) return attuatori[0];
-        MyMenu m = new MyMenu(String.format(SENSORI_UNITA, unita), attuatori);
+        MyMenu m = new MyMenu(String.format(ATTUATORI_UNITA, unita), attuatori);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : attuatori[scelta-1];
     }
