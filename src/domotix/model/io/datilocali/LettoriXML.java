@@ -3,6 +3,7 @@ package domotix.model.io.datilocali;
 import domotix.model.*;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.model.io.LetturaDatiSalvati;
@@ -22,6 +23,36 @@ import java.util.NoSuchElementException;
  * @see LetturaDatiLocali
  */
 public enum LettoriXML {
+    /**
+     * Entita' Azione
+     * @see domotix.model.bean.regole.Azione
+     */
+    AZIONE(LettoriXML::leggiAzione),
+    /**
+     * Entita' Conseguente
+     * @see domotix.model.bean.regole.Conseguente
+     */
+    CONSEGUENTE(LettoriXML::leggiConseguente),
+    /**
+     * Entita' InfoSensoriale
+     * @see domotix.model.bean.regole.InfoSensoriale
+     */
+    INFO_SENSORIALE(LettoriXML::leggiInfoSensoriale),
+    /**
+     * Entita' Condizione
+     * @see domotix.model.bean.regole.Condizione
+     */
+    CONDIZIONE(LettoriXML::leggiCondizione),
+    /**
+     * Entita' Antecedente
+     * @see domotix.model.bean.regole.Antecedente
+     */
+    ANTECEDENTE(LettoriXML::leggiAntecedente),
+    /**
+     * Entita' Regola
+     * @see domotix.model.bean.regole.Regola
+     */
+    REGOLA(LettoriXML::leggiRegola),
     /**
      * Entita' Attuatore
      * @see Attuatore
@@ -113,6 +144,62 @@ public enum LettoriXML {
         return istanziatore.getInstance(el);
     }
 
+
+    /** Metodo per lettore: AZIONE **/
+    private static Object leggiAzione(Element el) throws Exception {
+        return null;
+    }
+
+    /** Metodo per lettore: CONSEGUENTE **/
+    private static Object leggiConseguente(Element el) throws Exception {
+        return null;
+    }
+
+    /** Metodo per lettore: INFO_SENSORIALE **/
+    private static Object leggiInfoSensoriale(Element el) throws Exception {
+        return null;
+    }
+
+    /** Metodo per lettore: CONDIZIONE **/
+    private static Object leggiCondizione(Element el) throws Exception {
+        return null;
+    }
+
+    /** Metodo per lettore: ANTECEDENTE **/
+    private static Object leggiAntecedente(Element el) throws Exception {
+        return null;
+    }
+
+    /** Metodo per lettore: REGOLA **/
+    private static Object leggiRegola(Element el) throws Exception {
+        //controllo tag elemento
+        if (el.getTagName().equals(Costanti.NODO_XML_REGOLA)) {
+            String id;
+            boolean stato;
+            CategoriaAttuatore cat;
+
+            //estrazione attrubuti
+            if (el.hasAttribute(Costanti.NODO_XML_REGOLA_ID)) {
+                id = el.getAttribute(Costanti.NODO_XML_REGOLA_ID);
+            } else
+                throw new NoSuchElementException("LettoriXML.REGOLA.getInstance(): attributo " + Costanti.NODO_XML_ATTUATORE_NOME + " assente.");
+
+            //estrazione elementi
+            NodeList childs = el.getElementsByTagName(Costanti.NODO_XML_REGOLA_STATO);
+            if (childs.getLength() > 0) {
+                stato = childs.item(0).getTextContent().equalsIgnoreCase("1") ? true : false;
+            } else
+                throw new NoSuchElementException("LettoriXML.REGOLA.getInstance(): elemento " + Costanti.NODO_XML_ATTUATORE_STATO + " assente.");
+
+            //TODO: read antecedente e conseguente
+
+            //ritorno istanza corretta
+            return new Regola(id, stato, null, null);
+        }
+        else
+            throw new NoSuchElementException("LettoriXML.ATTUATORE.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_ATTUATORE);
+    }
+
     /** Metodo per lettore: ATTUATORE **/
     private static Object leggiAttuatore(Element el) throws Exception {
         //controllo tag elemento
@@ -184,7 +271,6 @@ public enum LettoriXML {
             boolean stato;
             String categoria;
             CategoriaSensore cat;
-            int valore;
             Sensore sensore;
 
             //estrazione attrubuti
@@ -211,15 +297,49 @@ public enum LettoriXML {
                 throw new NoSuchElementException("LettoriXML.SENSORE.getInstance(): lettura sensore di categoria " + categoria + " inesistente o ancora non letta.");
             }
 
-            childs = el.getElementsByTagName(Costanti.NODO_XML_SENSORE_VALORE);
-            if (childs.getLength() > 0) {
-                valore = Integer.parseInt(childs.item(0).getTextContent());
-            } else
-                throw new NoSuchElementException("LettoriXML.SENSORE.getInstance(): elemento " + Costanti.NODO_XML_SENSORE_VALORE + " assente.");
-
             sensore = new Sensore(nome, cat);
             sensore.setStato(stato);
-            sensore.setValore(valore);
+
+            childs = el.getElementsByTagName(Costanti.NODO_XML_SENSORE_VALORE);
+            if (childs.getLength() > 0) {
+                if (childs.getLength() == 1) {
+                    Element valore = (Element) childs.item(0);
+
+                    if (!valore.hasAttribute(Costanti.NODO_XML_SENSORE_NOME_VALORE)) {
+                        //v1 -> sensore con solo una info int
+                        int val = Integer.parseInt(valore.getTextContent());
+                        sensore.setValore(val);
+                    }
+                    else {
+                        //sensore con piu' info, gestisco la prima
+                        String nomeInfo = valore.getAttribute(Costanti.NODO_XML_SENSORE_NOME_VALORE);
+                        boolean isNumerica = cat.getInformazioneRilevabile(nomeInfo).isNumerica();
+                        Object val = null;
+
+                        if (isNumerica) {
+                            sensore.setValore(nomeInfo, Double.parseDouble(valore.getTextContent()));
+                        }
+                        else {
+                            sensore.setValore(nomeInfo, valore.getTextContent());
+                        }
+                    }
+                }
+
+                for (int i = 1; i < childs.getLength(); i++) {
+                    Element valore = (Element) childs.item(i);
+                    String nomeInfo = valore.getAttribute(Costanti.NODO_XML_SENSORE_NOME_VALORE);
+                    boolean isNumerica = cat.getInformazioneRilevabile(nomeInfo).isNumerica();
+                    Object val = null;
+
+                    if (isNumerica) {
+                        sensore.setValore(nomeInfo, Double.parseDouble(valore.getTextContent()));
+                    }
+                    else {
+                        sensore.setValore(nomeInfo, valore.getTextContent());
+                    }
+                }
+            } else
+                throw new NoSuchElementException("LettoriXML.SENSORE.getInstance(): elemento " + Costanti.NODO_XML_SENSORE_VALORE + " assente.");
 
             //ritorno istanza corretta
             return sensore;

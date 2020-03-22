@@ -162,9 +162,16 @@ public enum ScrittoriXML {
             elem.appendChild(doc.createTextNode(sensore.getCategoria().getNome()));
             root.appendChild(elem);
 
-            elem = doc.createElement(Costanti.NODO_XML_SENSORE_VALORE);
-            elem.appendChild(doc.createTextNode(sensore.getValore()+""));
-            root.appendChild(elem);
+            sensore.getValori().forEach((nomeInfo, valore) -> {
+                Element elemInfo = doc.createElement(Costanti.NODO_XML_SENSORE_VALORE);
+
+                Attr attrNomeInfo = doc.createAttribute(Costanti.NODO_XML_SENSORE_NOME_VALORE);
+                attrNomeInfo.setValue(nomeInfo);
+                elemInfo.setAttributeNode(attrNomeInfo);
+
+                elemInfo.appendChild(doc.createTextNode(valore+""));
+                root.appendChild(elemInfo);
+            });
 
             return root;
         } else

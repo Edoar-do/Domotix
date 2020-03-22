@@ -68,10 +68,15 @@ public final class Costanti {
     public static final String NODO_XML_SENSORE_NOME = "nome";
     public static final String NODO_XML_SENSORE_STATO = "stato";
     public static final String NODO_XML_SENSORE_CATEGORIA = "categoria";
+    public static final String NODO_XML_SENSORE_NOME_VALORE = "nome_info";
     public static final String NODO_XML_SENSORE_VALORE = "valore";
     public static final String NODO_XML_ATTUATORE = "attuatore";
     public static final String NODO_XML_ATTUATORE_NOME = "nome";
     public static final String NODO_XML_ATTUATORE_STATO = "stato";
     public static final String NODO_XML_ATTUATORE_CATEGORIA = "categoria";
     public static final String NODO_XML_ATTUATORE_MODALITA = "modalita";
+    public static final String NODO_XML_REGOLA = "regola";
+    public static final String NODO_XML_REGOLA_ID = "id";
+    public static final String NODO_XML_REGOLA_STATO = "stato";
+
 }
