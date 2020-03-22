@@ -4,10 +4,13 @@ import domotix.controller.util.StringUtil;
 import domotix.model.*;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
-import domotix.model.bean.regole.Regola;
+import domotix.model.bean.regole.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -438,6 +441,11 @@ public class Modificatore {
         return true;
     }
 
+    /**
+     * Metodo per aggiungere una regola vuota a un'UnitaImmobiliare
+     * @param nomeUnita Unita' selezionata
+     * @return L'ID della nuova regola
+     */
     public static String aggiungiRegola(String nomeUnita) {
         UnitaImmobiliare unita = Recuperatore.getUnita(nomeUnita);
         if (unita == null) return null;
@@ -446,38 +454,115 @@ public class Modificatore {
         return regola.getId();
     }
 
-    public static boolean aggiungiComponenteAntecedente(String sinistroVar, String op, String destroVar) {
-        // todo controlli validita'
+    private static InfoVariabile costruisciInfoDaSensore(String sinistroVar) {
+        String nomeSensore = sinistroVar.split(".")[0];
+        String nomeInfo = sinistroVar.split(".")[1];
+        Sensore sensore = Recuperatore.getSensore(nomeSensore);
+        InfoVariabile sinistro = new InfoVariabile(sensore, nomeInfo);
+        return sinistro;
+    }
+
+    private static boolean aggiungiComponenteCostanteAntecedente(String sinistroVar, String op, Object destroConst, String unita, String idRegola) {
+        //todo controlli validita
+        Regola regola = Recuperatore.getUnita(unita).getRegola(idRegola);
+        InfoVariabile sinistro = costruisciInfoDaSensore(sinistroVar);
+        InfoCostante destro = new InfoCostante(destroConst);
+        regola.addCondizone(new Condizione(sinistro, op, destro));
         return true;
     }
 
-    public static boolean aggiungiComponenteAntecedente(String sinistro, String op, String destro, boolean scalare) {
-        //todo
+    /**
+     * Metodo di aggiunta di una condizione con costante numerica a una regola
+     * @param sinistroVar Parte sinistra
+     * @param op Operatore relazionale
+     * @param destroConst Parte destra
+     * @param unita Nome unita' selezionata
+     * @param idRegola ID regola selezionata
+     * @return true se l'inserimento va a buon fine
+     */
+    public static boolean aggiungiComponenteAntecedente(String sinistroVar, String op, double destroConst, String unita, String idRegola) {
+        return aggiungiComponenteCostanteAntecedente(sinistroVar, op, destroConst, unita, idRegola);
+    }
+
+    /**
+     * Metodo di aggiunta di una condizione con costante scalare (i.e. stringa) o con costanti variabili a una regola
+     * @param sinistroVar Parte sinistra
+     * @param op Operatore relazionale
+     * @param destro Parte destra
+     * @param scalare Flag che indica se destra e' scalare o meno
+     * @param unita Nome unita' selezionata
+     * @param idRegola ID regola selezionata
+     * @return true se l'inserimento va a buon fine
+     */
+    public static boolean aggiungiComponenteAntecedente(String sinistroVar, String op, String destro, boolean scalare, String unita, String idRegola) {
+        //todo controlli validita
+        if (scalare) {
+            return aggiungiComponenteCostanteAntecedente(sinistroVar, op, destro, unita, idRegola);
+        }
+        Regola regola = Recuperatore.getUnita(unita).getRegola(idRegola);
+        InfoVariabile sx = costruisciInfoDaSensore(sinistroVar);
+        InfoVariabile dx = costruisciInfoDaSensore(destro);
+        regola.addCondizone(new Condizione(sx, op, dx));
         return true;
     }
 
-    public static boolean aggiungiComponenteAntecedente(String sinistroVar, String op, double destroConst) {
-        //todo
+    /**
+     * Metodo di aggiunta di un operatore booleano (pendente) all'antecedente di una regola.
+     * Non e' garantita la correttezza dell'ordine degli inserimenti
+     * (e.g. se si inserisce due volte di seguito un operatore senza inserire una condizione nel mezzo)
+     * @return true se l'inserimento va a buon fine
+     */
+    public static boolean aggiungiOperatoreLogico(String unita, String regola, String op) {
+        //todo controlli validita
+        Recuperatore.getUnita(unita)
+                .getRegola(regola)
+                .addOperatore(op);
         return true;
     }
 
-    public static boolean aggiungiOperatoreLogico(String op) {
-        //todo
-        return true;
-    }
-
+    /**
+     * Metodo di rimozione di una regola da un'UnitaImmobiliare
+     * @param unita Unita' selezionata
+     * @param idRegola ID della regola
+     * @return true se la rimozione va a buon fine
+     */
     public static boolean rimuoviRegola(String unita, String idRegola) {
-        //todo
+        UnitaImmobiliare unitaImm = Recuperatore.getUnita(unita);
+        if (unitaImm == null || unitaImm.getRegola(idRegola) == null) return false;
+        unitaImm.removeRegola(idRegola);
         return true;
     }
 
-    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, Map<String, Double> listaParams) {
-        //todo
+    /**
+     * Metodo di aggiunta di un'azione al conseguente di una regola.
+     * @param attuatore Attuatore dell'azione
+     * @param modalita Modalita' dell'azione
+     * @param listaParams Lista dei parametri nuovi per la modalita'
+     * @param unita Unita' Immobiliare selezionata
+     * @param idRegola ID della regola di cui fa parte il conseguente
+     * @return true se l'inserimento e' andato a buon fine
+     */
+    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, Map<String, Double> listaParams, String unita, String idRegola) {
+        //todo controlla validita'
+        Attuatore att = Recuperatore.getAttuatore(attuatore);
+        Modalita mod = att.getCategoria().getModalita(modalita);
+        List<Parametro> parametri = new ArrayList<>();
+        listaParams.forEach((k, v) -> parametri.add(new Parametro(k, v)));
+        Recuperatore.getUnita(unita)
+                .getRegola(idRegola)
+                .addAzione(new Azione(att, mod, parametri));
         return true;
     }
 
-    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita) {
-        //todo
-        return true;
+    /**
+     * Metodo di aggiunta di un'azione al conseguente di una regola.
+     * @param attuatore Attuatore dell'azione
+     * @param modalita Modalita' dell'azione
+     * @param unita Unita' Immobiliare selezionata
+     * @param idRegola ID della regola di cui fa parte il conseguente
+     * @return true se l'inserimento e' andato a buon fine
+     */
+    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, String unita, String idRegola) {
+        return aggiungiAzioneConseguente(attuatore, modalita, new HashMap<>(), unita, idRegola);
     }
 }

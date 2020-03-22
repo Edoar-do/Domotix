@@ -388,8 +388,8 @@ public class Recuperatore {
     }
 
     public static boolean isInfoNumerica(String nsensoreDestro, String info) {
-        //todo
-        return true;
+        Sensore sensore = getSensore(nsensoreDestro);
+        return (sensore.getValore(info) instanceof Number); //
     }
 
     /**
@@ -406,13 +406,20 @@ public class Recuperatore {
     }
 
     public static boolean isModalitaParametrica(String attuatore, String modalita) {
-        //todo
-        return true;
+        return getAttuatore(attuatore)
+                .getCategoria()
+                .getModalita(modalita)
+                .isParametrica(); //
     }
 
     public static String[] getNomiParametriModalita(String attuatore, String modalita) {
-        //todo
-        return null;
+        return getAttuatore(attuatore)
+                .getCategoria()
+                .getModalita(modalita)
+                .getParametri()
+                .stream()
+                .map(p -> p.getNome())
+                .toArray(String[]::new); //
     }
 
     /**
