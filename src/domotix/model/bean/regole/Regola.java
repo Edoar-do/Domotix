@@ -14,11 +14,15 @@ public class Regola {
     private Antecedente antecedente;
     private Conseguente conseguente;
 
-    public Regola(boolean stato, Antecedente antecedente, Conseguente conseguente) {
-        this.id = UUID.randomUUID().toString();
+    public Regola(String id, boolean stato, Antecedente antecedente, Conseguente conseguente) {
+        this.id = id;
         this.stato = stato;
         this.antecedente = antecedente;
         this.conseguente = conseguente;
+    }
+
+    public Regola(boolean stato, Antecedente antecedente, Conseguente conseguente) {
+        this(UUID.randomUUID().toString(), stato, antecedente, conseguente);
     }
 
     public Regola() {
