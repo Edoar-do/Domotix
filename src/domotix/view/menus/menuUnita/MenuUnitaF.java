@@ -114,7 +114,7 @@ public class MenuUnitaF {
                             System.out.println(SCELTA_RHS);
                             if (InputDati.yesOrNo(RHS_IS_COSTANTE)) { //RHS NUMERICO
                                 double rhsNum = InputDati.leggiDouble(INSERIMENTO_COSTANTE_RHS);
-                                if (Modificatore.aggiungiComponenteAntecedente(lhs, relOp, rhsNum)) { //inserimento componente
+                                if (Modificatore.aggiungiComponenteAntecedente(lhs, relOp, rhsNum, nomeUnitaSuCuiLavorare, IDregolaNuova)) { //inserimento componente
                                     System.out.println(SUCCESSO_INSERIMENTO_COMPONENTE);
                                     almenoUnaComponente = true;
                                 } else {
@@ -134,7 +134,7 @@ public class MenuUnitaF {
                                         continue;
                                     }
                                 }
-                                if(Modificatore.aggiungiComponenteAntecedente(lhs,relOp,rhs, scalare)){ //inserimento componente
+                                if(Modificatore.aggiungiComponenteAntecedente(lhs,relOp,rhs, scalare, nomeUnitaSuCuiLavorare, IDregolaNuova)){ //inserimento componente
                                     System.out.println(SUCCESSO_INSERIMENTO_COMPONENTE);
                                     almenoUnaComponente = true;
                                 }else {
@@ -160,7 +160,7 @@ public class MenuUnitaF {
                     //inizio inserimento del conseguente
                     boolean almenoUnaAzione = false;
                     while(true) {
-                        if (costruisciAzione(nomeUnitaSuCuiLavorare)) {
+                        if (costruisciAzione(nomeUnitaSuCuiLavorare, IDregolaNuova)) {
                             System.out.println(SUCCESSO_INSERIMENTO_AZIONE);
                             almenoUnaAzione = true;
                         } else{  System.out.println(ERRORE_INSERIMENTO_AZIONE); }
@@ -255,7 +255,7 @@ public class MenuUnitaF {
         return scelta == 0 ? null : regole[scelta-1];
     }
 
-    private static boolean costruisciAzione(String nomeUnitaSuCuiLavorare){
+    private static boolean costruisciAzione(String nomeUnitaSuCuiLavorare, String IDregola){
         while(true) {
             String attuatore = premenuAttuatori(nomeUnitaSuCuiLavorare);
             if(attuatore == null){ System.out.println(LHS_ATT_NECESSARIO); continue; }
@@ -269,12 +269,12 @@ public class MenuUnitaF {
                     double nuovoValore = InputDati.leggiDouble(String.format("Imposta un nuovo valore per il parametro %s della modalita %s di %s", params[i], modalita, attuatore));
                     listaParams.put(params[i], nuovoValore);
                 }
-                if(Modificatore.aggiungiAzioneConseguente(attuatore, modalita, listaParams)){
+                if(Modificatore.aggiungiAzioneConseguente(attuatore, modalita, listaParams, nomeUnitaSuCuiLavorare, IDregola)){
                     return true;
                 }else
                     return false;
             }else {//finisco qui se la modalità non è parametrica
-                if (Modificatore.aggiungiAzioneConseguente(attuatore, modalita)) {
+                if (Modificatore.aggiungiAzioneConseguente(attuatore, modalita, nomeUnitaSuCuiLavorare, IDregola)) {
                     return true;
                 } else
                     return false;
