@@ -28,7 +28,7 @@ public class Condizione {
 
     private boolean checkOperatore(String op) {
         // si potrebbe fare un array / enum con gli operatori ammissibili comunque
-        return op.equals(">") || op.equals(">=") || op.equals("<") || op.equals("<=") || op.equals("=");
+        return ">".equals(op) || ">=".equals(op) || "<".equals(op) || "<=".equals(op) || "=".equals(op);
     }
 
     private boolean areNumeriche(Object valSinistro, Object valDestro) {

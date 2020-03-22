@@ -60,7 +60,7 @@ public class Antecedente {
 
     private boolean checkOperatore(String nuovoOperatore) {
         // si potrebbe fare un array / enum con gli operatori ammissibili comunque
-        return nuovoOperatore.equals("||") || nuovoOperatore.equals("&&");
+        return "||".equals(nuovoOperatore) || "&&".equals(nuovoOperatore);
     }
 
     /**
