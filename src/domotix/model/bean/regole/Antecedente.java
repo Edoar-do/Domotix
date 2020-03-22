@@ -77,7 +77,7 @@ public class Antecedente {
         }
 
         boolean sinistro = andExpr(corrente);
-        while (corrente.operatoreLogico.equals("||")) {
+        while ("||".equals(corrente.operatoreLogico)) {
             if (corrente.prossimoAntecedente == null) {
                 throw new IllegalArgumentException("Operatore pendente: " + corrente.operatoreLogico);
             }
@@ -94,7 +94,7 @@ public class Antecedente {
         }
 
         boolean sinistro = corrente.condizione.valuta();
-        while (corrente.operatoreLogico.equals("&&")) {
+        while ("&&".equals(corrente.operatoreLogico)) {
             if (corrente.prossimoAntecedente == null) {
                 throw new IllegalArgumentException("Operatore pendente: " + corrente.operatoreLogico);
             }
