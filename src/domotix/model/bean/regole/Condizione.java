@@ -56,10 +56,7 @@ public class Condizione {
     public boolean valuta() {
         Object valSinistro = sinistra.getValore();
         Object valDestro = destra.getValore();
-
-        if (operatore != "=" && !areNumeriche(valSinistro, valDestro)) {
-            throw new IllegalArgumentException("Operatore " + operatore + "applicabile solo su valori numerici.");
-        }
+        
         switch (operatore) {
             case ">":
                 return (Double) valSinistro > (Double) valDestro;
