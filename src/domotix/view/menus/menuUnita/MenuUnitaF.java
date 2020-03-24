@@ -59,6 +59,7 @@ public class MenuUnitaF {
     private static final String ATTUATORI_UNITA = "Attuatori presenti nell'unita'%s: ";
     private static final String SUCCESSO_INSERIMENTO_LHS = "Lhs della condizione inserito con successo";
     private static final String SUCCESSO_INSERIMENTO_REL_OP= "Operatore relazionale della condizione inserito con successo";
+    private static final String COSTRUZIONE_CONSEGUENTE = "Costruisci il conseguente inserendone le azioni: ";
 
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
@@ -161,6 +162,7 @@ public class MenuUnitaF {
                     }
                     //inizio inserimento del conseguente
                     boolean almenoUnaAzione = false;
+                    System.out.println(COSTRUZIONE_CONSEGUENTE);
                     while(true) {
                         if (costruisciAzione(nomeUnitaSuCuiLavorare, IDregolaNuova)) {
                             System.out.println(SUCCESSO_INSERIMENTO_AZIONE);
@@ -209,8 +211,10 @@ public class MenuUnitaF {
 
     private static String sceltaLhs(String unita){
         String nomeSensoreScelto = premenuSensori(unita);
+        if(nomeSensoreScelto == null) return null;
         String infoRilevabile = premenuInfo(nomeSensoreScelto);
-        return (nomeSensoreScelto == null || infoRilevabile == null) ? null : (nomeSensoreScelto + "." + infoRilevabile);
+        if(infoRilevabile == null) return null;
+        return (nomeSensoreScelto + "." + infoRilevabile);
     }
 
     private static String sceltaRelOp(String lhs){
