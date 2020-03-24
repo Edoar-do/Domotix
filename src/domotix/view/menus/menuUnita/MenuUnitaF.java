@@ -11,6 +11,7 @@ import domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaF;
 import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /** @author Edoardo Coppola*/
 public class MenuUnitaF {
@@ -56,6 +57,8 @@ public class MenuUnitaF {
     private static final String STRINGA_COST = "Vuoi inserire una stringa costante come secondo termine della condizione? (se no allora sceglierai una variabile sensoriale): ";
     private static final String INSERIMENTO_STRINGA_COSTANTE_RHS = "Inserisci una stringa costante come secondo termine della condizione: ";
     private static final String ATTUATORI_UNITA = "Attuatori presenti nell'unita'%s: ";
+    private static final String SUCCESSO_INSERIMENTO_LHS = "Lhs della condizione inserito con successo";
+    private static final String SUCCESSO_INSERIMENTO_REL_OP= "Operatore relazionale della condizione inserito con successo";
 
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
@@ -94,8 +97,8 @@ public class MenuUnitaF {
                     MenuGestioneStanzaF.avvia(nomeUnitaSuCuiLavorare);
                     break;
                 case 3: //crea nuova regola
-                    if(premenuSensori(nomeUnitaSuCuiLavorare).equals(ZERO_SENSORI)){ System.out.println(ZERO_SENSORI); break;}
-                    if(premenuAttuatori(nomeUnitaSuCuiLavorare).equals(ZERO_ATTUATORI)){ System.out.println(ZERO_ATTUATORI); break;}
+                    if(!checkSensori(nomeUnitaSuCuiLavorare)){ System.out.println(ZERO_SENSORI); break;}
+                    if(!checkAttuatori(nomeUnitaSuCuiLavorare)){ System.out.println(ZERO_ATTUATORI); break;}
                     boolean almenoUnaComponente = false;
                     String IDregolaNuova = Modificatore.aggiungiRegola(nomeUnitaSuCuiLavorare);
                     if(IDregolaNuova != null)    System.out.println(String.format(SUCCESSO_INSERIMENTO_REGOLA, IDregolaNuova));
@@ -108,10 +111,10 @@ public class MenuUnitaF {
                         do {
                             System.out.println(SCELTA_LHS);
                             String lhs = sceltaLhs(nomeUnitaSuCuiLavorare);
-                            if(lhs == null){ System.out.println(LHS_NECESSARIO); continue; }
+                            if(lhs == null){ System.out.println(LHS_NECESSARIO); continue; } else { System.out.println(SUCCESSO_INSERIMENTO_LHS); }
                             System.out.println(SCELTA_RELOP);
                             String relOp = sceltaRelOp(lhs);
-                            if(relOp == null){ System.out.println(RELOP_NECESSARIO); continue; }
+                            if(relOp == null){ System.out.println(RELOP_NECESSARIO); continue; } else { System.out.println(SUCCESSO_INSERIMENTO_REL_OP); }
                             System.out.println(SCELTA_RHS);
                             if (InputDati.yesOrNo(RHS_IS_COSTANTE)) { //RHS NUMERICO
                                 double rhsNum = InputDati.leggiDouble(INSERIMENTO_COSTANTE_RHS);
@@ -209,44 +212,56 @@ public class MenuUnitaF {
     private static String sceltaLhs(String unita){
         String nomeSensoreScelto = premenuSensori(unita);
         String infoRilevabile = premenuInfo(nomeSensoreScelto);
-        return (nomeSensoreScelto == null || infoRilevabile == null) ? null : nomeSensoreScelto + "." + infoRilevabile;
+        return (nomeSensoreScelto == null || infoRilevabile == null) ? null : (nomeSensoreScelto + "." + infoRilevabile);
     }
 
     private static String sceltaRelOp(String lhs){
-        if(Recuperatore.isInfoNumerica(lhs.split(".")[0], lhs.split(".")[1])) //[0] t1_termometro   [1] infoRilevabile
+        String[] campi = lhs.split(Pattern.quote("."));
+        if(Recuperatore.isInfoNumerica(campi[0], campi[1])) //[0] t1_termometro   [1] infoRilevabile
             return premenuRelOp();
         else return "="; //se l'info è scalare l'unico operatore applicabile è '='
     }
 
     private static String premenuSensori(String unita){
         String[] sensori = Recuperatore.getNomiSensori(unita);
-        if(sensori.length == 0) return ZERO_SENSORI;
-        if(sensori.length == 1) return sensori[0];
         MyMenu m = new MyMenu(String.format(SENSORI_UNITA, unita), sensori);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : sensori[scelta-1];
     }
 
+    private static boolean checkSensori(String unita){
+        String[] sensori = Recuperatore.getNomiSensori(unita);
+        if(sensori.length == 0) return false;
+        return true;
+    }
+
+    private static boolean checkAttuatori(String unita){
+        String[] attuatori = Recuperatore.getNomiAttuatori(unita);
+        if(attuatori.length == 0) return false;
+        return true;
+
+    }
+
     private static String premenuInfo(String sensore){
         String[] info = Recuperatore.getInformazioniRilevabili(sensore);
-        if(info.length == 1) return info[0];
+        //if(info.length == 1) return info[0];
         MyMenu m = new MyMenu(String.format(INFO_DEL_SENSORE, sensore), info);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : info[scelta-1];
     }
 
     private static String premenuLogicOp(){
-        String[] logicOps = new String[] {null, "&&",  "||"};
-        MyMenu m = new MyMenu("Operatori Logici: ", OPERATORI_LOGICI);
+        String[] logicOps = new String[] {"&&",  "||"};
+        MyMenu m = new MyMenu("Operatori Logici: ", logicOps);
         int scelta = m.scegli(INDIETRO);
-        return logicOps[scelta];
+        return scelta == 0 ? null : logicOps[scelta-1];
     }
 
     private static String premenuRelOp(){
-        String[] relOps = new String[]{null, "<", ">", "<=", ">=", "="};
-        MyMenu m = new MyMenu("Operatori Relazionali: ", OPERATORI_RELAZIONALI);
+        String[] relOps = new String[]{"<", ">", "<=", ">=", "="};
+        MyMenu m = new MyMenu("Operatori Relazionali: ", relOps);
         int scelta = m.scegli(INDIETRO);
-        return relOps[scelta];
+        return scelta == 0 ? null : relOps[scelta-1];
     }
 
     private static final String premenuAntecedentiRegole(String unita){
@@ -285,8 +300,6 @@ public class MenuUnitaF {
 
     private static String premenuAttuatori(String unita){
         String[] attuatori = Recuperatore.getNomiAttuatori(unita);
-        if(attuatori.length == 0) return ZERO_ATTUATORI;
-        if(attuatori.length == 1) return attuatori[0];
         MyMenu m = new MyMenu(String.format(ATTUATORI_UNITA, unita), attuatori);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : attuatori[scelta-1];

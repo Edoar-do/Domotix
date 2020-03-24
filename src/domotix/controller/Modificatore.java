@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * Classe per implementare una parte di logica controller relativa all'aggiunta e rimozione di entita'.
@@ -455,8 +456,8 @@ public class Modificatore {
     }
 
     private static InfoVariabile costruisciInfoDaSensore(String sinistroVar) {
-        String nomeSensore = sinistroVar.split(".")[0];
-        String nomeInfo = sinistroVar.split(".")[1];
+        String nomeSensore = sinistroVar.split(Pattern.quote("."))[0];
+        String nomeInfo = sinistroVar.split(Pattern.quote("."))[1];
         Sensore sensore = Recuperatore.getSensore(nomeSensore);
         InfoVariabile sinistro = new InfoVariabile(sensore, nomeInfo);
         return sinistro;
