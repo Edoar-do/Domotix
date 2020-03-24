@@ -400,8 +400,7 @@ public class Recuperatore {
     public static String[] getAntecedentiRegoleUnita(String unita) {
         Regola[] regole = getUnita(unita).getRegole();
         return Stream.of(regole)
-                .map(r -> r.getAntecedente())
-                .map(a -> a.toString())
+                .map(r -> r.getAntecedente().toString())
                 .toArray(String[]::new);
     }
 
