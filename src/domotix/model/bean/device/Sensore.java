@@ -118,8 +118,7 @@ public class Sensore extends Dispositivo {
     public String toString() {
         StringBuffer buffer = new StringBuffer();
         buffer.append(getNome());
-        categoria.getInformazioniRilevabili().forEach(i -> buffer.append("\n" + StringUtil.indent(i.getNome() + valori.get(i.getNome()).toString(), 1)));
-        //categoria.getInformazioniRilevabili().forEach(i -> buffer.append("\n" + StringUtil.indent(i.getNome(), 1)));
+        valori.forEach((k, v) -> buffer.append("\n" + StringUtil.indent(k + v.toString(), 1)));
         return buffer.toString();
     }
 }
