@@ -432,7 +432,7 @@ public class Recuperatore {
                 .getCategoria()
                 .getElencoModalita()
                 .stream()
-                .map(c -> c.toString())
+                .map(c -> c.getNome())
                 .toArray(String[]::new);
     }
 }

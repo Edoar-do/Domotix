@@ -99,7 +99,6 @@ public class MenuUnitaF {
                 case 3: //crea nuova regola
                     if(!checkSensori(nomeUnitaSuCuiLavorare)){ System.out.println(ZERO_SENSORI); break;}
                     if(!checkAttuatori(nomeUnitaSuCuiLavorare)){ System.out.println(ZERO_ATTUATORI); break;}
-                    boolean almenoUnaComponente = false;
                     String IDregolaNuova = Modificatore.aggiungiRegola(nomeUnitaSuCuiLavorare);
                     if(IDregolaNuova != null)    System.out.println(String.format(SUCCESSO_INSERIMENTO_REGOLA, IDregolaNuova));
                     else{
@@ -118,10 +117,9 @@ public class MenuUnitaF {
                             System.out.println(SCELTA_RHS);
                             if (InputDati.yesOrNo(RHS_IS_COSTANTE)) { //RHS NUMERICO
                                 double rhsNum = InputDati.leggiDouble(INSERIMENTO_COSTANTE_RHS);
-                                if (Modificatore.aggiungiComponenteAntecedente(lhs, relOp, rhsNum, nomeUnitaSuCuiLavorare, IDregolaNuova)) { //inserimento componente
+                                if (Modificatore.aggiungiComponenteAntecedente(lhs, relOp, rhsNum, nomeUnitaSuCuiLavorare, IDregolaNuova))//inserimento componente
                                     System.out.println(SUCCESSO_INSERIMENTO_COMPONENTE);
-                                    almenoUnaComponente = true;
-                                } else {
+                                else {
                                     System.out.println(ERRORE_INSERIMENTO_COMPONENTE_ANTECEDENTE);
                                     continue;
                                 }
@@ -135,13 +133,12 @@ public class MenuUnitaF {
                                     scalare = false;
                                     if (rhs == null) {
                                         System.out.println(RHS_NECESSARIO);
-                                        continue;
+                                        continue; // fa reinserire tutta la condizione
                                     }
                                 }
-                                if(Modificatore.aggiungiComponenteAntecedente(lhs,relOp,rhs, scalare, nomeUnitaSuCuiLavorare, IDregolaNuova)){ //inserimento componente
+                                if(Modificatore.aggiungiComponenteAntecedente(lhs,relOp,rhs, scalare, nomeUnitaSuCuiLavorare, IDregolaNuova)) //inserimento componente
                                     System.out.println(SUCCESSO_INSERIMENTO_COMPONENTE);
-                                    almenoUnaComponente = true;
-                                }else {
+                                else {
                                     System.out.println(ERRORE_INSERIMENTO_COMPONENTE_ANTECEDENTE);
                                     continue;
                                 }
@@ -158,8 +155,9 @@ public class MenuUnitaF {
                                     }else
                                         System.out.println(LOGIC_OP_NECESSARIO);
                                 }
-                            }
-                        }while(!almenoUnaComponente);
+                            }else
+                                break; //passa al conseguente
+                        }while(true);
                     }
                     //inizio inserimento del conseguente
                     boolean almenoUnaAzione = false;
@@ -276,7 +274,7 @@ public class MenuUnitaF {
             String attuatore = premenuAttuatori(nomeUnitaSuCuiLavorare);
             if(attuatore == null){ System.out.println(LHS_ATT_NECESSARIO); continue; }
             String modalita = premenuModalita(attuatore);
-            if(attuatore == null){ System.out.println(RHS_ATT_NECESSARIO); continue; }
+            if(modalita == null){ System.out.println(RHS_ATT_NECESSARIO); continue; }
             //da fare solo se la modalità è parametrica
             if (Recuperatore.isModalitaParametrica(attuatore, modalita)) {
                 String[] params = Recuperatore.getNomiParametriModalita(attuatore, modalita);
