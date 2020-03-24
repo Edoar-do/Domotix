@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 /** @author Edoardo Coppola */
 public class Sensore extends Dispositivo {
-    private static final String TOSTRING_TEMPLATE = "%s: %d";
     private CategoriaSensore categoria;
     private HashMap<String, Object> valori;
 
@@ -118,7 +117,7 @@ public class Sensore extends Dispositivo {
     public String toString() {
         StringBuffer buffer = new StringBuffer();
         buffer.append(getNome());
-        valori.forEach((k, v) -> buffer.append("\n" + StringUtil.indent(k + v.toString(), 1)));
+        valori.forEach((k, v) -> buffer.append("\n" + StringUtil.indent(k + " = " + v.toString(), 1)));
         return buffer.toString();
     }
 }
