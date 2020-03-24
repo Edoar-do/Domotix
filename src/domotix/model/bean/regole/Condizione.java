@@ -24,6 +24,20 @@ public class Condizione {
         if (!checkOperatore(operatore)) {
             throw new IllegalArgumentException("Operatore " + operatore + " non ammesso.");
         }
+
+        if (!checkOperatoreNumerico()) {
+            throw new IllegalArgumentException("Operatore " + operatore + "applicabile solo su valori numerici.");
+        }
+    }
+
+    private boolean checkOperatoreNumerico() {
+        Object valSinistro = sinistra.getValore();
+        Object valDestro = destra.getValore();
+
+        if (operatore != "=" && !areNumeriche(valSinistro, valDestro)) {
+            return false;
+        }
+        return true;
     }
 
     private boolean checkOperatore(String op) {

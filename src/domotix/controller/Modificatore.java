@@ -464,12 +464,15 @@ public class Modificatore {
     }
 
     private static boolean aggiungiComponenteCostanteAntecedente(String sinistroVar, String op, Object destroConst, String unita, String idRegola) {
-        //todo controlli validita
-        Regola regola = Recuperatore.getUnita(unita).getRegola(idRegola);
-        InfoVariabile sinistro = costruisciInfoDaSensore(sinistroVar);
-        InfoCostante destro = new InfoCostante(destroConst);
-        regola.addCondizone(new Condizione(sinistro, op, destro));
-        return true;
+        try {
+            Regola regola = Recuperatore.getUnita(unita).getRegola(idRegola);
+            InfoVariabile sinistro = costruisciInfoDaSensore(sinistroVar);
+            InfoCostante destro = new InfoCostante(destroConst);
+            regola.addCondizone(new Condizione(sinistro, op, destro));
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
     /**
@@ -496,15 +499,18 @@ public class Modificatore {
      * @return true se l'inserimento va a buon fine
      */
     public static boolean aggiungiComponenteAntecedente(String sinistroVar, String op, String destro, boolean scalare, String unita, String idRegola) {
-        //todo controlli validita
-        if (scalare) {
-            return aggiungiComponenteCostanteAntecedente(sinistroVar, op, destro, unita, idRegola);
+        try {
+            if (scalare) {
+                return aggiungiComponenteCostanteAntecedente(sinistroVar, op, destro, unita, idRegola);
+            }
+            Regola regola = Recuperatore.getUnita(unita).getRegola(idRegola);
+            InfoVariabile sx = costruisciInfoDaSensore(sinistroVar);
+            InfoVariabile dx = costruisciInfoDaSensore(destro);
+            regola.addCondizone(new Condizione(sx, op, dx));
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
         }
-        Regola regola = Recuperatore.getUnita(unita).getRegola(idRegola);
-        InfoVariabile sx = costruisciInfoDaSensore(sinistroVar);
-        InfoVariabile dx = costruisciInfoDaSensore(destro);
-        regola.addCondizone(new Condizione(sx, op, dx));
-        return true;
     }
 
     /**
