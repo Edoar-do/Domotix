@@ -167,7 +167,7 @@ public class MenuUnitaF {
                         if (costruisciAzione(nomeUnitaSuCuiLavorare, IDregolaNuova)) {
                             System.out.println(SUCCESSO_INSERIMENTO_AZIONE);
                             almenoUnaAzione = true;
-                        } else{  System.out.println(ERRORE_INSERIMENTO_AZIONE); }
+                        } else{  System.out.println(ERRORE_INSERIMENTO_AZIONE); continue; }
                         if(!InputDati.yesOrNo(CONTINUARE_CON_CONSEGUENTE)){
                             if(almenoUnaAzione)
                                 break;
