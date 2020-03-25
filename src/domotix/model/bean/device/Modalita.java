@@ -99,7 +99,7 @@ public class Modalita {
         if (!parametri.isEmpty()) {
             str += "\n" + StringUtil.indent("PARAMETRI:", 1);
             for (Parametro p : parametri.values()) {
-                str += "\n" + StringUtil.indent(p.toString(), 1);
+                str += "\n" + StringUtil.indent(p.toString(), 2);
             }
         }
         return str;
