@@ -488,6 +488,12 @@ public enum ScrittoriXML {
             }
             */
 
+            for (Regola r : unitaImmobiliare.getRegole()) {
+                elem = doc.createElement(Costanti.NODO_XML_REGOLA);
+                elem.appendChild(doc.createTextNode(r.getId()));
+                root.appendChild(elem);
+            }
+
             return root;
         } else
             throw new IllegalArgumentException("ScrittoriXML.UNITA_IMMOB.compileInstance(): impossibile compilare oggetto non UnitaImmobiliare");

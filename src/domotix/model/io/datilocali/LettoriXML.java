@@ -758,6 +758,15 @@ public enum LettoriXML {
                 }
             }
 
+            childs = el.getElementsByTagName(Costanti.NODO_XML_REGOLA);
+            if (childs.getLength() > 0) {
+                for (int i = 0; i < childs.getLength(); i++) {
+                    String regola = childs.item(i).getTextContent();
+                    Regola r = LetturaDatiSalvati.getInstance().leggiRegola(regola, nome);
+                    unit.addRegola(r);
+                }
+            }
+
             //ritorno istanza corretta
             return unit;
         }

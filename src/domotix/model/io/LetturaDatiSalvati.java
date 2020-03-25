@@ -32,6 +32,7 @@ import java.util.List;
  *          -   Artefatti
  *              -   Sensori
  *              -   Attuatori
+ *          -   Regole
  *  Se queste precedenze non vengono rispettate si puo' incorrere in errori logici, come ad esempio un sensore la cui categoria
  *  non e' ancora stata letta.
  *

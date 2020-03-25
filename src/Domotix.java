@@ -1,5 +1,7 @@
 import domotix.controller.OperazioniFinali;
 import domotix.controller.OperazioniIniziali;
+import domotix.controller.TimerGestioneRegole;
+import domotix.controller.TimerRinfrescoDati;
 import domotix.model.ElencoUnitaImmobiliari;
 import domotix.view.menus.MenuLogin;
 
@@ -18,9 +20,14 @@ public class Domotix {
     public static void main(String ...args) {
         boolean esegui = OperazioniIniziali.getInstance().apri();
 
-        //Controllo se non sono presenti unita immobiliari e in tal caso aggiungo l'unita base generata.
-        if (!OperazioniIniziali.getInstance().controlloEsistenzaUnita())
-            ElencoUnitaImmobiliari.getInstance().add(OperazioniIniziali.getInstance().generaUnitaBase());
+        if (esegui) {
+            //Controllo se non sono presenti unita immobiliari e in tal caso aggiungo l'unita base generata.
+            if (!OperazioniIniziali.getInstance().controlloEsistenzaUnita())
+                ElencoUnitaImmobiliari.getInstance().add(OperazioniIniziali.getInstance().generaUnitaBase());
+
+            TimerRinfrescoDati.getInstance().start(); //avvio timer rinfresco dati
+            TimerGestioneRegole.getInstance().start(); //avvio timer gestione regole
+        }
 
         while (esegui) {
 
@@ -28,6 +35,9 @@ public class Domotix {
 
             esegui = !OperazioniFinali.getInstance().chiudi();
         }
+
+        TimerRinfrescoDati.getInstance().stop();;
+        TimerGestioneRegole.getInstance().stop();
     }
 
 }

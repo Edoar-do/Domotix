@@ -198,6 +198,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
             nomiDati.remove(unita.getNome());
             sincronizzaStanze(unita); //se entita logica presente allora sincronizzo le componenti
             sincronizzaArtefatti(unita); //se entita logica presente allora sincronizzo le componenti
+            sincronizzaRegole(unita); //se entita logica presente allora sincronizzo le componenti
         }
         //elaboro i nomi rimasti
         for (String unita : nomiDati) {

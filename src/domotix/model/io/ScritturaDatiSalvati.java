@@ -24,6 +24,7 @@ import domotix.model.io.datilocali.ScritturaDatiLocali;
  *          -   Artefatti
  *              -   Sensori
  *              -   Attuatori
+ *          -   Regole
  *
  * @author paolopasqua
  */

@@ -144,7 +144,7 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
     }
 
     @Override
-    public void salva(UnitaImmobiliare unita) throws TransformerException, IOException, ParserConfigurationException {
+    public void salva(UnitaImmobiliare unita) throws Exception {
         //salvo prima le entita' interne
         for (Stanza s : unita.getStanze()) {
             salva(s,unita.getNome());
@@ -158,6 +158,9 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
                 Infatti, in questo modo anche il salvataggio di una singola stanza/artefatto porta al salvataggio
                 dei sensori da lei contenuti, senza dover salvare l'intera unita immobiliare.
          */
+        for (Regola r : unita.getRegole()) {
+            salva(r, unita.getNome());
+        }
 
         //salva l'unita immobiliare
         String path = PercorsiFile.getInstance().getPercorsoUnitaImmobiliare(unita.getNome());

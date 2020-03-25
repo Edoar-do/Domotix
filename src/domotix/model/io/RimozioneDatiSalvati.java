@@ -31,6 +31,7 @@ import java.util.List;
  *          -   Sensori
  *          -   Attuatori
  *          -   Artefatti
+ *          -   Regole
  *  -   Sensori
  *  -   Attuatori
  *
