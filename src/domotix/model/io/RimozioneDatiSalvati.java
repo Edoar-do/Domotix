@@ -2,6 +2,7 @@ package domotix.model.io;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.model.io.datilocali.RimozioneDatiLocali;
@@ -130,6 +131,15 @@ public interface RimozioneDatiSalvati {
      */
     void rimuoviAttuatore(String attuatore) throws Exception;
 
+    /**
+     * Cancellazione nei dati memorizzati di una singola istanza di Regola                                                                                                                                                                                                                                                                                                                                                                                                                                                   .
+     *
+     * @param idRegola  istanza da rimuovere
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see domotix.model.bean.regole.Regola
+     */
+    void rimuoviRegola(String idRegola, String unita) throws Exception;
+
 
     /**
      * Confronta tutte le CategoriaSensore presenti nei dati salvati con la lista indicata.
@@ -233,4 +243,15 @@ public interface RimozioneDatiSalvati {
      * @see Attuatore
      */
     void sincronizzaAttuatori(List<Attuatore> entita) throws Exception;
+
+    /**
+     * Confronta tutte le Regola presenti nei dati salvati con la lista indicata.
+     * Tutti quelli assenti nella lista parametro saranno eliminati per mantenere sincronizzati i dati
+     * salvati con le entita' logiche.
+     *
+     * @param entita    lista di entita' logiche presenti
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see domotix.model.bean.regole.Regola
+     */
+    void sincronizzaRegole(UnitaImmobiliare entita) throws Exception;
 }

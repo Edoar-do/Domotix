@@ -10,6 +10,12 @@ public class Condizione {
     private String operatore;
     private InfoSensoriale destra;
 
+    public static final String MINORE_UGUALE = "<=";
+    public static final String MINORE = "<";
+    public static final String UGUALE = "=";
+    public static final String MAGGIORE = ">";
+    public static final String MAGGIORE_UGUALE = ">=";
+
     /**
      * Costruttore della classe.
      * @param sinistra InfoSensoriale che compare sul lato sinistro dell'espressione
@@ -24,6 +30,18 @@ public class Condizione {
         if (!checkOperatore(operatore)) {
             throw new IllegalArgumentException("Operatore " + operatore + " non ammesso.");
         }
+    }
+
+    public InfoSensoriale getSinistra() {
+        return sinistra;
+    }
+
+    public String getOperatore() {
+        return operatore;
+    }
+
+    public InfoSensoriale getDestra() {
+        return destra;
     }
 
     private boolean checkOperatore(String op) {
@@ -47,15 +65,15 @@ public class Condizione {
             throw new IllegalArgumentException("Operatore " + operatore + "applicabile solo su valori numerici.");
         }
         switch (operatore) {
-            case ">":
+            case MAGGIORE:
                 return (Double) valSinistro > (Double) valDestro;
-            case ">=":
+            case MAGGIORE_UGUALE:
                 return (Double) valSinistro >= (Double) valDestro;
-            case "<":
+            case MINORE:
                 return (Double) valSinistro < (Double) valDestro;
-            case "<=":
+            case MINORE_UGUALE:
                 return (Double) valSinistro <= (Double) valDestro;
-            case "=":
+            case UGUALE:
                 return valSinistro.equals(valDestro);
         }
         return false;

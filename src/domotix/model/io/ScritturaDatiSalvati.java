@@ -2,6 +2,7 @@ package domotix.model.io;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.model.io.datilocali.ScritturaDatiLocali;
@@ -121,4 +122,14 @@ public interface ScritturaDatiSalvati {
      * @see Attuatore
      */
     void salva(Attuatore attuatore) throws Exception;
+
+    /**
+     * Scrittura/Sovrascrittura nei dati memorizzati di una singola istanza di Regola.
+     *
+     * @param regola  istanza da salvare
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see Regola
+     */
+    void salva(Regola regola, String unita) throws Exception;
+
 }

@@ -3,7 +3,6 @@ package domotix.model.io.datilocali;
 import domotix.model.util.Costanti;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.nio.file.NotDirectoryException;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,10 +101,13 @@ public class PercorsiFile {
             //stanze sono gestite come singoli file contenuti nella cartella sopra
             controllaCartella(getCartellaArtefatti(s)); //controllo esistenza di una cartella artefatti all'interno di ciascuna cartella
             //artefatti sono gestite come singoli file contenuti nella cartella sopra
+            controllaCartella(getCartellaRegole(s));
+            //regole sono gestite come singoli file contenuti nella cartella sopra
         }
 
         controllaCartella(Costanti.PERCORSO_CARTELLA_SENSORI); //sensori gestiti come singoli file contenuti nella cartella
         controllaCartella(Costanti.PERCORSO_CARTELLA_ATTUATORI); //attuatori gestiti come singoli file contenuti nella cartella
+
     }
 
     /**
@@ -379,6 +381,35 @@ public class PercorsiFile {
      */
     public List<String> getNomiAttuatori() {
         return getNomiCartella(getCartellaAttuatori());
+    }
+
+    /**
+     * Genera il percorso del file specifico per un'entita' Regola identificata dalle stringhe passate.
+     * @param idRegola   identificativo stringa della regola
+     * @return  Percorso al file dove risiedono i dati locali relativi all'entita'
+     * @see domotix.model.bean.regole.Regola
+     */
+    public String getPercorsoRegola(String idRegola, String unita) {
+        return getCartellaRegole(unita) + File.separator + idRegola;
+    }
+
+    /**
+     * Genera il percorso della cartella contenente le entita' Regole
+     * @return  Percorso della cartella dove risiedono i dati locali relativi all'entita'
+     * @see domotix.model.bean.regole.Regola
+     */
+    public String getCartellaRegole(String unita) {
+        return getCartellaUnitaImmobiliare(unita) + File.separator + Costanti.NOME_CARTELLA_REGOLE;
+    }
+
+    /**
+     * Ritorna una lista di nomi delle entita' presenti nei file memorizzati
+     *
+     * @return  Lista di nomi delle entita' presenti
+     * @see domotix.model.bean.regole.Regola
+     */
+    public List<String> getNomiRegola(String unita) {
+        return getNomiCartella(getCartellaRegole(unita));
     }
 
 }

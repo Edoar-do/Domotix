@@ -2,6 +2,7 @@ package domotix.model.io.datilocali;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.model.io.ScritturaDatiSalvati;
@@ -60,6 +61,9 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
 
         //Popolo la tabella degli scrittori
         scrittori = new HashMap<>();
+        scrittori.put(Regola.class, ScrittoriXML.REGOLA);
+        scrittori.put(Antecedente.class, ScrittoriXML.ANTECEDENTE);
+        scrittori.put(Conseguente.class, ScrittoriXML.CONSEGUENTE);
         scrittori.put(Attuatore.class, ScrittoriXML.ATTUATORE);
         scrittori.put(Sensore.class, ScrittoriXML.SENSORE);
         scrittori.put(Artefatto.class, ScrittoriXML.ARTEFATTO);
@@ -208,4 +212,11 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
         String path = PercorsiFile.getInstance().getAttuatore(attuatore.getNome());
         salva(path, attuatore);
     }
+
+    @Override
+    public void salva(Regola regola, String unita) throws Exception {
+        String path = PercorsiFile.getInstance().getPercorsoRegola(regola.getId(), unita);
+        salva(path, regola);
+    }
+
 }

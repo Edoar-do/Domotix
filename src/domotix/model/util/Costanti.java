@@ -28,6 +28,7 @@ public final class Costanti {
     //public static final String PERCORSO_CARTELLA_ARTEFATTI = PERCORSO_CARTELLA_DATI + File.separator + "artefatti";
     public static final String NOME_CARTELLA_STANZE = "stanze";
     public static final String NOME_CARTELLA_ARTEFATTI = "artefatti";
+    public static final String NOME_CARTELLA_REGOLE = "regole";
     public static final String PERCORSO_CARTELLA_SENSORI = PERCORSO_CARTELLA_DATI + File.separator + "sensori";
     public static final String PERCORSO_CARTELLA_ATTUATORI = PERCORSO_CARTELLA_DATI + File.separator + "attuatori";
 
@@ -78,5 +79,24 @@ public final class Costanti {
     public static final String NODO_XML_REGOLA = "regola";
     public static final String NODO_XML_REGOLA_ID = "id";
     public static final String NODO_XML_REGOLA_STATO = "stato";
+    public static final String NODO_XML_ANTECEDENTE = "antecedente";
+    public static final String NODO_XML_ANTECEDENTE_OPLOGICO = "op_logico";
+    public static final String NODO_XML_CONDIZIONE = "condizione";
+    public static final String NODO_XML_CONDIZIONE_POSIZIONE = "posizione";
+    public static final String NODO_XML_CONDIZIONE_SINISTRA = "sinistra";
+    public static final String NODO_XML_CONDIZIONE_DESTRA = "destra";
+    public static final String NODO_XML_CONDIZIONE_OPERATORE = "operatore";
+    public static final String NODO_XML_INFO_SENSORIALE = "info_sensoriale";
+    public static final String NODO_XML_INFO_SENSORIALE_SENSORE = "sensore";
+    public static final String NODO_XML_INFO_SENSORIALE_INFO_RILEV = "info_rilevabile";
+    public static final String NODO_XML_INFO_SENSORIALE_COSTANTE = "valore";
+    public static final String NODO_XML_CONSEGUENTE = "conseguente";
+    public static final String NODO_XML_AZIONE = "azione";
+    public static final String NODO_XML_AZIONE_ATTUATORE = "attuatore";
+    public static final String NODO_XML_AZIONE_MODALITA = "modalita";
+    public static final String NODO_XML_AZIONE_PARAMETRO = "parametro";
+
+
+
 
 }

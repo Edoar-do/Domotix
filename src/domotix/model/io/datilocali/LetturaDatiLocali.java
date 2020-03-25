@@ -1,5 +1,8 @@
 package domotix.model.io.datilocali;
 
+import domotix.model.bean.regole.Antecedente;
+import domotix.model.bean.regole.Conseguente;
+import domotix.model.bean.regole.Regola;
 import domotix.model.io.LetturaDatiSalvati;
 import domotix.model.util.Costanti;
 import domotix.model.bean.UnitaImmobiliare;
@@ -56,6 +59,9 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
 
         //Popolo la tabella dei lettori
         lettori = new HashMap<>();
+        lettori.put(Costanti.NODO_XML_REGOLA, LettoriXML.REGOLA);
+        lettori.put(Costanti.NODO_XML_ANTECEDENTE, LettoriXML.ANTECEDENTE);
+        lettori.put(Costanti.NODO_XML_CONSEGUENTE, LettoriXML.CONSEGUENTE);
         lettori.put(Costanti.NODO_XML_ATTUATORE, LettoriXML.ATTUATORE);
         lettori.put(Costanti.NODO_XML_SENSORE, LettoriXML.SENSORE);
         lettori.put(Costanti.NODO_XML_ARTEFATTO, LettoriXML.ARTEFATTO);
@@ -110,6 +116,11 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
     @Override
     public List<String> getNomiAttuatori() {
         return PercorsiFile.getInstance().getNomiAttuatori();
+    }
+
+    @Override
+    public List<String> getNomiRegole(String unita) {
+        return PercorsiFile.getInstance().getNomiRegola(unita);
     }
 
     private Object leggi(String path) throws Exception {
@@ -239,4 +250,9 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
         return (Attuatore) leggi(path);
     }
 
+    @Override
+    public Regola leggiRegola(String idRegola, String unita) throws Exception {
+        String path = PercorsiFile.getInstance().getPercorsoRegola(idRegola, unita);
+        return (Regola) leggi(path);
+    }
 }
