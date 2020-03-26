@@ -9,7 +9,9 @@ import domotix.model.bean.system.Sistema;
 import domotix.model.bean.system.Stanza;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 /**Classe per implementare una parte di logica controller relativa al recupero di informazioni sulle entita'.
@@ -393,15 +395,18 @@ public class Recuperatore {
     }
 
     /**
-     * Metodo che ritorna la lista delle descrizioni degli antecedenti delle regole relative a un'unita'.
+     * Metodo che ritorna la mappa delle descrizioni degli antecedenti delle regole relative a un'unita'.
+     * La mappa ha come chiavi gli ID delle regole, come valori le descrizioni degli antecedenti delle regole.
      * @param unita UnitaImmobiliare selezionata
-     * @return La lista delle descrizioni
+     * @return La mappa delle descrizioni degli antecedenti
      */
-    public static String[] getAntecedentiRegoleUnita(String unita) {
+    public static Map<String, String> getAntecedentiRegoleUnita(String unita) {
+        Map<String, String> map = new HashMap<>();
         Regola[] regole = getUnita(unita).getRegole();
-        return Stream.of(regole)
-                .map(r -> r.getAntecedente().toString())
-                .toArray(String[]::new);
+        for (Regola r : regole) {
+            map.put(r.getId(), r.getAntecedente().toString());
+        }
+        return map;
     }
 
     public static boolean isModalitaParametrica(String attuatore, String modalita) {
