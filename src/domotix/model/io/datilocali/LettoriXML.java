@@ -345,9 +345,9 @@ public enum LettoriXML {
     private static Object leggiAntecedente(Element el) throws Exception {
         //controllo tag elemento
         if (el.getTagName().equals(Costanti.NODO_XML_ANTECEDENTE)) {
-            Antecedente antecedente, next;
+            Antecedente antecedente, next = null;
             Condizione cond;
-            String op;
+            String op = null;
 
             //estrazione elementi
             NodeList childs = el.getElementsByTagName(Costanti.NODO_XML_CONDIZIONE);
@@ -371,8 +371,7 @@ public enum LettoriXML {
                     next = (Antecedente) ANTECEDENTE.istanziatore.getInstance(elAntecedente);
                 } else
                     throw new NoSuchElementException("LettoriXML.ANTECEDENTE.getInstance(): elemento " + Costanti.NODO_XML_ANTECEDENTE + " assente.");
-            } else
-                throw new NoSuchElementException("LettoriXML.ANTECEDENTE.getInstance(): elemento " + Costanti.NODO_XML_ANTECEDENTE_OPLOGICO + " assente.");
+            }
 
             antecedente = new Antecedente(cond);
 
