@@ -56,7 +56,7 @@ public class Condizione {
     public boolean valuta() {
         Object valSinistro = sinistra.getValore();
         Object valDestro = destra.getValore();
-        
+
         switch (operatore) {
             case ">":
                 return (Double) valSinistro > (Double) valDestro;
