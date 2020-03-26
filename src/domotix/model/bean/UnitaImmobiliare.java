@@ -21,6 +21,7 @@ public class UnitaImmobiliare {
     public static final String NOME_UNITA_DEFAULT = "casa";
     public static final String NOME_STANZA_DEFAULT = "esterno";
     private static final int POS_STANZA_DEFAULT = 0;
+    private static final String NO_REGOLE = "Non e' presente alcuna regola";
 
     private String nome;
     private List<Stanza> stanze;
@@ -234,6 +235,14 @@ public class UnitaImmobiliare {
             String stringaStanza = "\n" + stanza.toString();
             buffer.append(StringUtil.indent(stringaStanza, 2));
         }
+        buffer.append("\n\tREGOLE:");
+        if(getRegole().length > 0) {
+            for (Regola regola : getRegole()) {
+                String stringaRegola = "\n" + regola.toString();
+                buffer.append(StringUtil.indent(stringaRegola, 2));
+            }
+        }else
+            buffer.append(StringUtil.indent("\n" + NO_REGOLE, 2));
         return buffer.toString();
     }
 

@@ -266,11 +266,12 @@ public class MenuUnitaF {
         return scelta == 0 ? null : relOps[scelta-1];
     }
 
-    private static final String premenuAntecedentiRegole(String unita){
-        String[] regole = Recuperatore.getAntecedentiRegoleUnita(unita); //presenta un elenco delle antecedenti da cui sceglierne una da rimuovere
-        MyMenu m = new MyMenu(String.format(REGOLE_UNITA, unita), regole);
+    private static final String premenuAntecedentiRegole(String unita){ //presenta un elenco delle antecedenti da cui sceglierne una da rimuovere
+        HashMap<String, String> coppieAntID= (HashMap<String, String>) Recuperatore.getAntecedentiRegoleUnita(unita);
+        String[] antecedenti =  coppieAntID.keySet().toArray(new String[0]);
+        MyMenu m = new MyMenu(String.format(REGOLE_UNITA, unita), antecedenti);
         int scelta = m.scegli(INDIETRO);
-        return scelta == 0 ? null : regole[scelta-1];
+        return scelta == 0 ? null : coppieAntID.get(antecedenti[scelta-1]);
     }
 
     private static boolean costruisciAzione(String nomeUnitaSuCuiLavorare, String IDregola){
