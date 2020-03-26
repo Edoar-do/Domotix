@@ -1,0 +1,107 @@
+@startuml
+
+namespace FileSystem\UserHome\.DOMOTIX {
+    namespace dati {
+        namespace categorie_sensori {
+            namespace catSens1 {
+                class catSens1 {
+                    XML
+                }
+            }
+            namespace catSens... {
+                class catSens.... {
+                    ...
+                }
+            }
+        }
+        namespace categorie_attuatori {
+            namespace catAtt1 {
+                class catAtt1 {
+                    XML
+                }
+                namespace modalita {
+                    class mod1 {
+                        XML
+                    }
+                    class . {
+                        ...
+                    }
+                }
+            }
+            namespace catAtt... {
+                class catAtt.... {
+                    ...
+                }
+                namespace modalita {
+                    class catAtt....modalita. {
+                        ...
+                    }
+                }
+            }
+        }
+        namespace sensori {
+            class sens1 {
+                XML
+            }
+            class sens2 {
+                XML
+            }
+            class FileSystem\UserHome\.DOMOTIX.dati.sensori. {
+                ...
+            }
+        }
+        namespace attuatori {
+            class att1 {
+                XML
+            }
+            class att2 {
+                XML
+            }
+            class FileSystem\UserHome\.DOMOTIX.dati.attuatori. {
+                ...
+            }
+        }
+        namespace unita_immob {
+            namespace unita1 {
+                class unita1 {
+                    XML
+                }
+                namespace stanze {
+                    class stanza1 {
+                        XML
+                    }
+                    class stanza2 {
+                        XML
+                    }
+                    class FileSystem\UserHome\.DOMOTIX.dati.unita_immob.unita1.stanze. {
+                        ...
+                    }
+                }
+                namespace artefatti {
+                    class artef1 {
+                        XML
+                    }
+                    class artef2 {
+                        XML
+                    }
+                    class FileSystem\UserHome\.DOMOTIX.dati.unita_immob.unita1.artefatti. {
+                        ...
+                    }
+                }
+            }
+            namespace unita... {
+                class unita.... {
+                    ...
+                }
+                namespace stanze {
+
+                }
+                namespace artefatti {
+
+                }
+            }
+        }
+    }
+}
+
+@enduml
