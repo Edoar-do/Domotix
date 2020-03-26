@@ -16,6 +16,14 @@ public class InfoVariabile implements InfoSensoriale {
         this.nomeInfo = nomeInfo;
     }
 
+    public Sensore getSensore() {
+        return sensore;
+    }
+
+    public String getNomeInfo() {
+        return nomeInfo;
+    }
+
     @Override
     public Object getValore() {
         return this.sensore.getValore(this.nomeInfo);

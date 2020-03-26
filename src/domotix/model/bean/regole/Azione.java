@@ -32,6 +32,18 @@ public class Azione {
         });
     }
 
+    public Attuatore getAttuatore() {
+        return attuatore;
+    }
+
+    public Modalita getModalita() {
+        return modalita;
+    }
+
+    public List<Parametro> getParametri() {
+        return parametri;
+    }
+
     /**
      * Metodo che esegue l'azione (i.e. l'assegnamento).
      */

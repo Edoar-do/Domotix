@@ -23,6 +23,10 @@ public class Conseguente {
         this.azioni.add(azione);
     }
 
+    public List<Azione> getAzioni() {
+        return azioni;
+    }
+
     /**
      * Metodo che esegue gli assegnamenti del conseguente.
      */

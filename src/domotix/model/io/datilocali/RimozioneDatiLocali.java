@@ -2,6 +2,7 @@ package domotix.model.io.datilocali;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.model.io.RimozioneDatiSalvati;
@@ -123,6 +124,12 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         rimuoviRicorsivo(f);
     }
 
+    @Override
+    public void rimuoviRegola(String idRegola, String unita) throws Exception {
+        String percorso = PercorsiFile.getInstance().getPercorsoRegola(idRegola, unita);
+        File f = new File(percorso);
+        rimuoviRicorsivo(f);
+    }
 
     @Override
     public void sincronizzaCategorieSensore(List<CategoriaSensore> entita) throws Exception {
@@ -191,6 +198,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
             nomiDati.remove(unita.getNome());
             sincronizzaStanze(unita); //se entita logica presente allora sincronizzo le componenti
             sincronizzaArtefatti(unita); //se entita logica presente allora sincronizzo le componenti
+            sincronizzaRegole(unita); //se entita logica presente allora sincronizzo le componenti
         }
         //elaboro i nomi rimasti
         for (String unita : nomiDati) {
@@ -253,6 +261,20 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         //elaboro i nomi rimasti
         for (String attuatore : nomiDati) {
             RimozioneDatiSalvati.getInstance().rimuoviAttuatore(attuatore);
+        }
+    }
+
+    @Override
+    public void sincronizzaRegole(UnitaImmobiliare entita) throws Exception {
+        List<String> nomiDati = PercorsiFile.getInstance().getNomiRegola(entita.getNome());
+
+        //rimuovo le entita logiche presenti
+        for (Regola regola : entita.getRegole()) {
+            nomiDati.remove(regola.getId());
+        }
+        //elaboro i nomi rimasti
+        for (String regola : nomiDati) {
+            RimozioneDatiSalvati.getInstance().rimuoviRegola(regola, entita.getNome());
         }
     }
 }

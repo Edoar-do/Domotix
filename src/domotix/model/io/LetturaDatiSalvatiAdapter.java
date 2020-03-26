@@ -2,6 +2,9 @@ package domotix.model.io;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.Antecedente;
+import domotix.model.bean.regole.Conseguente;
+import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
@@ -56,6 +59,11 @@ public abstract class LetturaDatiSalvatiAdapter implements LetturaDatiSalvati {
 
     @Override
     public List<String> getNomiAttuatori() {
+        return null;
+    }
+
+    @Override
+    public List<String> getNomiRegole(String unita) {
         return null;
     }
 
@@ -128,4 +136,10 @@ public abstract class LetturaDatiSalvatiAdapter implements LetturaDatiSalvati {
     public Attuatore leggiAttuatore(String nome) throws Exception {
         return null;
     }
+
+    @Override
+    public Regola leggiRegola(String idRegola, String unita) throws Exception {
+        return null;
+    }
+
 }

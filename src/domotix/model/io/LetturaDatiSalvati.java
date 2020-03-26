@@ -2,6 +2,9 @@ package domotix.model.io;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.Antecedente;
+import domotix.model.bean.regole.Conseguente;
+import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.model.io.datilocali.LetturaDatiLocali;
@@ -29,6 +32,7 @@ import java.util.List;
  *          -   Artefatti
  *              -   Sensori
  *              -   Attuatori
+ *          -   Regole
  *  Se queste precedenze non vengono rispettate si puo' incorrere in errori logici, come ad esempio un sensore la cui categoria
  *  non e' ancora stata letta.
  *
@@ -116,6 +120,14 @@ public interface LetturaDatiSalvati {
      * @see Attuatore
      */
     List<String> getNomiAttuatori();
+
+    /**
+     * Ritorna il nome di tutte le Regole presenti nei dati memorizzati.
+     *
+     * @return  Lista di tutti i nomi delle istanze nei dati memorizzati.
+     * @see Regola
+     */
+    List<String> getNomiRegole(String unita);
 
 
     /**
@@ -256,5 +268,15 @@ public interface LetturaDatiSalvati {
      * @see Attuatore
      */
     Attuatore leggiAttuatore(String nome) throws Exception; //nome gia' composto con nome attuatore e categoria
+
+    /**
+     * Lettura di una singola Regola presente nei dati memorizzati identificata dal nome.
+     *
+     * @param idRegola  stringa identificativa dell'istanza da leggere
+     * @return  istanza presente nei dati memorizzati.
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see Regola
+     */
+    Regola leggiRegola(String idRegola, String unita) throws Exception;
 
 }

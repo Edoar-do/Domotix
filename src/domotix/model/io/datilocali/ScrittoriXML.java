@@ -2,6 +2,7 @@ package domotix.model.io.datilocali;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.model.util.Costanti;
@@ -20,6 +21,36 @@ import java.io.IOException;
  * @see LetturaDatiLocali
  */
 public enum ScrittoriXML {
+    /**
+     * Entita' Azione
+     * @see domotix.model.bean.regole.Azione
+     */
+    AZIONE(ScrittoriXML::compilaAzione),
+    /**
+     * Entita' Conseguente
+     * @see domotix.model.bean.regole.Conseguente
+     */
+    CONSEGUENTE(ScrittoriXML::compilaConseguente),
+    /**
+     * Entita' InfoSensoriale
+     * @see domotix.model.bean.regole.InfoSensoriale
+     */
+    INFO_SENSORIALE(ScrittoriXML::compilaInfoSensoriale),
+    /**
+     * Entita' Condizione
+     * @see domotix.model.bean.regole.Condizione
+     */
+    CONDIZIONE(ScrittoriXML::compilaCondizione),
+    /**
+     * Entita' Antecedente
+     * @see domotix.model.bean.regole.Antecedente
+     */
+    ANTECEDENTE(ScrittoriXML::compilaAntecedente),
+    /**
+     * Entita' Regola
+     * @see domotix.model.bean.regole.Regola
+     */
+    REGOLA(ScrittoriXML::compilaRegola),
     /**
      * Entita' Attuatore
      * @see Attuatore
@@ -107,6 +138,172 @@ public enum ScrittoriXML {
         if (doc == null)
             throw new NullPointerException(this.getClass().getName() + ": Document non puo' essere null");
         doc.appendChild(compilatore.compileInstance(obj, doc));
+    }
+
+    /** Metodo per scrittore: AZIONE **/
+    private static Element compilaAzione(Object obj, Document doc) throws ParserConfigurationException, TransformerException, IOException {
+        if (obj instanceof Azione) {
+            Azione azione = (Azione) obj;
+
+            //crea elemento base
+            Element root = doc.createElement(Costanti.NODO_XML_AZIONE);
+
+            //popola elemento base
+            Element elem = doc.createElement(Costanti.NODO_XML_AZIONE_ATTUATORE);
+            elem.appendChild(doc.createTextNode(azione.getAttuatore().getNome()));
+            root.appendChild(elem);
+
+            elem = doc.createElement(Costanti.NODO_XML_AZIONE_MODALITA);
+            elem.appendChild(doc.createTextNode(azione.getModalita().getNome()));
+            root.appendChild(elem);
+
+            for (Parametro p : azione.getParametri()) {
+                elem = PARAMETRO_MODALITA.compilatore.compileInstance(p, doc);
+                root.appendChild(elem);
+            }
+
+            return root;
+        } else
+            throw new IllegalArgumentException("ScrittoriXML.AZIONE.compileInstance(): impossibile compilare oggetto non Azione");
+    }
+
+    /** Metodo per scrittore: CONSEGUENTE **/
+    private static Element compilaConseguente(Object obj, Document doc) throws ParserConfigurationException, TransformerException, IOException {
+        if (obj instanceof Conseguente) {
+            Conseguente conseguente = (Conseguente) obj;
+
+            //crea elemento base
+            Element root = doc.createElement(Costanti.NODO_XML_CONSEGUENTE);
+
+            Element elem;
+            for (Azione a : conseguente.getAzioni()) {
+                elem = AZIONE.compilatore.compileInstance(a, doc);
+                root.appendChild(elem);
+            }
+
+            return root;
+        } else
+            throw new IllegalArgumentException("ScrittoriXML.CONSEGUENTE.compileInstance(): impossibile compilare oggetto non Conseguente");
+    }
+
+    /** Metodo per scrittore: INFO_SENSORIALE **/
+    private static Element compilaInfoSensoriale(Object obj, Document doc) {
+        if (obj instanceof InfoVariabile) {
+            InfoVariabile infoVariabile = (InfoVariabile) obj;
+
+            //crea elemento base
+            Element root = doc.createElement(Costanti.NODO_XML_INFO_SENSORIALE);
+
+            //popola elemento base
+            Element elem = doc.createElement(Costanti.NODO_XML_INFO_SENSORIALE_SENSORE);
+            elem.appendChild(doc.createTextNode(infoVariabile.getSensore().getNome()));
+            root.appendChild(elem);
+
+            elem = doc.createElement(Costanti.NODO_XML_INFO_SENSORIALE_INFO_RILEV);
+            elem.appendChild(doc.createTextNode(infoVariabile.getNomeInfo()));
+            root.appendChild(elem);
+
+            return root;
+        } else if (obj instanceof InfoCostante) {
+            InfoCostante infoCostante = (InfoCostante) obj;
+
+            //crea elemento base
+            Element root = doc.createElement(Costanti.NODO_XML_INFO_SENSORIALE);
+
+            //popola elemento base
+            Element elem = doc.createElement(Costanti.NODO_XML_INFO_SENSORIALE_COSTANTE);
+            elem.appendChild(doc.createTextNode(infoCostante.getInfo().toString()));
+            root.appendChild(elem);
+
+            return root;
+        } else
+            throw new IllegalArgumentException("ScrittoriXML.INFO_SENSORIALE.compileInstance(): impossibile compilare oggetto non InfoSensoriale");
+    }
+
+    /** Metodo per scrittore: CONDIZIONE **/
+    private static Element compilaCondizione(Object obj, Document doc) throws ParserConfigurationException, TransformerException, IOException {
+        if (obj instanceof Condizione) {
+            Condizione condizione = (Condizione) obj;
+
+            //crea elemento base
+            Element root = doc.createElement(Costanti.NODO_XML_CONDIZIONE);
+
+            //popola elemento base
+            Element elem = INFO_SENSORIALE.compilatore.compileInstance(condizione.getSinistra(), doc);
+            Attr posizione = doc.createAttribute(Costanti.NODO_XML_CONDIZIONE_POSIZIONE);
+            posizione.setValue(Costanti.NODO_XML_CONDIZIONE_SINISTRA);
+            elem.setAttributeNode(posizione);
+            root.appendChild(elem);
+
+            elem = INFO_SENSORIALE.compilatore.compileInstance(condizione.getDestra(), doc);
+            posizione = doc.createAttribute(Costanti.NODO_XML_CONDIZIONE_POSIZIONE);
+            posizione.setValue(Costanti.NODO_XML_CONDIZIONE_DESTRA);
+            elem.setAttributeNode(posizione);
+            root.appendChild(elem);
+
+            elem = doc.createElement(Costanti.NODO_XML_CONDIZIONE_OPERATORE);
+            elem.appendChild(doc.createTextNode(condizione.getOperatore()));
+            root.appendChild(elem);
+
+            return root;
+        } else
+            throw new IllegalArgumentException("ScrittoriXML.CONDIZIONE.compileInstance(): impossibile compilare oggetto non Condizione");
+    }
+
+    /** Metodo per scrittore: ANTECEDENTE **/
+    private static Element compilaAntecedente(Object obj, Document doc) throws ParserConfigurationException, TransformerException, IOException {
+        if (obj instanceof Antecedente) {
+            Antecedente antecedente = (Antecedente) obj;
+
+            //crea elemento base
+            Element root = doc.createElement(Costanti.NODO_XML_ANTECEDENTE);
+
+            //popola elemento base
+            Element elem = CONDIZIONE.compilatore.compileInstance(antecedente.getCondizione(), doc);
+            root.appendChild(elem);
+
+            if (!antecedente.isLast()) {
+                elem = doc.createElement(Costanti.NODO_XML_ANTECEDENTE_OPLOGICO);
+                elem.appendChild(doc.createTextNode(antecedente.getOperatoreLogico()));
+                root.appendChild(elem);
+
+                elem = ANTECEDENTE.compilatore.compileInstance(antecedente.getProssimoAntecedente(), doc);
+                root.appendChild(elem);
+            }
+
+            return root;
+        } else
+            throw new IllegalArgumentException("ScrittoriXML.ANTECEDENTE.compileInstance(): impossibile compilare oggetto non Antecedente");
+    }
+
+    /** Metodo per scrittore: REGOLA **/
+    private static Element compilaRegola(Object obj, Document doc) throws ParserConfigurationException, TransformerException, IOException {
+        if (obj instanceof Regola) {
+            Regola regola = (Regola) obj;
+
+            //crea elemento base
+            Element root = doc.createElement(Costanti.NODO_XML_REGOLA);
+
+            //assegna attributo identificativo
+            Attr nome = doc.createAttribute(Costanti.NODO_XML_REGOLA_ID);
+            nome.setValue(regola.getId());
+            root.setAttributeNode(nome);
+
+            //popola elemento base
+            Element elem = doc.createElement(Costanti.NODO_XML_REGOLA_STATO);
+            elem.appendChild(doc.createTextNode(regola.getStato() ? "1" : "0"));
+            root.appendChild(elem);
+
+            //antecedente e conseguente
+            elem = ANTECEDENTE.compilatore.compileInstance(regola.getAntecedente(), doc);
+            root.appendChild(elem);
+
+            elem = CONSEGUENTE.compilatore.compileInstance(regola.getConseguente(), doc);
+            root.appendChild(elem);
+
+            return root;
+        } else
+            throw new IllegalArgumentException("ScrittoriXML.REGOLA.compileInstance(): impossibile compilare oggetto non Regola");
     }
 
     /** Metodo per scrittore: ATTUATORE **/
@@ -290,6 +487,12 @@ public enum ScrittoriXML {
                 DatiLocali.getInstance().salva(a);
             }
             */
+
+            for (Regola r : unitaImmobiliare.getRegole()) {
+                elem = doc.createElement(Costanti.NODO_XML_REGOLA);
+                elem.appendChild(doc.createTextNode(r.getId()));
+                root.appendChild(elem);
+            }
 
             return root;
         } else

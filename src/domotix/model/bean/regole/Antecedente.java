@@ -9,6 +9,9 @@ public class Antecedente {
     private String operatoreLogico;
     private Antecedente prossimoAntecedente; // una sorta di linked list
 
+    public static final String OPERATORE_OR = "||";
+    public static final String OPERATORE_AND = "&&";
+
     /**
      * Costruttore della classe.
      * @param condizione La prima condizione dell'antecedente
@@ -17,6 +20,26 @@ public class Antecedente {
         this.condizione = condizione;
         this.operatoreLogico = null;
         this.prossimoAntecedente = null;
+    }
+
+    public Condizione getCondizione() {
+        return condizione;
+    }
+
+    public String getOperatoreLogico() {
+        return operatoreLogico;
+    }
+
+    public Antecedente getProssimoAntecedente() {
+        return prossimoAntecedente;
+    }
+
+    /**
+     * Ritorna se l'antecedente e' "ultimo" nel senso che non ha condizioni legate con un operatore logico.
+     * @return  true: e' ultimo; false altrimenti
+     */
+    public boolean isLast() {
+        return operatoreLogico == null || prossimoAntecedente == null;
     }
 
     /**
@@ -58,9 +81,34 @@ public class Antecedente {
         current.prossimoAntecedente = new Antecedente(condizione);
     }
 
+    /**
+     * Metodo per aggiungere un antecedente a quello attuale.
+     * L'operatore logico e' appeso all'antecedente che e' in coda prima della chiamata del metodo.
+     * @param antecedente   antecedente da aggiungere
+     */
+    public void addAntecedente(Antecedente antecedente) {
+        addAntecedente(this.operatoreLogico, antecedente);
+    }
+
+    /**
+     * Metodo per aggiungere un antecedente a quello attuale.
+     * L'operatore logico e' appeso all'antecedente che e' in coda prima della chiamata del metodo.
+     * @param nuovoOperatore    operatore logico di collegamento tra condizioni
+     * @param antecedente   antecedente da aggiungere
+     */
+    public void addAntecedente(String nuovoOperatore, Antecedente antecedente) {
+        if (!checkOperatore(nuovoOperatore)) {
+            throw new IllegalArgumentException("Operatore logico " + nuovoOperatore + " non valido.");
+        }
+        Antecedente current = this;
+        while (current.prossimoAntecedente != null) current = current.prossimoAntecedente;
+        current.operatoreLogico = nuovoOperatore;
+        current.prossimoAntecedente = antecedente;
+    }
+
     private boolean checkOperatore(String nuovoOperatore) {
         // si potrebbe fare un array / enum con gli operatori ammissibili comunque
-        return "||".equals(nuovoOperatore) || "&&".equals(nuovoOperatore);
+        return OPERATORE_OR.equals(nuovoOperatore) || OPERATORE_AND.equals(nuovoOperatore);
     }
 
     /**
@@ -77,7 +125,7 @@ public class Antecedente {
         }
 
         boolean sinistro = andExpr(corrente);
-        while ("||".equals(corrente.operatoreLogico)) {
+        while (OPERATORE_OR.equals(corrente.operatoreLogico)) {
             if (corrente.prossimoAntecedente == null) {
                 throw new IllegalArgumentException("Operatore pendente: " + corrente.operatoreLogico);
             }
@@ -94,7 +142,7 @@ public class Antecedente {
         }
 
         boolean sinistro = corrente.condizione.valuta();
-        while ("&&".equals(corrente.operatoreLogico)) {
+        while (OPERATORE_AND.equals(corrente.operatoreLogico)) {
             if (corrente.prossimoAntecedente == null) {
                 throw new IllegalArgumentException("Operatore pendente: " + corrente.operatoreLogico);
             }

@@ -2,6 +2,7 @@ package domotix.model.io;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
@@ -50,4 +51,10 @@ public class ScritturaDatiSalvatiAdapter implements ScritturaDatiSalvati {
     public void salva(Attuatore attuatore) throws Exception {
 
     }
+
+    @Override
+    public void salva(Regola regola, String unita) throws Exception {
+
+    }
+
 }

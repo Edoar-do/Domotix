@@ -3,7 +3,7 @@ package domotix.model.io.datilocali;
 import domotix.model.*;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
-import domotix.model.bean.regole.Regola;
+import domotix.model.bean.regole.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.model.io.LetturaDatiSalvati;
@@ -14,6 +14,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 /**
@@ -147,27 +148,241 @@ public enum LettoriXML {
 
     /** Metodo per lettore: AZIONE **/
     private static Object leggiAzione(Element el) throws Exception {
-        return null;
+        //controllo tag elemento
+        if (el.getTagName().equals(Costanti.NODO_XML_AZIONE)) {
+            Azione azione;
+            Attuatore att;
+            Modalita modalita;
+            ArrayList<Parametro> parametri = new ArrayList<>();
+
+            //estrazione elementi
+            NodeList childs = el.getElementsByTagName(Costanti.NODO_XML_AZIONE_ATTUATORE);
+            if (childs.getLength() > 0) {
+                String nomeAttuatore = childs.item(0).getTextContent();
+
+                att = ElencoAttuatori.getInstance().getDispositivo(nomeAttuatore);
+                if (att == null)
+                    throw  new NoSuchElementException("LettoriXML.AZIONE.getInstance(): attuatore " + nomeAttuatore + " non trovato.");
+
+            } else
+                throw new NoSuchElementException("LettoriXML.AZIONE.getInstance(): elemento " + Costanti.NODO_XML_AZIONE_ATTUATORE + " assente.");
+
+            childs = el.getElementsByTagName(Costanti.NODO_XML_AZIONE_MODALITA);
+            if (childs.getLength() > 0) {
+                String nomeModalita = childs.item(0).getTextContent();
+
+                modalita = att.getCategoria().getModalita(nomeModalita);
+                if (att == null)
+                    throw  new NoSuchElementException("LettoriXML.AZIONE.getInstance(): modalita' " + nomeModalita + " per categoria attuatore " + att.getCategoria().getNome() + " non trovato.");
+
+            } else
+                throw new NoSuchElementException("LettoriXML.AZIONE.getInstance(): elemento " + Costanti.NODO_XML_AZIONE_MODALITA + " assente.");
+
+            childs = el.getElementsByTagName(Costanti.NODO_XML_AZIONE_PARAMETRO);
+            if (childs.getLength() > 0) {
+                for (int i = 0; i < childs.getLength(); i++) {
+                    Element elParametro = (Element)childs.item(i);
+                    parametri.add((Parametro)PARAMETRO_MODALITA.istanziatore.getInstance(elParametro));
+                }
+            }
+
+            //ritorno istanza corretta
+            return new Azione(att, modalita, parametri);
+        }
+        else
+            throw new NoSuchElementException("LettoriXML.AZIONE.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_AZIONE);
     }
 
     /** Metodo per lettore: CONSEGUENTE **/
     private static Object leggiConseguente(Element el) throws Exception {
-        return null;
+        //controllo tag elemento
+        if (el.getTagName().equals(Costanti.NODO_XML_CONSEGUENTE)) {
+            Conseguente cons = new Conseguente();
+
+            //estrazione elementi
+            NodeList childs = el.getElementsByTagName(Costanti.NODO_XML_AZIONE);
+            if (childs.getLength() > 0) {
+                for (int i = 0; i < childs.getLength(); i++) {
+                    Element elAzione = (Element)childs.item(i);
+                    cons.addAzione((Azione)AZIONE.istanziatore.getInstance(elAzione));
+                }
+            } else
+                throw new NoSuchElementException("LettoriXML.CONSEGUENTE.getInstance(): elemento " + Costanti.NODO_XML_AZIONE_ATTUATORE + " assente.");
+
+            //ritorno istanza corretta
+            return cons;
+        }
+        else
+            throw new NoSuchElementException("LettoriXML.CONSEGUENTE.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_CONSEGUENTE);
     }
 
     /** Metodo per lettore: INFO_SENSORIALE **/
     private static Object leggiInfoSensoriale(Element el) throws Exception {
-        return null;
+        //controllo tag elemento
+        if (el.getTagName().equals(Costanti.NODO_XML_INFO_SENSORIALE)) {
+            InfoSensoriale info = null;
+
+            //estrazione elementi
+            NodeList childs = el.getElementsByTagName(Costanti.NODO_XML_INFO_SENSORIALE_SENSORE);
+            if (childs.getLength() > 0) {
+                //Traduco un'informazione sensoriale di tipo varibile
+                String nomeSensore = childs.item(0).getTextContent();
+                Sensore sens = ElencoSensori.getInstance().getDispositivo(nomeSensore);
+
+                if (sens == null)
+                    throw new NoSuchElementException("LettoriXML.INFO_SENSORIALE.getInstance(): sensore " + nomeSensore + " non trovato.");
+
+                childs = el.getElementsByTagName(Costanti.NODO_XML_INFO_SENSORIALE_INFO_RILEV);
+                if (childs.getLength() > 0) {
+                    String nomeInfoRilev = childs.item(0).getTextContent();
+                    InfoRilevabile infoRilev = sens.getCategoria().getInformazioneRilevabile(nomeInfoRilev);
+
+                    if (infoRilev == null)
+                        throw new NoSuchElementException("LettoriXML.INFO_SENSORIALE.getInstance(): informazione " + nomeInfoRilev + " per categoria sensore " + sens.getCategoria().getNome() + " non trovato.");
+
+                    info = new InfoVariabile(sens, nomeInfoRilev);
+
+                } else
+                    throw new NoSuchElementException("LettoriXML.INFO_SENSORIALE.getInstance(): elemento " + Costanti.NODO_XML_INFO_SENSORIALE_INFO_RILEV + " assente.");
+
+            } else {
+                //Traduco un'informazione sensoriale di tipo costante
+                childs = el.getElementsByTagName(Costanti.NODO_XML_INFO_SENSORIALE_COSTANTE);
+                if (childs.getLength() > 0) {
+                    //Traduco un'informazione sensoriale di tipo varibile
+                    String valoreCostanteStr = childs.item(0).getTextContent();
+                    Object valore = null;
+
+                    try {
+                        int numInt = Integer.parseInt(valoreCostanteStr);
+                        valore = numInt;
+                    } catch (NumberFormatException e) {
+                        //nothing
+                    }
+
+                    if (valore == null) {
+                        //valore non intero
+                        try {
+                            double numDouble = Double.parseDouble(valoreCostanteStr);
+                            valore = numDouble;
+                        } catch (NumberFormatException e) {
+                            //nothing
+                        }
+
+                        if (valore == null) {
+                            //valore non intero e non double --> allora stringa
+                            valore = valoreCostanteStr;
+                        }
+                    }
+
+                    info = new InfoCostante(valore);
+
+                } else //malformazione
+                    throw new NoSuchElementException("LettoriXML.INFO_SENSORIALE.getInstance(): elemento " + Costanti.NODO_XML_REGOLA_STATO + " assente.");
+            }
+
+            //ritorno istanza corretta
+            return info;
+        }
+        else
+            throw new NoSuchElementException("LettoriXML.INFO_SENSORIALE.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_INFO_SENSORIALE);
     }
 
     /** Metodo per lettore: CONDIZIONE **/
     private static Object leggiCondizione(Element el) throws Exception {
-        return null;
+        //controllo tag elemento
+        if (el.getTagName().equals(Costanti.NODO_XML_CONDIZIONE)) {
+            Condizione cond;
+            InfoSensoriale sinistra = null, destra = null;
+            String op;
+
+            //estrazione elementi
+            NodeList childs = el.getElementsByTagName(Costanti.NODO_XML_INFO_SENSORIALE);
+            if (childs.getLength() > 0) {
+                for (int i = 0; i < childs.getLength(); i++) {
+                    Element elInfoSens = (Element)childs.item(i);
+                    if (elInfoSens.hasAttribute(Costanti.NODO_XML_CONDIZIONE_POSIZIONE)) {
+                        String pos = elInfoSens.getAttribute(Costanti.NODO_XML_CONDIZIONE_POSIZIONE);
+                        if (pos.equals(Costanti.NODO_XML_CONDIZIONE_SINISTRA))
+                            sinistra = (InfoSensoriale)INFO_SENSORIALE.istanziatore.getInstance(elInfoSens);
+                        else
+                            destra = (InfoSensoriale)INFO_SENSORIALE.istanziatore.getInstance(elInfoSens);
+                    }
+                    else
+                        throw new NoSuchElementException("LettoriXML.CONDIZIONE.getInstance(): elemento " + Costanti.NODO_XML_CONDIZIONE_POSIZIONE + " assente.");
+                }
+
+                if (sinistra == null)
+                    throw new NoSuchElementException("LettoriXML.CONDIZIONE.getInstance(): elemento " + Costanti.NODO_XML_CONDIZIONE_SINISTRA + " assente.");
+                if (destra == null)
+                    throw new NoSuchElementException("LettoriXML.CONDIZIONE.getInstance(): elemento " + Costanti.NODO_XML_CONDIZIONE_DESTRA + " assente.");
+
+            } else
+                throw new NoSuchElementException("LettoriXML.CONDIZIONE.getInstance(): elemento " + Costanti.NODO_XML_INFO_SENSORIALE + " assente.");
+
+            childs = el.getElementsByTagName(Costanti.NODO_XML_CONDIZIONE_OPERATORE);
+            if (childs.getLength() > 0) {
+                op = childs.item(0).getTextContent();
+
+                if (!op.equals(Condizione.MAGGIORE_UGUALE) &&
+                    !op.equals(Condizione.MAGGIORE) &&
+                    !op.equals(Condizione.UGUALE) &&
+                    !op.equals(Condizione.MINORE) &&
+                    !op.equals(Condizione.MINORE_UGUALE))
+                    throw new IllegalArgumentException("LettoriXML.CONDIZIONE.getInstance(): operatore " + op + " non gestito.");
+            } else
+                throw new NoSuchElementException("LettoriXML.CONDIZIONE.getInstance(): elemento " + Costanti.NODO_XML_CONDIZIONE_OPERATORE + " assente.");
+
+            //ritorno istanza corretta
+            return new Condizione(sinistra, op, destra);
+        }
+        else
+            throw new NoSuchElementException("LettoriXML.CONDIZIONE.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_CONDIZIONE);
     }
 
     /** Metodo per lettore: ANTECEDENTE **/
     private static Object leggiAntecedente(Element el) throws Exception {
-        return null;
+        //controllo tag elemento
+        if (el.getTagName().equals(Costanti.NODO_XML_ANTECEDENTE)) {
+            Antecedente antecedente, next = null;
+            Condizione cond;
+            String op = null;
+
+            //estrazione elementi
+            NodeList childs = el.getElementsByTagName(Costanti.NODO_XML_CONDIZIONE);
+            if (childs.getLength() > 0) {
+                Element elCondizione = (Element)childs.item(0);
+                cond = (Condizione) CONDIZIONE.istanziatore.getInstance(elCondizione);
+            } else
+                throw new NoSuchElementException("LettoriXML.ANTECEDENTE.getInstance(): elemento " + Costanti.NODO_XML_CONDIZIONE + " assente.");
+
+            childs = el.getElementsByTagName(Costanti.NODO_XML_ANTECEDENTE_OPLOGICO);
+            if (childs.getLength() > 0) {
+                op = childs.item(0).getTextContent();
+
+                if (!op.equals(Antecedente.OPERATORE_AND) &&
+                        !op.equals(Antecedente.OPERATORE_OR))
+                    throw new IllegalArgumentException("LettoriXML.ANTECEDENTE.getInstance(): operatore " + op + " non gestito.");
+
+                childs = el.getElementsByTagName(Costanti.NODO_XML_ANTECEDENTE);
+                if (childs.getLength() > 0) {
+                    Element elAntecedente = (Element)childs.item(0);
+                    next = (Antecedente) ANTECEDENTE.istanziatore.getInstance(elAntecedente);
+                } else
+                    throw new NoSuchElementException("LettoriXML.ANTECEDENTE.getInstance(): elemento " + Costanti.NODO_XML_ANTECEDENTE + " assente.");
+            }
+
+            antecedente = new Antecedente(cond);
+
+            if (op != null && next != null) {
+                antecedente.addAntecedente(op, next);
+            }
+
+            //ritorno istanza corretta
+            return antecedente;
+        }
+        else
+            throw new NoSuchElementException("LettoriXML.ANTECEDENTE.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_ANTECEDENTE);
     }
 
     /** Metodo per lettore: REGOLA **/
@@ -176,28 +391,41 @@ public enum LettoriXML {
         if (el.getTagName().equals(Costanti.NODO_XML_REGOLA)) {
             String id;
             boolean stato;
-            CategoriaAttuatore cat;
+            Antecedente ant;
+            Conseguente cons;
 
             //estrazione attrubuti
             if (el.hasAttribute(Costanti.NODO_XML_REGOLA_ID)) {
                 id = el.getAttribute(Costanti.NODO_XML_REGOLA_ID);
             } else
-                throw new NoSuchElementException("LettoriXML.REGOLA.getInstance(): attributo " + Costanti.NODO_XML_ATTUATORE_NOME + " assente.");
+                throw new NoSuchElementException("LettoriXML.REGOLA.getInstance(): attributo " + Costanti.NODO_XML_REGOLA_ID + " assente.");
 
             //estrazione elementi
             NodeList childs = el.getElementsByTagName(Costanti.NODO_XML_REGOLA_STATO);
             if (childs.getLength() > 0) {
                 stato = childs.item(0).getTextContent().equalsIgnoreCase("1") ? true : false;
             } else
-                throw new NoSuchElementException("LettoriXML.REGOLA.getInstance(): elemento " + Costanti.NODO_XML_ATTUATORE_STATO + " assente.");
+                throw new NoSuchElementException("LettoriXML.REGOLA.getInstance(): elemento " + Costanti.NODO_XML_REGOLA_STATO + " assente.");
 
-            //TODO: read antecedente e conseguente
+            childs = el.getElementsByTagName(Costanti.NODO_XML_ANTECEDENTE);
+            if (childs.getLength() > 0) {
+                Element elAntecedente = (Element) childs.item(0);
+                ant = (Antecedente) ANTECEDENTE.istanziatore.getInstance(elAntecedente);
+            } else
+                throw new NoSuchElementException("LettoriXML.REGOLA.getInstance(): elemento " + Costanti.NODO_XML_REGOLA_STATO + " assente.");
+
+            childs = el.getElementsByTagName(Costanti.NODO_XML_CONSEGUENTE);
+            if (childs.getLength() > 0) {
+                Element elConseguente = (Element) childs.item(0);
+                cons = (Conseguente) CONSEGUENTE.istanziatore.getInstance(elConseguente);
+            } else
+                throw new NoSuchElementException("LettoriXML.REGOLA.getInstance(): elemento " + Costanti.NODO_XML_REGOLA_STATO + " assente.");
 
             //ritorno istanza corretta
-            return new Regola(id, stato, null, null);
+            return new Regola(id, stato, ant, cons);
         }
         else
-            throw new NoSuchElementException("LettoriXML.ATTUATORE.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_ATTUATORE);
+            throw new NoSuchElementException("LettoriXML.REGOLA.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_REGOLA);
     }
 
     /** Metodo per lettore: ATTUATORE **/
@@ -525,6 +753,15 @@ public enum LettoriXML {
                         unit.setStanzaDefault(s);
                     else
                         unit.addStanza(s);
+                }
+            }
+
+            childs = el.getElementsByTagName(Costanti.NODO_XML_REGOLA);
+            if (childs.getLength() > 0) {
+                for (int i = 0; i < childs.getLength(); i++) {
+                    String regola = childs.item(i).getTextContent();
+                    Regola r = LetturaDatiSalvati.getInstance().leggiRegola(regola, nome);
+                    unit.addRegola(r);
                 }
             }
 

@@ -2,6 +2,7 @@ package domotix.model.io;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
@@ -61,6 +62,11 @@ public class RimozioneDatiSalvatiAdapter implements RimozioneDatiSalvati {
     }
 
     @Override
+    public void rimuoviRegola(String idRegola, String unita) throws Exception {
+
+    }
+
+    @Override
     public void sincronizzaCategorieSensore(List<CategoriaSensore> entita) throws Exception {
 
     }
@@ -102,6 +108,11 @@ public class RimozioneDatiSalvatiAdapter implements RimozioneDatiSalvati {
 
     @Override
     public void sincronizzaAttuatori(List<Attuatore> entita) throws Exception {
+
+    }
+
+    @Override
+    public void sincronizzaRegole(UnitaImmobiliare entita) throws Exception {
 
     }
 }
