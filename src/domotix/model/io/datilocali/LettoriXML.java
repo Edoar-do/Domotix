@@ -184,8 +184,7 @@ public enum LettoriXML {
                     Element elParametro = (Element)childs.item(i);
                     parametri.add((Parametro)PARAMETRO_MODALITA.istanziatore.getInstance(elParametro));
                 }
-            } else
-                throw new NoSuchElementException("LettoriXML.AZIONE.getInstance(): elemento " + Costanti.NODO_XML_AZIONE_PARAMETRO + " assente.");
+            }
 
             //ritorno istanza corretta
             return new Azione(att, modalita, parametri);
