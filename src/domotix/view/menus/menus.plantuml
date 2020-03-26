@@ -4,119 +4,61 @@ title __DOMOTIX > VIEW > MENUS's Class Diagram__\n
 
 namespace src.domotix.view.menus {
     class src.domotix.view.menus.MenuErroreApertura {
-        {static} + CONTINUA : int
-        {static} + ESCI : int
-        {static} - erroreApertura : MyMenu
-        {static} + avvia()
     }
 
     class src.domotix.view.menus.MenuErroreChiusura {
-        {static} + ANNULLA_CHIUSURA : int
-        {static} + ESCI : int
-        {static} + RITENTA_SALVATAGGIO : int
-        {static} - erroreChiusura : MyMenu
-        {static} + avvia()
     }
 
     class src.domotix.view.menus.MenuLogin {
-        {static} - SALVA_ED_ESCI : String
-        {static} - TITOLO : String
-        {static} - VOCI : String[]
-        {static} - menuLogin : MyMenu
-        {static} + avvia()
     }
 
     namespace menuPrincipale {
         class src.domotix.view.menus.menuPrincipale.MenuFruitore {
-            {static} - INDIETRO : String
-            {static} - TITOLO : String
-            {static} - VOCI : String[]
-            {static} - menu : MyMenu
-            {static} + avvia()
         }
 
         class src.domotix.view.menus.menuPrincipale.MenuManutentore {
-            {static} - INDIETRO : String
-            {static} - TITOLO : String
-            {static} - VOCI : String[]
-            {static} - menu : MyMenu
-            {static} + avvia()
+            {static} - SUCCESSO_INSERIMENTO_UNITA : String
+            {static} - ERRORE_INSERIMENTO_UNITA : String
+            {static} - SUCCESSO_RIMOZIONE_UNITA : String
+            {static} - ERRORE_RIMOZIONE_UNITA : String
+            {static} - NOMI_UNITA_IMMOBILIARI_ESISTENTI : String
+            {static} - NOME_NUOVA_UNITA : String
+            {static} - premenuUnita()
         }
     }
 
     namespace menuCategorie {
         class src.domotix.view.menus.menuCategorie.MenuCategorieF {
-            {static} - INDIETRO : String
-            {static} - TITOLO : String
-            {static} - VOCI : String[]
-            {static} - menu : MyMenu
-            {static} + avvia()
         }
 
         class src.domotix.view.menus.menuCategorie.MenuCategorieM {
-            {static} - INDIETRO : String
-            {static} - TITOLO : String
-            {static} - VOCI : String[]
-            {static} - menu : MyMenu
-            {static} + avvia()
         }
 
         namespace sensori {
             class src.domotix.view.menus.menuCategorie.sensori.MenuCategorieSensoriF {
-                {static} - INDIETRO : String
-                {static} - TITOLO : String
-                {static} - VOCI : String[]
-                {static} - menu : MyMenu
-                {static} + avvia()
             }
 
             class src.domotix.view.menus.menuCategorie.sensori.MenuCategorieSensoriM {
-                {static} - CATEGORIE_ESISTENTI_SENSORI : String
-                {static} - ERRORE_INSERIMENTO : String
-                {static} - ERRORE_RIMOZIONE_CATEGORIA : String
-                {static} - INDIETRO : String
-                {static} - INSERIMENTO_CATEGORIA_SENSORE : String
-                {static} - INSERIMENTO_INFO_RILEVABILE : String
-                {static} - INSERIMENTO_TESTO_LIBERO : String
-                {static} - SUCCESSO_INSERIMENTO : String
-                {static} - SUCCESSO_RIMOZIONE_CATEGORIA : String
-                {static} - TITOLO : String
-                {static} - VOCI : String[]
-                {static} - menu : MyMenu
-                {static} + avvia()
-                {static} - premenu()
+                {static} - TERMINATORE : String
+                {static} - SUCCESSO_INSERIMENTO_INFO : String
+                {static} - ERRORE_INSERIMENTO_INFO : String
+                {static} - INSERIMENTO_NOME_INFO : String
+                {static} - ALMENO_UNA_INFO : String
+                {static} - IS_NUMERICA : String
             }
         }
 
         namespace attuatori {
             class src.domotix.view.menus.menuCategorie.attuatori.MenuCategorieAttuatoriF {
-                {static} - INDIETRO : String
-                {static} - TITOLO : String
-                {static} - VOCI : String[]
-                {static} - menu : MyMenu
-                {static} + avvia()
             }
 
             class src.domotix.view.menus.menuCategorie.attuatori.MenuCategorieAttuatoriM {
-                {static} - CATEGORIE_ESISTENTI_ATTUATORI : String
-                {static} - ERRORE_INSERIMENTO : String
-                {static} - ERRORE_INSERIMENTO_MODALITA : String
-                {static} - ERRORE_MODALITA_DEFAULT_MANCANTE : String
-                {static} - ERRORE_RIMOZIONE_CATEGORIA : String
-                {static} - GUIDA_IN_LINEA : String
-                {static} - INDIETRO : String
-                {static} - INSERIMENTO_CATEGORIA_ATTUATORE : String
-                {static} - INSERIMENTO_NOME_MODALITA_OPERATIVA : String
-                {static} - INSERIMENTO_SUCCESSO : String
-                {static} - INSERIMENTO_SUCCESSO_MODALITA : String
-                {static} - INSERIMENTO_TESTO_LIBERO : String
-                {static} - SUCCESSO_RIMOZIONE_CATEGORIA : String
-                {static} - TERMINATORE : String
-                {static} - TITOLO : String
-                {static} - VOCI : String[]
-                {static} - menu : MyMenu
-                {static} + avvia()
-                {static} - premenu()
+                {static} - IS_PARAMETRICA : String
+                {static} - INSERIMENTO_NOME_PARAMETRO : String
+                {static} - SUCCESSO_INSERIMENTO_PARAMETRO : String
+                {static} - ERRORE_ALMENO_UN_PARAMETRO : String
+                {static} - ERRORE_INSERIMENTO_PARAMETRO : String
+                {static} - INSERIMENTO_VALORE_PARAMETRO : String
             }
         }
     }
@@ -141,5 +83,6 @@ src.domotix.view.menus.menuCategorie.attuatori.MenuCategorieAttuatoriF --> src.d
 src.domotix.view.menus.menuCategorie.sensori.MenuCategorieSensoriM --> src.domotix.controller.Modificatore
 src.domotix.view.menus.menuCategorie.sensori.MenuCategorieSensoriM --> src.domotix.controller.Recuperatore
 src.domotix.view.menus.menuCategorie.sensori.MenuCategorieSensoriF --> src.domotix.controller.Recuperatore
+src.domotix.view.menus.menuPrincipale.MenuManutentore --> src.domotix.controller.Modificatore
 
 @enduml

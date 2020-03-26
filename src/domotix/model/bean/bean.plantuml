@@ -8,170 +8,74 @@ namespace src.domotix.model {
 
     namespace bean {
         class src.domotix.model.bean.UnitaImmobiliare {
-            {static} + NOME_STANZA_DEFAULT : String
-            {static} + NOME_UNITA_DEFAULT : String
-            {static} - POS_STANZA_DEFAULT : int
-            - nome : String
-            - stanze : List<Stanza>
-            + UnitaImmobiliare()
-            + addStanza()
-            + containsStanza()
-            + getAttuatori()
-            + getNome()
-            + getSensori()
-            + getStanzaDefault()
-            + getStanze()
-            + removeStanza()
-            + removeStanza()
-            + setNome()
-            + setStanzaDefault()
-            + toString()
+            + distruggi()
         }
 
         namespace device {
             class src.domotix.model.bean.device.Attuatore {
-                {static} - TOSTRING_TEMPLATE : String
-                + Attuatore()
-                + getCategoria()
-                + getModoOp()
-                + setModoOp()
-                + toString()
             }
 
             class src.domotix.model.bean.device.CategoriaAttuatore {
-                - elencoModalita : ArrayList<Modalita>
-                - nome : String
-                - testoLibero : String
-                + CategoriaAttuatore()
-                + addModalita()
-                + equals()
-                + getElencoModalita()
-                + getModalita()
-                + getModalitaDefault()
-                + getNome()
-                + getTestoLibero()
-                + removeModalita()
-                + removeModalita()
-                + setNome()
-                + setTestoLibero()
-                + toString()
+                + hasModalita()
             }
 
             class src.domotix.model.bean.device.CategoriaSensore {
-                - informazioneRilevabile : String
-                - nome : String
-                - testoLibero : String
-                + CategoriaSensore()
-                + equals()
                 + getInformazioneRilevabile()
-                + getNome()
-                + getTestoLibero()
-                + setNome()
-                + setTestoLibero()
-                + toString()
+                + getInformazioniRilevabili()
+                + containsInformazioneRilevabile()
+                + addInformazioneRilevabile()
             }
 
             abstract class src.domotix.model.bean.device.Dispositivo {
-                - nome : String
-                - numeroAssociazioni : int
-                - stato : boolean
-                + decrNumAssociazioni()
-                + getNome()
-                + getNumeroAssociazioni()
-                + getStato()
-                + incrNumAssociazioni()
-                + setNome()
-                + setStato()
             }
 
             class src.domotix.model.bean.device.Modalita {
-                {static} - TOSTRING_TEMPLATE : String
+                + getParametri()
+                + getParametro()
+                + isParametrica()
+                + containsParametro()
+                + addParametro()
+            }
+
+            class src.domotix.model.bean.device.Parametro {
                 - nome : String
-                + Modalita()
+                - valore : double
+                + Parametro()
                 + getNome()
-                + setNome()
+                + getValore()
                 + toString()
             }
 
             class src.domotix.model.bean.device.Sensore {
-                {static} - TOSTRING_TEMPLATE : String
-                - valore : int
-                + Sensore()
-                + getCategoria()
+                + getValori()
                 + getValore()
                 + setValore()
+            }
+
+            class src.domotix.model.bean.device.InfoRilevabile {
+                - nome : String
+                - numerica : boolean
+                + InfoRilevabile()
+                + getNome()
+                + isNumerica()
                 + toString()
             }
         }
 
         namespace system {
             class src.domotix.model.bean.system.Artefatto {
-                  - unitaOwner : String
-                  + Artefatto()
-                  + getUnitaOwner()
-                  + setUnitaOwner()
               }
 
               interface src.domotix.model.bean.system.Azionabile {
-                  {abstract} + addAttuatore()
-                  {abstract} + getAttuatori()
-                  {abstract} + removeAttuatore()
-                  {abstract} + removeAttuatore()
               }
 
               interface src.domotix.model.bean.system.Osservabile {
-                  {abstract} + addSensore()
-                  {abstract} + getSensori()
-                  {abstract} + removeSensore()
-                  {abstract} + removeSensore()
               }
 
               abstract class src.domotix.model.bean.system.Sistema {
-                  {static} - NO_ATTUATORI : String
-                  {static} - NO_SENSORI : String
-                  - nome : String
-                  + Sistema()
-                  + Sistema()
-                  + addAttuatore()
-                  + addOsservatoreListaAttuatori()
-                  + addOsservatoreListaSensori()
-                  + addSensore()
-                  + contieneCategoriaAttuatore()
-                  + contieneCategoriaSensore()
-                  + distruggi()
-                  + equals()
-                  + ereditaOsservatoriLista()
-                  + getAttuatori()
-                  + getNome()
-                  + getSensori()
-                  + removeAttuatore()
-                  + removeAttuatore()
-                  + removeOsservatoreListaAttuatori()
-                  + removeOsservatoreListaSensori()
-                  + removeSensore()
-                  + removeSensore()
-                  + setNome()
-                  + toString()
-                  - getStringaDispositivi()
               }
 
               class src.domotix.model.bean.system.Stanza {
-                  {static} - NO_ARTEFATTI : String
-                  - artefatti : Map<String, Artefatto>
-                  - unitaOwner : String
-                  + Stanza()
-                  + addArtefatto()
-                  + addOsservatoreListaAttuatori()
-                  + addOsservatoreListaSensori()
-                  + getArtefatti()
-                  + getArtefatto()
-                  + getUnitaOwner()
-                  + removeArtefatto()
-                  + removeArtefatto()
-                  + removeOsservatoreListaAttuatori()
-                  + removeOsservatoreListaSensori()
-                  + setUnitaOwner()
-                  + toString()
               }
         }
     }
@@ -181,8 +85,10 @@ src.domotix.model.bean.device.Attuatore -up-|> src.domotix.model.bean.device.Dis
 src.domotix.model.bean.device.Attuatore "*" o-- "1" src.domotix.model.bean.device.CategoriaAttuatore : categoria
 src.domotix.model.bean.device.Attuatore "*" o-- "1" src.domotix.model.bean.device.Modalita : modoOp
 src.domotix.model.bean.device.CategoriaAttuatore "*" o-- "1" src.domotix.model.bean.device.Modalita : modalita
+src.domotix.model.bean.device.Modalita "*" o-- "1" src.domotix.model.bean.device.Parametro : parametro
 src.domotix.model.bean.device.Sensore -up-|> src.domotix.model.bean.device.Dispositivo
 src.domotix.model.bean.device.Sensore "*" o-- "1" src.domotix.model.bean.device.CategoriaSensore : categoria
+src.domotix.model.bean.device.CategoriaSensore "*" o-- "1" src.domotix.model.bean.device.InfoRilevabile : informazione rilevabile
 
 src.domotix.model.bean.system.Artefatto -up-|> src.domotix.model.bean.system.Sistema
 src.domotix.model.bean.system.Sistema .up.|> src.domotix.model.bean.system.Azionabile

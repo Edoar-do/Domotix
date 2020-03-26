@@ -4,7 +4,6 @@ title __DOMOTIX's Class Diagram__\n
 
     namespace src {
         class Domotix {
-            {static} + main()
         }
     }
   
