@@ -234,6 +234,11 @@ public class UnitaImmobiliare {
             String stringaStanza = "\n" + stanza.toString();
             buffer.append(StringUtil.indent(stringaStanza, 2));
         }
+        buffer.append("\n\tREGOLE:");
+        for(Regola regola : getRegole()){
+            String stringaRegola = "\n" + regola.toString();
+            buffer.append(StringUtil.indent(stringaRegola, 2));
+        }
         return buffer.toString();
     }
 
