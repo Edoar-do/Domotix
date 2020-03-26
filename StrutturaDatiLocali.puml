@@ -101,6 +101,14 @@ namespace FileSystem\UserHome\.DOMOTIX {
                         ...
                     }
                 }
+                namespace regole {
+                    class reg1 {
+                        XML
+                    }
+                    class FileSystem\UserHome\.DOMOTIX.dati.unita_immob.unita1.regole. {
+                        ...
+                    }
+                }
             }
             namespace unita... {
                 class unita.... {
@@ -110,6 +118,9 @@ namespace FileSystem\UserHome\.DOMOTIX {
 
                 }
                 namespace artefatti {
+
+                }
+                namespace regole {
 
                 }
             }

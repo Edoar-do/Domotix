@@ -8,23 +8,23 @@ namespace src.domotix.model {
 
     namespace io {
         interface src.domotix.model.io.LetturaDatiSalvati {
-            {abstract} + getNomiInformazioniRilevabili()
-            {abstract} + leggiInfoRilevabile()
+            {abstract} + getNomiRegole()
+            {abstract} + leggiRegola()
         }
 
         abstract class src.domotix.model.io.LetturaDatiSalvatiAdapter {
-            + getNomiInformazioniRilevabili()
-            + leggiInfoRilevabile()
+            + getNomiRegole()
+            + leggiRegola()
         }
 
         interface src.domotix.model.io.RimozioneDatiSalvati {
-            {abstract} + rimuoviInfoRilevabile()
+            {abstract} + rimuoviRegola()
             {abstract} + sincronizzaInfoRilevabile()
         }
 
         class src.domotix.model.io.RimozioneDatiSalvatiAdapter {
-            + rimuoviInfoRilevabile()
-            + sincronizzaInfoRilevabile()
+            + rimuoviRegola()
+            + sincronizzaRegole()
         }
 
         interface src.domotix.model.io.ScritturaDatiSalvati {
@@ -35,34 +35,51 @@ namespace src.domotix.model {
             + salva()
         }
 
+        class src.domotix.model.io.RinfrescaDati {
+            {static} + getInstance()
+            {abstract} + rinfrescaSensori()
+        }
+
+        class src.domotix.model.io.RinfrescaDatiAdapter {
+            + rinfrescaSensori()
+        }
+
         namespace datilocali {
             enum src.domotix.model.io.datilocali.LettoriXML {
-                PARAMETRO_MODALITA
-                INFORMAZIONE_RILEVABILE
+                REGOLA
+                ANTECEDENTE
+                CONDIZIONE
+                INFO_SENSORIALE
+                CONSEGUENTE
+                AZIONE
             }
 
             interface src.domotix.model.io.datilocali.LettoriXML.IstanziatoreXML {
             }
 
             class src.domotix.model.io.datilocali.LetturaDatiLocali {
-                + getNomiInformazioniRilevabili()
-                + leggiInfoRilevabile()
+                + getNomiRegole()
+                + leggiRegola()
             }
 
             class src.domotix.model.io.datilocali.PercorsiFile {
-                + getCartellaInformazioneRilevabile()
-                + getNomiInformazioniRilevabili()
-                + getPercorsoInformazioneRilevabile()
+                + getPercorsoRegola()
+                + getCartellaRegole()
+                + getNomiRegola()
             }
 
             class src.domotix.model.io.datilocali.RimozioneDatiLocali {
-                + rimuoviInfoRilevabile()
-                + sincronizzaInfoRilevabile()
+                + rimuoviRegola()
+                + sincronizzaRegole()
             }
 
             enum src.domotix.model.io.datilocali.ScrittoriXML {
-                PARAMETRO_MODALITA
-                INFORMAZIONE_RILEVABILE
+                REGOLA
+                ANTECEDENTE
+                CONDIZIONE
+                INFO_SENSORIALE
+                CONSEGUENTE
+                AZIONE
             }
 
             interface src.domotix.model.io.datilocali.ScrittoriXML.CompilatoreXML {
@@ -71,18 +88,27 @@ namespace src.domotix.model {
             class src.domotix.model.io.datilocali.ScritturaDatiLocali {
                 + salva()
             }
+
+            class src.domotix.model.io.datilocali.RinfrescaDatiLocali {
+                {static} - instance : RinfrescaDatiLocali
+                {static} + getInstance()
+                - RinfrescaDatiLocali()
+                + rinfrescaSensori()
+            }
         }
     }
 }
-  
+
 
 src.domotix.model.io.LetturaDatiSalvatiAdapter .up.|> src.domotix.model.io.LetturaDatiSalvati
 src.domotix.model.io.RimozioneDatiSalvatiAdapter .up.|> src.domotix.model.io.RimozioneDatiSalvati
 src.domotix.model.io.ScritturaDatiSalvatiAdapter .up.|> src.domotix.model.io.ScritturaDatiSalvati
+src.domotix.model.io.RinfrescaDatiAdapter ..|> src.domotix.model.io.RinfrescaDati
 
 src.domotix.model.io.datilocali.LetturaDatiLocali -up-|> src.domotix.model.io.LetturaDatiSalvatiAdapter
 src.domotix.model.io.datilocali.RimozioneDatiLocali -up-|> src.domotix.model.io.RimozioneDatiSalvatiAdapter
 src.domotix.model.io.datilocali.ScritturaDatiLocali -up-|> src.domotix.model.io.ScritturaDatiSalvatiAdapter
+src.domotix.model.io.datilocali.RinfrescaDatiLocali --|> src.domotix.model.io.RinfrescaDatiAdapter
 
 src.domotix.model.io.datilocali.LettoriXML "1" o-- "1" src.domotix.model.io.datilocali.LettoriXML.IstanziatoreXML : istanziatore
 src.domotix.model.io.datilocali.LettoriXML +-down- src.domotix.model.io.datilocali.LettoriXML.IstanziatoreXML : contiene >

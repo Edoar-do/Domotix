@@ -12,6 +12,8 @@ namespace src {
             namespace bean {
                 namespace device {
                 }
+                namespace regole {
+                }
                 namespace system {
                 }
             }

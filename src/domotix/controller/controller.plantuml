@@ -4,11 +4,13 @@ title __DOMOTIX > CONTROLLER's Class Diagram__\n
 
 namespace src.domotix.controller {
     class src.domotix.controller.Modificatore {
-        {static} + aggiungiInfoRilevabile()
-        {static} + aggiungiParametro()
-        {static} + aggiungiUnitaImmobiliare()
-        {static} + rimuoviUnitaImmobiliare()
-        {static} + setModalitaOperativa()
+        {static} + aggiungiRegola()
+        {static} - costruisciInfoDaSensore()
+        {static} - aggiungiComponenteCostanteAntecedente()
+        {static} + aggiungiComponenteAntecedente()
+        {static} + aggiungiOperatoreLogico()
+        {static} + rimuoviRegola()
+        {static} + aggiungiAzioneConseguente()
     }
 
     class src.domotix.controller.OperazioniFinali {
@@ -20,16 +22,44 @@ namespace src.domotix.controller {
     }
 
     class src.domotix.controller.Recuperatore {
-        {static} + getModalitaOperativeImpostabili()
-        {static} + getModalitaOperativaCorrente()
+        {static} + getRegoleUnita()
+        {static} + isInfoNumerica()
+        {static} + getAntecedentiRegoleUnita()
+        {static} + isModalitaParametrica()
+        {static} + getNomiParametriModalita()
+        {static} + getModalitaTutte()
     }
 
     class src.domotix.controller.Verificatore {
-        {static} + checkValiditaModalitaOperativaPerAttuatore()
-        {static} + checkValiditaUnitaImmobiliare()
-        {static} + checkValiditaParametro()
-        {static} + checkValiditaInfoRilevabile()
-        {static} + checkUnivocitaUnitaImmobiliare()
+
+    }
+
+    class src.domotix.controller.TimerGestioneRegole {
+        {static} + DEFAULT_DELAY : int
+        {static} - instance : TimerGestioneRegole
+        {static} + getInstance()
+        - timer : Timer
+        - delay : int
+        + TimerGestioneRegole()
+        + getDelay()
+        + setDelay()
+        + start()
+        + stop()
+        - action()
+    }
+
+    class src.domotix.controller.TimerRinfrescoDati {
+        {static} + DEFAULT_DELAY : int
+        {static} - instance : TimerRinfrescoDati
+        {static} + getInstance()
+        - timer : Timer
+        - delay : int
+        + TimerRinfrescoDati()
+        + getDelay()
+        + setDelay()
+        + start()
+        + stop()
+        - action()
     }
 
     namespace util {
@@ -57,5 +87,8 @@ src.domotix.controller.OperazioniIniziali --> src.domotix.view.MenuErroreApertur
 
 src.domotix.controller.OperazioniFinali --> src.domotix.model
 src.domotix.controller.OperazioniFinali --> src.domotix.view.MenuErroreChiusura
+
+src.domotix.controller.TimerGestioneRegole --> src.domotix.model
+src.domotix.controller.TimerRinfrescoDati --> src.domotix.model
 
 @enduml

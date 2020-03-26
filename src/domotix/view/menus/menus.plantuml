@@ -17,13 +17,6 @@ namespace src.domotix.view.menus {
         }
 
         class src.domotix.view.menus.menuPrincipale.MenuManutentore {
-            {static} - SUCCESSO_INSERIMENTO_UNITA : String
-            {static} - ERRORE_INSERIMENTO_UNITA : String
-            {static} - SUCCESSO_RIMOZIONE_UNITA : String
-            {static} - ERRORE_RIMOZIONE_UNITA : String
-            {static} - NOMI_UNITA_IMMOBILIARI_ESISTENTI : String
-            {static} - NOME_NUOVA_UNITA : String
-            {static} - premenuUnita()
         }
     }
 
@@ -39,12 +32,6 @@ namespace src.domotix.view.menus {
             }
 
             class src.domotix.view.menus.menuCategorie.sensori.MenuCategorieSensoriM {
-                {static} - TERMINATORE : String
-                {static} - SUCCESSO_INSERIMENTO_INFO : String
-                {static} - ERRORE_INSERIMENTO_INFO : String
-                {static} - INSERIMENTO_NOME_INFO : String
-                {static} - ALMENO_UNA_INFO : String
-                {static} - IS_NUMERICA : String
             }
         }
 
@@ -53,12 +40,6 @@ namespace src.domotix.view.menus {
             }
 
             class src.domotix.view.menus.menuCategorie.attuatori.MenuCategorieAttuatoriM {
-                {static} - IS_PARAMETRICA : String
-                {static} - INSERIMENTO_NOME_PARAMETRO : String
-                {static} - SUCCESSO_INSERIMENTO_PARAMETRO : String
-                {static} - ERRORE_ALMENO_UN_PARAMETRO : String
-                {static} - ERRORE_INSERIMENTO_PARAMETRO : String
-                {static} - INSERIMENTO_VALORE_PARAMETRO : String
             }
         }
     }

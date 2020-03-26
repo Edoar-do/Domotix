@@ -6,9 +6,11 @@ title __DOMOTIX's Class Diagram__\n
         class Domotix {
         }
     }
-  
+
     src.Domotix --> src.domotix.controller.OperazioniIniziali
     src.Domotix --> src.domotix.controller.OperazioniFinali
+    src.Domotix --> src.domotix.controller.TimerGestioneRegole
+    src.Domotix --> src.domotix.controller.TimerRinfrescoDati
     src.Domotix --> src.domotix.view.MenuLogin
     src.Domotix --> src.domotix.model.ElencoUnitaImmobiliare
 

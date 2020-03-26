@@ -8,7 +8,12 @@ namespace src.domotix.model {
 
     namespace bean {
         class src.domotix.model.bean.UnitaImmobiliare {
-            + distruggi()
+            {static} - NO_REGOLE : String
+            - regole : Map<String, Regole>
+            + addRegola()
+            + removeRegola()
+            + getRegola()
+            + getRegole()
         }
 
         namespace device {
@@ -16,49 +21,24 @@ namespace src.domotix.model {
             }
 
             class src.domotix.model.bean.device.CategoriaAttuatore {
-                + hasModalita()
             }
 
             class src.domotix.model.bean.device.CategoriaSensore {
-                + getInformazioneRilevabile()
-                + getInformazioniRilevabili()
-                + containsInformazioneRilevabile()
-                + addInformazioneRilevabile()
             }
 
             abstract class src.domotix.model.bean.device.Dispositivo {
             }
 
             class src.domotix.model.bean.device.Modalita {
-                + getParametri()
-                + getParametro()
-                + isParametrica()
-                + containsParametro()
-                + addParametro()
             }
 
             class src.domotix.model.bean.device.Parametro {
-                - nome : String
-                - valore : double
-                + Parametro()
-                + getNome()
-                + getValore()
-                + toString()
             }
 
             class src.domotix.model.bean.device.Sensore {
-                + getValori()
-                + getValore()
-                + setValore()
             }
 
             class src.domotix.model.bean.device.InfoRilevabile {
-                - nome : String
-                - numerica : boolean
-                + InfoRilevabile()
-                + getNome()
-                + isNumerica()
-                + toString()
             }
         }
 
@@ -77,6 +57,107 @@ namespace src.domotix.model {
 
               class src.domotix.model.bean.system.Stanza {
               }
+        }
+
+        namespace regole {
+            class src.domotix.model.bean.regole.Regola {
+                - id : String
+                - stato : boolean
+                + Regola()
+                + Regola()
+                + Regola()
+                + addAzione()
+                + addCondizione()
+                + addCondizone()
+                + addOperatore()
+                + esegui()
+                + getAntecedente()
+                + getConseguente()
+                + getId()
+                + getStato()
+                + setStato()
+                + toString()
+            }
+
+            class src.domotix.model.bean.regole.Antecedente {
+                {static} + OPERATORE_AND : String
+                {static} + OPERATORE_OR : String
+                - operatoreLogico : String
+                + Antecedente()
+                + addAntecedente()
+                + addAntecedente()
+                + addCondizione()
+                + addCondizione()
+                + addOperatore()
+                + getCondizione()
+                + getOperatoreLogico()
+                + getProssimoAntecedente()
+                + isLast()
+                + toString()
+                + valuta()
+                - andExpr()
+                - checkOperatore()
+                - orExpr()
+            }
+
+            class src.domotix.model.bean.regole.Condizione {
+                {static} + MAGGIORE : String
+                {static} + MAGGIORE_UGUALE : String
+                {static} + MINORE : String
+                {static} + MINORE_UGUALE : String
+                {static} + UGUALE : String
+                - operatore : String
+                + Condizione()
+                + getDestra()
+                + getOperatore()
+                + getSinistra()
+                + toString()
+                + valuta()
+                - areNumeriche()
+                - checkOperatore()
+                - checkOperatoreNumerico()
+            }
+
+            interface src.domotix.model.bean.regole.InfoSensoriale {
+                {abstract} + getValore()
+            }
+
+            class src.domotix.model.bean.regole.InfoCostante {
+                - info : Object
+                + InfoCostante()
+                + getInfo()
+                + getValore()
+                + toString()
+            }
+
+            class src.domotix.model.bean.regole.InfoVariabile {
+                - nomeInfo : String
+                + InfoVariabile()
+                + getNomeInfo()
+                + getSensore()
+                + getValore()
+                + toString()
+            }
+
+            class src.domotix.model.bean.regole.Conseguente {
+                - azioni : List<Azione>
+                + Conseguente()
+                + addAzione()
+                + esegui()
+                + getAzioni()
+                + toString()
+            }
+
+            class src.domotix.model.bean.regole.Azione {
+                - parametri : List<Parametro>
+                + Azione()
+                + esegui()
+                + getAttuatore()
+                + getModalita()
+                + getParametri()
+                + toString()
+                - checkParametri()
+            }
         }
     }
 }
@@ -98,5 +179,18 @@ src.domotix.model.bean.system.Sistema "1" o-- "1" src.domotix.model.util.ElencoD
 src.domotix.model.bean.system.Stanza -up-|> src.domotix.model.bean.system.Sistema
 src.domotix.model.bean.system.Stanza "1" o-- "*" src.domotix.model.bean.system.Artefatto : artefatti
 src.domotix.model.bean.UnitaImmobiliare "*" o-- "1" src.domotix.model.bean.system.Stanza : stanze
+src.domotix.model.bean.UnitaImmobiliare "*" o-- "1" src.domotix.model.bean.regole.Regola : regole
+
+src.domotix.model.bean.regole.Antecedente o-- src.domotix.model.bean.regole.Condizione : condizione
+src.domotix.model.bean.regole.Antecedente o-- src.domotix.model.bean.regole.Antecedente : prossimoAntecedente
+src.domotix.model.bean.regole.Azione o-- src.domotix.model.bean.device.Attuatore : attuatore
+src.domotix.model.bean.regole.Azione o-- src.domotix.model.bean.device.Modalita : modalita
+src.domotix.model.bean.regole.Condizione o-- src.domotix.model.bean.regole.InfoSensoriale : destra
+src.domotix.model.bean.regole.Condizione o-- src.domotix.model.bean.regole.InfoSensoriale : sinistra
+src.domotix.model.bean.regole.InfoCostante .up.|> src.domotix.model.bean.regole.InfoSensoriale
+src.domotix.model.bean.regole.InfoVariabile .up.|> src.domotix.model.bean.regole.InfoSensoriale
+src.domotix.model.bean.regole.InfoVariabile o-- src.domotix.model.bean.device.Sensore : sensore
+src.domotix.model.bean.regole.Regola o-- src.domotix.model.bean.regole.Antecedente : antecedente
+src.domotix.model.bean.regole.Regola o-- src.domotix.model.bean.regole.Conseguente : conseguente
 
 @enduml

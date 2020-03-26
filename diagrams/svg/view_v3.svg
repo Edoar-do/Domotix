@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="311.2px" preserveAspectRatio="none" style="width:231px;height:311px;" version="1.1" viewBox="0 0 231 311" width="231.2px" zoomAndPan="magnify"><defs><filter height="300%" id="f4wwmgz0jlii9" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="1.6"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="3.2" dy="3.2" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="14.4" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="220" x="1.6" y="15.3935">DOMOTIX &gt; VIEW's Class Diagram</text><text fill="#000000" font-family="sans-serif" font-size="14.4" lengthAdjust="spacingAndGlyphs" textLength="0" x="113.2" y="35.0062"/><!--MD5=[8e0e0f0c97ec05372c8c81240809cf06]
+cluster src.domotix.view--><polygon fill="#FFFFFF" filter="url(#f4wwmgz0jlii9)" points="56.4,52.0254,149.2,52.0254,154.8,72.0797,157.2,72.0797,157.2,301.6254,56.4,301.6254,56.4,52.0254" style="stroke: #000000; stroke-width: 1.2000000000000002;"/><line style="stroke: #000000; stroke-width: 1.2000000000000002;" x1="56.4" x2="154.8" y1="72.0797" y2="72.0797"/><text fill="#000000" font-family="sans-serif" font-size="11.2" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="88" x="59.6" y="65.5981">src.domotix.view</text><!--MD5=[7a4cbc776998db6dfca9d13cc710d20e]
+class src.domotix.view.InputDati--><rect fill="#FEFECE" filter="url(#f4wwmgz0jlii9)" height="38.4" id="src.domotix.view.InputDati" style="stroke: #A80036; stroke-width: 1.2000000000000002;" width="65.6" x="74" y="256.8254"/><ellipse cx="86" cy="269.6254" fill="#ADD1B2" rx="8.8" ry="8.8" style="stroke: #A80036; stroke-width: 0.8;"/><path d="M85.975,274.5629 Q84.575,274.5629 83.6625,273.9754 Q82.7625,273.3754 82.3125,272.3004 Q81.875,271.2129 81.875,269.7754 Q81.875,268.1504 82.4,266.9879 Q82.925,265.8254 83.95,265.2004 Q84.975,264.5754 86.475,264.5754 Q87.1875,264.5754 87.725,264.7254 Q88.2625,264.8629 88.8125,265.1379 L88.1625,266.7504 Q87.6625,266.5004 87.225,266.4004 Q86.8,266.3004 86.4125,266.3004 Q85.475,266.3004 84.9125,266.7254 Q84.35,267.1504 84.1125,267.9129 Q83.875,268.6754 83.875,269.6879 Q83.875,271.3004 84.45,272.0754 Q85.025,272.8379 86.3,272.8379 Q86.775,272.8379 87.275,272.7129 Q87.775,272.5879 88.4375,272.2879 L88.4375,274.0629 Q87.85,274.3129 87.2125,274.4379 Q86.5875,274.5629 85.975,274.5629 Z "/><text fill="#000000" font-family="sans-serif" font-size="9.6" lengthAdjust="spacingAndGlyphs" textLength="40" x="97.2" y="273.3502">InputDati</text><line style="stroke: #A80036; stroke-width: 1.2000000000000002;" x1="74.8" x2="138.8" y1="282.4254" y2="282.4254"/><line style="stroke: #A80036; stroke-width: 1.2000000000000002;" x1="74.8" x2="138.8" y1="288.8254" y2="288.8254"/><!--MD5=[fd886aa4c579c9e1d43306c829fd53ae]
+class src.domotix.view.MyMenu--><rect fill="#FEFECE" filter="url(#f4wwmgz0jlii9)" height="38.4" id="src.domotix.view.MyMenu" style="stroke: #A80036; stroke-width: 1.2000000000000002;" width="62.4" x="75.6" y="170.4254"/><ellipse cx="87.6" cy="183.2254" fill="#ADD1B2" rx="8.8" ry="8.8" style="stroke: #A80036; stroke-width: 0.8;"/><path d="M87.575,188.1629 Q86.175,188.1629 85.2625,187.5754 Q84.3625,186.9754 83.9125,185.9004 Q83.475,184.8129 83.475,183.3754 Q83.475,181.7504 84,180.5879 Q84.525,179.4254 85.55,178.8004 Q86.575,178.1754 88.075,178.1754 Q88.7875,178.1754 89.325,178.3254 Q89.8625,178.4629 90.4125,178.7379 L89.7625,180.3504 Q89.2625,180.1004 88.825,180.0004 Q88.4,179.9004 88.0125,179.9004 Q87.075,179.9004 86.5125,180.3254 Q85.95,180.7504 85.7125,181.5129 Q85.475,182.2754 85.475,183.2879 Q85.475,184.9004 86.05,185.6754 Q86.625,186.4379 87.9,186.4379 Q88.375,186.4379 88.875,186.3129 Q89.375,186.1879 90.0375,185.8879 L90.0375,187.6629 Q89.45,187.9129 88.8125,188.0379 Q88.1875,188.1629 87.575,188.1629 Z "/><text fill="#000000" font-family="sans-serif" font-size="9.6" lengthAdjust="spacingAndGlyphs" textLength="36.8" x="98.8" y="186.9502">MyMenu</text><line style="stroke: #A80036; stroke-width: 1.2000000000000002;" x1="76.4" x2="137.2" y1="196.0254" y2="196.0254"/><line style="stroke: #A80036; stroke-width: 1.2000000000000002;" x1="76.4" x2="137.2" y1="202.4254" y2="202.4254"/><polygon fill="#FFFFFF" filter="url(#f4wwmgz0jlii9)" points="80.8,76.0254,121.6,76.0254,127.2,96.0797,132.8,96.0797,132.8,122.534,80.8,122.534,80.8,76.0254" style="stroke: #000000; stroke-width: 1.2000000000000002;"/><line style="stroke: #000000; stroke-width: 1.2000000000000002;" x1="80.8" x2="127.2" y1="96.0797" y2="96.0797"/><text fill="#000000" font-family="sans-serif" font-size="11.2" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="36" x="84" y="89.5981">menus</text><!--MD5=[88b51129beb978c79bcd0253be8b60cc]
+link src.domotix.view.MyMenu to src.domotix.view.InputDati--><path d="M106.8,209.0152 C106.8,221.9106 106.8,238.9223 106.8,252.5782 " fill="none" id="src.domotix.view.MyMenu-&gt;src.domotix.view.InputDati" style="stroke: #A80036; stroke-width: 0.8;"/><polygon fill="#A80036" points="106.8,256.7002,110,249.5002,106.8,252.7002,103.6,249.5002,106.8,256.7002" style="stroke: #A80036; stroke-width: 0.8;"/><!--MD5=[284e6af6be64e8b77bbcd21f9bb0ad45]
+link src.domotix.view.menus to src.domotix.view.MyMenu--><path d="M106.8,122.5056 C106.8,135.97 106.8,152.8583 106.8,166.3259 " fill="none" id="src.domotix.view.menus-&gt;src.domotix.view.MyMenu" style="stroke: #A80036; stroke-width: 0.8;"/><polygon fill="#A80036" points="106.8,170.3882,110,163.1882,106.8,166.3882,103.6,163.1882,106.8,170.3882" style="stroke: #A80036; stroke-width: 0.8;"/><!--MD5=[d582716c2fe7e71038cc8eadb2cc24b6]
+@startuml
+
+title __DOMOTIX > VIEW's Class Diagram__\n
+
+namespace src.domotix.view {
+
+    class src.domotix.view.InputDati {
+    }
+
+    class src.domotix.view.MyMenu {
+    }
+
+    namespace menus {
+    }
+
+}
+
+
+src.domotix.view.MyMenu - -> src.domotix.view.InputDati
+src.domotix.view.menus - -> src.domotix.view.MyMenu
+
+
+@enduml
+
+PlantUML version 1.2019.11(Sun Sep 22 12:02:15 CEST 2019)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 11.0.3+12-b304.10
+Operating System: Linux
+Default Encoding: UTF-8
+Language: it
+Country: IT
+--></g></svg>
