@@ -404,7 +404,7 @@ public class Recuperatore {
         Map<String, String> map = new HashMap<>();
         Regola[] regole = getUnita(unita).getRegole();
         for (Regola r : regole) {
-            map.put(r.getId(), r.getAntecedente().toString());
+            map.put(r.getAntecedente().toString(), r.getId());
         }
         return map;
     }
