@@ -40,7 +40,7 @@ public class Condizione {
         Object valSinistro = sinistra.getValore();
         Object valDestro = destra.getValore();
 
-        if (operatore != "=" && !areNumeriche(valSinistro, valDestro)) {
+        if (!UGUALE.equals(operatore) && !areNumeriche(valSinistro, valDestro)) {
             return false;
         }
         return true;
@@ -60,7 +60,7 @@ public class Condizione {
 
     private boolean checkOperatore(String op) {
         // si potrebbe fare un array / enum con gli operatori ammissibili comunque
-        return ">".equals(op) || ">=".equals(op) || "<".equals(op) || "<=".equals(op) || "=".equals(op);
+        return MAGGIORE.equals(op) || MAGGIORE_UGUALE.equals(op) || MINORE.equals(op) || MINORE_UGUALE.equals(op) || "=".equals(op);
     }
 
     private boolean areNumeriche(Object valSinistro, Object valDestro) {
