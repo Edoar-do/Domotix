@@ -3,6 +3,7 @@ package domotix.controller;
 import domotix.model.*;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.Antecedente;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
@@ -22,6 +23,10 @@ public class Verificatore {
 
     private static boolean checkUnivocitaUnitaImmobiliare(String nome) {
         return ElencoUnitaImmobiliari.getInstance().getUnita(nome) == null;
+    }
+
+    public static boolean checkValiditaOperatoreLogico(String oplog) {
+        return Antecedente.OPERATORE_AND.equals(oplog) || Antecedente.OPERATORE_OR.equals(oplog);
     }
 
     /**

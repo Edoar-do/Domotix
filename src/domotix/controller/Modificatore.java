@@ -520,7 +520,9 @@ public class Modificatore {
      * @return true se l'inserimento va a buon fine
      */
     public static boolean aggiungiOperatoreLogico(String unita, String regola, String op) {
-        //todo controlli validita
+        if (Recuperatore.getUnita(unita) == null) return false;
+        if (Recuperatore.getUnita(unita).getRegola(regola) == null) return false;
+        if (!Verificatore.checkValiditaOperatoreLogico(op)) return false;
         Recuperatore.getUnita(unita)
                 .getRegola(regola)
                 .addOperatore(op);
@@ -550,7 +552,10 @@ public class Modificatore {
      * @return true se l'inserimento e' andato a buon fine
      */
     public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, Map<String, Double> listaParams, String unita, String idRegola) {
-        //todo controlla validita'
+        if (Recuperatore.getUnita(unita) == null) return false;
+        if (Recuperatore.getUnita(unita).getRegola(idRegola) == null) return false;
+        if (Recuperatore.getAttuatore(attuatore) == null) return false;
+        if (!Recuperatore.getAttuatore(attuatore).getCategoria().hasModalita(modalita)) return false;
         Attuatore att = Recuperatore.getAttuatore(attuatore);
         Modalita mod = att.getCategoria().getModalita(modalita);
         List<Parametro> parametri = new ArrayList<>();
