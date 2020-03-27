@@ -26,6 +26,7 @@ public class Antecedente {
         Antecedente corrente = this;
         while (corrente != null) {
             if (corrente.condizione.contieneSensore(nome)) return true;
+            corrente = corrente.prossimoAntecedente;
         }
         return false;
     }
