@@ -42,6 +42,7 @@ public class Stanza extends Sistema {
     /**
      * Metodo di aggiunta di un Artefatto alla Stanza.
      * @param artefatto L'Artefatto da aggiungere
+     * @return true: aggiunto con successo
      */
     public boolean addArtefatto(Artefatto artefatto) {
         if (artefatti.get(artefatto.getNome()) == null) {

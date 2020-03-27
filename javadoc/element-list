@@ -4,6 +4,7 @@ domotix.controller.util
 domotix.model
 domotix.model.bean
 domotix.model.bean.device
+domotix.model.bean.regole
 domotix.model.bean.system
 domotix.model.gestioneerrori
 domotix.model.io

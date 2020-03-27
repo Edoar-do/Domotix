@@ -24,7 +24,7 @@ public class MenuErroreChiusura {
      * Ritorna al chiamante l'esito della scelta fatta dall'utente.
      *
      * @param errori    elenco di errori riscontrati in apertura del programma.
-     * @return  esito della scelta dell'utente: 0 -> Esci; 1 -> Annulla chiusura; 2 -> Ritenta salvataggio
+     * @return  esito della scelta dell'utente: 0 = Esci; 1 = Annulla chiusura; 2 = Ritenta salvataggio
      */
     public static int avvia(List<String> errori) {
         System.out.println("Errore/i in salvataggio dati salvati:");
