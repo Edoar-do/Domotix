@@ -15,6 +15,13 @@ public class Conseguente {
         this.azioni = new ArrayList<>();
     }
 
+    public boolean contieneAttuatore(String nome) {
+        for (Azione a : azioni) {
+            if (a.contieneAttuatore(nome)) return true;
+        }
+        return false;
+    }
+
     /**
      * Metodo di aggiunta di un'azione al conseguente.
      * @param azione Azione da aggiungere.

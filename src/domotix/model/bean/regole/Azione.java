@@ -32,6 +32,10 @@ public class Azione {
         });
     }
 
+    public boolean contieneAttuatore(String nome) {
+        return attuatore.getNome().equals(nome);
+    }
+
     public Attuatore getAttuatore() {
         return attuatore;
     }

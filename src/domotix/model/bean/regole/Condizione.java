@@ -1,5 +1,7 @@
 package domotix.model.bean.regole;
 
+import domotix.model.bean.device.Sensore;
+
 /**
  * Classe che rappresenta una condizione che puo' apparire nell'antecedente di
  * una regola.
@@ -88,6 +90,14 @@ public class Condizione {
                 return valSinistro.equals(valDestro);
         }
         return false;
+    }
+
+    public boolean contieneSensore(String nome) {
+        if (sinistra instanceof InfoVariabile) {
+            return ((InfoVariabile) sinistra).getSensore().equals(nome);
+        } else {
+            return false;
+        }
     }
 
     @Override

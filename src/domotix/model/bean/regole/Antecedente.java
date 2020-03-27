@@ -22,6 +22,14 @@ public class Antecedente {
         this.prossimoAntecedente = null;
     }
 
+    public boolean contieneSensore(String nome) {
+        Antecedente corrente = this;
+        while (corrente != null) {
+            if (corrente.condizione.contieneSensore(nome)) return true;
+        }
+        return false;
+    }
+
     public Condizione getCondizione() {
         return condizione;
     }

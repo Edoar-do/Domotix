@@ -29,6 +29,14 @@ public class Regola {
         this(false, null, new Conseguente());
     }
 
+    public boolean contieneSensore(String nome) {
+        return antecedente.contieneSensore(nome);
+    }
+
+    public boolean contieneAttuatore(String nome) {
+        return conseguente.contieneAttuatore(nome);
+    }
+
     /**
      * Metodo di aggiunta di un'azione al conseguente
      * @param azione Azione da aggiungere
