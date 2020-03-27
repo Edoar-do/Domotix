@@ -31,7 +31,7 @@ namespace src.domotix.controller {
     }
 
     class src.domotix.controller.Verificatore {
-
+        {static} + checkValiditaOperatoreLogico()
     }
 
     class src.domotix.controller.TimerGestioneRegole {
