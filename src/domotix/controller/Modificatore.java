@@ -577,4 +577,62 @@ public class Modificatore {
     public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, String unita, String idRegola) {
         return aggiungiAzioneConseguente(attuatore, modalita, new HashMap<>(), unita, idRegola);
     }
+
+    /**
+     * Metodo di aggiunta di un'azione programmata al conseguente di una regola
+     * @param attuatore attuatore dell'azione programmata
+     * @param modalita modalità dell'azione programmata
+     * @param listaParams lista dei parametri nuovi per la modalità
+     * @param orarioStart orario di start dell'azione programmata
+     * @param unita unità immobiliare selezionata
+     * @param idRegola id della regola a cui l'azione appartiene
+     * @return true se l'inserimento è andato a buon fine
+     */
+    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, Map<String, Double> listaParams, double orarioStart, String unita, String idRegola){
+        //todo: ricordarsi di aggiungere questa azione alla **CODA** delle azioni programmate
+    }
+
+    /**
+     * Metodo di aggiunta di un'azione programmata al conseguente di una regola
+     * @param attuatore attuatore dell'azione programmata
+     * @param modalita modalità dell'azione programmata
+     * @param orarioStart orario di start dell'azione programmata
+     * @param unita unità immobiliare selezionata
+     * @param idRegola id della regola a cui l'azione appartiene
+     * @return true se l'inserimento è andato a buon fine
+     */
+    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, double orarioStart, String unita, String idRegola){
+        //todo: ricordarsi di aggiungere questa azione alla **CODA** delle azioni programmate
+    }
+
+    /**
+     * Metodo che cambia lo stato del sensore facendolo passare da ON ad OFF e viceversa
+     * @param sensore a cui cambiare stato
+     * @param unita in cui è presente il sensore
+     * @return true se il cambio stato ha avuto successo
+     */
+    public static boolean cambiaStatoSensore(String sensore, String unita){
+        //todo
+    }
+
+    /**
+     * Metodo che cambia lo stato del attuatore facendolo passare da ON ad OFF e viceversa
+     * @param attuatore a cui cambiare stato
+     * @param unita in cui è presente l'attuatore
+     * @return true se il cambio stato ha avuto successo
+     */
+    public static boolean cambiaStatoAttuatore(String attuatore, String unita){
+        //todo
+    }
+
+    /**
+     * Metodo che cambia lo stato delle regole da 'Attiva' a 'Disattiva' e viceversa
+     * @param idRegola della regola a cui cambiare stato
+     * @param unita in cui vale la regola
+     * @return true se il cambio stato ha avuto successo
+     */
+    public static boolean cambioStatoRegola(String idRegola, String unita){
+        //todo
+    }
+
 }

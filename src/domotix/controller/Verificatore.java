@@ -7,6 +7,8 @@ import domotix.model.bean.regole.Antecedente;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
+import java.util.regex.Pattern;
+
 /**Classe per implementare una parte di logica controller relativa alla verifica della validita' dei dati che dovranno essere aggiunti al model.
  * @author andrea*/
 public class Verificatore {
@@ -239,5 +241,20 @@ public class Verificatore {
                 Recuperatore.getStanza(nomeStanza, nomeUnita) != null &&
                 Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita) != null &&
                 !Recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita).contieneCategoriaAttuatore(nomeCategoria);
+    }
+
+    /**
+     * Metodo che verifica la validità dell'orario passato come double
+     * L'ora deve stare dentro [0, 23] e i minuti devono stare dentro [0, 59]
+     * @param orario da verificare
+     * @return true se l'orario è valido. False altrimenti
+     */
+    public static boolean checkValiditaOrario(double orario){
+        String orarioStringa = String.valueOf(orario);
+        int ora = Integer.parseInt(orarioStringa.split(Pattern.quote("."))[0]);
+        int minuti = Integer.parseInt(orarioStringa.split(Pattern.quote("."))[1]);
+        if(ora < 0 || ora > 23) return false;
+        if(minuti < 0 || minuti > 23) return false;
+        return true;
     }
 }

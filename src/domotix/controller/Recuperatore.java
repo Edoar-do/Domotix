@@ -396,7 +396,7 @@ public class Recuperatore {
 
     /**
      * Metodo che ritorna la mappa delle descrizioni degli antecedenti delle regole relative a un'unita'.
-     * La mappa ha come chiavi gli ID delle regole, come valori le descrizioni degli antecedenti delle regole.
+     * La mappa ha come chiavi le antecedenti delle regole unite al loro stato, come valori gli ID delle regole.
      * @param unita UnitaImmobiliare selezionata
      * @return La mappa delle descrizioni degli antecedenti
      */
@@ -406,6 +406,7 @@ public class Recuperatore {
         for (Regola r : regole) {
             map.put(r.getAntecedente().toString(), r.getId());
         }
+        //todo : agganciare al toString di antecedente anche r.getStato().toString diciamo. Così salta fuori anche lo stato della regola a fianco
         return map;
     }
 
@@ -438,5 +439,15 @@ public class Recuperatore {
                 .stream()
                 .map(c -> c.getNome())
                 .toArray(String[]::new);
+    }
+
+    /**
+     * Metodo che restituisce una mappa delle descrizioni delle regole dell'unità i cui stati sono 'Attiva' o 'Disattiva'
+     * La mappa ha come chiavi le antecedente delle regola unita al loro stato, come valori gli ID delle regole
+     * @param unita
+     * @return una mappa della descrizioni regole sopra descritte
+     */
+    public static Map<String, String> getAntecentiRegoleAttiveDisattive(String unita){
+        //todo deve ritornare una map delle sole regole il cui stato è attiva o disattiva. Non quelle sospese
     }
 }
