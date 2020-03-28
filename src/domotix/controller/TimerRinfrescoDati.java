@@ -39,7 +39,7 @@ public class TimerRinfrescoDati {
         try {
             RinfrescaDati.getInstance().rinfrescaSensori(ElencoSensori.getInstance());
         } catch (Exception ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
         }
     }
 

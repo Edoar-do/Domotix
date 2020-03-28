@@ -94,7 +94,7 @@ public class Condizione {
 
     public boolean contieneSensore(String nome) {
         if (sinistra instanceof InfoVariabile) {
-            return ((InfoVariabile) sinistra).getSensore().equals(nome);
+            return ((InfoVariabile) sinistra).getSensore().getNome().equals(nome);
         } else {
             return false;
         }

@@ -5,6 +5,7 @@ import domotix.controller.util.StringUtil;
 import domotix.model.bean.device.Dispositivo;
 import domotix.model.util.ObserverList;
 
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,6 +48,13 @@ public class Stanza extends Sistema {
     public boolean addArtefatto(Artefatto artefatto) {
         if (artefatti.get(artefatto.getNome()) == null) {
             artefatto.setUnitaOwner(this.getUnitaOwner());
+            //collego all'artefatto i listener per le rimozioni sensori/artefatti
+            for (ActionListener actionListener : getRimuoviSensoreListener()) {
+                artefatto.addRimuoviSensoreListener(actionListener);
+            }
+            for (ActionListener actionListener : getRimuoviSensoreListener()) {
+                artefatto.addRimuoviAttuatoreListener(actionListener);
+            }
             //artefatto.ereditaOsservatoriLista(this);
             artefatti.put(artefatto.getNome(), artefatto);
             return true;
@@ -87,6 +95,38 @@ public class Stanza extends Sistema {
      */
     public String getUnitaOwner() {
         return unitaOwner;
+    }
+
+    @Override
+    public void addRimuoviSensoreListener(ActionListener lst) {
+        super.addRimuoviSensoreListener(lst);
+        if (artefatti != null) {
+            artefatti.forEach((s, artefatto) -> artefatto.addRimuoviSensoreListener(lst)); //per riportare anche agli artefatti gli osservatori aggiunti
+        }
+    }
+
+    @Override
+    public void removeRimuoviSensoreListener(ActionListener lst) {
+        super.removeRimuoviSensoreListener(lst);
+        if (artefatti != null) {
+            artefatti.forEach((s, artefatto) -> artefatto.removeRimuoviSensoreListener(lst)); //per riportare anche agli artefatti gli osservatori aggiunti
+        }
+    }
+
+    @Override
+    public void addRimuoviAttuatoreListener(ActionListener lst) {
+        super.addRimuoviAttuatoreListener(lst);
+        if (artefatti != null) {
+            artefatti.forEach((s, artefatto) -> artefatto.addRimuoviAttuatoreListener(lst)); //per riportare anche agli artefatti gli osservatori aggiunti
+        }
+    }
+
+    @Override
+    public void removeRimuoviAttuatoreListener(ActionListener lst) {
+        super.removeRimuoviAttuatoreListener(lst);
+        if (artefatti != null) {
+            artefatti.forEach((s, artefatto) -> artefatto.removeRimuoviAttuatoreListener(lst)); //per riportare anche agli artefatti gli osservatori aggiunti
+        }
     }
 
     @Override
@@ -135,5 +175,12 @@ public class Stanza extends Sistema {
             buffer.append(StringUtil.indent("\n" + NO_ARTEFATTI, 2));
         }
         return buffer.toString();
+    }
+
+    @Override
+    public void distruggi() {
+        for (Artefatto a : getArtefatti())
+            a.distruggi();
+        super.distruggi();
     }
 }

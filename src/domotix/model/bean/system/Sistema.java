@@ -7,6 +7,10 @@ import domotix.model.bean.device.*;
 import domotix.model.util.ElencoDispositivi;
 import domotix.model.util.ObserverList;
 
+import javax.swing.event.EventListenerList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public abstract class Sistema implements Osservabile, Azionabile {
@@ -15,6 +19,8 @@ public abstract class Sistema implements Osservabile, Azionabile {
     private String nome;
     private ElencoDispositivi sensori;
     private ElencoDispositivi attuatori;
+    private EventListenerList rimozioneSensori;
+    private EventListenerList rimozioneAttuatori;
 
     public Sistema(String nome) {
         this(nome, new ElencoDispositivi(), new ElencoDispositivi());
@@ -26,6 +32,8 @@ public abstract class Sistema implements Osservabile, Azionabile {
         this.sensori = sensoriIniziali;
         this.addOsservatoreListaAttuatori(ElencoAttuatori.getInstance());
         this.addOsservatoreListaSensori(ElencoSensori.getInstance());
+        this.rimozioneSensori = new EventListenerList();
+        this.rimozioneAttuatori = new EventListenerList();
     }
 
     /**
@@ -48,12 +56,18 @@ public abstract class Sistema implements Osservabile, Azionabile {
      * Per svuotare completamente il sistema, eliminando i vari sensori contenuti e i collegamenti agli osservatori.
      */
     public void distruggi() {
-        for (Dispositivo d : sensori.getDispositivi())
-            sensori.remove(d);
-        for(Dispositivo d : attuatori.getDispositivi())
-            attuatori.remove(d);
+        for (Sensore s : getSensori())
+            removeSensore(s);
+        for(Attuatore a : getAttuatori())
+            removeAttuatore(a);
         sensori.svuotaOsservatori();
         attuatori.svuotaOsservatori();
+        for (ActionListener listener : rimozioneSensori.getListeners(ActionListener.class)) {
+            rimozioneSensori.remove(ActionListener.class, listener);
+        }
+        for (ActionListener listener : rimozioneAttuatori.getListeners(ActionListener.class)) {
+            rimozioneAttuatori.remove(ActionListener.class, listener);
+        }
     }
 
     /**
@@ -64,6 +78,78 @@ public abstract class Sistema implements Osservabile, Azionabile {
     public void ereditaOsservatoriLista(Sistema sis) {
         sis.sensori.getOsservatori().forEach(dispositivoOsservatoreLista -> this.sensori.aggiungiOsservatore(dispositivoOsservatoreLista));
         sis.attuatori.getOsservatori().forEach(dispositivoOsservatoreLista -> this.attuatori.aggiungiOsservatore(dispositivoOsservatoreLista));
+    }
+
+    /**
+     * Aggiunge l'ActionListener per un'azione da eseguire alla rimozione di un sensore
+     * @param lst   listener per eseguire un'azione alla rimozione di un sensore
+     */
+    public void addRimuoviSensoreListener(ActionListener lst) {
+        rimozioneSensori.add(ActionListener.class, lst);
+    }
+
+    /**
+     * Rimuove l'ActionListener per un'azione da eseguire alla rimozione di un sensore
+     * @param lst   listener per eseguire un'azione alla rimozione di un sensore
+     */
+    public void removeRimuoviSensoreListener(ActionListener lst) {
+        rimozioneSensori.remove(ActionListener.class, lst);
+    }
+
+    /**
+     * Ritorna gli ActionListener per le azioni da eseguire alla rimozione di un sensore
+     * @return  array di ActionListener
+     */
+    public ActionListener[] getRimuoviSensoreListener() {
+        return rimozioneSensori.getListeners(ActionListener.class);
+    }
+
+    /**
+     * Richiama i listener per la rimozione di un sensore
+     * @param evt   evento da passare ai listener
+     */
+    private void fireRimuoviSensoreListener(ActionEvent evt) {
+        if (rimozioneSensori != null && rimozioneSensori.getListenerCount(ActionListener.class) > 0) {
+            for (ActionListener a : rimozioneSensori.getListeners(ActionListener.class)) {
+                a.actionPerformed(evt);
+            }
+        }
+    }
+
+    /**
+     * Aggiunge l'ActionListener per un'azione da eseguire alla rimozione di un attuatore
+     * @param lst   listener per eseguire un'azione alla rimozione di un attuatore
+     */
+    public void addRimuoviAttuatoreListener(ActionListener lst) {
+        rimozioneAttuatori.add(ActionListener.class, lst);
+    }
+
+    /**
+     * Rimuove l'ActionListener per un'azione da eseguire alla rimozione di un attuatore
+     * @param lst   listener per eseguire un'azione alla rimozione di un attuatore
+     */
+    public void removeRimuoviAttuatoreListener(ActionListener lst) {
+        rimozioneAttuatori.remove(ActionListener.class, lst);
+    }
+
+    /**
+     * Ritorna gli ActionListener per le azioni da eseguire alla rimozione di un attuatore
+     * @return  array di ActionListener
+     */
+    public ActionListener[] getRimuoviAttuatoreListener() {
+        return rimozioneAttuatori.getListeners(ActionListener.class);
+    }
+
+    /**
+     * Richiama i listener per la rimozione di un attuatore
+     * @param evt   evento da passare ai listener
+     */
+    private void fireRimuoviAttuatoreListener(ActionEvent evt) {
+        if (rimozioneAttuatori != null && rimozioneAttuatori.getListenerCount(ActionListener.class) > 0) {
+            for (ActionListener a : rimozioneAttuatori.getListeners(ActionListener.class)) {
+                a.actionPerformed(evt);
+            }
+        }
     }
 
     /**
@@ -110,11 +196,16 @@ public abstract class Sistema implements Osservabile, Azionabile {
     @Override
     public void removeSensore(Sensore sensore) {
         sensori.remove(sensore.getCategoria().getNome());
+        ActionEvent evt = new ActionEvent(sensore, ActionEvent.ACTION_PERFORMED, "");
+        fireRimuoviSensoreListener(evt);
     }
 
     @Override
     public void removeSensore(String categoriaSensore) {
-        sensori.remove(categoriaSensore);
+        Sensore s = (Sensore)sensori.getDispositivo(categoriaSensore);
+        if (s != null) {
+            sensori.remove(s); //rimando all'altro metodo per unificare chiamata dei listener
+        }
     }
 
     @Override
@@ -131,11 +222,16 @@ public abstract class Sistema implements Osservabile, Azionabile {
     @Override
     public void removeAttuatore(Attuatore attuatore) {
         attuatori.remove(attuatore.getCategoria().getNome());
+        ActionEvent evt = new ActionEvent(attuatore, ActionEvent.ACTION_PERFORMED, "");
+        fireRimuoviAttuatoreListener(evt);
     }
 
     @Override
     public void removeAttuatore(String categoriaAttuatore) {
-        attuatori.remove(categoriaAttuatore);
+        Attuatore a = (Attuatore)sensori.getDispositivo(categoriaAttuatore);
+        if (a != null) {
+            attuatori.remove(a); //rimando all'altro metodo per unificare chiamata dei listener
+        }
     }
 
     @Override

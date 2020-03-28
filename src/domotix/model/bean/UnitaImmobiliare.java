@@ -2,12 +2,12 @@ package domotix.model.bean;
 
 import domotix.controller.util.StringUtil;
 import domotix.model.bean.device.Attuatore;
-import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +26,8 @@ public class UnitaImmobiliare {
     private String nome;
     private List<Stanza> stanze;
     private Map<String, Regola> regole;
+    private ActionListener controlloRegoleSensori;
+    private ActionListener controlloRegoleAttuatori;
 
     /**
      * Costruttore di base.
@@ -36,8 +38,29 @@ public class UnitaImmobiliare {
         this.stanze = new ArrayList<>();
         this.stanze.add(new Stanza(NOME_STANZA_DEFAULT)); // stanza di default
 
-        this.getStanzaDefault().setUnitaOwner(this.getNome());
         this.regole = new HashMap<>();
+        controlloRegoleSensori = evt -> {
+            if (evt.getSource() instanceof Sensore) {
+                Sensore s = (Sensore) evt.getSource();
+                for (Regola regola : getRegole()) {
+                    if (regola.contieneSensore(s.getNome()))
+                        removeRegola(regola.getId());
+                }
+            }
+        };
+        controlloRegoleAttuatori = evt -> {
+            if (evt.getSource() instanceof Attuatore) {
+                Attuatore a = (Attuatore) evt.getSource();
+                for (Regola regola : getRegole()) {
+                    if (regola.contieneAttuatore(a.getNome()))
+                        removeRegola(regola.getId());
+                }
+            }
+        };
+
+        this.getStanzaDefault().setUnitaOwner(this.getNome());
+        this.getStanzaDefault().addRimuoviSensoreListener(controlloRegoleSensori);
+        this.getStanzaDefault().addRimuoviAttuatoreListener(controlloRegoleAttuatori);
     }
 
     /**
@@ -52,6 +75,8 @@ public class UnitaImmobiliare {
             }
         }
         stanza.setUnitaOwner(this.getNome());
+        stanza.addRimuoviSensoreListener(controlloRegoleSensori);
+        stanza.addRimuoviAttuatoreListener(controlloRegoleAttuatori);
         this.stanze.add(stanza);
         return true;
     }
@@ -94,6 +119,8 @@ public class UnitaImmobiliare {
             getStanzaDefault().distruggi(); //distruggo la precedente
 
             stanza.setUnitaOwner(this.getNome());
+            stanza.addRimuoviSensoreListener(controlloRegoleSensori);
+            stanza.addRimuoviAttuatoreListener(controlloRegoleAttuatori);
             stanze.set(POS_STANZA_DEFAULT, stanza);
             return true;
         }

@@ -10,6 +10,7 @@ namespace src.domotix.model {
         class src.domotix.model.bean.UnitaImmobiliare {
             {static} - NO_REGOLE : String
             - regole : Map<String, Regole>
+            - controlloRegole : ActionListener
             + addRegola()
             + removeRegola()
             + getRegola()
@@ -53,6 +54,16 @@ namespace src.domotix.model {
               }
 
               abstract class src.domotix.model.bean.system.Sistema {
+                - rimozioneSensori : EventListenerList
+                - rimozioneAttuatori : EventListenerList
+                + addRimuoviSensoreListener()
+                + removeRimuoviSensoreListener()
+                + getRimuoviSensoreListener()
+                - fireRimuoviSensoreListener()
+                + addRimuoviAttuatoreListener()
+                + removeRimuoviAttuatoreListener()
+                + getRimuoviAttuatoreListener()
+                - fireRimuoviAttuatoreListener()
               }
 
               class src.domotix.model.bean.system.Stanza {
@@ -66,6 +77,8 @@ namespace src.domotix.model {
                 + Regola()
                 + Regola()
                 + Regola()
+                + contieneSensore()
+                + contieneAttuatore()
                 + addAzione()
                 + addCondizione()
                 + addCondizone()
