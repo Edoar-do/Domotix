@@ -138,6 +138,7 @@ public class Regola {
     public String toString() {
         String antstr = antecedente == null ? "true" : antecedente.toString();
         String consstr = conseguente.toString();
-        return "if " + antstr + " then " + consstr;
+        String statostr = "; Stato -> [" + stato.toString() + "]";
+        return "if " + antstr + " then " + consstr + statostr;
     }
 }
