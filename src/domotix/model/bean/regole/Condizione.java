@@ -48,6 +48,15 @@ public class Condizione {
         return true;
     }
 
+    private boolean checkOperatore(String op) {
+        // si potrebbe fare un array / enum con gli operatori ammissibili comunque
+        return MAGGIORE.equals(op) || MAGGIORE_UGUALE.equals(op) || MINORE.equals(op) || MINORE_UGUALE.equals(op) || "=".equals(op);
+    }
+
+    private boolean areNumeriche(Object valSinistro, Object valDestro) {
+        return (valSinistro instanceof Number) && (valDestro instanceof Number);
+    }
+
     public InfoSensoriale getSinistra() {
         return sinistra;
     }
@@ -58,15 +67,6 @@ public class Condizione {
 
     public InfoSensoriale getDestra() {
         return destra;
-    }
-
-    private boolean checkOperatore(String op) {
-        // si potrebbe fare un array / enum con gli operatori ammissibili comunque
-        return MAGGIORE.equals(op) || MAGGIORE_UGUALE.equals(op) || MINORE.equals(op) || MINORE_UGUALE.equals(op) || "=".equals(op);
-    }
-
-    private boolean areNumeriche(Object valSinistro, Object valDestro) {
-        return (valSinistro instanceof Number) && (valDestro instanceof Number);
     }
 
     /**

@@ -38,7 +38,10 @@ public class Conseguente {
      * Metodo che esegue gli assegnamenti del conseguente.
      */
     public void esegui() {
-        azioni.forEach(a -> a.esegui());
+        for (Azione a : azioni) {
+            if (a.getStart() == null) a.esegui();
+            else ElencoAzioniProgrammate.getInstance().accoda(a);
+        }
     }
 
     @Override
