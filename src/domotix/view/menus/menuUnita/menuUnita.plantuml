@@ -4,56 +4,7 @@ title __DOMOTIX > VIEW > MENUS > MENUUNITA's Class Diagram__\n
 
 namespace src.domotix.view.menus.menuUnita {
     class src.domotix.view.menus.menuUnita.MenuUnitaF {
-        {static} - SUCCESSO_INSERIMENTO_REGOLA : String
-        {static} - SUCCESSO_INSERIMENTO_COMPONENTE : String
-        {static} - SUCCESSO_RIMOZIONE_REGOLA : String
-        {static} - ERRORE_INSERIMENTO_REGOLA : String
-        {static} - ERRORE_INSERIMENTO_COMPONENTE_ANTECEDENTE : String
-        {static} - ERRORE_INSERIMENTO_OP_LOGICO : String
-        {static} - ERRORE_RIMOZIONE_REGOLA : String
-        {static} - SCELTA_LHS : String
-        {static} - SCELTA_RELOP : String
-        {static} - SCELTA_RHS : String
-        {static} - ANTECEDENTE_SI_NO : String
-        {static} - RELOP_NECESSARIO : String
-        {static} - LHS_NECESSARIO : String
-        {static} - RHS_NECESSARIO : String
-        {static} - RHS_IS_COSTANTE : String
-        {static} - INSERIMENTO_COSTANTE_RHS : String
-        {static} - CONTINUARE_CON_ANTECEDENTE : String
-        {static} - LOGIC_OP_NECESSARIO : String
-        {static} - ZERO_SENSORI : String
-        {static} - INFO_DEL_SENSORE : String
-        {static} - SENSORI_UNITA : String
-        {static} - OPERATORI_LOGICI : String[]
-        {static} - OPERATORI_RELAZIONALI : String[]
-        {static} - REGOLE_UNITA : String
-        {static} - SUCCESSO_INSERIMENTO_AZIONE : String
-        {static} - ERRORE_INSERIMENTO_AZIONE : String
-        {static} - ZERO_ATTUATORI : String
-        {static} - CONTINUARE_CON_CONSEGUENTE : String
-        {static} - ALMENO_UNA_AZIONE : String
-        {static} - LHS_ATT_NECESSARIO : String
-        {static} - RHS_ATT_NECESSARIO : String
-        {static} - ELENCO_MODALITA_ATTUATORE : String
-        {static} - STRINGA_COST : String
-        {static} - INSERIMENTO_STRINGA_COSTANTE_RHS : String
-        {static} - ATTUATORI_UNITA : String
-        {static} - SUCCESSO_INSERIMENTO_LHS : String
-        {static} - SUCCESSO_INSERIMENTO_REL_OP: String
-        {static} - COSTRUZIONE_CONSEGUENTE : String
-        {static} - sceltaLhs()
-        {static} - sceltaRelOp()
-        {static} - premenuSensori()
-        {static} - checkSensori()
-        {static} - checkAttuatori()
-        {static} - premenuInfo()
-        {static} - premenuLogicOp()
-        {static} - premenuRelOp()
-        {static} - premenuAntecedentiRegole()
-        {static} - costruisciAzione()
-        {static} - premenuAttuatori()
-        {static} - premenuModalita()
+        {static} - premenuRegoleAttive_Disattive()
     }
 
     class src.domotix.view.menus.menuUnita.MenuUnitaM {
@@ -61,6 +12,17 @@ namespace src.domotix.view.menus.menuUnita {
 
     namespace gestioneUnita {
         class src.domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaF {
+            {static} - GUIDA_IN_LINEA : String
+            {static} - SUCCESSO_CAMBIO_STATO : String
+            {static} - ERRORE_CAMBIO_STATO : String
+            {static} - SUCCESSO_CAMBIO_STATO_S : String
+            {static} - SUCCESSO_CAMBIO_STATO_A : String
+            {static} - ERRORE_CAMBIO_STATO_S : String
+            {static} - ERRORE_CAMBIO_STATO_A : String
+            {static} - SENSORI_UNITA : String
+            {static} - ATTUATORI_UNITA : String
+            {static} - premenuAttuatoriUnita()
+            {static} - premenuSensoriUnita()
         }
 
         class src.domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaM {

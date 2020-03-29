@@ -4,13 +4,11 @@ title __DOMOTIX > CONTROLLER's Class Diagram__\n
 
 namespace src.domotix.controller {
     class src.domotix.controller.Modificatore {
-        {static} + aggiungiRegola()
-        {static} - costruisciInfoDaSensore()
-        {static} - aggiungiComponenteCostanteAntecedente()
-        {static} + aggiungiComponenteAntecedente()
-        {static} + aggiungiOperatoreLogico()
-        {static} + rimuoviRegola()
         {static} + aggiungiAzioneConseguente()
+        {static} + aggiungiAzioneConseguente()
+        {static} + cambiaStatoSensore()
+        {static} + cambiaStatoAttuatore()
+        {static} + cambioStatoRegola()
     }
 
     class src.domotix.controller.OperazioniFinali {
@@ -22,44 +20,17 @@ namespace src.domotix.controller {
     }
 
     class src.domotix.controller.Recuperatore {
-        {static} + getRegoleUnita()
-        {static} + isInfoNumerica()
-        {static} + getAntecedentiRegoleUnita()
-        {static} + isModalitaParametrica()
-        {static} + getNomiParametriModalita()
-        {static} + getModalitaTutte()
+        {static} + getAntecentiRegoleAttiveDisattive()
     }
 
     class src.domotix.controller.Verificatore {
-        {static} + checkValiditaOperatoreLogico()
+        {static} + checkValiditaOrario()
     }
 
     class src.domotix.controller.TimerGestioneRegole {
-        {static} + DEFAULT_DELAY : int
-        {static} - instance : TimerGestioneRegole
-        {static} + getInstance()
-        - timer : Timer
-        - delay : int
-        + TimerGestioneRegole()
-        + getDelay()
-        + setDelay()
-        + start()
-        + stop()
-        - action()
     }
 
     class src.domotix.controller.TimerRinfrescoDati {
-        {static} + DEFAULT_DELAY : int
-        {static} - instance : TimerRinfrescoDati
-        {static} + getInstance()
-        - timer : Timer
-        - delay : int
-        + TimerRinfrescoDati()
-        + getDelay()
-        + setDelay()
-        + start()
-        + stop()
-        - action()
     }
 
     namespace util {

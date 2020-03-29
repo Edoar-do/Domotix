@@ -8,92 +8,55 @@ namespace src.domotix.model {
 
     namespace io {
         interface src.domotix.model.io.LetturaDatiSalvati {
-            {abstract} + getNomiRegole()
-            {abstract} + leggiRegola()
         }
 
         abstract class src.domotix.model.io.LetturaDatiSalvatiAdapter {
-            + getNomiRegole()
-            + leggiRegola()
         }
 
         interface src.domotix.model.io.RimozioneDatiSalvati {
-            {abstract} + rimuoviRegola()
-            {abstract} + sincronizzaInfoRilevabile()
         }
 
         class src.domotix.model.io.RimozioneDatiSalvatiAdapter {
-            + rimuoviRegola()
-            + sincronizzaRegole()
         }
 
         interface src.domotix.model.io.ScritturaDatiSalvati {
-            {abstract} + salva()
         }
 
         class src.domotix.model.io.ScritturaDatiSalvatiAdapter {
-            + salva()
         }
 
         class src.domotix.model.io.RinfrescaDati {
-            {static} + getInstance()
-            {abstract} + rinfrescaSensori()
         }
 
         class src.domotix.model.io.RinfrescaDatiAdapter {
-            + rinfrescaSensori()
         }
 
         namespace datilocali {
             enum src.domotix.model.io.datilocali.LettoriXML {
-                REGOLA
-                ANTECEDENTE
-                CONDIZIONE
-                INFO_SENSORIALE
-                CONSEGUENTE
-                AZIONE
             }
 
             interface src.domotix.model.io.datilocali.LettoriXML.IstanziatoreXML {
             }
 
             class src.domotix.model.io.datilocali.LetturaDatiLocali {
-                + getNomiRegole()
-                + leggiRegola()
             }
 
             class src.domotix.model.io.datilocali.PercorsiFile {
-                + getPercorsoRegola()
-                + getCartellaRegole()
-                + getNomiRegola()
             }
 
             class src.domotix.model.io.datilocali.RimozioneDatiLocali {
-                + rimuoviRegola()
-                + sincronizzaRegole()
             }
 
             enum src.domotix.model.io.datilocali.ScrittoriXML {
-                REGOLA
-                ANTECEDENTE
-                CONDIZIONE
-                INFO_SENSORIALE
-                CONSEGUENTE
-                AZIONE
             }
 
             interface src.domotix.model.io.datilocali.ScrittoriXML.CompilatoreXML {
             }
 
             class src.domotix.model.io.datilocali.ScritturaDatiLocali {
-                + salva()
             }
 
             class src.domotix.model.io.datilocali.RinfrescaDatiLocali {
-                {static} - instance : RinfrescaDatiLocali
-                {static} + getInstance()
-                - RinfrescaDatiLocali()
-                + rinfrescaSensori()
             }
         }
     }

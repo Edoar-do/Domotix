@@ -5,26 +5,6 @@ title __DOMOTIX > MODEL > UTIL's Class Diagram__\n
 namespace src.domotix.model {
     namespace util {
         class src.domotix.model.util.Costanti {
-            {static} + NOME_CARTELLA_REGOLE : String
-            {static} + NODO_XML_REGOLA : String
-            {static} + NODO_XML_REGOLA_ID : String
-            {static} + NODO_XML_REGOLA_STATO : String
-            {static} + NODO_XML_ANTECEDENTE : String
-            {static} + NODO_XML_ANTECEDENTE_OPLOGICO : String
-            {static} + NODO_XML_CONDIZIONE : String
-            {static} + NODO_XML_CONDIZIONE_POSIZIONE : String
-            {static} + NODO_XML_CONDIZIONE_SINISTRA : String
-            {static} + NODO_XML_CONDIZIONE_DESTRA : String
-            {static} + NODO_XML_CONDIZIONE_OPERATORE : String
-            {static} + NODO_XML_INFO_SENSORIALE : String
-            {static} + NODO_XML_INFO_SENSORIALE_SENSORE : String
-            {static} + NODO_XML_INFO_SENSORIALE_INFO_RILEV : String
-            {static} + NODO_XML_INFO_SENSORIALE_COSTANTE : String
-            {static} + NODO_XML_CONSEGUENTE : String
-            {static} + NODO_XML_AZIONE : String
-            {static} + NODO_XML_AZIONE_ATTUATORE : String
-            {static} + NODO_XML_AZIONE_MODALITA : String
-            {static} + NODO_XML_AZIONE_PARAMETRO : String
         }
 
         class src.domotix.model.util.ElencoDispositivi {

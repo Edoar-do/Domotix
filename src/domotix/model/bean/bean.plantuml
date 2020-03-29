@@ -8,13 +8,6 @@ namespace src.domotix.model {
 
     namespace bean {
         class src.domotix.model.bean.UnitaImmobiliare {
-            {static} - NO_REGOLE : String
-            - regole : Map<String, Regole>
-            - controlloRegole : ActionListener
-            + addRegola()
-            + removeRegola()
-            + getRegola()
-            + getRegole()
         }
 
         namespace device {
@@ -54,16 +47,6 @@ namespace src.domotix.model {
               }
 
               abstract class src.domotix.model.bean.system.Sistema {
-                - rimozioneSensori : EventListenerList
-                - rimozioneAttuatori : EventListenerList
-                + addRimuoviSensoreListener()
-                + removeRimuoviSensoreListener()
-                + getRimuoviSensoreListener()
-                - fireRimuoviSensoreListener()
-                + addRimuoviAttuatoreListener()
-                + removeRimuoviAttuatoreListener()
-                + getRimuoviAttuatoreListener()
-                - fireRimuoviAttuatoreListener()
               }
 
               class src.domotix.model.bean.system.Stanza {
@@ -72,104 +55,27 @@ namespace src.domotix.model {
 
         namespace regole {
             class src.domotix.model.bean.regole.Regola {
-                - id : String
-                - stato : boolean
-                + Regola()
-                + Regola()
-                + Regola()
-                + contieneSensore()
-                + contieneAttuatore()
-                + addAzione()
-                + addCondizione()
-                + addCondizone()
-                + addOperatore()
-                + esegui()
-                + getAntecedente()
-                + getConseguente()
-                + getId()
-                + getStato()
-                + setStato()
-                + toString()
             }
 
             class src.domotix.model.bean.regole.Antecedente {
-                {static} + OPERATORE_AND : String
-                {static} + OPERATORE_OR : String
-                - operatoreLogico : String
-                + Antecedente()
-                + addAntecedente()
-                + addAntecedente()
-                + addCondizione()
-                + addCondizione()
-                + addOperatore()
-                + getCondizione()
-                + getOperatoreLogico()
-                + getProssimoAntecedente()
-                + isLast()
-                + toString()
-                + valuta()
-                - andExpr()
-                - checkOperatore()
-                - orExpr()
             }
 
             class src.domotix.model.bean.regole.Condizione {
-                {static} + MAGGIORE : String
-                {static} + MAGGIORE_UGUALE : String
-                {static} + MINORE : String
-                {static} + MINORE_UGUALE : String
-                {static} + UGUALE : String
-                - operatore : String
-                + Condizione()
-                + getDestra()
-                + getOperatore()
-                + getSinistra()
-                + toString()
-                + valuta()
-                - areNumeriche()
-                - checkOperatore()
-                - checkOperatoreNumerico()
             }
 
             interface src.domotix.model.bean.regole.InfoSensoriale {
-                {abstract} + getValore()
             }
 
             class src.domotix.model.bean.regole.InfoCostante {
-                - info : Object
-                + InfoCostante()
-                + getInfo()
-                + getValore()
-                + toString()
             }
 
             class src.domotix.model.bean.regole.InfoVariabile {
-                - nomeInfo : String
-                + InfoVariabile()
-                + getNomeInfo()
-                + getSensore()
-                + getValore()
-                + toString()
             }
 
             class src.domotix.model.bean.regole.Conseguente {
-                - azioni : List<Azione>
-                + Conseguente()
-                + addAzione()
-                + esegui()
-                + getAzioni()
-                + toString()
             }
 
             class src.domotix.model.bean.regole.Azione {
-                - parametri : List<Parametro>
-                + Azione()
-                + esegui()
-                + getAttuatore()
-                + getModalita()
-                + getParametri()
-                + toString()
-                - checkParametri()
             }
         }
     }
