@@ -34,6 +34,21 @@ namespace src.domotix.model {
 
             class src.domotix.model.bean.device.InfoRilevabile {
             }
+
+            class src.domotix.model.bean.device.SensoreOrologio {
+                {static} - NOME_CATEGORIA : String
+                {static} - NOME_SENSORE : String
+                {static} - NOME_INFO_RILEVABILE : String
+                {static} - INFO_RILEVABILE : InfoRilevabile
+                {static} - CATEGORIA_SENSORE : CategoriaSensore
+                {static} - instance : SensoreOrologio
+                {static} + getInstance()
+                - SensoreOrologio()
+                + getValore()
+                + getValori()
+                + getValoreStampabile()
+                + toString()
+            }
         }
 
         namespace system {
@@ -89,6 +104,7 @@ src.domotix.model.bean.device.Modalita "*" o-- "1" src.domotix.model.bean.device
 src.domotix.model.bean.device.Sensore -up-|> src.domotix.model.bean.device.Dispositivo
 src.domotix.model.bean.device.Sensore "*" o-- "1" src.domotix.model.bean.device.CategoriaSensore : categoria
 src.domotix.model.bean.device.CategoriaSensore "*" o-- "1" src.domotix.model.bean.device.InfoRilevabile : informazione rilevabile
+src.domotix.model.bean.device.SensoreOrologio -up-|> src.domotix.model.bean.device.Sensore
 
 src.domotix.model.bean.system.Artefatto -up-|> src.domotix.model.bean.system.Sistema
 src.domotix.model.bean.system.Sistema .up.|> src.domotix.model.bean.system.Azionabile
