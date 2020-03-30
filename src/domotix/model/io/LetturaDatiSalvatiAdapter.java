@@ -3,6 +3,7 @@ package domotix.model.io;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
 import domotix.model.bean.regole.Antecedente;
+import domotix.model.bean.regole.Azione;
 import domotix.model.bean.regole.Conseguente;
 import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
@@ -64,6 +65,11 @@ public abstract class LetturaDatiSalvatiAdapter implements LetturaDatiSalvati {
 
     @Override
     public List<String> getNomiRegole(String unita) {
+        return null;
+    }
+
+    @Override
+    public List<String> getIdAzioniProgrammate() {
         return null;
     }
 
@@ -142,4 +148,8 @@ public abstract class LetturaDatiSalvatiAdapter implements LetturaDatiSalvati {
         return null;
     }
 
+    @Override
+    public Azione leggiAzioneProgrammata(String id) throws Exception {
+        return null;
+    }
 }

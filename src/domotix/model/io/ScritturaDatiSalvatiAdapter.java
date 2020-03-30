@@ -57,4 +57,8 @@ public class ScritturaDatiSalvatiAdapter implements ScritturaDatiSalvati {
 
     }
 
+    @Override
+    public void salva(String id, Azione azione) throws Exception {
+
+    }
 }

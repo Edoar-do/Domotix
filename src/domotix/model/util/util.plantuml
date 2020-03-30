@@ -5,6 +5,7 @@ title __DOMOTIX > MODEL > UTIL's Class Diagram__\n
 namespace src.domotix.model {
     namespace util {
         class src.domotix.model.util.Costanti {
+            {static} + PERCORSO_CARTELLA_AZIONI_PROGRAMMATE : String
         }
 
         class src.domotix.model.util.ElencoDispositivi {

@@ -2,6 +2,7 @@ package domotix.model.io.datilocali;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.Azione;
 import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
@@ -13,6 +14,7 @@ import javax.xml.transform.TransformerConfigurationException;
 import java.io.File;
 import java.nio.file.NotDirectoryException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe che implementa l'interfaccia RimozioneDatiSalvati per definire un meccanismo di rimozione dei dati su file memorizzati
@@ -127,6 +129,13 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
     @Override
     public void rimuoviRegola(String idRegola, String unita) throws Exception {
         String percorso = PercorsiFile.getInstance().getPercorsoRegola(idRegola, unita);
+        File f = new File(percorso);
+        rimuoviRicorsivo(f);
+    }
+
+    @Override
+    public void rimuoviAzioneProgrammata(String id) throws Exception {
+        String percorso = PercorsiFile.getInstance().getPercorsoAzioneProgrammabile(id);
         File f = new File(percorso);
         rimuoviRicorsivo(f);
     }
@@ -275,6 +284,20 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         //elaboro i nomi rimasti
         for (String regola : nomiDati) {
             RimozioneDatiSalvati.getInstance().rimuoviRegola(regola, entita.getNome());
+        }
+    }
+
+    @Override
+    public void sincronizzaAzioniProgrammate(Map<String, Azione> entita) throws Exception {
+        List<String> nomiDati = PercorsiFile.getInstance().getNomiAzioniProgramamte();
+
+        //rimuovo le entita logiche presenti
+        for (String id : entita.keySet()) {
+            nomiDati.remove(id);
+        }
+        //elaboro i nomi rimasti
+        for (String id : nomiDati) {
+            RimozioneDatiSalvati.getInstance().rimuoviAzioneProgrammata(id);
         }
     }
 }

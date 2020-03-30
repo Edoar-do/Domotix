@@ -222,4 +222,9 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
         salva(path, regola);
     }
 
+    @Override
+    public void salva(String id, Azione azione) throws Exception {
+        String path = PercorsiFile.getInstance().getPercorsoAzioneProgrammabile(id);
+        salva(path, azione);
+    }
 }

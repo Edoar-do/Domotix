@@ -1,6 +1,7 @@
 package domotix.model.io.datilocali;
 
 import domotix.model.bean.regole.Antecedente;
+import domotix.model.bean.regole.Azione;
 import domotix.model.bean.regole.Conseguente;
 import domotix.model.bean.regole.Regola;
 import domotix.model.io.LetturaDatiSalvati;
@@ -121,6 +122,11 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
     @Override
     public List<String> getNomiRegole(String unita) {
         return PercorsiFile.getInstance().getNomiRegola(unita);
+    }
+
+    @Override
+    public List<String> getIdAzioniProgrammate() {
+        return PercorsiFile.getInstance().getNomiAzioniProgramamte();
     }
 
     private Object leggi(String path) throws Exception {
@@ -254,5 +260,11 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
     public Regola leggiRegola(String idRegola, String unita) throws Exception {
         String path = PercorsiFile.getInstance().getPercorsoRegola(idRegola, unita);
         return (Regola) leggi(path);
+    }
+
+    @Override
+    public Azione leggiAzioneProgrammata(String id) throws Exception {
+        String path = PercorsiFile.getInstance().getPercorsoAzioneProgrammabile(id);
+        return (Azione) leggi(path);
     }
 }

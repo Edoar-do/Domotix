@@ -2,12 +2,14 @@ package domotix.model.io;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.Azione;
 import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.model.io.datilocali.RimozioneDatiLocali;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Interfaccia per l'implementazione di strutture per la rimozione dei dati.
@@ -27,13 +29,17 @@ import java.util.List;
  *  -   Categorie degli Attuatori
  *      -   Modalita' della categoria
  *  -   Unita immobiliare
+ *      -   Regole
  *      -   Stanze
  *          -   Sensori
  *          -   Attuatori
  *          -   Artefatti
  *          -   Regole
  *  -   Sensori
+ *      -   Regole
  *  -   Attuatori
+ *      -   Regole
+ *  -   Azioni Programmate
  *
  * @author paolopasqua
  */
@@ -140,6 +146,16 @@ public interface RimozioneDatiSalvati {
      * @see domotix.model.bean.regole.Regola
      */
     void rimuoviRegola(String idRegola, String unita) throws Exception;
+
+    /**
+     * Cancellazione nei dati memorizzati di una singola istanza di Azione programmata                                                                                                                                                                                                                                                                                                                                                                                                                                                   .
+     *
+     * @param id  istanza da rimuovere
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see domotix.model.ElencoAzioniProgrammate
+     * @see domotix.model.bean.regole.Azione
+     */
+    void rimuoviAzioneProgrammata(String id) throws Exception;
 
 
     /**
@@ -255,4 +271,17 @@ public interface RimozioneDatiSalvati {
      * @see domotix.model.bean.regole.Regola
      */
     void sincronizzaRegole(UnitaImmobiliare entita) throws Exception;
+
+    /**
+     * Confronta tutte le Azioni programmate presenti nei dati salvati con la lista indicata.
+     * Tutti quelli assenti nella lista parametro saranno eliminati per mantenere sincronizzati i dati
+     * salvati con le entita' logiche.
+     *
+     * @param entita    lista di entita' logiche presenti
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see domotix.model.ElencoAzioniProgrammate
+     * @see Azione
+     */
+    void sincronizzaAzioniProgrammate(Map<String, Azione> entita) throws Exception;
+
 }

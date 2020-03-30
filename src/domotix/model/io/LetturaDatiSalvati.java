@@ -3,6 +3,7 @@ package domotix.model.io;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
 import domotix.model.bean.regole.Antecedente;
+import domotix.model.bean.regole.Azione;
 import domotix.model.bean.regole.Conseguente;
 import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
@@ -19,6 +20,7 @@ import java.util.List;
  *  -   Categorie dei Sensori
  *  -   Categorie degli Attuatori
  *  -   Unita immobiliari
+ *  -   Azioni Programmate
  *  Effettuate queste prime letture, e' possibile ri-effettuare la lettura di una qualsiasi entita' senza problemi.
  *  Ciascuna delle letture sopra comporta la lettura delle entita' da cui dipendono, infatti la sequenza completa di lettura e':
  *  -   Categorie dei Sensori
@@ -33,6 +35,7 @@ import java.util.List;
  *              -   Sensori
  *              -   Attuatori
  *          -   Regole
+ *  -   Azioni Programmate
  *  Se queste precedenze non vengono rispettate si puo' incorrere in errori logici, come ad esempio un sensore la cui categoria
  *  non e' ancora stata letta.
  *
@@ -128,6 +131,15 @@ public interface LetturaDatiSalvati {
      * @see Regola
      */
     List<String> getNomiRegole(String unita);
+
+    /**
+     * Ritorna l'id di tutte le Azioni programmate presenti nei dati memorizzati.
+     *
+     * @return  Lista di tutti i nomi delle istanze nei dati memorizzati.
+     * @see domotix.model.ElencoAzioniProgrammate
+     * @see domotix.model.bean.regole.Azione
+     */
+    List<String> getIdAzioniProgrammate();
 
 
     /**
@@ -278,5 +290,16 @@ public interface LetturaDatiSalvati {
      * @see Regola
      */
     Regola leggiRegola(String idRegola, String unita) throws Exception;
+
+    /**
+     * Lettura di una singola Azione programmata presente nei dati memorizzati identificata dal nome.
+     *
+     * @param id  stringa identificativa dell'istanza da leggere
+     * @return  istanza presente nei dati memorizzati.
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see domotix.model.ElencoAzioniProgrammate
+     * @see Azione
+     */
+    Azione leggiAzioneProgrammata(String id) throws Exception;
 
 }

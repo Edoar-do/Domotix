@@ -25,6 +25,7 @@ import domotix.model.io.datilocali.ScritturaDatiLocali;
  *              -   Sensori
  *              -   Attuatori
  *          -   Regole
+ *  -   Azioni programmate
  *
  * @author paolopasqua
  */
@@ -132,5 +133,16 @@ public interface ScritturaDatiSalvati {
      * @see Regola
      */
     void salva(Regola regola, String unita) throws Exception;
+
+    /**
+     * Scrittura/Sovrascrittura nei dati memorizzati di una singola istanza di Azione programmata.
+     *
+     * @param id    identificativo azione programmata
+     * @param azione  istanza da salvare
+     * @throws Exception    Eccezione lanciata per diverse circostanze interne.
+     * @see domotix.model.ElencoAzioniProgrammate
+     * @see Azione
+     */
+    void salva(String id, Azione azione) throws Exception;
 
 }

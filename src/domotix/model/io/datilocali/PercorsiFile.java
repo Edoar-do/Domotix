@@ -107,7 +107,7 @@ public class PercorsiFile {
 
         controllaCartella(Costanti.PERCORSO_CARTELLA_SENSORI); //sensori gestiti come singoli file contenuti nella cartella
         controllaCartella(Costanti.PERCORSO_CARTELLA_ATTUATORI); //attuatori gestiti come singoli file contenuti nella cartella
-
+        controllaCartella(Costanti.PERCORSO_CARTELLA_AZIONI_PROGRAMMATE); //azioni programamte gestite come singoli file contenuti nella cartella
     }
 
     /**
@@ -410,6 +410,38 @@ public class PercorsiFile {
      */
     public List<String> getNomiRegola(String unita) {
         return getNomiCartella(getCartellaRegole(unita));
+    }
+
+    /**
+     * Genera il percorso del file specifico per un'entita' Azione programmata identificata dalle stringhe passate.
+     * @param id   identificativo stringa della regola
+     * @return  Percorso al file dove risiedono i dati locali relativi all'entita'
+     * @see domotix.model.ElencoAzioniProgrammate
+     * @see domotix.model.bean.regole.Azione
+     */
+    public String getPercorsoAzioneProgrammabile(String id) {
+        return getCartellaAzioniProgrammabili() + File.separator + id;
+    }
+
+    /**
+     * Genera il percorso della cartella contenente le entita' Azioni programmate
+     * @return  Percorso della cartella dove risiedono i dati locali relativi all'entita'
+     * @see domotix.model.ElencoAzioniProgrammate
+     * @see domotix.model.bean.regole.Azione
+     */
+    public String getCartellaAzioniProgrammabili() {
+        return Costanti.PERCORSO_CARTELLA_AZIONI_PROGRAMMATE;
+    }
+
+    /**
+     * Ritorna una lista di nomi delle entita' presenti nei file memorizzati
+     *
+     * @return  Lista di nomi delle entita' presenti
+     * @see domotix.model.ElencoAzioniProgrammate
+     * @see domotix.model.bean.regole.Azione
+     */
+    public List<String> getNomiAzioniProgramamte() {
+        return getNomiCartella(getCartellaAzioniProgrammabili());
     }
 
 }

@@ -8,21 +8,31 @@ namespace src.domotix.model {
 
     namespace io {
         interface src.domotix.model.io.LetturaDatiSalvati {
+            {abstract} + getIdAzioniProgrammate()
+            {abstract} + leggiAzioneProgrammata()
         }
 
         abstract class src.domotix.model.io.LetturaDatiSalvatiAdapter {
+            + getIdAzioniProgrammate()
+            + leggiAzioneProgrammata()
         }
 
         interface src.domotix.model.io.RimozioneDatiSalvati {
+            {abstract} + rimuoviAzioneProgrammata()
+            {abstract} + sincronizzaAzioniProgrammate()
         }
 
         class src.domotix.model.io.RimozioneDatiSalvatiAdapter {
+            + rimuoviAzioneProgrammata()
+            + sincronizzaAzioniProgrammate()
         }
 
         interface src.domotix.model.io.ScritturaDatiSalvati {
+            {abstract} + salva()
         }
 
         class src.domotix.model.io.ScritturaDatiSalvatiAdapter {
+            + salva()
         }
 
         class src.domotix.model.io.RinfrescaDati {
@@ -39,12 +49,16 @@ namespace src.domotix.model {
             }
 
             class src.domotix.model.io.datilocali.LetturaDatiLocali {
+                + getIdAzioniProgrammate()
+                + leggiAzioneProgrammata()
             }
 
             class src.domotix.model.io.datilocali.PercorsiFile {
             }
 
             class src.domotix.model.io.datilocali.RimozioneDatiLocali {
+                + rimuoviAzioneProgrammata()
+                + sincronizzaAzioniProgrammate()
             }
 
             enum src.domotix.model.io.datilocali.ScrittoriXML {
@@ -54,6 +68,7 @@ namespace src.domotix.model {
             }
 
             class src.domotix.model.io.datilocali.ScritturaDatiLocali {
+                + salva()
             }
 
             class src.domotix.model.io.datilocali.RinfrescaDatiLocali {

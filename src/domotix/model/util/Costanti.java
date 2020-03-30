@@ -31,6 +31,7 @@ public final class Costanti {
     public static final String NOME_CARTELLA_REGOLE = "regole";
     public static final String PERCORSO_CARTELLA_SENSORI = PERCORSO_CARTELLA_DATI + File.separator + "sensori";
     public static final String PERCORSO_CARTELLA_ATTUATORI = PERCORSO_CARTELLA_DATI + File.separator + "attuatori";
+    public static final String PERCORSO_CARTELLA_AZIONI_PROGRAMMATE = PERCORSO_CARTELLA_DATI + File.separator + "azioni_programmate";
 
     /*
     Costanti utilizzate dai lettori e scrittori XML per il salvataggio e lettura dei dati locali
