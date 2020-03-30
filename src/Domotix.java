@@ -1,7 +1,4 @@
-import domotix.controller.OperazioniFinali;
-import domotix.controller.OperazioniIniziali;
-import domotix.controller.TimerGestioneRegole;
-import domotix.controller.TimerRinfrescoDati;
+import domotix.controller.*;
 import domotix.model.ElencoUnitaImmobiliari;
 import domotix.view.menus.MenuLogin;
 
@@ -25,6 +22,7 @@ public class Domotix {
             if (!OperazioniIniziali.getInstance().controlloEsistenzaUnita())
                 ElencoUnitaImmobiliari.getInstance().add(OperazioniIniziali.getInstance().generaUnitaBase());
 
+            TimerAzioniProgrammate.getInstance().start(); //avvio timer gestione azioni programmate
             TimerRinfrescoDati.getInstance().start(); //avvio timer rinfresco dati
             TimerGestioneRegole.getInstance().start(); //avvio timer gestione regole
         }

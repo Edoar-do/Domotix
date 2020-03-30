@@ -11,6 +11,7 @@ title __DOMOTIX's Class Diagram__\n
     src.Domotix --> src.domotix.controller.OperazioniFinali
     src.Domotix --> src.domotix.controller.TimerGestioneRegole
     src.Domotix --> src.domotix.controller.TimerRinfrescoDati
+    src.Domotix --> src.domotix.controller.TimerAzioniProgrammate
     src.Domotix --> src.domotix.view.MenuLogin
     src.Domotix --> src.domotix.model.ElencoUnitaImmobiliare
 

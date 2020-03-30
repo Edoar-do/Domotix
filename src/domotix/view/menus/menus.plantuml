@@ -9,6 +9,18 @@ namespace src.domotix.view.menus {
     class src.domotix.view.menus.MenuErroreChiusura {
     }
 
+    class src.domotix.view.menus.MenuAzioniConflitto {
+        {static} - NESSUNA : String
+        {static} - TITOLO_ELIMINA : String
+        {static} - TITOLO_ESEGUI : String
+        {static} - AVVISA_PROSEGUIMENTO_DOPO_ELIMINA : String
+        {static} - AVVISA_PROSEGUIMENTO_DOPO_ESEGUI : String
+        {static} - menu : MyMenu
+        {static} + avvia()
+        {static} - premenuElimina()
+        {static} - premenuEsegui()
+    }
+
     class src.domotix.view.menus.MenuLogin {
     }
 

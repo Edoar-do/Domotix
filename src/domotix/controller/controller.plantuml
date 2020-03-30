@@ -9,6 +9,7 @@ namespace src.domotix.controller {
         {static} + cambiaStatoSensore()
         {static} + cambiaStatoAttuatore()
         {static} + cambioStatoRegola()
+        {static} + rimuoviAzioneProgrammata()
     }
 
     class src.domotix.controller.OperazioniFinali {
@@ -21,6 +22,7 @@ namespace src.domotix.controller {
 
     class src.domotix.controller.Recuperatore {
         {static} + getAntecentiRegoleAttiveDisattive()
+        {static} + getDescrizioneAzioneProgrammata()
     }
 
     class src.domotix.controller.Verificatore {
@@ -86,7 +88,8 @@ src.domotix.controller.OperazioniFinali --> src.domotix.view.MenuErroreChiusura
 src.domotix.controller.TimerGestioneRegole --> src.domotix.model
 src.domotix.controller.TimerRinfrescoDati --> src.domotix.model
 src.domotix.controller.TimerAzioniProgrammate --> src.domotix.model
-src.domotix.controller.TimerAzioniProgrammate o-> src.domotix.TimerTaskAzione : task
+src.domotix.controller.TimerAzioniProgrammate o-> TimerTask : task
+src.domotix.controller.TimerAzioniProgrammate o-> src.domotix.controller.util.TimerTaskAzione : taskAzioni
 src.domotix.controller.util.TimerTaskAzione --|> TimerTask
 
 @enduml

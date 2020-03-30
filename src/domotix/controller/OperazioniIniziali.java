@@ -1,12 +1,16 @@
 package domotix.controller;
 
+import domotix.model.ElencoAzioniProgrammate;
 import domotix.model.ElencoCategorieAttuatori;
 import domotix.model.ElencoCategorieSensori;
 import domotix.model.ElencoUnitaImmobiliari;
 import domotix.model.bean.UnitaImmobiliare;
+import domotix.model.bean.device.SensoreOrologio;
+import domotix.model.bean.regole.Azione;
 import domotix.model.gestioneerrori.LogErrori;
 import domotix.model.gestioneerrori.StoreIstanzeErrori;
 import domotix.model.io.LetturaDatiSalvati;
+import domotix.view.menus.MenuAzioniConflitto;
 import domotix.view.menus.MenuErroreApertura;
 
 import java.util.*;
@@ -33,7 +37,11 @@ public class OperazioniIniziali {
         return instance;
     }
 
-    private OperazioniIniziali() { }
+    private ArrayList<String> azioniConflitto;
+
+    private OperazioniIniziali() {
+        azioniConflitto = new ArrayList<>();
+    }
 
     /**
      * Metodo di esecuzione delle operazioni di apertura del programma, con verifica della lettura e richiesta all'utente di come agire in caso di errore.
@@ -46,10 +54,15 @@ public class OperazioniIniziali {
         if (!esito) {
             List<String> errori = LogErrori.getInstance().popAll();
             int scelta = MenuErroreApertura.avvia(errori);
-            return scelta == MenuErroreApertura.CONTINUA; //false: esci dal programma; true: entra nel programma
+            esito = scelta == MenuErroreApertura.CONTINUA; //false: esci dal programma; true: entra nel programma
         }
 
-        return true;
+        if (esito && !azioniConflitto.isEmpty()) {
+            //ci sono azioni in conflitto --> chiedo all'utente quali eseguire subito
+            MenuAzioniConflitto.avvia(azioniConflitto);
+        }
+
+        return esito;
     }
 
     /**
@@ -90,6 +103,7 @@ public class OperazioniIniziali {
 
         LogErrori.getInstance().clear();
         StoreIstanzeErrori.getInstance().clear(); //ripulisco per sincronizzazione degli stack
+        azioniConflitto.clear();
 
         //popolo le categorie sensori
         try {
@@ -126,6 +140,24 @@ public class OperazioniIniziali {
             LetturaDatiSalvati.getInstance().getNomiUnitaImmobiliare().forEach(s -> {
                 try {
                     ElencoUnitaImmobiliari.getInstance().add(LetturaDatiSalvati.getInstance().leggiUnitaImmobiliare(s));
+                } catch (Exception e) {
+                    LogErrori.getInstance().put(e.getMessage());
+                    result.set(false);
+                }
+            });
+        } catch (Exception e) {
+            LogErrori.getInstance().put(e.getMessage());
+            result.set(false);
+        }
+
+        //popolo le azioni programmate
+        try {
+            LetturaDatiSalvati.getInstance().getIdAzioniProgrammate().forEach(s -> {
+                try {
+                    Azione a = LetturaDatiSalvati.getInstance().leggiAzioneProgrammata(s);
+                    ElencoAzioniProgrammate.getInstance().add(s, a);
+                    if (SensoreOrologio.getInstance().isPrima(a.getStart()))
+                        azioniConflitto.add(s);
                 } catch (Exception e) {
                     LogErrori.getInstance().put(e.getMessage());
                     result.set(false);

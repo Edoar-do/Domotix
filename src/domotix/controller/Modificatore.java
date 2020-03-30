@@ -662,4 +662,22 @@ public class Modificatore {
         return true;
     }
 
+    /**
+     * Rimuove un'azione programmata dall'elenco. Nella rimozione puo' essere eseguita
+     * l'azione oppure semplicemente ignorata.
+     * @param idAzione  identificativo dell'azione
+     * @param esegui    true: esegui l'azione durante la rimozione; false: rimuovi solamente
+     * @return true: rimozione eseguita con successo; false: altrimenti
+     */
+    public static boolean rimuoviAzioneProgrammata(String idAzione, boolean esegui) {
+        Azione a = Recuperatore.getAzioneProgrammata(idAzione);
+        if (a != null) {
+            if (esegui)
+                a.esegui();
+            ElencoAzioniProgrammate.getInstance().remove(idAzione);
+            return true;
+        }
+        return false;
+    }
+
 }

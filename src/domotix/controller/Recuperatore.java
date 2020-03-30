@@ -3,6 +3,7 @@ package domotix.controller;
 import domotix.model.*;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
+import domotix.model.bean.regole.Azione;
 import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Sistema;
@@ -60,6 +61,10 @@ public class Recuperatore {
 
     static CategoriaAttuatore getCategoriaAttuatore(String nomeCategoria) {
         return ElencoCategorieAttuatori.getInstance().getCategoria(nomeCategoria);
+    }
+
+    static Azione getAzioneProgrammata(String idAzione) {
+        return ElencoAzioniProgrammate.getInstance().getAzione(idAzione);
     }
 
     /**
@@ -454,5 +459,18 @@ public class Recuperatore {
                 map.put(r.getAntecedente().toString() + ":" + r.getStato().name(), r.getId());
         }
         return map;
+    }
+
+    /**
+     * Ritorna la descrizione di un'azione programmata in elenco se presente.
+     * @param id    identificativo dell'azione
+     * @return  stringa contenente la descrizione dell'azione se presente, stringa vuota altrimenti
+     */
+    public static String getDescrizioneAzioneProgrammata(String id) {
+        Azione a = getAzioneProgrammata(id);
+        if (a != null)
+            return a.toString();
+        else
+            return "";
     }
 }
