@@ -5,5 +5,5 @@ package domotix.model.bean.regole;
  * @author andrea
  */
 public enum StatoRegola {
-    ATTIVA, SOSPESA, DISATTIVA_UTENTE
+    ATTIVA, SOSPESA, DISATTIVA;
 }

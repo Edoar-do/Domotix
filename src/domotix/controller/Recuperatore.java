@@ -404,9 +404,8 @@ public class Recuperatore {
         Map<String, String> map = new HashMap<>();
         Regola[] regole = getUnita(unita).getRegole();
         for (Regola r : regole) {
-            map.put(r.getAntecedente().toString(), r.getId());
+            map.put(r.getAntecedente().toString() + ":" + r.getStato().name(), r.getId());
         }
-        //todo : agganciare al toString di antecedente anche r.getStato().toString diciamo. Così salta fuori anche lo stato della regola a fianco
         return map;
     }
 
@@ -448,6 +447,12 @@ public class Recuperatore {
      * @return una mappa della descrizioni regole sopra descritte
      */
     public static Map<String, String> getAntecentiRegoleAttiveDisattive(String unita){
-        //todo deve ritornare una map delle sole regole il cui stato è attiva o disattiva. Non quelle sospese
+        Map<String, String> map = new HashMap<>();
+        Regola[] regole = getUnita(unita).getRegole();
+        for (Regola r : regole) {
+            if(r.getStato().name().equals("ATTIVA") || r.getStato().name().equals("DISATTIVA"))
+                map.put(r.getAntecedente().toString() + ":" + r.getStato().name(), r.getId());
+        }
+        return map;
     }
 }

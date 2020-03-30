@@ -8,6 +8,9 @@ import domotix.model.bean.regole.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -551,7 +554,7 @@ public class Modificatore {
      * @param idRegola ID della regola di cui fa parte il conseguente
      * @return true se l'inserimento e' andato a buon fine
      */
-    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, Map<String, Double> listaParams, String unita, String idRegola) {
+    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, Map<String, Double> listaParams, String unita, String idRegola) { //SENZA START
         if (Recuperatore.getUnita(unita) == null) return false;
         if (Recuperatore.getUnita(unita).getRegola(idRegola) == null) return false;
         if (Recuperatore.getAttuatore(attuatore) == null) return false;
@@ -574,7 +577,7 @@ public class Modificatore {
      * @param idRegola ID della regola di cui fa parte il conseguente
      * @return true se l'inserimento e' andato a buon fine
      */
-    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, String unita, String idRegola) {
+    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, String unita, String idRegola) { //SENZA START
         return aggiungiAzioneConseguente(attuatore, modalita, new HashMap<>(), unita, idRegola);
     }
 
@@ -588,8 +591,20 @@ public class Modificatore {
      * @param idRegola id della regola a cui l'azione appartiene
      * @return true se l'inserimento è andato a buon fine
      */
-    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, Map<String, Double> listaParams, double orarioStart, String unita, String idRegola){
-        //todo: ricordarsi di aggiungere questa azione alla **CODA** delle azioni programmate
+    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, Map<String, Double> listaParams, double orarioStart, String unita, String idRegola){ //CON START
+        if (Recuperatore.getUnita(unita) == null) return false;
+        if (Recuperatore.getUnita(unita).getRegola(idRegola) == null) return false;
+        if (Recuperatore.getAttuatore(attuatore) == null) return false;
+        if (!Recuperatore.getAttuatore(attuatore).getCategoria().hasModalita(modalita)) return false;
+        String orario = String.valueOf(orarioStart);
+        Attuatore att = Recuperatore.getAttuatore(attuatore);
+        Modalita mod = att.getCategoria().getModalita(modalita);
+        List<Parametro> parametri = new ArrayList<>();
+        listaParams.forEach((k, v) -> parametri.add(new Parametro(k, v)));
+        Recuperatore.getUnita(unita)
+                .getRegola(idRegola)
+                .addAzione(new Azione(att, mod, parametri, LocalTime.of(Integer.parseInt(orario.split(Pattern.quote("."))[0]), Integer.parseInt(orario.split(Pattern.quote("."))[1]))));
+        return true;
     }
 
     /**
@@ -601,28 +616,34 @@ public class Modificatore {
      * @param idRegola id della regola a cui l'azione appartiene
      * @return true se l'inserimento è andato a buon fine
      */
-    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, double orarioStart, String unita, String idRegola){
-        //todo: ricordarsi di aggiungere questa azione alla **CODA** delle azioni programmate
+    public static boolean aggiungiAzioneConseguente(String attuatore, String modalita, double orarioStart, String unita, String idRegola){ //CON START
+       return aggiungiAzioneConseguente(attuatore, modalita, new HashMap<>(), orarioStart, unita, idRegola);
     }
 
     /**
      * Metodo che cambia lo stato del sensore facendolo passare da ON ad OFF e viceversa
      * @param sensore a cui cambiare stato
-     * @param unita in cui è presente il sensore
      * @return true se il cambio stato ha avuto successo
      */
-    public static boolean cambiaStatoSensore(String sensore, String unita){
-        //todo
+    public static boolean cambiaStatoSensore(String sensore){
+        Sensore s = Recuperatore.getSensore(sensore);
+        if(s == null) return false;
+        boolean opposto = !s.getStato();
+        s.setStato(opposto);
+        return true;
     }
 
     /**
      * Metodo che cambia lo stato del attuatore facendolo passare da ON ad OFF e viceversa
      * @param attuatore a cui cambiare stato
-     * @param unita in cui è presente l'attuatore
      * @return true se il cambio stato ha avuto successo
      */
-    public static boolean cambiaStatoAttuatore(String attuatore, String unita){
-        //todo
+    public static boolean cambiaStatoAttuatore(String attuatore){
+        Attuatore a = Recuperatore.getAttuatore(attuatore);
+        if(a == null) return false;
+        boolean opposto = !a.getStato();
+        a.setStato(opposto);
+        return true;
     }
 
     /**
@@ -632,7 +653,13 @@ public class Modificatore {
      * @return true se il cambio stato ha avuto successo
      */
     public static boolean cambioStatoRegola(String idRegola, String unita){
-        //todo
+        Regola r = Recuperatore.getUnita(unita).getRegola(idRegola);
+        if(r == null)  return false;
+        StatoRegola s = r.getStato();
+        if(s.name().equals("ATTIVA")) s = StatoRegola.DISATTIVA;
+        else s = StatoRegola.ATTIVA; //non serve controllare che lo stato sia disattiva perché o è l'uno o è l'altro, il filtraggio è già stato fatto prima
+        r.setStato(s);
+        return true;
     }
 
 }

@@ -46,7 +46,7 @@ public class MenuGestioneUnitaF {
                 case 2: //cambia stato sensore
                     daCambiare = premenuSensoriUnita(nomeUnitaSuCuiLavorare);
                     if(daCambiare != null) {
-                        if (Modificatore.cambiaStatoSensore(daCambiare, nomeUnitaSuCuiLavorare))
+                        if (Modificatore.cambiaStatoSensore(daCambiare))
                             System.out.println(SUCCESSO_CAMBIO_STATO_S);
                         else System.out.println(ERRORE_CAMBIO_STATO_S);
                     }
@@ -54,7 +54,7 @@ public class MenuGestioneUnitaF {
                 case 3: //cambia stato attuatore
                     daCambiare = premenuAttuatoriUnita(nomeUnitaSuCuiLavorare);
                     if(daCambiare != null) {
-                        if (Modificatore.cambiaStatoAttuatore(daCambiare, nomeUnitaSuCuiLavorare))
+                        if (Modificatore.cambiaStatoAttuatore(daCambiare))
                             System.out.println(SUCCESSO_CAMBIO_STATO_A);
                         else System.out.println(ERRORE_CAMBIO_STATO_A);
                     }
