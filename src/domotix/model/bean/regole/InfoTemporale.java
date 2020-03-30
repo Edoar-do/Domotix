@@ -22,11 +22,11 @@ public class InfoTemporale implements InfoSensoriale {
 
     @Override
     public Object getValore() {
-        return tempo.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        return tempo.getHour() * 60 + tempo.getMinute();
     }
 
     @Override
     public String toString() {
-        return tempo.toString();
+        return tempo.getHour() + "." + tempo.getMinute();
     }
 }
