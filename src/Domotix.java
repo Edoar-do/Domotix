@@ -34,6 +34,7 @@ public class Domotix {
             esegui = !OperazioniFinali.getInstance().chiudi();
         }
 
+        TimerAzioniProgrammate.getInstance().stop();
         TimerRinfrescoDati.getInstance().stop();;
         TimerGestioneRegole.getInstance().stop();
     }
