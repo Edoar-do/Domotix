@@ -406,12 +406,19 @@ public enum LettoriXML {
             if (childs.getLength() > 0) {
                 //stato = childs.item(0).getTextContent().equalsIgnoreCase("1") ? true : false;
                 String nomeStato = childs.item(0).getTextContent();
-                for (StatoRegola value : StatoRegola.values()) {
-                    if (value.name().equals(nomeStato)) {
-                        stato = value;
-                        break;
+                if (nomeStato.equals("1"))
+                    stato = StatoRegola.ATTIVA;
+                else if (nomeStato.equals("0"))
+                    stato = StatoRegola.DISATTIVA;
+                else {
+                    for (StatoRegola value : StatoRegola.values()) {
+                        if (value.name().equals(nomeStato)) {
+                            stato = value;
+                            break;
+                        }
                     }
                 }
+                
                 if (stato == null)
                     throw new NoSuchElementException("LettoriXML.REGOLA.getInstance(): valore " + nomeStato + " per stato regola non riconosciuto.");
             } else
