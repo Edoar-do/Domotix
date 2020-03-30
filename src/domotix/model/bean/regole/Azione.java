@@ -1,5 +1,6 @@
 package domotix.model.bean.regole;
 
+import domotix.controller.util.StringUtil;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Modalita;
 import domotix.model.bean.device.Parametro;
@@ -16,12 +17,18 @@ public class Azione {
     private Attuatore attuatore;
     private Modalita modalita;
     private List<Parametro> parametri;
+    private Integer start;
 
-    public Azione(Attuatore attuatore, Modalita modalita, List<Parametro> parametri) {
+    public Azione(Attuatore attuatore, Modalita modalita, List<Parametro> parametri, Integer start) {
         this.attuatore = attuatore;
         this.modalita = modalita;
         this.parametri = parametri;
         checkParametri();
+        this.start = start;
+    }
+
+    public Azione(Attuatore attuatore, Modalita modalita, List<Parametro> parametri) {
+        this(attuatore, modalita, parametri, null);
     }
 
     private void checkParametri() {
@@ -48,6 +55,10 @@ public class Azione {
         return parametri;
     }
 
+    public Integer getStart() {
+        return start;
+    }
+
     /**
      * Metodo che esegue l'azione (i.e. l'assegnamento).
      */
@@ -59,6 +70,7 @@ public class Azione {
     @Override
     public String toString() {
         String parstr = parametri.size() > 0 ? parametri.toString() : "";
-        return attuatore.getNome() + " := " + modalita.getNome() + parstr;
+        String timestr = start == null ? "" : ", start := " + StringUtil.timestr(start);
+        return attuatore.getNome() + " := " + modalita.getNome() + parstr + timestr;
     }
 }

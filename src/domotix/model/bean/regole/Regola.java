@@ -4,29 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static domotix.model.bean.regole.StatoRegola.ATTIVA;
+
 /**
  * Classe che rappresenta una delle regole periodicamente eseguite.
  * @author andrea
  */
 public class Regola {
     private String id; //UUID
-    private boolean stato;
+    private StatoRegola stato;
     private Antecedente antecedente;
     private Conseguente conseguente;
 
-    public Regola(String id, boolean stato, Antecedente antecedente, Conseguente conseguente) {
+    public Regola(String id, StatoRegola stato, Antecedente antecedente, Conseguente conseguente) {
         this.id = id;
         this.stato = stato;
         this.antecedente = antecedente;
         this.conseguente = conseguente;
     }
 
-    public Regola(boolean stato, Antecedente antecedente, Conseguente conseguente) {
+    public Regola(StatoRegola stato, Antecedente antecedente, Conseguente conseguente) {
         this(UUID.randomUUID().toString(), stato, antecedente, conseguente);
     }
 
     public Regola() {
-        this(false, null, new Conseguente());
+        this(ATTIVA, null, new Conseguente());
     }
 
     public boolean contieneSensore(String nome) {
@@ -84,7 +86,7 @@ public class Regola {
      * Viene valutato l'antecedente. Se risulta true, viene eseguito il conseguente.
      */
     public void esegui() {
-        if (!stato) return;
+        if (stato != ATTIVA) return;
 
         // antecedente == null equivale a dire condizione sempre true
         if (antecedente == null || antecedente.valuta()) {
@@ -104,7 +106,7 @@ public class Regola {
      * Metodo che restituisce lo stato.
      * @return True se attivo, false altrimenti
      */
-    public boolean getStato() {
+    public StatoRegola getStato() {
         return stato;
     }
 
@@ -112,7 +114,7 @@ public class Regola {
      * Metodo per impostare il nuovo stato
      * @param stato Nuovo stato
      */
-    public void setStato(boolean stato) {
+    public void setStato(StatoRegola stato) {
         this.stato = stato;
     }
 
@@ -136,6 +138,7 @@ public class Regola {
     public String toString() {
         String antstr = antecedente == null ? "true" : antecedente.toString();
         String consstr = conseguente.toString();
-        return "if " + antstr + " then " + consstr;
+        String statostr = "; Stato -> [" + stato.toString() + "]";
+        return "if " + antstr + " then " + consstr + statostr;
     }
 }
