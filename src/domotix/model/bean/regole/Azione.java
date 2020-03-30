@@ -1,10 +1,11 @@
 package domotix.model.bean.regole;
 
-import domotix.controller.util.StringUtil;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Modalita;
 import domotix.model.bean.device.Parametro;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 
@@ -17,9 +18,9 @@ public class Azione {
     private Attuatore attuatore;
     private Modalita modalita;
     private List<Parametro> parametri;
-    private Integer start;
+    private LocalDateTime start;
 
-    public Azione(Attuatore attuatore, Modalita modalita, List<Parametro> parametri, Integer start) {
+    public Azione(Attuatore attuatore, Modalita modalita, List<Parametro> parametri, LocalDateTime start) {
         this.attuatore = attuatore;
         this.modalita = modalita;
         this.parametri = parametri;
@@ -55,8 +56,12 @@ public class Azione {
         return parametri;
     }
 
-    public Integer getStart() {
+    public LocalDateTime getStart() {
         return start;
+    }
+
+    public long getEpochStart() {
+        return start.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
     /**
@@ -70,7 +75,7 @@ public class Azione {
     @Override
     public String toString() {
         String parstr = parametri.size() > 0 ? parametri.toString() : "";
-        String timestr = start == null ? "" : ", start := " + StringUtil.timestr(start);
+        String timestr = start == null ? "" : ", start := " + start.toString(); // todo
         return attuatore.getNome() + " := " + modalita.getNome() + parstr + timestr;
     }
 }

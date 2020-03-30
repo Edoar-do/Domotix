@@ -2,28 +2,31 @@ package domotix.model.bean.regole;
 
 import domotix.controller.util.StringUtil;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 /**
  * Classe che rappresenta un InfoSensoriale rappresentante un valore temporale
  * @author andrea
  */
 public class InfoTemporale implements InfoSensoriale {
-    private int tempo;
+    private LocalDateTime tempo;
 
-    public InfoTemporale(int tempo) {
+    public InfoTemporale(LocalDateTime tempo) {
         this.tempo = tempo;
     }
 
-    public int getTempo() {
+    public LocalDateTime getTempo() {
         return tempo;
     }
 
     @Override
     public Object getValore() {
-        return tempo;
+        return tempo.getHour() * 60 + tempo.getMinute();
     }
 
     @Override
     public String toString() {
-        return StringUtil.timestr(tempo);
+        return tempo.getHour() + "." + tempo.getMinute();
     }
 }
