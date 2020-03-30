@@ -390,7 +390,8 @@ public enum LettoriXML {
         //controllo tag elemento
         if (el.getTagName().equals(Costanti.NODO_XML_REGOLA)) {
             String id;
-            boolean stato;
+            //boolean stato;
+            StatoRegola stato = null;
             Antecedente ant;
             Conseguente cons;
 
@@ -403,7 +404,16 @@ public enum LettoriXML {
             //estrazione elementi
             NodeList childs = el.getElementsByTagName(Costanti.NODO_XML_REGOLA_STATO);
             if (childs.getLength() > 0) {
-                stato = childs.item(0).getTextContent().equalsIgnoreCase("1") ? true : false;
+                //stato = childs.item(0).getTextContent().equalsIgnoreCase("1") ? true : false;
+                String nomeStato = childs.item(0).getTextContent();
+                for (StatoRegola value : StatoRegola.values()) {
+                    if (value.name().equals(nomeStato)) {
+                        stato = value;
+                        break;
+                    }
+                }
+                if (stato == null)
+                    throw new NoSuchElementException("LettoriXML.REGOLA.getInstance(): valore " + nomeStato + " per stato regola non riconosciuto.");
             } else
                 throw new NoSuchElementException("LettoriXML.REGOLA.getInstance(): elemento " + Costanti.NODO_XML_REGOLA_STATO + " assente.");
 

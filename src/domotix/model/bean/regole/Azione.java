@@ -5,6 +5,7 @@ import domotix.model.bean.device.Modalita;
 import domotix.model.bean.device.Parametro;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -18,9 +19,9 @@ public class Azione {
     private Attuatore attuatore;
     private Modalita modalita;
     private List<Parametro> parametri;
-    private LocalDateTime start;
+    private LocalTime start;
 
-    public Azione(Attuatore attuatore, Modalita modalita, List<Parametro> parametri, LocalDateTime start) {
+    public Azione(Attuatore attuatore, Modalita modalita, List<Parametro> parametri, LocalTime start) {
         this.attuatore = attuatore;
         this.modalita = modalita;
         this.parametri = parametri;
@@ -56,12 +57,8 @@ public class Azione {
         return parametri;
     }
 
-    public LocalDateTime getStart() {
+    public LocalTime getStart() {
         return start;
-    }
-
-    public long getEpochStart() {
-        return start.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
     /**

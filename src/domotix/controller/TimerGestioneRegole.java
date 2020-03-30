@@ -3,6 +3,7 @@ package domotix.controller;
 import domotix.model.ElencoUnitaImmobiliari;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.regole.Regola;
+import domotix.model.bean.regole.StatoRegola;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -41,7 +42,7 @@ public class TimerGestioneRegole {
         for (UnitaImmobiliare u : ElencoUnitaImmobiliari.getInstance().getUnita()) {
             for (Regola r : u.getRegole()) {
                 //se la regola e' attiva e l'antecedente risulta verificato allora eseguo
-                if (r.getStato() && r.getAntecedente().valuta()) {
+                if (r.getStato().equals(StatoRegola.ATTIVA) && r.getAntecedente().valuta()) {
                     r.esegui();
                 }
             }

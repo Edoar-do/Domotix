@@ -291,7 +291,8 @@ public enum ScrittoriXML {
 
             //popola elemento base
             Element elem = doc.createElement(Costanti.NODO_XML_REGOLA_STATO);
-            elem.appendChild(doc.createTextNode(regola.getStato() ? "1" : "0"));
+            //elem.appendChild(doc.createTextNode(regola.getStato() ? "1" : "0"));
+            elem.appendChild(doc.createTextNode(regola.getStato().name()));
             root.appendChild(elem);
 
             //antecedente e conseguente
