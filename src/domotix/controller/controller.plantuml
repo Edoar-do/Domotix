@@ -34,10 +34,31 @@ namespace src.domotix.controller {
     }
 
     class src.domotix.controller.TimerAzioniProgrammate {
+        {static} + DEFAULT_DELAY : int
+        {static} - instance : TimerAzioniProgrammate
+        - timer : Timer
+        - timerAzioni : Timer
+        - delay : int
+        - taskControlloAzioni : TimerTask
+        - azioniPianificate : ArrayList<String>
+        {static} + getInstance()
+        + TimerAzioniProgrammate()
+        + getDelay()
+        + setDelay()
+        + start()
+        + stop()
+        + consume()
     }
 
     namespace util {
         class src.domotix.controller.util.StringUtil {
+        }
+        class src.domotix.controller.util.TimerTaskAzione {
+            - idAzione : String
+            - azione : Azione
+            - owner : TimerAzioniProgrammate
+            + TimerTaskAzione()
+            + run()
         }
     }
 }
@@ -64,5 +85,8 @@ src.domotix.controller.OperazioniFinali --> src.domotix.view.MenuErroreChiusura
 
 src.domotix.controller.TimerGestioneRegole --> src.domotix.model
 src.domotix.controller.TimerRinfrescoDati --> src.domotix.model
+src.domotix.controller.TimerAzioniProgrammate --> src.domotix.model
+src.domotix.controller.TimerAzioniProgrammate o-> src.domotix.TimerTaskAzione : task
+src.domotix.controller.util.TimerTaskAzione --|> TimerTask
 
 @enduml

@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Classe di una sola istanza per le operazioni temporizzate di gestione delle azioni programamte.
+ *
+ * @author paolopasqua
+ */
 public class TimerAzioniProgrammate {
 
     public static final int DEFAULT_DELAY = 10000; //10 seconds
@@ -46,8 +51,8 @@ public class TimerAzioniProgrammate {
                             //per ogni nuova azione da pianificare
                             Azione a = ElencoAzioniProgrammate.getInstance().getAzione(s); //recupero l'azione
                             long delay = SensoreOrologio.getInstance().getMinutiDifferenza(a.getStart()) * 60000; //ricavo il tempo in millisecondi
-                            timerAzione.schedule(new TimerTaskAzione(s, a), delay); //schedulo l'azione
-                            //la classe TimerTaskAzione esegue l'azione e la elimina dall'elenco ElencoAzioniProgrammate
+                            timerAzione.schedule(new TimerTaskAzione(s, a, getInstance()), delay); //schedulo l'azione
+                            //la classe TimerTaskAzione esegue l'azione e richiama il metodo consume
                 });
             }
         };
@@ -84,5 +89,14 @@ public class TimerAzioniProgrammate {
         timer.purge();
         timerAzione.cancel();
         timerAzione.purge();
+    }
+
+    /**
+     * Rimuove un'azione pianificata in quanto consumata, cioe' eseguita.
+     * @param idAzione  identificativo dell'azione
+     */
+    public void consume(String idAzione) {
+        ElencoAzioniProgrammate.getInstance().remove(idAzione);
+        azioniPianificate.remove(idAzione);
     }
 }

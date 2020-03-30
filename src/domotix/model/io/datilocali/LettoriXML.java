@@ -418,7 +418,7 @@ public enum LettoriXML {
                         }
                     }
                 }
-                
+
                 if (stato == null)
                     throw new NoSuchElementException("LettoriXML.REGOLA.getInstance(): valore " + nomeStato + " per stato regola non riconosciuto.");
             } else
