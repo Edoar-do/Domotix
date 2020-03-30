@@ -1,5 +1,7 @@
 package domotix.model.bean.regole;
 
+import domotix.model.ElencoAzioniProgrammate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,7 +42,7 @@ public class Conseguente {
     public void esegui() {
         for (Azione a : azioni) {
             if (a.getStart() == null) a.esegui();
-            else ElencoAzioniProgrammate.getInstance().accoda(a);
+            else ElencoAzioniProgrammate.getInstance().add(a);
         }
     }
 

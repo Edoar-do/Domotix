@@ -18,6 +18,19 @@ namespace src.domotix.model {
     class src.domotix.model.ElencoUnitaImmobiliari {
     }
 
+    class src.domotix.model.ElencoAzioniProgramate {
+        {static} - instance : ElencoAzioniProgrammate
+        - azioni : HashMap<String, Azione>
+        {static} + getInstance()
+        - ElencoAzioniProgrammate()
+        + add()
+        + remove()
+        + contains()
+        + getAzione()
+        + getAzioni()
+        + getIdAzioni()
+    }
+
     namespace util {
     }
 
@@ -35,6 +48,8 @@ namespace src.domotix.model {
     namespace bean {
         namespace device {
         }
+        namespace regola {
+        }
     }
 }
 
@@ -44,6 +59,7 @@ src.domotix.model.ElencoSensori --|> src.domotix.model.util.SommarioDispositivi
 src.domotix.model.ElencoUnitaImmobiliari "*" o--> "1" src.domotix.model.bean.UnitaImmobiliare : unita
 src.domotix.model.ElencoCategorieAttuatori "*" o--> "1" src.domotix.model.bean.device.CategoriaAttuatore : categorie
 src.domotix.model.ElencoCategorieSensori "*" o--> "1" src.domotix.model.bean.device.CategoriaSensore : categorie
+src.domotix.model.ElencoAzioniProgramate "*" o--> "1" src.domotix.model.bean.regola.Azione : azioni
 
 
 @enduml

@@ -36,9 +36,9 @@ namespace src.domotix.model {
             }
 
             class src.domotix.model.bean.device.SensoreOrologio {
-                {static} - NOME_CATEGORIA : String
-                {static} - NOME_SENSORE : String
-                {static} - NOME_INFO_RILEVABILE : String
+                {static} + NOME_CATEGORIA : String
+                {static} + NOME_SENSORE : String
+                {static} + NOME_INFO_RILEVABILE : String
                 {static} - INFO_RILEVABILE : InfoRilevabile
                 {static} - CATEGORIA_SENSORE : CategoriaSensore
                 {static} - instance : SensoreOrologio
@@ -47,6 +47,7 @@ namespace src.domotix.model {
                 + getValore()
                 + getValori()
                 + getValoreStampabile()
+                + getValoreTempo()
                 + toString()
             }
         }
@@ -70,6 +71,15 @@ namespace src.domotix.model {
 
         namespace regole {
             class src.domotix.model.bean.regole.Regola {
+                - stato : StatoRegola
+                + getStato()
+                + setStato()
+            }
+
+            enum src.domotix.model.bean.regole.StatoRegola {
+                ATTIVA
+                SOSPESA
+                DISATTIVA_UTENTE
             }
 
             class src.domotix.model.bean.regole.Antecedente {
@@ -84,6 +94,14 @@ namespace src.domotix.model {
             class src.domotix.model.bean.regole.InfoCostante {
             }
 
+            class src.domotix.model.bean.regole.InfoTemporale {
+                - tempo : int
+                + InfoTemporale()
+                + getTempo()
+                + getValore()
+                + toString()
+            }
+
             class src.domotix.model.bean.regole.InfoVariabile {
             }
 
@@ -91,6 +109,9 @@ namespace src.domotix.model {
             }
 
             class src.domotix.model.bean.regole.Azione {
+                - start : Integer
+                + Azione()
+                + getStart()
             }
         }
     }
@@ -124,8 +145,10 @@ src.domotix.model.bean.regole.Condizione o-- src.domotix.model.bean.regole.InfoS
 src.domotix.model.bean.regole.Condizione o-- src.domotix.model.bean.regole.InfoSensoriale : sinistra
 src.domotix.model.bean.regole.InfoCostante .up.|> src.domotix.model.bean.regole.InfoSensoriale
 src.domotix.model.bean.regole.InfoVariabile .up.|> src.domotix.model.bean.regole.InfoSensoriale
+src.domotix.model.bean.regole.InfoTemporale .up.|> src.domotix.model.bean.regole.InfoSensoriale
 src.domotix.model.bean.regole.InfoVariabile o-- src.domotix.model.bean.device.Sensore : sensore
 src.domotix.model.bean.regole.Regola o-- src.domotix.model.bean.regole.Antecedente : antecedente
 src.domotix.model.bean.regole.Regola o-- src.domotix.model.bean.regole.Conseguente : conseguente
+src.domotix.model.bean.regole.Regola o-- src.domotix.model.bean.regole.StatoRegola : stato
 
 @enduml
