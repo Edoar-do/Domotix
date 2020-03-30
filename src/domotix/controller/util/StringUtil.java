@@ -86,10 +86,4 @@ public class StringUtil {
 
         return ns;
     }
-
-    public static String timestr(int mintime) {
-        int hour = mintime / 60;
-        int minutes = mintime - hour * 60;
-        return hour + "." + minutes;
-    }
 }
