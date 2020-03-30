@@ -16,6 +16,7 @@ import java.util.HashMap;
  */
 public class SensoreOrologio extends Sensore {
 
+    public static final int MINUTI_IN_UN_GIORNO = 1440; //24 ore * 60 minuti
     public static final String NOME_CATEGORIA_OROLOGIO = "orologio_sistema";
     public static final String NOME_SENSORE_OROLOGIO = NOME_CATEGORIA_OROLOGIO;
     public static final String NOME_INFO_RILEVABILE_OROLOGIO = "tempo";
@@ -35,6 +36,33 @@ public class SensoreOrologio extends Sensore {
     }
 
     /**
+     * Converte il tempo passato in un intero che rappresenta i minuti dalla mezzanotte
+     * @param time  tempo da convertire
+     * @return  intero per i minuti dalla mezzanotte che rappresentano l'ora indicata
+     */
+    public static int getTempo(LocalTime time) {
+        return time.getHour() * 60 + time.getMinute();
+    }
+
+    /**
+     * Ritorna i minuti che mancano alla mezzanotte dal tempo indicato.
+     * @param time  tempo da confrontare
+     * @return  intero per i minuti mancanti per raggiungere la mezzanotte
+     */
+    public static int getMinutiAllaMezzanotte(LocalTime time) {
+        return getMinutiAllaMezzanotte(getTempo(time));
+    }
+
+    /**
+     * Ritorna i minuti che mancano alla mezzanotte dal tempo indicato.
+     * @param time  tempo da confrontare
+     * @return  intero per i minuti mancanti per raggiungere la mezzanotte
+     */
+    public static int getMinutiAllaMezzanotte(int time) {
+        return MINUTI_IN_UN_GIORNO - time;
+    }
+
+    /**
      * Costruttore della classe
      */
     private SensoreOrologio() {
@@ -48,8 +76,7 @@ public class SensoreOrologio extends Sensore {
     @Override
     @SuppressWarnings("deprecation")
     public int getValore() {
-        LocalTime now = getValoreTempo();
-        return now.getHour() * 60 + now.getMinute();
+        return SensoreOrologio.getTempo(getValoreTempo());
     }
 
     /**
@@ -70,6 +97,53 @@ public class SensoreOrologio extends Sensore {
     }
 
     /**
+     * Controlla se il tempo indicato viene prima dell'ora corrente
+     * @param time  tempo da confrontare
+     * @return  true: il tempo indicato viene prima dell'ora attuale; false: altrimenti
+     */
+    public boolean isPrima(LocalTime time) {
+        return getValoreTempo().isBefore(time);
+    }
+
+
+    /**
+     * Controlla se il tempo indicato viene dopo dell'ora corrente
+     * @param time  tempo da confrontare
+     * @return  true: il tempo indicato viene dopo dell'ora attuale; false: altrimenti
+     */
+    public boolean isDopo(LocalTime time) {
+        return getValoreTempo().isAfter(time);
+    }
+
+    /**
+     * Ritorna i minuti che mancano alla mezzanotte dall'ora attuale.
+     * @return  intero per i minuti mancanti per raggiungere la mezzanotte
+     */
+    public int getMinutiAllaMezzanotte() {
+        return SensoreOrologio.getMinutiAllaMezzanotte(getValoreTempo());
+    }
+
+    /**
+     * Ritorna il numero di minuti tra l'ora corrente e l'ora subito successiva indicata come parametro.
+     * Questo significa che se l'ora corrente e' 06.30 e il tempo passato fosse 8.00 allora viene ritornato
+     * 90 minuti; mentre se il tempo indicato fosse 06.00 allora si riferirebbe al giorno seguente e quindi
+     * si ha 407 minuti (cioe' 23 ore e mezza).
+     * @param time  tempo da confrontare
+     * @return  intero per i minuti tra l'ora corrente e l'ora indicata
+     */
+    public int getMinutiDifferenza(LocalTime time) {
+        int tempo = getTempo(time);
+
+        if (isDopo(time)) {
+            //ora indicata e' dopo l'attuale, quindi ritorno la differenza dei minuti
+            return tempo - getValore();
+        }
+        else {
+            return tempo + getMinutiAllaMezzanotte();
+        }
+    }
+
+    /**
      * Useless method.
      * @param nuovoValore no meaning
      */
@@ -81,25 +155,25 @@ public class SensoreOrologio extends Sensore {
 
     /**
      * Ritorna una HashMap contenente il valore rilevabile tempo per il SensoreOrologio.
-     * Il valore ritornato e' del tipo LocalTime e rappresenta l'ora nel momento in cui e' stato chiamato
+     * Il valore ritornato e' il numero di minuti dalla mezzanotte e rappresenta l'ora nel momento in cui e' stato chiamato
      * il metodo
-     * @return  istanza di LocalTime per il momento corrente
+     * @return  mappa contenente la coppia (NOME_INFO_RILEVABILE_OROLOGIO , intero per i minuti dalla mezzanotte)
      */
     @Override
     public HashMap<String, Object> getValori() {
-        super.setValore(NOME_INFO_RILEVABILE_OROLOGIO, getValoreTempo()); //set current time
+        super.setValore(NOME_INFO_RILEVABILE_OROLOGIO, getValore()); //set current time
         return super.getValori();
     }
 
     /**
      * Ritorna una HashMap contenente il valore rilevabile tempo per il SensoreOrologio.
-     * Il valore ritornato e' del tipo LocalTime e rappresenta l'ora nel momento in cui e' stato chiamato
+     * Il valore ritornato e' il numero di minuti dalla mezzanotte e rappresenta l'ora nel momento in cui e' stato chiamato
      * il metodo
-     * @return  istanza di LocalTime per il momento corrente
+     * @return  intero per i minuti dalla mezzanotte per il momento corrente
      */
     @Override
     public Object getValore(String nomeInfo) throws IllegalArgumentException {
-        super.setValore(NOME_INFO_RILEVABILE_OROLOGIO, getValoreTempo()); //set current time
+        super.setValore(NOME_INFO_RILEVABILE_OROLOGIO, getValore()); //set current time
         return super.getValore(nomeInfo);
     }
 

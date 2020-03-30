@@ -36,6 +36,7 @@ namespace src.domotix.model {
             }
 
             class src.domotix.model.bean.device.SensoreOrologio {
+                {static} + MINUTI_IN_UN_GIORNO : int
                 {static} + NOME_CATEGORIA : String
                 {static} + NOME_SENSORE : String
                 {static} + NOME_INFO_RILEVABILE : String
@@ -43,11 +44,17 @@ namespace src.domotix.model {
                 {static} - CATEGORIA_SENSORE : CategoriaSensore
                 {static} - instance : SensoreOrologio
                 {static} + getInstance()
+                {static} + getTempo()
+                {static} + getMinutiAllaMezzanotte()
                 - SensoreOrologio()
                 + getValore()
                 + getValori()
                 + getValoreStampabile()
                 + getValoreTempo()
+                + isPrima()
+                + isDopo()
+                + getMinutiAllaMezzanotte()
+                + getMinutiDifferenza()
                 + toString()
             }
         }
