@@ -17,6 +17,7 @@ import java.util.HashMap;
 public class SensoreOrologio extends Sensore {
 
     public static final int MINUTI_IN_UN_GIORNO = 1440; //24 ore * 60 minuti
+    public static final int MINUTI_IN_UN_ORA = 60;
     public static final String NOME_CATEGORIA_OROLOGIO = "orologio_sistema";
     public static final String NOME_SENSORE_OROLOGIO = NOME_CATEGORIA_OROLOGIO;
     public static final String NOME_INFO_RILEVABILE_OROLOGIO = "tempo";
@@ -45,6 +46,31 @@ public class SensoreOrologio extends Sensore {
     }
 
     /**
+     * Converte il tempo passato come numero minuti dalla mezzanotte in un'istanza di LocalTime
+     * @param time  intero rappresentante i minuti dalla mezzanotte
+     * @return  istanza di LocalTime
+     * @throws java.time.DateTimeException  Eccezione lanciata in caso non siano rispettati i formati
+     */
+    public static LocalTime getTempo(int time) {
+        int ore = time / MINUTI_IN_UN_ORA;
+        int minuti = time % MINUTI_IN_UN_ORA;
+        return LocalTime.of(ore, minuti);
+    }
+
+    /**
+     * Converte il tempo passato come numero double dove la parte intera rappresenta le ore e quella decimale i minuti
+     * in un'istanza di LocalTime
+     * @param time  double rappresnetante un'orario
+     * @return  istanza di LocalTime
+     * @throws java.time.DateTimeException  Eccezione lanciata in caso non siano rispettati i formati
+     */
+    public static LocalTime getTempo(double time) {
+        int ore = (int)Math.floor(time);
+        int minuti = (int)Math.floor((time - ore) * 100.0);
+        return LocalTime.of(ore, minuti);
+    }
+
+    /**
      * Ritorna i minuti che mancano alla mezzanotte dal tempo indicato.
      * @param time  tempo da confrontare
      * @return  intero per i minuti mancanti per raggiungere la mezzanotte
@@ -60,6 +86,15 @@ public class SensoreOrologio extends Sensore {
      */
     public static int getMinutiAllaMezzanotte(int time) {
         return MINUTI_IN_UN_GIORNO - time;
+    }
+
+    /**
+     * Ritorna l'ora indicata dal parametro in formato  HH.mm  stampabile come stringa
+     * @return  stringa con l'ora indicata
+     */
+    public static String getValoreStampabile(LocalTime time) {
+        DateTimeFormatter dtf =  DateTimeFormatter.ofPattern("HH.mm");
+        return dtf.format(time);
     }
 
     /**
@@ -84,8 +119,7 @@ public class SensoreOrologio extends Sensore {
      * @return  stringa con l'ora corrente
      */
     public String getValoreStampabile() {
-        DateTimeFormatter dtf =  DateTimeFormatter.ofPattern("HH.mm");
-        return dtf.format(getValoreTempo());
+        return getValoreStampabile(getValoreTempo());
     }
 
     /**

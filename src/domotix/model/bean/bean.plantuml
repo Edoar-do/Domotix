@@ -37,6 +37,7 @@ namespace src.domotix.model {
 
             class src.domotix.model.bean.device.SensoreOrologio {
                 {static} + MINUTI_IN_UN_GIORNO : int
+                {static} + MINUTI_IN_UN_ORA : int
                 {static} + NOME_CATEGORIA : String
                 {static} + NOME_SENSORE : String
                 {static} + NOME_INFO_RILEVABILE : String
@@ -46,6 +47,7 @@ namespace src.domotix.model {
                 {static} + getInstance()
                 {static} + getTempo()
                 {static} + getMinutiAllaMezzanotte()
+                {static} + getValoreStampabile()
                 - SensoreOrologio()
                 + getValore()
                 + getValori()
@@ -86,7 +88,7 @@ namespace src.domotix.model {
             enum src.domotix.model.bean.regole.StatoRegola {
                 ATTIVA
                 SOSPESA
-                DISATTIVA_UTENTE
+                DISATTIVA
             }
 
             class src.domotix.model.bean.regole.Antecedente {
@@ -119,6 +121,7 @@ namespace src.domotix.model {
                 - start : Integer
                 + Azione()
                 + getStart()
+                + getEpochStart()
             }
         }
     }
