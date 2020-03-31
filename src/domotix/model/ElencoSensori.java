@@ -3,6 +3,7 @@ package domotix.model;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
+import domotix.model.bean.device.SensoreOrologio;
 import domotix.model.util.SommarioDispositivi;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class ElencoSensori extends SommarioDispositivi {
 
     private ElencoSensori() {
         super();
+        elaboraAggiunta(SensoreOrologio.getInstance());
     }
 
     @Override
