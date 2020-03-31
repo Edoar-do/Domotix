@@ -9,10 +9,7 @@ import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Sistema;
 import domotix.model.bean.system.Stanza;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**Classe per implementare una parte di logica controller relativa al recupero di informazioni sulle entita'.
@@ -356,8 +353,24 @@ public class Recuperatore {
      * @return un array dei nomi dei sensori dell'unità immobiliare
      */
     public static String[] getNomiSensori(String unita){
-        Sensore [] sensori = getUnita(unita).getSensori();
-        return Stream.of(sensori).map(a -> a.getNome()).toArray(String[]::new);
+        return getNomiSensori(unita, false);
+    }
+
+    /**
+     * Metodo che recupera i nomi dei sensori presenti in un'unita' immobiliare
+     * @param unita da cui pescare i nomi dei sensori
+     * @param includiOrologio   true: include in elenco il sensore universale SensoreOrologio; false: altrimenti
+     * @return un array dei nomi dei sensori dell'unità immobiliare
+     */
+    public static String[] getNomiSensori(String unita, boolean includiOrologio){
+        ArrayList<Sensore> sensori = new ArrayList<>();
+
+        if (includiOrologio)
+            sensori.add(SensoreOrologio.getInstance());
+
+        Sensore [] sensoriUnita = getUnita(unita).getSensori();
+        sensori.addAll(Arrays.asList(sensoriUnita));
+        return sensori.stream().map(a -> a.getNome()).toArray(String[]::new);
     }
 
     /**
