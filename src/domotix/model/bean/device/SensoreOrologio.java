@@ -16,6 +16,7 @@ import java.util.HashMap;
  */
 public class SensoreOrologio extends Sensore {
 
+    public static final DateTimeFormatter TIME_FORMATTER =  DateTimeFormatter.ofPattern("HH.mm");
     public static final int MINUTI_IN_UN_GIORNO = 1440; //24 ore * 60 minuti
     public static final int MINUTI_IN_UN_ORA = 60;
     public static final String NOME_CATEGORIA_OROLOGIO = "orologio_sistema";
@@ -93,8 +94,7 @@ public class SensoreOrologio extends Sensore {
      * @return  stringa con l'ora indicata
      */
     public static String getValoreStampabile(LocalTime time) {
-        DateTimeFormatter dtf =  DateTimeFormatter.ofPattern("HH.mm");
-        return dtf.format(time);
+        return TIME_FORMATTER.format(time);
     }
 
     /**

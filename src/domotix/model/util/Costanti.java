@@ -91,11 +91,13 @@ public final class Costanti {
     public static final String NODO_XML_INFO_SENSORIALE_SENSORE = "sensore";
     public static final String NODO_XML_INFO_SENSORIALE_INFO_RILEV = "info_rilevabile";
     public static final String NODO_XML_INFO_SENSORIALE_COSTANTE = "valore";
+    public static final String NODO_XML_INFO_SENSORIALE_TEMPORALE = "tempo";
     public static final String NODO_XML_CONSEGUENTE = "conseguente";
     public static final String NODO_XML_AZIONE = "azione";
     public static final String NODO_XML_AZIONE_ATTUATORE = "attuatore";
     public static final String NODO_XML_AZIONE_MODALITA = "modalita";
     public static final String NODO_XML_AZIONE_PARAMETRO = "parametro";
+    public static final String NODO_XML_AZIONE_START = "start";
 
 
 

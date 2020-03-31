@@ -36,6 +36,7 @@ namespace src.domotix.model {
             }
 
             class src.domotix.model.bean.device.SensoreOrologio {
+                {static} + TIME_FORMATTER : DateTimeFormatter
                 {static} + MINUTI_IN_UN_GIORNO : int
                 {static} + MINUTI_IN_UN_ORA : int
                 {static} + NOME_CATEGORIA : String

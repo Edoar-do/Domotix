@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static domotix.model.bean.regole.StatoRegola.ATTIVA;
+import static domotix.model.bean.regole.StatoRegola.DISATTIVA;
 
 /**
  * Classe che rappresenta una delle regole periodicamente eseguite.
@@ -28,7 +29,7 @@ public class Regola {
     }
 
     public Regola() {
-        this(ATTIVA, null, new Conseguente());
+        this(DISATTIVA, null, new Conseguente());
     }
 
     public boolean contieneSensore(String nome) {

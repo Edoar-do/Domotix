@@ -14,6 +14,8 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -154,6 +156,7 @@ public enum LettoriXML {
             Attuatore att;
             Modalita modalita;
             ArrayList<Parametro> parametri = new ArrayList<>();
+            LocalTime start = null;
 
             //estrazione elementi
             NodeList childs = el.getElementsByTagName(Costanti.NODO_XML_AZIONE_ATTUATORE);
@@ -186,8 +189,14 @@ public enum LettoriXML {
                 }
             }
 
+            childs = el.getElementsByTagName(Costanti.NODO_XML_AZIONE_START);
+            if (childs.getLength() > 0) {
+                String startStr = childs.item(0).getTextContent();
+                start = LocalTime.parse(startStr, SensoreOrologio.TIME_FORMATTER);
+            }
+
             //ritorno istanza corretta
-            return new Azione(att, modalita, parametri);
+            return new Azione(att, modalita, parametri, start);
         }
         else
             throw new NoSuchElementException("LettoriXML.AZIONE.getInstance(): elemento " + el.getTagName() + "non di tipo " + Costanti.NODO_XML_AZIONE);
@@ -245,7 +254,8 @@ public enum LettoriXML {
                 } else
                     throw new NoSuchElementException("LettoriXML.INFO_SENSORIALE.getInstance(): elemento " + Costanti.NODO_XML_INFO_SENSORIALE_INFO_RILEV + " assente.");
 
-            } else {
+            }
+            if (info == null) {
                 //Traduco un'informazione sensoriale di tipo costante
                 childs = el.getElementsByTagName(Costanti.NODO_XML_INFO_SENSORIALE_COSTANTE);
                 if (childs.getLength() > 0) {
@@ -253,33 +263,46 @@ public enum LettoriXML {
                     String valoreCostanteStr = childs.item(0).getTextContent();
                     Object valore = null;
 
+                    //provo a leggerlo come intero
                     try {
                         int numInt = Integer.parseInt(valoreCostanteStr);
                         valore = numInt;
                     } catch (NumberFormatException e) {
                         //nothing
                     }
-
                     if (valore == null) {
-                        //valore non intero
+                        //valore non intero --> provo double
                         try {
                             double numDouble = Double.parseDouble(valoreCostanteStr);
                             valore = numDouble;
                         } catch (NumberFormatException e) {
                             //nothing
                         }
-
-                        if (valore == null) {
-                            //valore non intero e non double --> allora stringa
-                            valore = valoreCostanteStr;
-                        }
+                    }
+                    if (valore == null) {
+                        //valore non dei tipi precedenti --> allora stringa
+                        valore = valoreCostanteStr;
                     }
 
                     info = new InfoCostante(valore);
-
-                } else //malformazione
-                    throw new NoSuchElementException("LettoriXML.INFO_SENSORIALE.getInstance(): elemento " + Costanti.NODO_XML_REGOLA_STATO + " assente.");
+                }
             }
+            if (info == null) {
+                //Traduco un'informazione sensoriale di tipo tempo
+                childs = el.getElementsByTagName(Costanti.NODO_XML_INFO_SENSORIALE_TEMPORALE);
+                if (childs.getLength() > 0) {
+                    //Traduco un'informazione sensoriale di tipo varibile
+                    String valoreStr = childs.item(0).getTextContent();
+                    LocalDateTime valore = null;
+
+                    //traduco l'ora con il formato di sistema
+                    valore = LocalDateTime.parse(valoreStr, SensoreOrologio.TIME_FORMATTER);
+
+                    info = new InfoTemporale(valore);
+                }
+            }
+            if (info == null) //malformazione
+                throw new NoSuchElementException("LettoriXML.INFO_SENSORIALE.getInstance(): elemento " + Costanti.NODO_XML_INFO_SENSORIALE + " con formato non gestito.");
 
             //ritorno istanza corretta
             return info;

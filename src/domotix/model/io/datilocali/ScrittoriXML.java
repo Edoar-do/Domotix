@@ -162,6 +162,12 @@ public enum ScrittoriXML {
                 root.appendChild(elem);
             }
 
+            if (azione.getStart() != null) {
+                elem = doc.createElement(Costanti.NODO_XML_AZIONE_START);
+                elem.appendChild(doc.createTextNode(azione.getStart().format(SensoreOrologio.TIME_FORMATTER)));
+                root.appendChild(elem);
+            }
+
             return root;
         } else
             throw new IllegalArgumentException("ScrittoriXML.AZIONE.compileInstance(): impossibile compilare oggetto non Azione");
@@ -213,6 +219,18 @@ public enum ScrittoriXML {
             //popola elemento base
             Element elem = doc.createElement(Costanti.NODO_XML_INFO_SENSORIALE_COSTANTE);
             elem.appendChild(doc.createTextNode(infoCostante.getInfo().toString()));
+            root.appendChild(elem);
+
+            return root;
+        } else if (obj instanceof InfoTemporale) {
+            InfoTemporale infoTemporale = (InfoTemporale) obj;
+
+            //crea elemento base
+            Element root = doc.createElement(Costanti.NODO_XML_INFO_SENSORIALE);
+
+            //popola elemento base
+            Element elem = doc.createElement(Costanti.NODO_XML_INFO_SENSORIALE_TEMPORALE);
+            elem.appendChild(doc.createTextNode(infoTemporale.getTempo().format(SensoreOrologio.TIME_FORMATTER)));
             root.appendChild(elem);
 
             return root;

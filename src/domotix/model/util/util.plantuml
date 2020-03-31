@@ -6,6 +6,8 @@ namespace src.domotix.model {
     namespace util {
         class src.domotix.model.util.Costanti {
             {static} + PERCORSO_CARTELLA_AZIONI_PROGRAMMATE : String
+            {static} + NODO_XML_INFO_SENSORIALE_TEMPORALE : String
+            {static} + NODO_XML_AZIONE_START : String
         }
 
         class src.domotix.model.util.ElencoDispositivi {

@@ -42,7 +42,7 @@ public class TimerGestioneRegole {
         for (UnitaImmobiliare u : ElencoUnitaImmobiliari.getInstance().getUnita()) {
             for (Regola r : u.getRegole()) {
                 //se la regola e' attiva e l'antecedente risulta verificato allora eseguo
-                if (r.getStato().equals(StatoRegola.ATTIVA) && r.getAntecedente().valuta()) {
+                if (r.getStato().equals(StatoRegola.ATTIVA)) {
                     r.esegui();
                 }
             }
