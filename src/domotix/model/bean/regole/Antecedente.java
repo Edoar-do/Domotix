@@ -71,7 +71,7 @@ public class Antecedente {
     public void addCondizione(Condizione nuovaCondizione) {
         Antecedente current = this;
         while (current.prossimoAntecedente != null) current = current.prossimoAntecedente;
-        current.prossimoAntecedente = new Antecedente(condizione);
+        current.prossimoAntecedente = new Antecedente(nuovaCondizione);
     }
 
     /**
@@ -87,7 +87,7 @@ public class Antecedente {
         Antecedente current = this;
         while (current.prossimoAntecedente != null) current = current.prossimoAntecedente;
         current.operatoreLogico = nuovoOperatore;
-        current.prossimoAntecedente = new Antecedente(condizione);
+        current.prossimoAntecedente = new Antecedente(nuovaCondizione);
     }
 
     /**
@@ -96,7 +96,9 @@ public class Antecedente {
      * @param antecedente   antecedente da aggiungere
      */
     public void addAntecedente(Antecedente antecedente) {
-        addAntecedente(this.operatoreLogico, antecedente);
+        Antecedente current = this;
+        while (current.prossimoAntecedente != null) current = current.prossimoAntecedente;
+        current.prossimoAntecedente = antecedente;
     }
 
     /**

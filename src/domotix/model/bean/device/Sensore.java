@@ -117,6 +117,7 @@ public class Sensore extends Dispositivo {
     public String toString() {
         StringBuffer buffer = new StringBuffer();
         buffer.append(getNome());
+        buffer.append("[" + (getStato() ? "ON" : "OFF") + "]");
         valori.forEach((k, v) -> buffer.append("\n" + StringUtil.indent(k + " = " + v, 1)));
         return buffer.toString();
     }

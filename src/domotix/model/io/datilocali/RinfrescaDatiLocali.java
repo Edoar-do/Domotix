@@ -38,7 +38,6 @@ public class RinfrescaDatiLocali extends RinfrescaDatiAdapter {
     public void rinfrescaSensori(ElencoSensori elenco) throws Exception {
         for (Sensore s : elenco.getDispositivi()) {
             Sensore letto = LetturaDatiSalvati.getInstance().leggiSensore(s.getNome());
-            s.setStato(letto.getStato());
             for (String nomeInfo : s.getValori().keySet()) {
                 s.setValore(nomeInfo, letto.getValore(nomeInfo));
             }
