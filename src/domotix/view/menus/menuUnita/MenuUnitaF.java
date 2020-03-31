@@ -3,6 +3,7 @@ package domotix.view.menus.menuUnita;
 import domotix.controller.Modificatore;
 import domotix.controller.Recuperatore;
 import domotix.controller.Verificatore;
+import domotix.model.bean.device.SensoreOrologio;
 import domotix.view.InputDati;
 import domotix.view.MyMenu;
 import domotix.controller.util.StringUtil;
@@ -142,7 +143,7 @@ public class MenuUnitaF {
                                 System.out.println(SUCCESSO_INSERIMENTO_REL_OP);
                             }
                             System.out.println(SCELTA_RHS);
-                            if (lhs.equals("time")) { //allora lo obbligo a scegliere un orario double
+                            if (lhs.equals(SensoreOrologio.NOME_SENSORE_OROLOGIO + "." + SensoreOrologio.NOME_INFO_RILEVABILE_OROLOGIO)) { //allora lo obbligo a scegliere un orario double
                                 double rhsOrario = InputDati.leggiDoubleConMinimo(INSERIMENTO_RHS_ORA, 0.0);
                                 if (Verificatore.checkValiditaOrario(rhsOrario)) {
                                     if (Modificatore.aggiungiComponenteAntecedente(lhs, relOp, rhsOrario, nomeUnitaSuCuiLavorare, IDregolaNuova))
@@ -262,7 +263,7 @@ public class MenuUnitaF {
     }
 
     private static String sceltaLhs(String unita) {
-        if (InputDati.yesOrNo(CONDIZIONE_TEMPORALE)) return "time";
+        //if (InputDati.yesOrNo(CONDIZIONE_TEMPORALE)) return "time";
         String nomeSensoreScelto = premenuSensori(unita);
         if (nomeSensoreScelto == null) return null;
         String infoRilevabile = premenuInfo(nomeSensoreScelto);
@@ -280,7 +281,7 @@ public class MenuUnitaF {
     }
 
     private static String premenuSensori(String unita) {
-        String[] sensori = Recuperatore.getNomiSensori(unita);
+        String[] sensori = Recuperatore.getNomiSensori(unita, true); // con true include anche il sensore orologio
         MyMenu m = new MyMenu(String.format(SENSORI_UNITA, unita), sensori);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : sensori[scelta - 1];
