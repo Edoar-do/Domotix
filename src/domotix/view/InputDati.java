@@ -111,7 +111,7 @@ public class InputDati
 	     catch (InputMismatchException | NumberFormatException e)
 	      {
 	       out.println(ERRORE_FORMATO);
-	       String daButtare = lettore.next();
+	       String daButtare = lettore.nextLine();
 	      }
 	    } while (!finito);
 	   return valoreLetto;
