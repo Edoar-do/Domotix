@@ -63,14 +63,14 @@ public class MenuGestioneUnitaF {
         }while(sceltaMenu != 0);
     }
 
-    private static String premenuAttuatoriUnita(String unita) {
+    private static String premenuSensoriUnita(String unita) {
         String[] sensoriUnita = Recuperatore.getNomiSensori(unita);
         MyMenu m = new MyMenu(SENSORI_UNITA, sensoriUnita);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : sensoriUnita[scelta-1];
     }
 
-    private static String premenuSensoriUnita(String unita){
+    private static String premenuAttuatoriUnita(String unita){
         String[] attuatoriUnita = Recuperatore.getNomiAttuatori(unita);
         MyMenu m = new MyMenu(ATTUATORI_UNITA, attuatoriUnita);
         int scelta = m.scegli(INDIETRO);
