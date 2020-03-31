@@ -459,8 +459,9 @@ public class Modificatore {
     }
 
     private static InfoVariabile costruisciInfoDaSensore(String sinistroVar) {
-        String nomeSensore = sinistroVar.split(Pattern.quote("."))[0];
-        String nomeInfo = sinistroVar.split(Pattern.quote("."))[1];
+        String[] campi = sinistroVar.split(Pattern.quote("."));
+        String nomeSensore = campi[0];
+        String nomeInfo = campi[1];
         Sensore sensore = Recuperatore.getSensore(nomeSensore);
         InfoVariabile sinistro = new InfoVariabile(sensore, nomeInfo);
         return sinistro;
@@ -603,7 +604,7 @@ public class Modificatore {
         listaParams.forEach((k, v) -> parametri.add(new Parametro(k, v)));
         Recuperatore.getUnita(unita)
                 .getRegola(idRegola)
-                .addAzione(new Azione(att, mod, parametri, LocalTime.of(Integer.parseInt(orario.split(Pattern.quote("."))[0]), Integer.parseInt(orario.split(Pattern.quote("."))[1]))));
+                .addAzione(new Azione(att, mod, parametri, SensoreOrologio.getTempo(orarioStart)));
         return true;
     }
 

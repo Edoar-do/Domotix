@@ -212,8 +212,10 @@ public class MenuUnitaF {
                             continue;
                         }
                         if (!InputDati.yesOrNo(CONTINUARE_CON_CONSEGUENTE)) {
-                            if (almenoUnaAzione)
+                            if (almenoUnaAzione) {
+                                Modificatore.cambioStatoRegola(IDregolaNuova, nomeUnitaSuCuiLavorare); //CAMBIA LO STATO DELLA REGOLA DA DISATTIVA AD ATTIVA PERCHE' VIENE CREATA DISATTIVA
                                 break;
+                            }
                             System.out.println(ALMENO_UNA_AZIONE);
                         }
                     }
