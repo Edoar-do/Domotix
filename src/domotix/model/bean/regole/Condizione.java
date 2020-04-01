@@ -74,22 +74,29 @@ public class Condizione {
      * @return Il valore della condizione.
      */
     public boolean valuta() {
-        Object valSinistro = sinistra.getValore();
-        Object valDestro = destra.getValore();
+//        try{
+            Object valSinistro = sinistra.getValore();
+            Object valDestro = destra.getValore();
 
-        switch (operatore) {
-            case MAGGIORE:
-                return (Double) valSinistro > (Double) valDestro;
-            case MAGGIORE_UGUALE:
-                return (Double) valSinistro >= (Double) valDestro;
-            case MINORE:
-                return (Double) valSinistro < (Double) valDestro;
-            case MINORE_UGUALE:
-                return (Double) valSinistro <= (Double) valDestro;
-            case UGUALE:
-                return valSinistro.equals(valDestro);
-        }
-        return false;
+            switch (operatore) {
+                case MAGGIORE:
+                    return (Double) valSinistro > (Double) valDestro;
+                case MAGGIORE_UGUALE:
+                    return (Double) valSinistro >= (Double) valDestro;
+                case MINORE:
+                    return (Double) valSinistro < (Double) valDestro;
+                case MINORE_UGUALE:
+                    return (Double) valSinistro <= (Double) valDestro;
+                case UGUALE:
+                    return valSinistro.equals(valDestro);
+            }
+            return false;
+//        }catch(ClassCastException e){
+//            System.out.println("sinistra  " + sinistra.getClass().getName());
+//            System.out.println("destra  " + sinistra.getClass().getName());
+//        }finally {
+//            return false;
+//        }
     }
 
     public boolean contieneSensore(String nome) {

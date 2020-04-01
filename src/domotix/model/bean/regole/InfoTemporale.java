@@ -3,6 +3,7 @@ package domotix.model.bean.regole;
 import domotix.controller.util.StringUtil;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 
 /**
@@ -16,13 +17,15 @@ public class InfoTemporale implements InfoSensoriale {
         this.tempo = tempo;
     }
 
+    public InfoTemporale(LocalTime tempo){this.tempo = LocalDateTime.of(1998, 1, 1, tempo.getHour(), tempo.getMinute()); } //porcata fatta da me
+
     public LocalDateTime getTempo() {
         return tempo;
     }
 
     @Override
     public Object getValore() {
-        return tempo.getHour() * 60 + tempo.getMinute();
+        return  (double) (tempo.getHour() * 60 + tempo.getMinute()); //cast a double fatto da me
     }
 
     @Override

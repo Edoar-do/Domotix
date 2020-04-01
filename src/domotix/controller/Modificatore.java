@@ -467,11 +467,17 @@ public class Modificatore {
         return sinistro;
     }
 
+    //logica if else fatta da me
     private static boolean aggiungiComponenteCostanteAntecedente(String sinistroVar, String op, Object destroConst, String unita, String idRegola) {
         try {
             Regola regola = Recuperatore.getUnita(unita).getRegola(idRegola);
             InfoVariabile sinistro = costruisciInfoDaSensore(sinistroVar);
-            InfoCostante destro = new InfoCostante(destroConst);
+            InfoSensoriale destro;
+            if(sinistroVar.equals(SensoreOrologio.NOME_SENSORE_OROLOGIO + "." + SensoreOrologio.NOME_INFO_RILEVABILE_OROLOGIO)){
+                    destro = new InfoTemporale(SensoreOrologio.getTempo((Double) destroConst));
+            }else {
+                destro = new InfoCostante(destroConst);
+            }
             regola.addCondizone(new Condizione(sinistro, op, destro));
             return true;
         } catch (IllegalArgumentException e) {

@@ -206,8 +206,8 @@ public class SensoreOrologio extends Sensore {
      * @return  intero per i minuti dalla mezzanotte per il momento corrente
      */
     @Override
-    public Object getValore(String nomeInfo) throws IllegalArgumentException {
-        super.setValore(NOME_INFO_RILEVABILE_OROLOGIO, getValore()); //set current time
+    public Object getValore(String nomeInfo) throws IllegalArgumentException { //cast a double fatto da me
+        super.setValore(NOME_INFO_RILEVABILE_OROLOGIO, (double) getValore()); //set current time
         return super.getValore(nomeInfo);
     }
 
