@@ -68,8 +68,15 @@ namespace src.domotix.model {
             }
 
             class src.domotix.model.io.datilocali.ScritturaDatiLocali {
+                - salvaEntita()
                 + salva()
             }
+
+            note top of [src.domotix.model.io.datilocali.ScritturaDatiLocali]
+              il metodo privato salvaEntita() coincide con il precedente salva().
+              Il refactor si e' reso necessario per errore di overload
+              per i parametri (String, Azione)
+            end note
 
             class src.domotix.model.io.datilocali.RinfrescaDatiLocali {
             }

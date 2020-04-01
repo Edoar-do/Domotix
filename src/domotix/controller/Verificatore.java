@@ -27,6 +27,19 @@ public class Verificatore {
         return ElencoUnitaImmobiliari.getInstance().getUnita(nome) == null;
     }
 
+    /**
+     * Verifica che il valore passato come parametro coincida con il nome del sensore orologio oppure alla composizione
+     * del nome del sensore orologio con la sua informazione rilevabile (composizione tramite un punto '.')
+     *
+     * @param valore    stringa da controllare
+     * @return  true: coincide con i dati del SensoreOrologio; false: altrimenti;
+     * @see SensoreOrologio
+     */
+    public static boolean checkIsSensoreOrologio(String valore) {
+        return valore.equals(SensoreOrologio.NOME_SENSORE_OROLOGIO) ||
+                    valore.equals(SensoreOrologio.NOME_SENSORE_OROLOGIO + "." + SensoreOrologio.NOME_INFO_RILEVABILE_OROLOGIO);
+    }
+
     public static boolean checkValiditaOperatoreLogico(String oplog) {
         return Antecedente.OPERATORE_AND.equals(oplog) || Antecedente.OPERATORE_OR.equals(oplog);
     }

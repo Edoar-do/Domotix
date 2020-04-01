@@ -52,6 +52,7 @@ public class TimerAzioniProgrammate {
                             Azione a = ElencoAzioniProgrammate.getInstance().getAzione(s); //recupero l'azione
                             long delay = SensoreOrologio.getInstance().getMinutiDifferenza(a.getStart()) * 60000; //ricavo il tempo in millisecondi
                             timerAzione.schedule(new TimerTaskAzione(s, a, getInstance()), delay); //schedulo l'azione
+                            azioniPianificate.add(s);
                             //la classe TimerTaskAzione esegue l'azione e richiama il metodo consume
                 });
             }

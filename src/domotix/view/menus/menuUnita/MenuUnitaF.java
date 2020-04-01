@@ -143,7 +143,7 @@ public class MenuUnitaF {
                                 System.out.println(SUCCESSO_INSERIMENTO_REL_OP);
                             }
                             System.out.println(SCELTA_RHS);
-                            if (lhs.equals(SensoreOrologio.NOME_SENSORE_OROLOGIO + "." + SensoreOrologio.NOME_INFO_RILEVABILE_OROLOGIO)) { //allora lo obbligo a scegliere un orario double
+                            if (Verificatore.checkIsSensoreOrologio(lhs)) { //allora lo obbligo a scegliere un orario double
                                 double rhsOrario = InputDati.leggiDoubleConMinimo(INSERIMENTO_RHS_ORA, 0.0);
                                 if (Verificatore.checkValiditaOrario(rhsOrario)) {
                                     if (Modificatore.aggiungiComponenteAntecedente(lhs, relOp, rhsOrario, nomeUnitaSuCuiLavorare, IDregolaNuova))

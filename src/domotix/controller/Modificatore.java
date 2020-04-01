@@ -473,7 +473,7 @@ public class Modificatore {
             Regola regola = Recuperatore.getUnita(unita).getRegola(idRegola);
             InfoVariabile sinistro = costruisciInfoDaSensore(sinistroVar);
             InfoSensoriale destro;
-            if(sinistroVar.equals(SensoreOrologio.NOME_SENSORE_OROLOGIO + "." + SensoreOrologio.NOME_INFO_RILEVABILE_OROLOGIO)){
+            if(Verificatore.checkIsSensoreOrologio(sinistroVar)){
                     destro = new InfoTemporale(SensoreOrologio.getTempo((Double) destroConst));
             }else {
                 destro = new InfoCostante(destroConst);

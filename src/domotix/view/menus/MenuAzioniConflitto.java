@@ -9,7 +9,7 @@ import domotix.view.MyMenu;
 import java.util.ArrayList;
 
 public class MenuAzioniConflitto {
-    private static final String NESSUNA = "Nessuna delle precedenti";
+    private static final String NESSUNA = "Nessuna delle presenti";
     private static final String TITOLO_ELIMINA = "Seleziona quale azione ignorare ed eliminare: ";
     private static final String TITOLO_ESEGUI = "Seleziona quale azione eseguire immediatamente: ";
 
@@ -39,10 +39,10 @@ public class MenuAzioniConflitto {
     }
 
     private static void premenuElimina(ArrayList<String> idAzioni, ArrayList<String> descrizioniAzioni) {
-        menu = new MyMenu(TITOLO_ELIMINA, descrizioniAzioni.toArray(new String[0]));
         int sceltaMenu = 0;
 
         do {
+            menu = new MyMenu(TITOLO_ELIMINA, descrizioniAzioni.toArray(new String[0]));
             sceltaMenu = menu.scegli(NESSUNA);
 
             if (sceltaMenu > 0) {
@@ -56,10 +56,10 @@ public class MenuAzioniConflitto {
     }
 
     private static void premenuEsegui(ArrayList<String> idAzioni, ArrayList<String> descrizioniAzioni) {
-        menu = new MyMenu(TITOLO_ESEGUI, descrizioniAzioni.toArray(new String[0]));
         int sceltaMenu = 0;
 
         do {
+            menu = new MyMenu(TITOLO_ESEGUI, descrizioniAzioni.toArray(new String[0]));
             sceltaMenu = menu.scegli(NESSUNA);
 
             if (sceltaMenu > 0) {

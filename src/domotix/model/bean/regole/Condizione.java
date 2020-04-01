@@ -74,29 +74,36 @@ public class Condizione {
      * @return Il valore della condizione.
      */
     public boolean valuta() {
-//        try{
-            Object valSinistro = sinistra.getValore();
-            Object valDestro = destra.getValore();
+        Object valSinistro = sinistra.getValore();
+        Object valDestro = destra.getValore();
+
+        //Test su dati numerici
+        if (Number.class.isAssignableFrom(valSinistro.getClass()) &&
+                Number.class.isAssignableFrom(valDestro.getClass())) {
+            double numSinistra = ((Number)valSinistro).doubleValue();
+            double numDestra = ((Number)valDestro).doubleValue();
 
             switch (operatore) {
                 case MAGGIORE:
-                    return (Double) valSinistro > (Double) valDestro;
+                    return numSinistra > numDestra;
                 case MAGGIORE_UGUALE:
-                    return (Double) valSinistro >= (Double) valDestro;
+                    return numSinistra >= numDestra;
                 case MINORE:
-                    return (Double) valSinistro < (Double) valDestro;
+                    return numSinistra < numDestra;
                 case MINORE_UGUALE:
-                    return (Double) valSinistro <= (Double) valDestro;
+                    return numSinistra <= numDestra;
                 case UGUALE:
-                    return valSinistro.equals(valDestro);
+                    return numSinistra == numDestra;
             }
-            return false;
-//        }catch(ClassCastException e){
-//            System.out.println("sinistra  " + sinistra.getClass().getName());
-//            System.out.println("destra  " + sinistra.getClass().getName());
-//        }finally {
-//            return false;
-//        }
+        }
+
+        //test su dati non numerici
+        if (operatore.equals(UGUALE)) {
+            //entrambi gli equals in or per consentire ai possibili equals di classi figlie con controlli diversi
+            return valSinistro.equals(valDestro) || valDestro.equals(valSinistro);
+        }
+
+        return false;
     }
 
     public boolean contieneSensore(String nome) {

@@ -16,12 +16,14 @@ public class Regola {
     private StatoRegola stato;
     private Antecedente antecedente;
     private Conseguente conseguente;
+    private boolean eseguita; //booleano utilizzato come rilevatore di fronte per l'esecuzione del conseguente
 
     public Regola(String id, StatoRegola stato, Antecedente antecedente, Conseguente conseguente) {
         this.id = id;
         this.stato = stato;
         this.antecedente = antecedente;
         this.conseguente = conseguente;
+        this.eseguita = false;
     }
 
     public Regola(StatoRegola stato, Antecedente antecedente, Conseguente conseguente) {
@@ -84,6 +86,7 @@ public class Regola {
 
     /**
      * Metodo che viene eseguito se la regola e' attiva.
+     * Attenzione: viene posto un rilevatore di fronte sull'antecedente, in modo che questo
      * Viene valutato l'antecedente. Se risulta true, viene eseguito il conseguente.
      */
     public void esegui() {
@@ -91,8 +94,13 @@ public class Regola {
 
         // antecedente == null equivale a dire condizione sempre true
         if (antecedente == null || antecedente.valuta()) {
-            conseguente.esegui();
+            if (!eseguita) { //controllo che esegua solo se al fronte di attivazione della condizione
+                conseguente.esegui(this.id);
+                eseguita = true; //inibisce eventuali ripetizioni per la stessa volta in cui soddisfatto l'antecedente
+            }
         }
+        else
+            eseguita = false; //reset di fronte
     }
 
     /**

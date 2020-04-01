@@ -7,7 +7,6 @@ import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.model.io.ScritturaDatiSalvati;
 import domotix.model.io.ScritturaDatiSalvatiAdapter;
-import domotix.model.util.Costanti;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -61,6 +60,7 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
 
         //Popolo la tabella degli scrittori
         scrittori = new HashMap<>();
+        scrittori.put(Azione.class, ScrittoriXML.AZIONE);
         scrittori.put(Regola.class, ScrittoriXML.REGOLA);
         scrittori.put(Antecedente.class, ScrittoriXML.ANTECEDENTE);
         scrittori.put(Conseguente.class, ScrittoriXML.CONSEGUENTE);
@@ -75,7 +75,7 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
         scrittori.put(CategoriaSensore.class, ScrittoriXML.CATEGORIA_SENSORE);
     }
 
-    private void salva(String path, Object obj) throws TransformerException, IOException, ParserConfigurationException {
+    private void salvaEntita(String path, Object obj) throws TransformerException, IOException, ParserConfigurationException {
         Document doc = documentBuilder.newDocument();
         File docFile = new File(path);
 
@@ -116,13 +116,13 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
         }
 
         String path = PercorsiFile.getInstance().getPercorsoCategoriaSensore(cat.getNome());
-        salva(path, cat);
+        salvaEntita(path, cat);
     }
 
     @Override
     public void salva(InfoRilevabile info, String cat) throws TransformerException, IOException, ParserConfigurationException {
         String path = PercorsiFile.getInstance().getPercorsoInformazioneRilevabile(info.getNome(), cat);
-        salva(path, info);
+        salvaEntita(path, info);
     }
 
     @Override
@@ -134,13 +134,13 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
 
         //salva la categoria
         String path = PercorsiFile.getInstance().getPercorsoCategoriaAttuatore(cat.getNome());
-        salva(path, cat);
+        salvaEntita(path, cat);
     }
 
     @Override
     public void salva(Modalita modalita, String cat) throws TransformerException, IOException, ParserConfigurationException {
         String path = PercorsiFile.getInstance().getPercorsoModalita(modalita.getNome(), cat);
-        salva(path, modalita);
+        salvaEntita(path, modalita);
     }
 
     @Override
@@ -164,7 +164,7 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
 
         //salva l'unita immobiliare
         String path = PercorsiFile.getInstance().getPercorsoUnitaImmobiliare(unita.getNome());
-        salva(path, unita);
+        salvaEntita(path, unita);
     }
 
     @Override
@@ -182,7 +182,7 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
 
         //salva l'unita immobiliare
         String path = PercorsiFile.getInstance().getPercorsoStanza(stanza.getNome(), unita);
-        salva(path, stanza);
+        salvaEntita(path, stanza);
     }
 
     @Override
@@ -197,13 +197,13 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
 
         //salva l'unita immobiliare
         String path = PercorsiFile.getInstance().getPercorsoArtefatto(artefatto.getNome(), unita);
-        salva(path, artefatto);
+        salvaEntita(path, artefatto);
     }
 
     @Override
     public void salva(Sensore sensore) throws TransformerException, IOException, ParserConfigurationException {
         String path = PercorsiFile.getInstance().getPercorsoSensore(sensore.getNome());
-        salva(path, sensore);
+        salvaEntita(path, sensore);
     }
 
     @Override
@@ -213,18 +213,18 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
         //Pertanto e' necessario risalvare la categoria in caso di aggiunta di nuova modalita'
 
         String path = PercorsiFile.getInstance().getAttuatore(attuatore.getNome());
-        salva(path, attuatore);
+        salvaEntita(path, attuatore);
     }
 
     @Override
     public void salva(Regola regola, String unita) throws Exception {
         String path = PercorsiFile.getInstance().getPercorsoRegola(regola.getId(), unita);
-        salva(path, regola);
+        salvaEntita(path, regola);
     }
 
     @Override
     public void salva(String id, Azione azione) throws Exception {
         String path = PercorsiFile.getInstance().getPercorsoAzioneProgrammabile(id);
-        salva(path, azione);
+        salvaEntita(path, azione);
     }
 }

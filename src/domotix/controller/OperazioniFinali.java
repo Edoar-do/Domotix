@@ -114,6 +114,16 @@ public class OperazioniFinali {
                 result.set(false);
             }
         });
+        //Salvo Azioni programmate logiche presenti
+        ElencoAzioniProgrammate.getInstance().getAzioni().forEach((id,azione) -> {
+            try {
+                ScritturaDatiSalvati.getInstance().salva(id, azione);
+            } catch (Exception e) {
+                LogErrori.getInstance().put(e.getMessage());
+                StoreIstanzeErrori.getInstance().put(id, azione.getClass());
+                result.set(false);
+            }
+        });
         //Sincronizzo le entita' logiche con quelle fisiche (elimino i dati salvati cancellati logicamente)
         try {
             RimozioneDatiSalvati.getInstance().sincronizzaCategorieSensore(ElencoCategorieSensori.getInstance().getCategorie());
@@ -141,6 +151,12 @@ public class OperazioniFinali {
         }
         try {
             RimozioneDatiSalvati.getInstance().sincronizzaAttuatori(Stream.of(ElencoAttuatori.getInstance().getDispositivi()).collect(Collectors.toList()));
+        } catch (Exception e) {
+            LogErrori.getInstance().put(e.getMessage());
+            result.set(false);
+        }
+        try {
+            RimozioneDatiSalvati.getInstance().sincronizzaAzioniProgrammate(ElencoAzioniProgrammate.getInstance().getAzioni());
         } catch (Exception e) {
             LogErrori.getInstance().put(e.getMessage());
             result.set(false);

@@ -293,10 +293,10 @@ public enum LettoriXML {
                 if (childs.getLength() > 0) {
                     //Traduco un'informazione sensoriale di tipo varibile
                     String valoreStr = childs.item(0).getTextContent();
-                    LocalDateTime valore = null;
+                    LocalTime valore = null;
 
                     //traduco l'ora con il formato di sistema
-                    valore = LocalDateTime.parse(valoreStr, SensoreOrologio.TIME_FORMATTER);
+                    valore = LocalTime.parse(valoreStr, SensoreOrologio.TIME_FORMATTER);
 
                     info = new InfoTemporale(valore);
                 }

@@ -40,9 +40,22 @@ public class Conseguente {
      * Metodo che esegue gli assegnamenti del conseguente.
      */
     public void esegui() {
+        esegui(null);
+    }
+
+    /**
+     * Metodo che esegue gli assegnamenti del conseguente e, nel caso di azioni da pianificare, utilizza l'id della regola
+     * indicato come parametro come identificativo (questo e' altamente consigliato per evitare la proliferazione di piu'
+     * pianificazioni per la stessa azione)
+     * @param idRegola  identificativo della regola che esegue il conseguente
+     */
+    public void esegui(String idRegola) {
         for (Azione a : azioni) {
             if (a.getStart() == null) a.esegui();
-            else ElencoAzioniProgrammate.getInstance().add(a);
+            else if (idRegola == null || idRegola.trim().isEmpty() )
+                ElencoAzioniProgrammate.getInstance().add(a);
+            else
+                ElencoAzioniProgrammate.getInstance().add(idRegola, a);
         }
     }
 

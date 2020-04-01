@@ -27,6 +27,7 @@ namespace src.domotix.controller {
 
     class src.domotix.controller.Verificatore {
         {static} + checkValiditaOrario()
+        {static} + checkIsSensoreOrologio()
     }
 
     class src.domotix.controller.TimerGestioneRegole {

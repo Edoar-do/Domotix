@@ -60,6 +60,7 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
 
         //Popolo la tabella dei lettori
         lettori = new HashMap<>();
+        lettori.put(Costanti.NODO_XML_AZIONE, LettoriXML.AZIONE);
         lettori.put(Costanti.NODO_XML_REGOLA, LettoriXML.REGOLA);
         lettori.put(Costanti.NODO_XML_ANTECEDENTE, LettoriXML.ANTECEDENTE);
         lettori.put(Costanti.NODO_XML_CONSEGUENTE, LettoriXML.CONSEGUENTE);

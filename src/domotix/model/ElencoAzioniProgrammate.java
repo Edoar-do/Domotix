@@ -42,12 +42,13 @@ public class ElencoAzioniProgrammate {
     }
 
     /**
-     * Aggiunge un'azione in elenco con l'id indicato
+     * Aggiunge un'azione in elenco con l'id indicato, se questo gia' non e' contenuto
      * @param id    stringa id identificativa
      * @param a     azione da aggiungere
      */
     public void add(String id, Azione a) {
-        azioni.put(id, a);
+        if (!azioni.containsKey(id))
+            azioni.put(id, a);
     }
 
     /**

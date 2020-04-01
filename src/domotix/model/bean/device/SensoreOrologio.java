@@ -136,7 +136,7 @@ public class SensoreOrologio extends Sensore {
      * @return  true: il tempo indicato viene prima dell'ora attuale; false: altrimenti
      */
     public boolean isPrima(LocalTime time) {
-        return getValoreTempo().isBefore(time);
+        return time.isBefore(getValoreTempo());
     }
 
 
@@ -146,7 +146,7 @@ public class SensoreOrologio extends Sensore {
      * @return  true: il tempo indicato viene dopo dell'ora attuale; false: altrimenti
      */
     public boolean isDopo(LocalTime time) {
-        return getValoreTempo().isAfter(time);
+        return time.isAfter(getValoreTempo());
     }
 
     /**
@@ -207,7 +207,7 @@ public class SensoreOrologio extends Sensore {
      */
     @Override
     public Object getValore(String nomeInfo) throws IllegalArgumentException { //cast a double fatto da me
-        super.setValore(NOME_INFO_RILEVABILE_OROLOGIO, (double) getValore()); //set current time
+        super.setValore(NOME_INFO_RILEVABILE_OROLOGIO, getValore());
         return super.getValore(nomeInfo);
     }
 
