@@ -51,7 +51,7 @@ public class Conseguente {
      */
     public void esegui(String idRegola) {
         for (Azione a : azioni) {
-            if (a.getStart() == null) a.esegui();
+            if (a.getStart() == null) a.esegui(); //se non c'è start è da eseguire subito
             else if (idRegola == null || idRegola.trim().isEmpty() )
                 ElencoAzioniProgrammate.getInstance().add(a);
             else

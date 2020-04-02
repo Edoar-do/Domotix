@@ -422,7 +422,7 @@ public class Recuperatore {
         Map<String, String> map = new HashMap<>();
         Regola[] regole = getUnita(unita).getRegole();
         for (Regola r : regole) {
-            map.put(r.getAntecedente().toString() + ":" + r.getStato().name(), r.getId());
+            map.put(r.toString(), r.getId());
         }
         return map;
     }
