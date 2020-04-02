@@ -414,7 +414,7 @@ public class Recuperatore {
 
     /**
      * Metodo che ritorna la mappa delle descrizioni degli antecedenti delle regole relative a un'unita'.
-     * La mappa ha come chiavi le antecedenti delle regole unite al loro stato, come valori gli ID delle regole.
+     * La mappa ha come chiavi le descrizioni delle regole unite al loro stato, come valori gli ID delle regole.
      * @param unita UnitaImmobiliare selezionata
      * @return La mappa delle descrizioni degli antecedenti
      */
@@ -422,7 +422,7 @@ public class Recuperatore {
         Map<String, String> map = new HashMap<>();
         Regola[] regole = getUnita(unita).getRegole();
         for (Regola r : regole) {
-            map.put(r.getAntecedente().toString() + ":" + r.getStato().name(), r.getId());
+            map.put(r.toString(), r.getId());
         }
         return map;
     }
