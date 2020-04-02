@@ -95,7 +95,7 @@ public class Regola {
         // antecedente == null equivale a dire condizione sempre true
         if (antecedente == null || antecedente.valuta()) {
             if (!eseguita) { //controllo che esegua solo se al fronte di attivazione della condizione
-                conseguente.esegui(this.id);
+                conseguente.esegui();
                 eseguita = true; //inibisce eventuali ripetizioni per la stessa volta in cui soddisfatto l'antecedente
             }
         }

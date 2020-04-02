@@ -5,6 +5,7 @@ import domotix.controller.util.StringUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /** @author Edoardo Coppola */
 public class Modalita {
@@ -103,5 +104,21 @@ public class Modalita {
             }
         }
         return str;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj))  return true;
+
+        if (obj instanceof Modalita) {
+            Modalita modalita = (Modalita)obj;
+            AtomicBoolean esito = new AtomicBoolean(true);
+
+            esito.set(this.nome.equals(modalita.getNome()));
+
+            return esito.get();
+        }
+
+        return false;
     }
 }

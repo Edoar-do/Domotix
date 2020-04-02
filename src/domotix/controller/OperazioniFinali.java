@@ -115,7 +115,7 @@ public class OperazioniFinali {
             }
         });
         //Salvo Azioni programmate logiche presenti
-        ElencoAzioniProgrammate.getInstance().getAzioni().forEach((id,azione) -> {
+        ElencoAzioniProgrammate.getInstance().getCoppieIdAzione().forEach((id, azione) -> {
             try {
                 ScritturaDatiSalvati.getInstance().salva(id, azione);
             } catch (Exception e) {
@@ -156,7 +156,7 @@ public class OperazioniFinali {
             result.set(false);
         }
         try {
-            RimozioneDatiSalvati.getInstance().sincronizzaAzioniProgrammate(ElencoAzioniProgrammate.getInstance().getAzioni());
+            RimozioneDatiSalvati.getInstance().sincronizzaAzioniProgrammate(ElencoAzioniProgrammate.getInstance().getCoppieIdAzione());
         } catch (Exception e) {
             LogErrori.getInstance().put(e.getMessage());
             result.set(false);

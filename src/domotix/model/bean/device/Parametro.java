@@ -1,5 +1,7 @@
 package domotix.model.bean.device;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * Classe per la rappresentazione di un parametro di una Modalita' per le CategoriaAttuatore.
  *
@@ -41,5 +43,22 @@ public class Parametro {
     @Override
     public String toString() {
         return nome + ": " + String.format("%.2f", valore);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj))  return true;
+
+        if (obj instanceof Parametro) {
+            Parametro parametro = (Parametro)obj;
+            AtomicBoolean esito = new AtomicBoolean(true);
+
+            esito.set(this.nome.equals(parametro.getNome()));
+            esito.set(esito.get() && this.valore == parametro.getValore());
+
+            return esito.get();
+        }
+
+        return false;
     }
 }

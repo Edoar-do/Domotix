@@ -1,5 +1,7 @@
 package domotix.model.bean.device;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**@author Edoardo Coppola */
 public class Attuatore extends Dispositivo {
     private static final String TOSTRING_TEMPLATE = "%s [%s]: %s";
@@ -40,5 +42,21 @@ public class Attuatore extends Dispositivo {
     @Override
     public String toString() {
         return String.format(this.TOSTRING_TEMPLATE, this.getNome(), (getStato() ? "ON" : "OFF"), this.getModoOp().toString());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj))  return true;
+
+        if (obj instanceof Attuatore) {
+            Attuatore attuatore = (Attuatore)obj;
+            AtomicBoolean esito = new AtomicBoolean(true);
+
+            esito.set(this.getNome().equals(attuatore.getNome()));
+
+            return esito.get();
+        }
+
+        return false;
     }
 }

@@ -4,10 +4,9 @@ import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Modalita;
 import domotix.model.bean.device.Parametro;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 /**
@@ -74,5 +73,27 @@ public class Azione {
         String parstr = parametri.size() > 0 ? parametri.toString() : "";
         String timestr = start == null ? "" : ", start := " + start.toString(); // todo
         return attuatore.getNome() + " := " + modalita.getNome() + parstr + timestr;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj))  return true;
+
+        if (obj instanceof Azione) {
+            Azione azione = (Azione)obj;
+            AtomicBoolean esito = new AtomicBoolean(true);
+
+            esito.set(this.attuatore.equals(azione.attuatore));
+            esito.set(esito.get() && this.modalita.equals(azione.modalita));
+            esito.set(esito.get() && this.getParametri().size() == azione.getParametri().size());
+            this.getParametri().forEach(parametro -> {
+                esito.set(esito.get() && azione.getParametri().contains(parametro));
+            });
+            esito.set(esito.get() && this.getStart().equals(azione.getStart()));
+
+            return esito.get();
+        }
+
+        return false;
     }
 }

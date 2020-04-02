@@ -42,12 +42,12 @@ public class ElencoAzioniProgrammate {
     }
 
     /**
-     * Aggiunge un'azione in elenco con l'id indicato, se questo gia' non e' contenuto
+     * Aggiunge un'azione in elenco con l'id indicato, se questo o l'azione non e'  gia' contenuto
      * @param id    stringa id identificativa
      * @param a     azione da aggiungere
      */
     public void add(String id, Azione a) {
-        if (!azioni.containsKey(id))
+        if (!azioni.containsKey(id) && !azioni.containsValue(a))
             azioni.put(id, a);
     }
 
@@ -87,10 +87,18 @@ public class ElencoAzioniProgrammate {
 
     /**
      * Recupera tutte le azioni salvate in elenco con l'id associato
-     * @return  array di categorie contenute
+     * @return  array di azioni contenute
      */
-    public HashMap<String, Azione> getAzioni(){
+    public HashMap<String, Azione> getCoppieIdAzione(){
         return new HashMap<>((HashMap<String,Azione>)azioni.clone());
+    }
+
+    /**
+     * Recupera tutte le azioni salvate in elenco
+     * @return  array di azioni contenute
+     */
+    public ArrayList<Azione> getAzioni(){
+        return new ArrayList<Azione>(azioni.values());
     }
 
     /**
