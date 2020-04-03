@@ -64,6 +64,10 @@ public class Recuperatore {
         return ElencoAzioniProgrammate.getInstance().getAzione(idAzione);
     }
 
+    static ArrayList<Azione> getAzioniProgrammate() {
+        return ElencoAzioniProgrammate.getInstance().getAzioni();
+    }
+
     /**
      * Metodo di recupero della modalita' operativa
      * in cui si trova correntemente l'attuatore.
@@ -485,5 +489,13 @@ public class Recuperatore {
             return a.toString();
         else
             return "";
+    }
+
+    /**
+     * Ritorna l'elenco di descrizioni delle azioni programmate.
+     * @return  array di stringhe con le descrizioni delle azioni programmate
+     */
+    public static String[] getDescrizioniAzioniProgrammate() {
+        return getAzioniProgrammate().stream().map(azione -> azione.toString()).toArray(String[]::new);
     }
 }

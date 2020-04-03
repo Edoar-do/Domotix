@@ -37,10 +37,10 @@ public class OperazioniIniziali {
         return instance;
     }
 
-    private ArrayList<String> azioniConflitto;
+    //private ArrayList<String> azioniConflitto;
 
     private OperazioniIniziali() {
-        azioniConflitto = new ArrayList<>();
+        /*azioniConflitto = new ArrayList<>();*/
     }
 
     /**
@@ -57,9 +57,11 @@ public class OperazioniIniziali {
             esito = scelta == MenuErroreApertura.CONTINUA; //false: esci dal programma; true: entra nel programma
         }
 
-        if (esito && !azioniConflitto.isEmpty()) {
+        //if (esito && !azioniConflitto.isEmpty()) {
+        if (esito && !ElencoAzioniProgrammate.getInstance().isEmpty()) {
             //ci sono azioni in conflitto --> chiedo all'utente quali eseguire subito
-            MenuAzioniConflitto.avvia(azioniConflitto);
+            //MenuAzioniConflitto.avvia(azioniConflitto);
+            MenuAzioniConflitto.avvia(ElencoAzioniProgrammate.getInstance().getIdAzioni());
         }
 
         return esito;
@@ -103,7 +105,7 @@ public class OperazioniIniziali {
 
         LogErrori.getInstance().clear();
         StoreIstanzeErrori.getInstance().clear(); //ripulisco per sincronizzazione degli stack
-        azioniConflitto.clear();
+        //azioniConflitto.clear();
 
         //popolo le categorie sensori
         try {
@@ -156,8 +158,9 @@ public class OperazioniIniziali {
                 try {
                     Azione a = LetturaDatiSalvati.getInstance().leggiAzioneProgrammata(s);
                     ElencoAzioniProgrammate.getInstance().add(s, a);
-                    if (SensoreOrologio.getInstance().isPrima(a.getStart()))
-                        azioniConflitto.add(s);
+                    //if (SensoreOrologio.getInstance().isPrima(a.getStart()))
+                    //    azioniConflitto.add(s);
+                    //tutte le azioni salvate sono viste come in conflitto
                 } catch (Exception e) {
                     LogErrori.getInstance().put(e.getMessage());
                     result.set(false);

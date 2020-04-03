@@ -27,8 +27,10 @@ namespace src.domotix.model {
         + remove()
         + contains()
         + getAzione()
+        + getCoppieIdAzione()
         + getAzioni()
         + getIdAzioni()
+        + isEmpty()
     }
 
     namespace util {

@@ -108,4 +108,10 @@ public class ElencoAzioniProgrammate {
     public ArrayList<String> getIdAzioni() {
         return new ArrayList<>(azioni.keySet());
     }
+
+    /**
+     * Ritorna se l'elenco risulta vuoto o meno
+     * @return  true: elenco e' vuoto; false: altrimenti
+     */
+    public boolean isEmpty() { return azioni.isEmpty(); }
 }

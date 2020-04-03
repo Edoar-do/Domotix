@@ -21,8 +21,11 @@ namespace src.domotix.controller {
     }
 
     class src.domotix.controller.Recuperatore {
+        {static} ~ getAzioneProgrammata()
+        {static} ~ getAzioniProgrammate()
         {static} + getAntecentiRegoleAttiveDisattive()
         {static} + getDescrizioneAzioneProgrammata()
+        {static} + getDescrizioniAzioniProgrammate()
     }
 
     class src.domotix.controller.Verificatore {

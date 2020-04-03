@@ -29,13 +29,17 @@ public class MenuAzioniConflitto {
             descrizioniAzione.add(i, Recuperatore.getDescrizioneAzioneProgrammata(idAzioni.get(i)));
         }
 
-        premenuElimina(idAzioni, descrizioniAzione);
+        if (idAzioni.size() > 0)
+            premenuElimina(idAzioni, descrizioniAzione);
 
-        InputDati.leggiStringa(AVVISA_PROSEGUIMENTO_DOPO_ELIMINA);
+        if (idAzioni.size() > 0) {
+            InputDati.leggiStringa(AVVISA_PROSEGUIMENTO_DOPO_ELIMINA);
 
-        premenuEsegui(idAzioni, descrizioniAzione);
+            premenuEsegui(idAzioni, descrizioniAzione);
+        }
 
-        InputDati.leggiStringa(AVVISA_PROSEGUIMENTO_DOPO_ESEGUI);
+        if (idAzioni.size() > 0)
+            InputDati.leggiStringa(AVVISA_PROSEGUIMENTO_DOPO_ESEGUI);
     }
 
     private static void premenuElimina(ArrayList<String> idAzioni, ArrayList<String> descrizioniAzioni) {
@@ -52,7 +56,7 @@ public class MenuAzioniConflitto {
                 descrizioniAzioni.remove(sceltaMenu-1);
                 Modificatore.rimuoviAzioneProgrammata(id, false); //rimuovo l'azione dai dati
             }
-        }while(sceltaMenu != 0);
+        }while(sceltaMenu != 0 || idAzioni.size() > 0);
     }
 
     private static void premenuEsegui(ArrayList<String> idAzioni, ArrayList<String> descrizioniAzioni) {
@@ -69,6 +73,6 @@ public class MenuAzioniConflitto {
                 descrizioniAzioni.remove(sceltaMenu-1);
                 Modificatore.rimuoviAzioneProgrammata(id, true); //rimuovo l'azione dai dati eseguendola
             }
-        }while(sceltaMenu != 0);
+        }while(sceltaMenu != 0 || idAzioni.size() > 0);
     }
 }

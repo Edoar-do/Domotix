@@ -26,6 +26,7 @@ namespace src.domotix.view.menus {
 
     namespace menuPrincipale {
         class src.domotix.view.menus.menuPrincipale.MenuFruitore {
+            {static} - NESSUNA_AZIONE_PROGRAMMATA : String
         }
 
         class src.domotix.view.menus.menuPrincipale.MenuManutentore {
