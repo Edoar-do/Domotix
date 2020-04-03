@@ -64,10 +64,11 @@ public class MenuUnitaF {
     private static final String COSTRUZIONE_CONSEGUENTE = "Costruisci il conseguente inserendone le azioni: ";
     private static final String INSERIMENTO_RHS_ORA = "Inserisci un orario di riferimento nel formato ora.minuto: ";
     private static final String ERRORE_VALIDITA_ORARIO = "Errore! L'orario inserito non è valido";
-    private static final String CONDIZIONE_TEMPORALE = "Desideri inserire la variabile temporale 'time' nella condizione? ";
     private static final String CONDIZIONE_START = "Desideri inserire un istante di inizio 'start' dell'azione? ";
-    private static final String SUCCESSO_CAMBIO_STATO_REGOLA = "Stato della regola cambiato con successo";
     private static final String ERRORE_CAMBIO_STATO_REGOLA = "Cambio di stato della regola fallito. " + GUIDA_IN_LINEA;
+    private static final String SUCCESSO_DISATTIVAZIONE = "Regola disattivata correttamente";
+    private static final String SUCCESSO_ATTIVAZIONE = "Regola attivata correttamente";
+    private static final String SOSPENSIONE = "La regola non era attivabile a causa di alcuni suoi dispositivi spenti. E' stata quindi sospesa fino alla riaccensione di tali dispositivi";
     private static final String REGOLE_UNITA_ATTIVE_O_DISATTIVE = "Regole dell'unita' in stato 'Attiva' o 'Disattiva'. ATTENZIONE: le regole in stato 'Sospesa' non appaiono in elenco";
 
 
@@ -238,9 +239,20 @@ public class MenuUnitaF {
                 case 6: //attiva/disattiva regola
                     String IDregolaDaCambiare = premenuRegoleAttive_Disattive(nomeUnitaSuCuiLavorare);
                     if (IDregolaDaCambiare != null) {
-                        if (Modificatore.cambioStatoRegola(IDregolaDaCambiare, nomeUnitaSuCuiLavorare))
-                            System.out.println(SUCCESSO_CAMBIO_STATO_REGOLA);
-                        else System.out.println(ERRORE_CAMBIO_STATO_REGOLA);
+                        switch(Modificatore.cambioStatoRegola(IDregolaDaCambiare, nomeUnitaSuCuiLavorare)){
+                            case -1:
+                                System.out.println(ERRORE_CAMBIO_STATO_REGOLA);
+                                break;
+                            case 1:
+                                System.out.println(SUCCESSO_DISATTIVAZIONE);
+                                break;
+                            case 2:
+                                System.out.println(SUCCESSO_ATTIVAZIONE);
+                                break;
+                            case 3:
+                                System.out.println(SOSPENSIONE);
+                                break;
+                        }
                     }
                     break;
             }

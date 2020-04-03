@@ -629,6 +629,8 @@ public class Modificatore {
 
     /**
      * Metodo che cambia lo stato del sensore facendolo passare da ON ad OFF e viceversa
+     * Sospende le regole in cui compare il sensore che si è spento, se le stesse non sono però disattive
+     * Riattiva le regole solo se non sono presenti altri sensori o attuatori spenti (ie tutti i dispositivi coinvolti sono ON)
      * @param sensore a cui cambiare stato
      * @return true se il cambio stato ha avuto successo
      */
@@ -642,10 +644,14 @@ public class Modificatore {
         Regola[] regole = u.getRegole();
         for (Regola r: regole) {
             if(r.contieneSensore(sensore)){//se la regola contiene il sensore a cui ho cambiato stato me ne curo altrimenti me ne frego e vado a quella dopo
-                if(s.getStato() == false)//sensore appena spento
-                    r.setStato(StatoRegola.SOSPESA);
-                else//sensore appena acceso
-                    r.setStato(StatoRegola.ATTIVA);
+                if(s.getStato() == false) {//sensore appena spento
+                    if(!(r.getStato().equals("DISATTIVA"))) { //sospendo solo se attiva o sospesa. Se disattiva lascio com'è
+                        r.setStato(StatoRegola.SOSPESA);
+                    }
+                }
+                else { //sensore appena acceso - guardo se è possibile riattivare la regola
+                   if(r.isAttivabile()) { r.setStato(StatoRegola.ATTIVA); }
+                }
             }
         }
         //fine sospensione/attivazione
@@ -654,6 +660,8 @@ public class Modificatore {
 
     /**
      * Metodo che cambia lo stato del attuatore facendolo passare da ON ad OFF e viceversa
+     * Sospende le regole in cui compare l'attuatore che si è spento, se le stesse non sono però disattive
+     * Riattiva le regole solo se non sono presenti altri sensori o attuatori spenti (ie tutti i dispositivi coinvolti sono ON)
      * @param attuatore a cui cambiare stato
      * @return true se il cambio stato ha avuto successo
      */
@@ -667,10 +675,14 @@ public class Modificatore {
         Regola[] regole = u.getRegole();
         for (Regola r: regole) {
             if(r.contieneAttuatore(attuatore)){//se la regola contiene l'attuatore a cui ho cambiato stato me ne curo altrimenti me ne frego e vado a quella dopo
-                if(a.getStato() == false)//attuatore appena spento
-                    r.setStato(StatoRegola.SOSPESA);
-                else//attuatore appena acceso
-                    r.setStato(StatoRegola.ATTIVA);
+                if(a.getStato() == false) {//attuatore appena spento
+                    if(!(r.getStato().equals("DISATTIVA"))) { //sospendo solo se attiva o sospesa. Se disattiva lascio com'è
+                        r.setStato(StatoRegola.SOSPESA);
+                    }
+                }
+                else {//attuatore appena acceso - guardo se posso riattivare la regola
+                    if (r.isAttivabile()){ r.setStato(StatoRegola.ATTIVA); }
+                }
             }
         }
         //fine sospensione/attivazione
@@ -684,14 +696,15 @@ public class Modificatore {
      * @param unita in cui vale la regola
      * @return true se il cambio stato ha avuto successo
      */
-    public static boolean cambioStatoRegola(String idRegola, String unita){
+    public static int cambioStatoRegola(String idRegola, String unita){
         Regola r = Recuperatore.getUnita(unita).getRegola(idRegola);
-        if(r == null)  return false;
+        if(r == null)  return -1;
         StatoRegola s = r.getStato();
-        if(s.name().equals("ATTIVA")) s = StatoRegola.DISATTIVA;
-        else s = StatoRegola.ATTIVA; //non serve controllare che lo stato sia disattiva perché o è l'uno o è l'altro, il filtraggio è già stato fatto prima
-        r.setStato(s);
-        return true;
+        if(s.name().equals("ATTIVA")){ s = StatoRegola.DISATTIVA; r.setStato(s); return 1; }
+        else{
+            if(r.isAttivabile()){ s = StatoRegola.ATTIVA; r.setStato(s); return 2; }
+            else{ s = StatoRegola.SOSPESA; r.setStato(s); return 3; }
+        }
     }
 
     /**
