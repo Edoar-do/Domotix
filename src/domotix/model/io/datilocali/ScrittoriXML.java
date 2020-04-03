@@ -170,7 +170,7 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.AZIONE.compileInstance(): impossibile compilare oggetto non Azione");
+            throw new IllegalArgumentException("ScrittoriXML.AZIONE.compileInstance(): impossibile compilare oggetto non Azione: " + getClassName(obj));
     }
 
     /** Metodo per scrittore: CONSEGUENTE **/
@@ -189,7 +189,7 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.CONSEGUENTE.compileInstance(): impossibile compilare oggetto non Conseguente");
+            throw new IllegalArgumentException("ScrittoriXML.CONSEGUENTE.compileInstance(): impossibile compilare oggetto non Conseguente: " + getClassName(obj));
     }
 
     /** Metodo per scrittore: INFO_SENSORIALE **/
@@ -235,7 +235,7 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.INFO_SENSORIALE.compileInstance(): impossibile compilare oggetto non InfoSensoriale");
+            throw new IllegalArgumentException("ScrittoriXML.INFO_SENSORIALE.compileInstance(): impossibile compilare oggetto non InfoSensoriale: " + getClassName(obj));
     }
 
     /** Metodo per scrittore: CONDIZIONE **/
@@ -265,7 +265,7 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.CONDIZIONE.compileInstance(): impossibile compilare oggetto non Condizione");
+            throw new IllegalArgumentException("ScrittoriXML.CONDIZIONE.compileInstance(): impossibile compilare oggetto non Condizione: " + getClassName(obj));
     }
 
     /** Metodo per scrittore: ANTECEDENTE **/
@@ -291,7 +291,7 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.ANTECEDENTE.compileInstance(): impossibile compilare oggetto non Antecedente");
+            throw new IllegalArgumentException("ScrittoriXML.ANTECEDENTE.compileInstance(): impossibile compilare oggetto non Antecedente: " + getClassName(obj));
     }
 
     /** Metodo per scrittore: REGOLA **/
@@ -322,7 +322,7 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.REGOLA.compileInstance(): impossibile compilare oggetto non Regola");
+            throw new IllegalArgumentException("ScrittoriXML.REGOLA.compileInstance(): impossibile compilare oggetto non Regola: " + getClassName(obj));
     }
 
     /** Metodo per scrittore: ATTUATORE **/
@@ -353,7 +353,7 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.ATTUATORE.compileInstance(): impossibile compilare oggetto non Attuatore");
+            throw new IllegalArgumentException("ScrittoriXML.ATTUATORE.compileInstance(): impossibile compilare oggetto non Attuatore: " + getClassName(obj));
     }
 
     /** Metodo per scrittore: SENSORE **/
@@ -391,7 +391,7 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.SENSORE.compileInstance(): impossibile compilare oggetto non Sensore");
+            throw new IllegalArgumentException("ScrittoriXML.SENSORE.compileInstance(): impossibile compilare oggetto non Sensore: " + getClassName(obj));
     }
 
     /** Metodo per scrittore: ARTEFATTO **/
@@ -428,7 +428,7 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.ARTEFATTO.compileInstance(): impossibile compilare oggetto non Artefatto");
+            throw new IllegalArgumentException("ScrittoriXML.ARTEFATTO.compileInstance(): impossibile compilare oggetto non Artefatto: " + getClassName(obj));
     }
 
     /** Metodo per scrittore: Stanza **/
@@ -471,7 +471,7 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.STANZA.compileInstance(): impossibile compilare oggetto non Stanza");
+            throw new IllegalArgumentException("ScrittoriXML.STANZA.compileInstance(): impossibile compilare oggetto non Stanza: " + getClassName(obj));
     }
 
     /** Metodo per scrittore: UNITA_IMMOB **/
@@ -515,7 +515,7 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.UNITA_IMMOB.compileInstance(): impossibile compilare oggetto non UnitaImmobiliare");
+            throw new IllegalArgumentException("ScrittoriXML.UNITA_IMMOB.compileInstance(): impossibile compilare oggetto non UnitaImmobiliare: " + getClassName(obj));
     }
 
     /** Metodo per scrittore: PARAMETRO_MODALITA **/
@@ -538,7 +538,7 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.PARAMETRO_MODALITA.compileInstance(): impossibile compilare oggetto non Parametro");
+            throw new IllegalArgumentException("ScrittoriXML.PARAMETRO_MODALITA.compileInstance(): impossibile compilare oggetto non Parametro: " + getClassName(obj));
     }
 
     /** Metodo per scrittore: MODALITA **/
@@ -562,7 +562,7 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.MODALITA.compileInstance(): impossibile compilare oggetto non Modalita");
+            throw new IllegalArgumentException("ScrittoriXML.MODALITA.compileInstance(): impossibile compilare oggetto non Modalita: " + getClassName(obj));
     }
 
     /** Metodo per scrittore: CATEGORIA_ATTUATORE **/
@@ -591,7 +591,7 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.CATEGORIA_ATTUATORE.compileInstance(): impossibile compilare oggetto non CategoriaAttuatore");
+            throw new IllegalArgumentException("ScrittoriXML.CATEGORIA_ATTUATORE.compileInstance(): impossibile compilare oggetto non CategoriaAttuatore: " + getClassName(obj));
     }
 
     /** Metodo per scrittore: INFORMAZIONE_RILEVABILE **/
@@ -614,7 +614,7 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.INFORMAZIONE_RILEVABILE.compileInstance(): impossibile compilare oggetto non InfoRilevabile");
+            throw new IllegalArgumentException("ScrittoriXML.INFORMAZIONE_RILEVABILE.compileInstance(): impossibile compilare oggetto non InfoRilevabile: " + getClassName(obj));
     }
 
     /** Metodo per scrittore: CATEGORIA_SENSORE **/
@@ -643,7 +643,15 @@ public enum ScrittoriXML {
 
             return root;
         } else
-            throw new IllegalArgumentException("ScrittoriXML.CATEGORIA_SENSORE.compileInstance(): impossibile compilare oggetto non CategoriaSensore");
+            throw new IllegalArgumentException("ScrittoriXML.CATEGORIA_SENSORE.compileInstance(): impossibile compilare oggetto non CategoriaSensore: " + getClassName(obj));
     }
 
+    /**
+     * Ritorna il nome della classe dell'oggetto passato oppure la stringa "null" nel caso l'oggetto sia null
+     * @param obj   oggetto da analizzare
+     * @return  stringa con nome classe
+     */
+    private static String getClassName(Object obj) {
+        return obj == null ? "null" : obj.getClass().getName();
+    }
 }
