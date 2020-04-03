@@ -56,7 +56,7 @@ public class MenuAzioniConflitto {
                 descrizioniAzioni.remove(sceltaMenu-1);
                 Modificatore.rimuoviAzioneProgrammata(id, false); //rimuovo l'azione dai dati
             }
-        }while(sceltaMenu != 0 || idAzioni.size() > 0);
+        }while(sceltaMenu != 0 && idAzioni.size() > 0);
     }
 
     private static void premenuEsegui(ArrayList<String> idAzioni, ArrayList<String> descrizioniAzioni) {
@@ -73,6 +73,6 @@ public class MenuAzioniConflitto {
                 descrizioniAzioni.remove(sceltaMenu-1);
                 Modificatore.rimuoviAzioneProgrammata(id, true); //rimuovo l'azione dai dati eseguendola
             }
-        }while(sceltaMenu != 0 || idAzioni.size() > 0);
+        }while(sceltaMenu != 0 && idAzioni.size() > 0);
     }
 }
