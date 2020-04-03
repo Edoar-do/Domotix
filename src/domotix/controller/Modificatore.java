@@ -632,11 +632,23 @@ public class Modificatore {
      * @param sensore a cui cambiare stato
      * @return true se il cambio stato ha avuto successo
      */
-    public static boolean cambiaStatoSensore(String sensore){
+    public static boolean cambiaStatoSensore(String sensore, String unita){
         Sensore s = Recuperatore.getSensore(sensore);
         if(s == null) return false;
         boolean opposto = !s.getStato();
         s.setStato(opposto);
+        //eventuale sospensione/attivazione regola
+        UnitaImmobiliare u = Recuperatore.getUnita(unita);
+        Regola[] regole = u.getRegole();
+        for (Regola r: regole) {
+            if(r.contieneSensore(sensore)){//se la regola contiene il sensore a cui ho cambiato stato me ne curo altrimenti me ne frego e vado a quella dopo
+                if(s.getStato() == false)//sensore appena spento
+                    r.setStato(StatoRegola.SOSPESA);
+                else//sensore appena acceso
+                    r.setStato(StatoRegola.ATTIVA);
+            }
+        }
+        //fine sospensione/attivazione
         return true;
     }
 
@@ -645,13 +657,26 @@ public class Modificatore {
      * @param attuatore a cui cambiare stato
      * @return true se il cambio stato ha avuto successo
      */
-    public static boolean cambiaStatoAttuatore(String attuatore){
+    public static boolean cambiaStatoAttuatore(String attuatore, String unita){
         Attuatore a = Recuperatore.getAttuatore(attuatore);
         if(a == null) return false;
         boolean opposto = !a.getStato();
         a.setStato(opposto);
+        //eventuale sospensione/attivazione regola
+        UnitaImmobiliare u = Recuperatore.getUnita(unita);
+        Regola[] regole = u.getRegole();
+        for (Regola r: regole) {
+            if(r.contieneAttuatore(attuatore)){//se la regola contiene l'attuatore a cui ho cambiato stato me ne curo altrimenti me ne frego e vado a quella dopo
+                if(a.getStato() == false)//attuatore appena spento
+                    r.setStato(StatoRegola.SOSPESA);
+                else//attuatore appena acceso
+                    r.setStato(StatoRegola.ATTIVA);
+            }
+        }
+        //fine sospensione/attivazione
         return true;
     }
+
 
     /**
      * Metodo che cambia lo stato delle regole da 'Attiva' a 'Disattiva' e viceversa
