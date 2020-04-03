@@ -452,7 +452,8 @@ public enum LettoriXML {
                 Element elAntecedente = (Element) childs.item(0);
                 ant = (Antecedente) ANTECEDENTE.istanziatore.getInstance(elAntecedente);
             } else
-                throw new NoSuchElementException("LettoriXML.REGOLA.getInstance(): elemento " + Costanti.NODO_XML_REGOLA_STATO + " assente.");
+                //throw new NoSuchElementException("LettoriXML.REGOLA.getInstance(): elemento " + Costanti.NODO_XML_REGOLA_STATO + " assente.");
+                ant = null; //nessun antecedente nel file XML --> imposto null per indicare un ANTECEDENTE = TRUE
 
             childs = el.getElementsByTagName(Costanti.NODO_XML_CONSEGUENTE);
             if (childs.getLength() > 0) {

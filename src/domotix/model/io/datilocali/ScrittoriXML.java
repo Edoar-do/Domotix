@@ -314,8 +314,10 @@ public enum ScrittoriXML {
             root.appendChild(elem);
 
             //antecedente e conseguente
-            elem = ANTECEDENTE.compilatore.compileInstance(regola.getAntecedente(), doc);
-            root.appendChild(elem);
+            if (regola.getAntecedente() != null) {
+                elem = ANTECEDENTE.compilatore.compileInstance(regola.getAntecedente(), doc);
+                root.appendChild(elem);
+            } //se antecedente = null allora e' TRUE e non lo scrivo
 
             elem = CONSEGUENTE.compilatore.compileInstance(regola.getConseguente(), doc);
             root.appendChild(elem);
