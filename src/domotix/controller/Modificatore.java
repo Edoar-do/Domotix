@@ -645,12 +645,12 @@ public class Modificatore {
         for (Regola r: regole) {
             if(r.contieneSensore(sensore)){//se la regola contiene il sensore a cui ho cambiato stato me ne curo altrimenti me ne frego e vado a quella dopo
                 if(s.getStato() == false) {//sensore appena spento
-                    if(!(r.getStato().equals("DISATTIVA"))) { //sospendo solo se attiva o sospesa. Se disattiva lascio com'è
+                    if(!(r.getStato().equals(StatoRegola.DISATTIVA))) { //sospendo solo se attiva o sospesa. Se disattiva lascio com'è
                         r.setStato(StatoRegola.SOSPESA);
                     }
                 }
                 else { //sensore appena acceso - guardo se è possibile riattivare la regola
-                   if(r.isAttivabile()) { r.setStato(StatoRegola.ATTIVA); }
+                   if(r.getStato().equals(StatoRegola.SOSPESA) && r.isAttivabile()) { r.setStato(StatoRegola.ATTIVA); }
                 }
             }
         }
@@ -676,12 +676,12 @@ public class Modificatore {
         for (Regola r: regole) {
             if(r.contieneAttuatore(attuatore)){//se la regola contiene l'attuatore a cui ho cambiato stato me ne curo altrimenti me ne frego e vado a quella dopo
                 if(a.getStato() == false) {//attuatore appena spento
-                    if(!(r.getStato().equals("DISATTIVA"))) { //sospendo solo se attiva o sospesa. Se disattiva lascio com'è
+                    if(!(r.getStato().equals(StatoRegola.DISATTIVA))) { //sospendo solo se attiva o sospesa. Se disattiva lascio com'è
                         r.setStato(StatoRegola.SOSPESA);
                     }
                 }
                 else {//attuatore appena acceso - guardo se posso riattivare la regola
-                    if (r.isAttivabile()){ r.setStato(StatoRegola.ATTIVA); }
+                    if (r.getStato().equals(StatoRegola.SOSPESA) && r.isAttivabile()){ r.setStato(StatoRegola.ATTIVA); }
                 }
             }
         }
