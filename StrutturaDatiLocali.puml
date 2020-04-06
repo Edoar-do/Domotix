@@ -2,6 +2,14 @@
 
 namespace FileSystem\UserHome\.DOMOTIX {
     namespace dati {
+        namespace azioni_programmabili {
+            class azione1 {
+                XML
+            }
+            class FileSystem\UserHome\.DOMOTIX.dati.azioni_programmabili. {
+                ...
+            }
+        }
         namespace categorie_sensori {
             namespace catSens1 {
                 class catSens1 {
