@@ -1,5 +1,9 @@
 package domotix.model.bean.regole;
 
+import domotix.controller.Recuperatore;
+import domotix.model.bean.device.Sensore;
+import domotix.model.bean.device.Attuatore;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -149,5 +153,26 @@ public class Regola {
         String consstr = conseguente.toString();
         String statostr = "; Stato -> [" + stato.toString() + "]";
         return "if " + antstr + " then " + consstr + statostr;
+    }
+
+    public Sensore[] getSensori(){
+        return antecedente.getSensori();
+    }
+
+    public Attuatore[] getAttuatori(){
+        return conseguente.getAttuatori();
+    }
+
+    public boolean isAttivabile(){
+        //se anche solo un sensore è spento allora non è riattivabile
+        for (Sensore s : this.getSensori())
+            if(s.getStato() == false) //sensore spento
+                return false;
+        //se anche solo un attuatore è spento allora non è riattivabile
+        for (Attuatore a : this.getAttuatori())
+            if(a.getStato() == false) //attuatore spento
+                return false;
+        //non ci sono né sensori né attuatori spenti -> è riattivabile
+        return true;
     }
 }

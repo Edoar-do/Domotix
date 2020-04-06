@@ -1,5 +1,9 @@
 package domotix.model.bean.regole;
 
+import domotix.model.bean.device.Sensore;
+
+import java.util.ArrayList;
+
 /**
  * Classe che rappresenta l'antecedente di una regola.
  * @author andrea
@@ -170,5 +174,23 @@ public class Antecedente {
         String opstr = operatoreLogico == null ? "" : " " + operatoreLogico + " ";
         String rhs = prossimoAntecedente == null ? "" : prossimoAntecedente.toString();
         return lhs + opstr + rhs;
+    }
+
+    /**
+     * Metodo che ritorna i sensori di tutte le condizioni dell'antecendente
+     * @return i sensori dell'antecedente
+     */
+    public Sensore[] getSensori(){
+        ArrayList<Sensore> sensori = new ArrayList<>();
+        Antecedente current = this;
+        while(current != null){
+            Condizione c = current.getCondizione();
+            Sensore[] sensoriCondizione = c.getSensori();
+            for (Sensore s: sensoriCondizione)
+                sensori.add(s);
+            current = current.prossimoAntecedente;
+        }
+        return sensori.toArray(new Sensore[0]);
+
     }
 }

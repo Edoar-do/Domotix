@@ -1,6 +1,7 @@
 package domotix.model.bean.regole;
 
 import domotix.model.ElencoAzioniProgrammate;
+import domotix.model.bean.device.Attuatore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,5 +51,18 @@ public class Conseguente {
     @Override
     public String toString() {
         return azioni.stream().map(a -> a.toString()).collect(Collectors.joining(", "));
+    }
+
+    /**
+     * Metodo che ritorna gli attuatori di tutte le azioni del conseguente
+     * @return un array degli attuatori del conseguente
+     */
+    public Attuatore[] getAttuatori(){
+        ArrayList<Attuatore> attuatori = new ArrayList<>();
+        for (Azione a: azioni) {
+            Attuatore att = a.getAttuatore();
+            attuatori.add(att);
+        }
+        return attuatori.toArray(new Attuatore[0]);
     }
 }

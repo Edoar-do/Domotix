@@ -2,6 +2,8 @@ package domotix.model.bean.regole;
 
 import domotix.model.bean.device.Sensore;
 
+import java.util.ArrayList;
+
 /**
  * Classe che rappresenta una condizione che puo' apparire nell'antecedente di
  * una regola.
@@ -117,5 +119,14 @@ public class Condizione {
     @Override
     public String toString() {
         return sinistra.toString() + " " + operatore + " " + destra.toString();
+    }
+
+    public Sensore[] getSensori(){
+        ArrayList<Sensore> sensori = new ArrayList<>();
+        if(sinistra instanceof InfoVariabile)
+            sensori.add(((InfoVariabile) sinistra).getSensore());
+        if(destra instanceof  InfoVariabile)
+            sensori.add(((InfoVariabile) destra).getSensore());
+        return sensori.toArray(new Sensore[0]);
     }
 }
