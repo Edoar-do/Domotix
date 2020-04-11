@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 
 /**
  * Classe per implementare una parte di logica controller relativa all'aggiunta e rimozione di entita'.
- * @author andrea e paolopasqua
+ * @author andrea, paolopasqua, Edoardo Coppola
  **/
 public class Modificatore {
 

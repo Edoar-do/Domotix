@@ -1,5 +1,6 @@
 package domotix.view.menus.menuCategorie.sensori;
 
+import domotix.controller.Importatore;
 import domotix.controller.Modificatore;
 import domotix.controller.Recuperatore;
 import domotix.view.InputDati;
@@ -9,7 +10,7 @@ import domotix.view.MyMenu;
 /** @author Edoardo Coppola*/
 public class MenuCategorieSensoriM {
     private static final String TITOLO = "Menu Categorie Sensori Manutentore ";
-    private static final String[] VOCI = {"Aggiungi Categoria Sensore", "Rimuovi Categoria Sensore", "Visualizza Categorie Sensori"};
+    private static final String[] VOCI = {"Aggiungi Categoria Sensore", "Rimuovi Categoria Sensore", "Visualizza Categorie Sensori", "Import Categorie Sensori"};
     private static final String INDIETRO = "Indietro";
 
     private static final String INSERIMENTO_CATEGORIA_SENSORE = "Inserisci un nome per la nuova categoria di sensore";
@@ -25,13 +26,14 @@ public class MenuCategorieSensoriM {
     private static final String INSERIMENTO_NOME_INFO = "Inserisci il nome dell'informazione rilevabile (inserire " + TERMINATORE + " per terminare) ";
     private static final String ALMENO_UNA_INFO = "Deve essere presente almeno un'informazione rilevabile per la categoria di sensori creata!";
     private static final String IS_NUMERICA = "L'informazione %s è numerica? ";
+    private static final String INTRO_IMPORT_CAT_SENS = "L'importazione delle categorie di sensori di libreria è stata selezionata. Di seguito apparirà l'esito dell'importazione: ";
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
     /**
      * Presenta all'utente manutentore un menu che offre la possibilità di scegliere se aggiungere una nuova categoria di sensori, rimuoverne una da quelle
-     * esistenti (se ne esiste almeno una), di visualizzare le descrizioni di tutte le categorie di sensori esistenti oppure di tornare indietro e chiudere
-     * questo menu.
+     * esistenti (se ne esiste almeno una), di visualizzare le descrizioni di tutte le categorie di sensori esistenti oppure di importarne da una libreria esterna
+     * E' consentito anche tornare indietro e chiudere questo menu.
      * L'aggiunta di una nuova categoria di sensori comporta anche l'aggiunta di almeno un'informazione rilevabile di cui va specificato il nome e se questa è numerica o meno
      */
     public static void avvia(){
@@ -83,6 +85,12 @@ public class MenuCategorieSensoriM {
                 case 3: //visualizza categorie sensori
                     for (String descrizione: Recuperatore.getDescrizioniCategorieSensori()) {
                         System.out.println(descrizione);
+                    }
+                    break;
+                case 4: //importa categorie sensori
+                    System.out.println(INTRO_IMPORT_CAT_SENS);
+                    for (String msg: Importatore.importaCategorieSensori()) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK
+                        System.out.println(msg);
                     }
                     break;
             }

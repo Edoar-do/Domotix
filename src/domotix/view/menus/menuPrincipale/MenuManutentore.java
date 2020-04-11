@@ -1,5 +1,6 @@
 package domotix.view.menus.menuPrincipale;
 
+import domotix.controller.Importatore;
 import domotix.controller.Modificatore;
 import domotix.controller.Recuperatore;
 import domotix.view.InputDati;
@@ -10,7 +11,7 @@ import domotix.view.menus.menuUnita.MenuUnitaM;
 /** @author Edoardo Coppola*/
 public class MenuManutentore {
     private static final String TITOLO = "Menu Manutentore ";
-    private static final String[] VOCI = {"Menu Categorie Dispositivi Manutentore", "Menu Unita Manutentore", "Aggiungi un'unità immobiliare", "Rimuovi un'unità immobiliare"};
+    private static final String[] VOCI = {"Menu Categorie Dispositivi Manutentore", "Menu Unita Manutentore", "Aggiungi un'unità immobiliare", "Rimuovi un'unità immobiliare", "Importa Unita' Immobiliari"};
     private static final String INDIETRO = "Indietro";
 
     private static final String SUCCESSO_INSERIMENTO_UNITA = "L'inserimento della nuova unità immobiliare è avvenuto con successo";
@@ -19,12 +20,14 @@ public class MenuManutentore {
     private static final String ERRORE_RIMOZIONE_UNITA = "Rimozione dell'unità immobiliare scelta fallita. Consultare la guida in linea per maggiori informazioni";
     private static final String NOMI_UNITA_IMMOBILIARI_ESISTENTI = "Unità Immobiliare esistenti: ";
     private static final String NOME_NUOVA_UNITA = "Inserisci il nome della nuova unità immobiliare da aggiungere: ";
+    private static final String INTRO_IMPORT_UNITA = "L'importazione delle unita' immobiliari di libreria è stata selezionata. Di seguito apparirà l'esito dell'importazione: ";
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
     /**
      * Presenta all'utente manutentore un menu che offre la possibilità di aprire un menu per menutentori per la gestione delle categorie di
-     * sensori e attuatori, di aprire un menu per la gestione dell'unità immobiliare, di aggiungere o rimuovere un'unità immobiliare oppure di tornare indietro e chiudere questo menu
+     * sensori e attuatori, di aprire un menu per la gestione dell'unità immobiliare, di aggiungere o rimuovere un'unità immobiliare oppure di importarne una dalla libreria esterna
+     * E' consentito anche tornare indietro ed uscire da questo menu
      */
     public static void avvia(){
 
@@ -49,12 +52,18 @@ public class MenuManutentore {
                     break;
                 case 4: //rimuovi unità
                     String nomeUnitaDaRimuovere = premenuUnita();
-                    if(nomeUnitaDaRimuovere == null) //scelto di tornare indietro
-                        break;
-                    if(Modificatore.rimuoviUnitaImmobiliare(nomeUnitaDaRimuovere))
-                        System.out.println(SUCCESSO_RIMOZIONE_UNITA);
-                    else
-                        System.out.println(ERRORE_RIMOZIONE_UNITA);
+                    if(nomeUnitaDaRimuovere != null) { //scelto di tornare indietro
+                        if (Modificatore.rimuoviUnitaImmobiliare(nomeUnitaDaRimuovere))
+                            System.out.println(SUCCESSO_RIMOZIONE_UNITA);
+                        else
+                            System.out.println(ERRORE_RIMOZIONE_UNITA);
+                    }
+                    break;
+                case 5: //importazione unità immobiliari
+                    System.out.println(INTRO_IMPORT_UNITA);
+                    for (String msg: Importatore.importaUnitaImmobiliari()) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK
+                        System.out.println(msg);
+                    }
                     break;
             }
         }while(sceltaMenu != 0);
