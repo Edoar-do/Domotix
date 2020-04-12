@@ -1,5 +1,6 @@
 package domotix.view.menus.menuCategorie.attuatori;
 
+import domotix.controller.Importatore;
 import domotix.controller.Modificatore;
 import domotix.controller.Recuperatore;
 import domotix.view.InputDati;
@@ -8,7 +9,7 @@ import domotix.view.MyMenu;
 /** @author Edoardo Coppola*/
 public class MenuCategorieAttuatoriM {
     private static final String TITOLO = "Menu Categorie Attuatori Manutentore ";
-    private static final String[] VOCI = {"Aggiungi Categoria Attuatore", "Rimuovi Categoria Attuatore", "Visualizza Categorie Attuatori"};
+    private static final String[] VOCI = {"Aggiungi Categoria Attuatore", "Rimuovi Categoria Attuatore", "Visualizza Categorie Attuatori", "Importa Categorie Attuatori"};
     private static final String INDIETRO = "Indietro";
 
     private static final String INSERIMENTO_CATEGORIA_ATTUATORE = "Inserisci un nome per la nuova categoria di attuatore";
@@ -30,12 +31,14 @@ public class MenuCategorieAttuatoriM {
     private static final String ERRORE_ALMENO_UN_PARAMETRO = "Almeno un parametro deve essere inserito nella modalita' parametrica";
     private static final String ERRORE_INSERIMENTO_PARAMETRO = "L'inserimento del parametro è fallito. " + GUIDA_IN_LINEA;
     private static final String INSERIMENTO_VALORE_PARAMETRO = "Inserisci il valore desiderato per il parametro %s : ";
+    private static final String INTRO_IMPORT_CAT_ATT = "L'importazione delle categorie di attuatori di libreria è stata selezionata. Di seguito apparirà l'esito dell'importazione: ";
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
     /**
      * Prensenta all'utente manutentore un menu che consente di aggiungere un nuova categoria di attuatori, rimuoverne una (se presente) oppure di
-     * visualizzare tutte le descrizioni delle categorie di attuatori presenti oppure consente di tornare indietro e chiudere questo menu.
+     * visualizzare tutte le descrizioni delle categorie di attuatori presenti oppure importarne da una libreria esterna
+     * E' consentito anche tornare indietro e chiudere questo menu.
      * L'aggiunta di una categoria comporta l'inserimento di almeno una modalità operativa la quale può essere parametrica o meno. Se sì
      * è richiesto almeno un parametro per essa
      */
@@ -113,6 +116,12 @@ public class MenuCategorieAttuatoriM {
                 case 3: //visualizza categorie attuatori
                     for (String descrizione: Recuperatore.getDescrizioniCategorieAttuatori()) {
                         System.out.println(descrizione);
+                    }
+                    break;
+                case 4: //importa categorie attuatori
+                    System.out.println(INTRO_IMPORT_CAT_ATT);
+                    for (String msg: Importatore.importaCategorieAttuatori()) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK
+                        System.out.println(msg);
                     }
                     break;
             }
