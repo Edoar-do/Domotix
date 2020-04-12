@@ -36,29 +36,6 @@ namespace src.domotix.model {
             }
 
             class src.domotix.model.bean.device.SensoreOrologio {
-                {static} + TIME_FORMATTER : DateTimeFormatter
-                {static} + MINUTI_IN_UN_GIORNO : int
-                {static} + MINUTI_IN_UN_ORA : int
-                {static} + NOME_CATEGORIA : String
-                {static} + NOME_SENSORE : String
-                {static} + NOME_INFO_RILEVABILE : String
-                {static} - INFO_RILEVABILE : InfoRilevabile
-                {static} - CATEGORIA_SENSORE : CategoriaSensore
-                {static} - instance : SensoreOrologio
-                {static} + getInstance()
-                {static} + getTempo()
-                {static} + getMinutiAllaMezzanotte()
-                {static} + getValoreStampabile()
-                - SensoreOrologio()
-                + getValore()
-                + getValori()
-                + getValoreStampabile()
-                + getValoreTempo()
-                + isPrima()
-                + isDopo()
-                + getMinutiAllaMezzanotte()
-                + getMinutiDifferenza()
-                + toString()
             }
         }
 
@@ -81,15 +58,9 @@ namespace src.domotix.model {
 
         namespace regole {
             class src.domotix.model.bean.regole.Regola {
-                - stato : StatoRegola
-                + getStato()
-                + setStato()
             }
 
             enum src.domotix.model.bean.regole.StatoRegola {
-                ATTIVA
-                SOSPESA
-                DISATTIVA
             }
 
             class src.domotix.model.bean.regole.Antecedente {
@@ -105,11 +76,6 @@ namespace src.domotix.model {
             }
 
             class src.domotix.model.bean.regole.InfoTemporale {
-                - tempo : LocalTime
-                + InfoTemporale()
-                + getTempo()
-                + getValore()
-                + toString()
             }
 
             class src.domotix.model.bean.regole.InfoVariabile {
@@ -119,10 +85,6 @@ namespace src.domotix.model {
             }
 
             class src.domotix.model.bean.regole.Azione {
-                - start : LocalTime
-                + Azione()
-                + getStart()
-                + getEpochStart()
             }
         }
     }

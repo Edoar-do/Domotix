@@ -138,8 +138,7 @@ public enum LettoriXML {
      * @param el   documento XML contenente i dati necessari all'istanziazione
      * @return  Istanza dell'elemento
      * @throws NullPointerException Eccezione scatenata dal passaggio di un riferimento a null per il documento.
-     * @throws Exception Eccezione scatenata dall'accesso ai contenuti dati salvati tramite AccessoDatiSalvati
-     * @see LetturaDatiSalvati
+     * @throws Exception Eccezione scatenata dall'accesso ai contenuti dati salvati
      */
     public Object getInstance(Element el) throws Exception {
         if (el == null)
@@ -655,7 +654,7 @@ public enum LettoriXML {
                     }
                     //se sensore ancora sconosciuto lo leggo
                     else {
-                        s = LetturaDatiSalvati.getInstance().leggiSensore(sensore);
+                        s = LetturaDatiLocali.getInstance().leggiSensore(sensore);
                     }
 
                     artefatto.addSensore(s);
@@ -674,7 +673,7 @@ public enum LettoriXML {
                     }
                     //se sensore ancora sconosciuto lo leggo
                     else {
-                        a = LetturaDatiSalvati.getInstance().leggiAttuatore(attuatore);
+                        a = LetturaDatiLocali.getInstance().leggiAttuatore(attuatore);
                     }
 
                     artefatto.addAttuatore(a);
@@ -727,7 +726,7 @@ public enum LettoriXML {
                     }
                     //se sensore ancora sconosciuto lo leggo
                     else {
-                        s = LetturaDatiSalvati.getInstance().leggiSensore(sensore);
+                        s = LetturaDatiLocali.getInstance().leggiSensore(sensore);
                     }
 
                     stanza.addSensore(s);
@@ -746,7 +745,7 @@ public enum LettoriXML {
                     }
                     //se sensore ancora sconosciuto lo leggo
                     else {
-                        a = LetturaDatiSalvati.getInstance().leggiAttuatore(attuatore);
+                        a = LetturaDatiLocali.getInstance().leggiAttuatore(attuatore);
                     }
 
                     stanza.addAttuatore(a);
@@ -757,7 +756,7 @@ public enum LettoriXML {
             if (childs.getLength() > 0) {
                 for (int i = 0; i < childs.getLength(); i++) {
                     String artefatto = childs.item(i).getTextContent();
-                    Artefatto a = LetturaDatiSalvati.getInstance().leggiArtefatto(artefatto, unitImmob);
+                    Artefatto a = LetturaDatiLocali.getInstance().leggiArtefatto(artefatto, unitImmob);
                     stanza.addArtefatto(a);
                 }
             }
@@ -789,7 +788,7 @@ public enum LettoriXML {
             if (childs.getLength() > 0) {
                 for (int i = 0; i < childs.getLength(); i++) {
                     String stanza = childs.item(i).getTextContent();
-                    Stanza s = LetturaDatiSalvati.getInstance().leggiStanza(stanza, nome);
+                    Stanza s = LetturaDatiLocali.getInstance().leggiStanza(stanza, nome);
                     if (stanza.equals(UnitaImmobiliare.NOME_STANZA_DEFAULT))
                         unit.setStanzaDefault(s);
                     else
@@ -801,7 +800,7 @@ public enum LettoriXML {
             if (childs.getLength() > 0) {
                 for (int i = 0; i < childs.getLength(); i++) {
                     String regola = childs.item(i).getTextContent();
-                    Regola r = LetturaDatiSalvati.getInstance().leggiRegola(regola, nome);
+                    Regola r = LetturaDatiLocali.getInstance().leggiRegola(regola, nome);
                     unit.addRegola(r);
                 }
             }
@@ -899,7 +898,7 @@ public enum LettoriXML {
             if (childs.getLength() > 0) {
                 for (int i = 0; i < childs.getLength(); i++) {
                     String modalita = childs.item(i).getTextContent();
-                    c.addModalita(LetturaDatiSalvati.getInstance().leggiModalita(modalita, c.getNome()));
+                    c.addModalita(LetturaDatiLocali.getInstance().leggiModalita(modalita, c.getNome()));
                 }
             }
 
@@ -969,7 +968,7 @@ public enum LettoriXML {
                     InfoRilevabile i = null;
                     String info = childs.item(0).getTextContent();
                     try {
-                        i = LetturaDatiSalvati.getInstance().leggiInfoRilevabile(info, nome);
+                        i = LetturaDatiLocali.getInstance().leggiInfoRilevabile(info, nome);
                     }
                     catch (Exception e) {
                         i = null;
@@ -984,11 +983,11 @@ public enum LettoriXML {
                     //Altrimenti procedo ad istanziare la categoria ed ad aggiungere le varie informazioni rilevabili
                     String info = childs.item(0).getTextContent();
 
-                    c = new CategoriaSensore(nome, testoLibero, LetturaDatiSalvati.getInstance().leggiInfoRilevabile(info, nome));
+                    c = new CategoriaSensore(nome, testoLibero, LetturaDatiLocali.getInstance().leggiInfoRilevabile(info, nome));
 
                     for (int i = 1; i < childs.getLength(); i++) {
                         info = childs.item(i).getTextContent();
-                        c.addInformazioneRilevabile(LetturaDatiSalvati.getInstance().leggiInfoRilevabile(info, c.getNome()));
+                        c.addInformazioneRilevabile(LetturaDatiLocali.getInstance().leggiInfoRilevabile(info, c.getNome()));
                     }
                 }
             } else

@@ -4,33 +4,18 @@ title __DOMOTIX > CONTROLLER's Class Diagram__\n
 
 namespace src.domotix.controller {
     class src.domotix.controller.Modificatore {
-        {static} + aggiungiAzioneConseguente()
-        {static} + aggiungiAzioneConseguente()
-        {static} + cambiaStatoSensore()
-        {static} + cambiaStatoAttuatore()
-        {static} + cambioStatoRegola()
-        {static} + rimuoviAzioneProgrammata()
     }
 
     class src.domotix.controller.OperazioniFinali {
-
     }
 
     class src.domotix.controller.OperazioniIniziali {
-
     }
 
     class src.domotix.controller.Recuperatore {
-        {static} ~ getAzioneProgrammata()
-        {static} ~ getAzioniProgrammate()
-        {static} + getAntecentiRegoleAttiveDisattive()
-        {static} + getDescrizioneAzioneProgrammata()
-        {static} + getDescrizioniAzioniProgrammate()
     }
 
     class src.domotix.controller.Verificatore {
-        {static} + checkValiditaOrario()
-        {static} + checkIsSensoreOrologio()
     }
 
     class src.domotix.controller.TimerGestioneRegole {
@@ -40,31 +25,12 @@ namespace src.domotix.controller {
     }
 
     class src.domotix.controller.TimerAzioniProgrammate {
-        {static} + DEFAULT_DELAY : int
-        {static} - instance : TimerAzioniProgrammate
-        - timer : Timer
-        - timerAzioni : Timer
-        - delay : int
-        - taskControlloAzioni : TimerTask
-        - azioniPianificate : ArrayList<String>
-        {static} + getInstance()
-        + TimerAzioniProgrammate()
-        + getDelay()
-        + setDelay()
-        + start()
-        + stop()
-        + consume()
     }
 
     namespace util {
         class src.domotix.controller.util.StringUtil {
         }
         class src.domotix.controller.util.TimerTaskAzione {
-            - idAzione : String
-            - azione : Azione
-            - owner : TimerAzioniProgrammate
-            + TimerTaskAzione()
-            + run()
         }
     }
 }

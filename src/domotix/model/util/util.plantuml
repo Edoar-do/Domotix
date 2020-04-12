@@ -5,10 +5,25 @@ title __DOMOTIX > MODEL > UTIL's Class Diagram__\n
 namespace src.domotix.model {
     namespace util {
         class src.domotix.model.util.Costanti {
-            {static} + PERCORSO_CARTELLA_AZIONI_PROGRAMMATE : String
-            {static} + NODO_XML_INFO_SENSORIALE_TEMPORALE : String
-            {static} + NODO_XML_AZIONE_START : String
+            {static} + PERCORSO_CARTELLA_LIBRERIA : String
+            {static} + PERCORSO_CARTELLA_LIBRERIA_IMPORTATA : String
+            {static} + NOME_CARTELLA_CATEGORIE_SENSORI : String
+            {static} + NOME_CARTELLA_CATEGORIE_ATTUATORI : String
+            {static} + NOME_CARTELLA_UNITA_IMMOB : String
+            {static} + NOME_CARTELLA_SENSORI : String
+            {static} + NOME_CARTELLA_ATTUATORI : String
+            {static} + NOME_CARTELLA_AZIONI_PROGRAMMATE : String
         }
+
+        note bottom of Costanti
+            Le costanti riguardanti i percorsi delle cartelle
+            sono state ristrutturate in modo da consentire
+            alla classe PercorsiFile la costruzione completa
+            sulle tre basi a disposizione: PERCORSO_CARTELLA_DATI,
+            PERCORSO_CARTELLA_LIBRERIA, PERCORSO_CARTELLA_LIBRERIA_IMPORTATA.
+            In questo senso, le costanti qui riportate come "nomi cartelle"
+            sostituiscono le precedenti "percorsi cartella".
+        end note
 
         class src.domotix.model.util.ElencoDispositivi {
         }

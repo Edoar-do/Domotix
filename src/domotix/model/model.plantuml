@@ -19,18 +19,6 @@ namespace src.domotix.model {
     }
 
     class src.domotix.model.ElencoAzioniProgramate {
-        {static} - instance : ElencoAzioniProgrammate
-        - azioni : HashMap<String, Azione>
-        {static} + getInstance()
-        - ElencoAzioniProgrammate()
-        + add()
-        + remove()
-        + contains()
-        + getAzione()
-        + getCoppieIdAzione()
-        + getAzioni()
-        + getIdAzioni()
-        + isEmpty()
     }
 
     namespace util {

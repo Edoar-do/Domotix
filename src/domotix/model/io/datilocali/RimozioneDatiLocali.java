@@ -151,7 +151,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         }
         //elaboro i nomi rimasti
         for (String catSens : nomiDati) {
-            RimozioneDatiSalvati.getInstance().rimuoviCategoriaSensore(catSens);
+            rimuoviCategoriaSensore(catSens);
         }
     }
 
@@ -165,7 +165,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         }
         //elaboro i nomi rimasti
         for (String info : nomiDati) {
-            RimozioneDatiSalvati.getInstance().rimuoviInfoRilevabile(info, entita.getNome());
+            rimuoviInfoRilevabile(info, entita.getNome());
         }
     }
 
@@ -180,7 +180,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         }
         //elaboro i nomi rimasti
         for (String catAtt : nomiDati) {
-            RimozioneDatiSalvati.getInstance().rimuoviCategoriaAttuatore(catAtt);
+            rimuoviCategoriaAttuatore(catAtt);
         }
     }
 
@@ -194,7 +194,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         }
         //elaboro i nomi rimasti
         for (String modalita : nomiDati) {
-            RimozioneDatiSalvati.getInstance().rimuoviModalita(modalita, entita.getNome());
+            rimuoviModalita(modalita, entita.getNome());
         }
     }
 
@@ -211,7 +211,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         }
         //elaboro i nomi rimasti
         for (String unita : nomiDati) {
-            RimozioneDatiSalvati.getInstance().rimuoviUnitaImmobiliare(unita);
+            rimuoviUnitaImmobiliare(unita);
         }
     }
 
@@ -225,7 +225,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         }
         //elaboro i nomi rimasti
         for (String stanza : nomiDati) {
-            RimozioneDatiSalvati.getInstance().rimuoviStanza(stanza, entita.getNome());
+            rimuoviStanza(stanza, entita.getNome());
         }
     }
 
@@ -241,7 +241,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         }
         //elaboro i nomi rimasti
         for (String artefatto : nomiDati) {
-            RimozioneDatiSalvati.getInstance().rimuoviArtefatto(artefatto, entita.getNome());
+            rimuoviArtefatto(artefatto, entita.getNome());
         }
     }
 
@@ -255,7 +255,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         }
         //elaboro i nomi rimasti
         for (String sensore : nomiDati) {
-            RimozioneDatiSalvati.getInstance().rimuoviSensore(sensore);
+            rimuoviSensore(sensore);
         }
     }
 
@@ -269,7 +269,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         }
         //elaboro i nomi rimasti
         for (String attuatore : nomiDati) {
-            RimozioneDatiSalvati.getInstance().rimuoviAttuatore(attuatore);
+            rimuoviAttuatore(attuatore);
         }
     }
 
@@ -283,7 +283,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         }
         //elaboro i nomi rimasti
         for (String regola : nomiDati) {
-            RimozioneDatiSalvati.getInstance().rimuoviRegola(regola, entita.getNome());
+            rimuoviRegola(regola, entita.getNome());
         }
     }
 
@@ -297,7 +297,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
         }
         //elaboro i nomi rimasti
         for (String id : nomiDati) {
-            RimozioneDatiSalvati.getInstance().rimuoviAzioneProgrammata(id);
+            rimuoviAzioneProgrammata(id);
         }
     }
 }

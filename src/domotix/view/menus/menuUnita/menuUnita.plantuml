@@ -4,7 +4,6 @@ title __DOMOTIX > VIEW > MENUS > MENUUNITA's Class Diagram__\n
 
 namespace src.domotix.view.menus.menuUnita {
     class src.domotix.view.menus.menuUnita.MenuUnitaF {
-        {static} - premenuRegoleAttive_Disattive()
     }
 
     class src.domotix.view.menus.menuUnita.MenuUnitaM {
@@ -12,17 +11,6 @@ namespace src.domotix.view.menus.menuUnita {
 
     namespace gestioneUnita {
         class src.domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaF {
-            {static} - GUIDA_IN_LINEA : String
-            {static} - SUCCESSO_CAMBIO_STATO : String
-            {static} - ERRORE_CAMBIO_STATO : String
-            {static} - SUCCESSO_CAMBIO_STATO_S : String
-            {static} - SUCCESSO_CAMBIO_STATO_A : String
-            {static} - ERRORE_CAMBIO_STATO_S : String
-            {static} - ERRORE_CAMBIO_STATO_A : String
-            {static} - SENSORI_UNITA : String
-            {static} - ATTUATORI_UNITA : String
-            {static} - premenuAttuatoriUnita()
-            {static} - premenuSensoriUnita()
         }
 
         class src.domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaM {

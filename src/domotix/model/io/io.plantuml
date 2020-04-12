@@ -7,32 +7,47 @@ namespace src.domotix.model {
     }
 
     namespace io {
+        interface src.domotix.model.io.ImportaDati {
+            {static} + getInstance()
+            {abstract} + getNomiCategorieAttuatori()
+            {abstract} + getNomiCategorieSensori()
+            {abstract} + getNomiUnitaImmobiliare()
+            {abstract} + leggiCategorieAttuatori()
+            {abstract} + leggiCategorieSensori()
+            {abstract} + leggiUnitaImmobiliare()
+            {abstract} + storicizzaCategorieAttuatori()
+            {abstract} + storicizzaCategorieSensori()
+            {abstract} + storicizzaUnitaImmobiliare()
+        }
+
+        class src.domotix.model.io.ImportaDatiAdapter {
+            + getNomiCategorieAttuatori()
+            + getNomiCategorieSensori()
+            + getNomiUnitaImmobiliare()
+            + leggiCategorieAttuatori()
+            + leggiCategorieSensori()
+            + leggiUnitaImmobiliare()
+            + storicizzaCategorieAttuatori()
+            + storicizzaCategorieSensori()
+            + storicizzaUnitaImmobiliare()
+        }
+
         interface src.domotix.model.io.LetturaDatiSalvati {
-            {abstract} + getIdAzioniProgrammate()
-            {abstract} + leggiAzioneProgrammata()
         }
 
         abstract class src.domotix.model.io.LetturaDatiSalvatiAdapter {
-            + getIdAzioniProgrammate()
-            + leggiAzioneProgrammata()
         }
 
         interface src.domotix.model.io.RimozioneDatiSalvati {
-            {abstract} + rimuoviAzioneProgrammata()
-            {abstract} + sincronizzaAzioniProgrammate()
         }
 
         class src.domotix.model.io.RimozioneDatiSalvatiAdapter {
-            + rimuoviAzioneProgrammata()
-            + sincronizzaAzioniProgrammate()
         }
 
         interface src.domotix.model.io.ScritturaDatiSalvati {
-            {abstract} + salva()
         }
 
         class src.domotix.model.io.ScritturaDatiSalvatiAdapter {
-            + salva()
         }
 
         class src.domotix.model.io.RinfrescaDati {
@@ -49,16 +64,25 @@ namespace src.domotix.model {
             }
 
             class src.domotix.model.io.datilocali.LetturaDatiLocali {
-                + getIdAzioniProgrammate()
-                + leggiAzioneProgrammata()
             }
 
             class src.domotix.model.io.datilocali.PercorsiFile {
+                {static} + SORGENTE_DATI : int
+                {static} + SORGENTE_LIBRERIA : int
+                {static} + SORGENTE_LIBRERIA_IMPORTATA : int
+                {static} - PRIMA_SORGENTE : int
+                {static} - ULTIMA_SORGENTE : int
+                - sorgente : int
+                - controllaStruttura()
+                + getSorgente()
+                + setSorgente()
+                + getPercorsoSorgente()
+                + getCartellaCategorieSensore()
+                + getCartellaCategorieAttuatore()
+                + getCartellaUnitaImmobiliari()
             }
 
             class src.domotix.model.io.datilocali.RimozioneDatiLocali {
-                + rimuoviAzioneProgrammata()
-                + sincronizzaAzioniProgrammate()
             }
 
             enum src.domotix.model.io.datilocali.ScrittoriXML {
@@ -68,17 +92,22 @@ namespace src.domotix.model {
             }
 
             class src.domotix.model.io.datilocali.ScritturaDatiLocali {
-                - salvaEntita()
-                + salva()
             }
 
-            note top of [src.domotix.model.io.datilocali.ScritturaDatiLocali]
-              il metodo privato salvaEntita() coincide con il precedente salva().
-              Il refactor si e' reso necessario per errore di overload
-              per i parametri (String, Azione)
-            end note
-
             class src.domotix.model.io.datilocali.RinfrescaDatiLocali {
+            }
+
+            class src.domotix.model.io.datilocali.ImportaDatiLocali {
+                {static} + getInstance()
+                + getNomiCategorieAttuatori()
+                + getNomiCategorieSensori()
+                + getNomiUnitaImmobiliare()
+                + leggiCategorieAttuatori()
+                + leggiCategorieSensori()
+                + leggiUnitaImmobiliare()
+                + storicizzaCategorieAttuatori()
+                + storicizzaCategorieSensori()
+                + storicizzaUnitaImmobiliare()
             }
         }
     }
@@ -88,27 +117,30 @@ namespace src.domotix.model {
 src.domotix.model.io.LetturaDatiSalvatiAdapter .up.|> src.domotix.model.io.LetturaDatiSalvati
 src.domotix.model.io.RimozioneDatiSalvatiAdapter .up.|> src.domotix.model.io.RimozioneDatiSalvati
 src.domotix.model.io.ScritturaDatiSalvatiAdapter .up.|> src.domotix.model.io.ScritturaDatiSalvati
-src.domotix.model.io.RinfrescaDatiAdapter ..|> src.domotix.model.io.RinfrescaDati
+src.domotix.model.io.RinfrescaDatiAdapter .up.|> src.domotix.model.io.RinfrescaDati
+src.domotix.model.io.ImportaDatiAdapter .up.|> src.domotix.model.io.ImportaDati
 
 src.domotix.model.io.datilocali.LetturaDatiLocali -up-|> src.domotix.model.io.LetturaDatiSalvatiAdapter
 src.domotix.model.io.datilocali.RimozioneDatiLocali -up-|> src.domotix.model.io.RimozioneDatiSalvatiAdapter
 src.domotix.model.io.datilocali.ScritturaDatiLocali -up-|> src.domotix.model.io.ScritturaDatiSalvatiAdapter
-src.domotix.model.io.datilocali.RinfrescaDatiLocali --|> src.domotix.model.io.RinfrescaDatiAdapter
+src.domotix.model.io.datilocali.RinfrescaDatiLocali -up-|> src.domotix.model.io.RinfrescaDatiAdapter
+src.domotix.model.io.datilocali.ImportaDatiLocali -up-|> src.domotix.model.io.ImportaDatiAdapter
 
 src.domotix.model.io.datilocali.LettoriXML "1" o-- "1" src.domotix.model.io.datilocali.LettoriXML.IstanziatoreXML : istanziatore
 src.domotix.model.io.datilocali.LettoriXML +-down- src.domotix.model.io.datilocali.LettoriXML.IstanziatoreXML : contiene >
 src.domotix.model.io.datilocali.ScrittoriXML "1" o-- "1" src.domotix.model.io.datilocali.ScrittoriXML.CompilatoreXML : compilatore
 src.domotix.model.io.datilocali.ScrittoriXML +-down- src.domotix.model.io.datilocali.ScrittoriXML.CompilatoreXML : contiene >
 
+src.domotix.model.io.datilocali.ImportaDatiLocali -- src.domotix.model.io.datilocali.LetturaDatiLocali : usa >
+src.domotix.model.io.datilocali.ImportaDatiLocali -- src.domotix.model.io.datilocali.PercorsiFile : usa >
+src.domotix.model.io.datilocali.LetturaDatiLocali -- src.domotix.model.io.datilocali.PercorsiFile : usa >
 src.domotix.model.io.datilocali.PercorsiFile -- src.domotix.model.util.Costanti : usa >
 src.domotix.model.io.datilocali.LettoriXML -- src.domotix.model.util.Costanti : usa >
 src.domotix.model.io.datilocali.ScrittoriXML -- src.domotix.model.util.Costanti : usa >
 src.domotix.model.io.datilocali.LetturaDatiLocali -- src.domotix.model.util.Costanti : usa >
-src.domotix.model.io.datilocali.LetturaDatiLocali -- src.domotix.model.io.datilocali.LettoriXML : usa >
-src.domotix.model.io.datilocali.ScritturaDatiLocali -- src.domotix.model.io.datilocali.ScrittoriXML : usa >
+src.domotix.model.io.datilocali.ScritturaDatiSalvati -- src.domotix.model.util.Costanti : usa >
+src.domotix.model.io.datilocali.LetturaDatiLocali -- src.domotix.model.io.datilocali.LettoriXML : usa
+src.domotix.model.io.datilocali.ScritturaDatiLocali -- src.domotix.model.io.datilocali.ScrittoriXML : usa
 
-src.domotix.model.io.datilocali.LettoriXML -- src.domotix.model.io.LetturaDatiSalvati
-src.domotix.model.io.datilocali.ScrittoriXML -- src.domotix.model.io.ScritturaDatiSalvati
-src.domotix.model.io.datilocali.RimozioneDatiLocali -- src.domotix.model.io.RimozioneDatiSalvati
 
 @enduml

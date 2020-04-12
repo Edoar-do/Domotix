@@ -1,0 +1,30 @@
+@startuml
+
+namespace FileSystem\UserHome\.DOMOTIX {
+    namespace libreria {
+        namespace importata {
+            namespace categorie_sensori {
+            }
+            namespace categorie_attuatori {
+            }
+            namespace sensori {
+            }
+            namespace attuatori {
+            }
+            namespace unita_immob {
+            }
+        }
+        namespace categorie_sensori {
+        }
+        namespace categorie_attuatori {
+        }
+        namespace sensori {
+        }
+        namespace attuatori {
+        }
+        namespace unita_immob {
+        }
+    }
+}
+
+@enduml

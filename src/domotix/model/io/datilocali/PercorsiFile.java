@@ -11,11 +11,25 @@ import java.util.List;
  * Classe che implementa il pattern Singleton per la gestione dei percorsi dei file locali in cui sono salvati i dati del programma.
  * Si intende in questo modo centralizzare la generazione dei percorsi e le codifiche delle chiavi identificative.
  * Aggiungere qui la gestione di percorsi per eventuali nuove entita' salvate.
+ * Inoltre, i percorsi generati possono avere piu' sorgenti destinatarie tramite l'impostazione relativa. Questo per poter accedere
+ * ai file presenti anche in libreria e libreria gia' importata.
+ * La sorgente di default e' SORGENTE_DATI, ovvero i dati effettivi di programma. Per coerenza con l'utilizzo esterno di lettura,
+ * questa deve essere la sorgente sempre impostata al termine delle procedure sulle altre sorgenti.
  *
  * @author paolopasqua
  * @see LetturaDatiLocali
  */
 public class PercorsiFile {
+
+    /** Costante per indicare la sorgente Dati verso cui generare il percorso. Valore di default */
+    public static final int SORGENTE_DATI = 0;
+    /** Costante per indicare la sorgente Libreria verso cui generare il percorso */
+    public static final int SORGENTE_LIBRERIA = 1;
+    /** Costante per indicare la sorgente Importati in Libreria verso cui generare il percorso */
+    public static final int SORGENTE_LIBRERIA_IMPORTATA = 2;
+    //per controllo validita' sorgente da impostare in setSorgente()
+    private static final int PRIMA_SORGENTE = SORGENTE_DATI;
+    private static final int ULTIMA_SORGENTE = SORGENTE_LIBRERIA_IMPORTATA; //riportare sempre l'ultimo valore accettabile di sorgente
 
     private static PercorsiFile instance = null;
 
@@ -24,6 +38,9 @@ public class PercorsiFile {
             instance = new PercorsiFile();
         return instance;
     }
+
+    //sorgente verso cui generare i percorsi
+    private int sorgente = SORGENTE_DATI;
 
     private PercorsiFile() {
     }
@@ -44,6 +61,13 @@ public class PercorsiFile {
         return ret;
     }
 
+    /**
+     * Metodo che controlla la cartella indicata dal percorso in senso di esistenza, altrimenti viene creata.
+     * Nel caso esista un file con lo stesso percorso viene lanciata un'eccezione.
+     *
+     * @param percorso  stringa con percorso da controllare
+     * @throws NotDirectoryException    percorso esistente come file
+     */
     private void controllaCartella(String percorso) throws NotDirectoryException {
         //Controlla l'esistenza di una cartella della struttura dati indicata dal percorso
         //Se non esiste --> la creo
@@ -58,6 +82,11 @@ public class PercorsiFile {
         }
     }
 
+    /**
+     * Controlla che il percorso indicato sia una cartella
+     * @param percorso  stringa con percorso da controllare
+     * @throws NotDirectoryException    percorso esiste non come cartella
+     */
     private void controllaCartellaEntita(String percorso) throws NotDirectoryException {
         //Controlla se esiste la cartella relativa ad una entita' (categoriaSensore, unitaImmob, ...) indicata dal percorso
         //Se non esiste --> eccezione
@@ -74,10 +103,12 @@ public class PercorsiFile {
         }
     }
 
-    public void controllaStruttura() throws NotDirectoryException {
-        controllaCartella(Costanti.PERCORSO_CARTELLA_DATI);
+    private void controllaStruttura(int sorgente) throws NotDirectoryException {
+        setSorgente(sorgente);
+        controllaCartella(getPercorsoSorgente());
 
-        controllaCartella(Costanti.PERCORSO_CARTELLA_CATEGORIE_SENSORI);
+        /* CONTROLLO CATEGORIE SENSORI */
+        controllaCartella(getCartellaCategorieSensore());
         //controllo l'esistenza di una cartella per categoria (in modo cioe' che non vi sia una categoria come file senza la propria cartella)
         for (String s : getNomiCategorieSensori()) {
             controllaCartellaEntita(getCartellaCategoriaSensore(s));
@@ -85,7 +116,8 @@ public class PercorsiFile {
             //le informazioni rilevabili sono gestite come singoli file contenuti nella cartella sopra
         }
 
-        controllaCartella(Costanti.PERCORSO_CARTELLA_CATEGORIE_ATTUATORI);
+        /* CONTROLLO CATEGORIE ATTUATORI */
+        controllaCartella(getCartellaCategorieAttuatore());
         //controllo l'esistenza di una cartella per categoria (in modo cioe' che non vi sia una categoria come file senza la propria cartella)
         for (String s : getNomiCategorieAttuatori()) {
             controllaCartellaEntita(getCartellaCategoriaAttuatore(s));
@@ -93,7 +125,8 @@ public class PercorsiFile {
             //modalita sono gestite come singoli file contenuti nella cartella sopra
         }
 
-        controllaCartella(Costanti.PERCORSO_CARTELLA_UNITA_IMMOB);
+        /* CONTROLLO UNITA IMMOBILIARI */
+        controllaCartella(getCartellaUnitaImmobiliari());
         //controllo l'esistenza di una cartella per unita (in modo cioe' che non vi sia una unita come file senza la propria cartella)
         for (String s : getNomiUnitaImmobiliare()) {
             controllaCartellaEntita(getCartellaUnitaImmobiliare(s));
@@ -105,9 +138,60 @@ public class PercorsiFile {
             //regole sono gestite come singoli file contenuti nella cartella sopra
         }
 
-        controllaCartella(Costanti.PERCORSO_CARTELLA_SENSORI); //sensori gestiti come singoli file contenuti nella cartella
-        controllaCartella(Costanti.PERCORSO_CARTELLA_ATTUATORI); //attuatori gestiti come singoli file contenuti nella cartella
-        controllaCartella(Costanti.PERCORSO_CARTELLA_AZIONI_PROGRAMMATE); //azioni programamte gestite come singoli file contenuti nella cartella
+        /* CONTROLLO SENSORI */
+        controllaCartella(getCartellaSensori()); //sensori gestiti come singoli file contenuti nella cartella
+        /* CONTROLLO ATTUATORI */
+        controllaCartella(getCartellaAttuatori()); //attuatori gestiti come singoli file contenuti nella cartella
+        /* CONTROLLO AZIONI PROGRAMMATE */
+        if (sorgente == SORGENTE_DATI) //in libreria non viene gestita l'entita' azione programmabile
+            controllaCartella(getCartellaAzioniProgrammabili()); //azioni programamte gestite come singoli file contenuti nella cartella
+    }
+
+    /**
+     * Controlla la struttura dei file utili al funzionamento del programma.
+     * Se struttura non esistente, la crea.
+     * Se qualcosa esistente non dovesse essere corretto, viene segnalato tramite eccezione
+     * @throws NotDirectoryException    qualche percorso interno esiste non come cartella
+     */
+    public void controllaStruttura() throws NotDirectoryException {
+        controllaStruttura(SORGENTE_DATI);
+        controllaStruttura(SORGENTE_LIBRERIA);
+        controllaStruttura(SORGENTE_LIBRERIA_IMPORTATA);
+        setSorgente(SORGENTE_DATI);
+    }
+
+    /**
+     * Ritorna l'attuale sorgente impostata
+     * @return  intero che identifica attraverso le costanti la sorgente
+     */
+    public int getSorgente() {
+        return sorgente;
+    }
+
+    /**
+     * Imposta una nuova sorgente presso cui generare i percorsi. Questo e' valido solamente se il numero e'
+     * identificato da un'apposita costante.
+     * @param sorgente intero che identifica la sorgente attraverso le apposite costanti
+     */
+    public void setSorgente(int sorgente) {
+        if (sorgente >= PRIMA_SORGENTE && sorgente <= ULTIMA_SORGENTE)
+            this.sorgente = sorgente;
+    }
+
+    /**
+     * Ritorna la stringa contentente il percorso alla cartella della sorgente file impostata
+     * @return  stringa contenente il percorso alla sorgente
+     */
+    public String getPercorsoSorgente() {
+        switch(this.sorgente) {
+            case SORGENTE_DATI:
+                return Costanti.PERCORSO_CARTELLA_DATI;
+            case SORGENTE_LIBRERIA:
+                return Costanti.PERCORSO_CARTELLA_LIBRERIA;
+            case SORGENTE_LIBRERIA_IMPORTATA:
+                return Costanti.PERCORSO_CARTELLA_LIBRERIA_IMPORTATA;
+        }
+        return "";
     }
 
     /**
@@ -127,7 +211,16 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.CategoriaSensore
      */
     public String getCartellaCategoriaSensore(String cat) {
-        return Costanti.PERCORSO_CARTELLA_CATEGORIE_SENSORI + File.separator + cat;
+        return getCartellaCategorieSensore() + File.separator + cat;
+    }
+
+    /**
+     * Genera il percorso della cartella contenente tutte le CategoriaSensore presenti
+     * @return  Percorso alla cartella dove risiedono i dati locali relativi all'entita'
+     * @see domotix.model.bean.device.CategoriaSensore
+     */
+    public String getCartellaCategorieSensore() {
+        return getPercorsoSorgente() + File.separator + Costanti.NOME_CARTELLA_CATEGORIE_SENSORI;
     }
 
     /**
@@ -137,8 +230,10 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.CategoriaSensore
      */
     public List<String> getNomiCategorieSensori() {
-        return getNomiCartella(Costanti.PERCORSO_CARTELLA_CATEGORIE_SENSORI);
+        return getNomiCartella(getCartellaCategorieSensore());
     }
+
+
 
     /**
      * Genera il percorso del file specifico per un'entita' InfoRilevabile identificata dalle stringhe passata.
@@ -171,6 +266,8 @@ public class PercorsiFile {
         return getNomiCartella(getCartellaInformazioneRilevabile(categoriaSensore));
     }
 
+
+
     /**
      * Genera il percorso del file specifico per un'entita' CategoriaAttuatore identificata dalla stringa passata.
      * @param cat   identificativo stringa dell'entita'
@@ -188,7 +285,16 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.CategoriaAttuatore
      */
     public String getCartellaCategoriaAttuatore(String cat) {
-        return Costanti.PERCORSO_CARTELLA_CATEGORIE_ATTUATORI + File.separator + cat;
+        return getCartellaCategorieAttuatore() + File.separator + cat;
+    }
+
+    /**
+     * Genera il percorso della cartella contenente tutte le CategoriaAttuatore presenti
+     * @return  Percorso alla cartella dove risiedono i dati locali relativi all'entita'
+     * @see domotix.model.bean.device.CategoriaAttuatore
+     */
+    public String getCartellaCategorieAttuatore() {
+        return getPercorsoSorgente() + File.separator + Costanti.NOME_CARTELLA_CATEGORIE_ATTUATORI;
     }
 
     /**
@@ -198,8 +304,10 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.CategoriaAttuatore
      */
     public List<String> getNomiCategorieAttuatori() {
-        return getNomiCartella(Costanti.PERCORSO_CARTELLA_CATEGORIE_ATTUATORI);
+        return getNomiCartella(getCartellaCategorieAttuatore());
     }
+
+
 
     /**
      * Genera il percorso del file specifico per un'entita' Modalita identificata dalle stringhe passata.
@@ -232,6 +340,8 @@ public class PercorsiFile {
         return getNomiCartella(getCartellaModalita(categoriaAttuatore));
     }
 
+
+
     /**
      * Genera il percorso del file specifico per un'entita' UnitaImmobiliare identificata dalla stringa passata.
      * @param unita   identificativo stringa dell'entita'
@@ -249,7 +359,16 @@ public class PercorsiFile {
      * @see domotix.model.bean.UnitaImmobiliare
      */
     public String getCartellaUnitaImmobiliare(String unita) {
-        return Costanti.PERCORSO_CARTELLA_UNITA_IMMOB + File.separator + unita;
+        return getCartellaUnitaImmobiliari() + File.separator + unita;
+    }
+
+    /**
+     * Genera il percorso della cartella contenente tutte le UnitaImmobiliare presenti
+     * @return  Percorso alla cartella dove risiedono i dati locali relativi all'entita'
+     * @see domotix.model.bean.UnitaImmobiliare
+     */
+    public String getCartellaUnitaImmobiliari() {
+        return getPercorsoSorgente() + File.separator + Costanti.NOME_CARTELLA_UNITA_IMMOB;
     }
 
     /**
@@ -259,8 +378,10 @@ public class PercorsiFile {
      * @see domotix.model.bean.UnitaImmobiliare
      */
     public List<String> getNomiUnitaImmobiliare() {
-        return getNomiCartella(Costanti.PERCORSO_CARTELLA_UNITA_IMMOB);
+        return getNomiCartella(getCartellaUnitaImmobiliari());
     }
+
+
 
     /**
      * Genera il percorso del file specifico per un'entita' Stanza identificata dalle stringhe passate.
@@ -294,6 +415,8 @@ public class PercorsiFile {
          return getNomiCartella(getCartellaStanze(unitaImmobiliare));
     }
 
+
+
     /**
      * Genera il percorso del file specifico per un'entita' Artefatto identificata dalle stringhe passate.
      * @param artefatto   identificativo stringa della stanza
@@ -325,6 +448,8 @@ public class PercorsiFile {
         return getNomiCartella(getCartellaArtefatti(unitaImmobiliare));
     }
 
+
+
     /**
      * Genera il percorso del file specifico per un'entita' Sensore identificata dalla stringa passata.
      * @param sensore   identificativo stringa del sensore
@@ -341,7 +466,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.Sensore
      */
     public String getCartellaSensori() {
-        return Costanti.PERCORSO_CARTELLA_SENSORI;
+        return getPercorsoSorgente() + File.separator + Costanti.NOME_CARTELLA_SENSORI;
     }
 
     /**
@@ -353,6 +478,8 @@ public class PercorsiFile {
     public List<String> getNomiSensori() {
         return getNomiCartella(getCartellaSensori());
     }
+
+
 
     /**
      * Genera il percorso del file specifico per un'entita' Attuatore identificata dalla stringa passata.
@@ -370,7 +497,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.Attuatore
      */
     public String getCartellaAttuatori() {
-        return Costanti.PERCORSO_CARTELLA_ATTUATORI;
+        return getPercorsoSorgente() + File.separator + Costanti.NOME_CARTELLA_ATTUATORI;
     }
 
     /**
@@ -382,6 +509,8 @@ public class PercorsiFile {
     public List<String> getNomiAttuatori() {
         return getNomiCartella(getCartellaAttuatori());
     }
+
+
 
     /**
      * Genera il percorso del file specifico per un'entita' Regola identificata dalle stringhe passate.
@@ -412,6 +541,8 @@ public class PercorsiFile {
         return getNomiCartella(getCartellaRegole(unita));
     }
 
+
+
     /**
      * Genera il percorso del file specifico per un'entita' Azione programmata identificata dalle stringhe passate.
      * @param id   identificativo stringa della regola
@@ -430,7 +561,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.regole.Azione
      */
     public String getCartellaAzioniProgrammabili() {
-        return Costanti.PERCORSO_CARTELLA_AZIONI_PROGRAMMATE;
+        return getPercorsoSorgente() + File.separator + Costanti.NOME_CARTELLA_AZIONI_PROGRAMMATE;
     }
 
     /**
