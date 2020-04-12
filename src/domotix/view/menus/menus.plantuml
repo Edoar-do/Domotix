@@ -17,10 +17,10 @@ namespace src.domotix.view.menus {
 
     namespace menuPrincipale {
         class src.domotix.view.menus.menuPrincipale.MenuFruitore {
-            {static} - NESSUNA_AZIONE_PROGRAMMATA : String
         }
 
         class src.domotix.view.menus.menuPrincipale.MenuManutentore {
+            {static} - INTRO_IMPORT_UNITA : String
         }
     }
 
@@ -36,6 +36,7 @@ namespace src.domotix.view.menus {
             }
 
             class src.domotix.view.menus.menuCategorie.sensori.MenuCategorieSensoriM {
+                {static} - INTRO_IMPORT_CAT_SENS : String
             }
         }
 
@@ -44,6 +45,8 @@ namespace src.domotix.view.menus {
             }
 
             class src.domotix.view.menus.menuCategorie.attuatori.MenuCategorieAttuatoriM {
+                {static} - INTRO_IMPORT_CAT_ATT : String
+
             }
         }
     }

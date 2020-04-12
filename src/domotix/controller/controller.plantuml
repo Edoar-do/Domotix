@@ -3,6 +3,21 @@
 title __DOMOTIX > CONTROLLER's Class Diagram__\n
 
 namespace src.domotix.controller {
+    class src.domotix.controller.Importatore {
+        {static} - CATEGORIA_PRE_ESISTENTE : String
+        {static} - IMPORT_CAT_SENS_OK : String
+        {static} - IMPORT_CAT_ATT_OK : String
+        {static} - IMPORT_UNITA_OK : String
+        {static} - UNITA_PRE_ESISTENTE : String
+        {static} - NOT_IMPORT_CAT_SENS_YET : String
+        {static} - NOT_IMPORT_CAT_ATT_YET : String
+        {static} - importazioneCategorieSensoriAvvenuta : boolean
+        {static} - importazioneCategorieAttuatoriAvvenuta : boolean
+        + importaUnitaImmobiliari()
+        + importaCategorieSensori()
+        + importaCategorieAttuatori()
+    }
+
     class src.domotix.controller.Modificatore {
     }
 
