@@ -6,6 +6,7 @@ import domotix.model.ElencoUnitaImmobiliari;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.CategoriaAttuatore;
 import domotix.model.bean.device.CategoriaSensore;
+import domotix.model.io.ImportaDati;
 
 import java.util.ArrayList;
 
@@ -15,18 +16,6 @@ import java.util.ArrayList;
  */
 public class Importatore {
 
-    private static final String CATEGORIA_PRE_ESISTENTE = "La categoria %s non è stata importata in quanto e' presente una categoria omonima in elenco";
-    private static final String IMPORT_CAT_SENS_OK = "Importazione delle categorie di sensori terminato con successo";
-    private static final String IMPORT_CAT_ATT_OK = "Importazione delle categorie di attuatori terminato con successo";
-    private static final String IMPORT_UNITA_OK = "Importazione delle unita' immobiliari terminata con successo ";
-    private static final String UNITA_PRE_ESISTENTE = "L'unita' immobiliare %s non è stata importata in quanto e' presenta un'unita' immobiliare omonima in elenco";
-    private static final String NOT_IMPORT_CAT_SENS_YET = "Importazione unita' immobiliari impossibile. E' necessario importare prima le categorie di sensori";
-    private static final String NOT_IMPORT_CAT_ATT_YET = "Importazione unita' immobiliari impossibile. E' necessario importare prima le categorie di attuatori";
-
-    //i seguenti boolean sono per verificare il rispetto delle precedenze di importazione: categorie -> unità. Non viceversa
-    private static boolean importazioneCategorieSensoriAvvenuta = false;
-    private static boolean importazioneCategorieAttuatoriAvvenuta = false;
-
     /**
      * Metodo che realizza l'importazione di unita' immobiliari da una libreria estrerna
      * Le unita' importate sono già provviste di stanze, artefatti, sensori, attuatori e regole
@@ -34,22 +23,28 @@ public class Importatore {
      */
     public static ArrayList<String> importaUnitaImmobiliari(){
         ArrayList<String> esiti = new ArrayList<>();
-        if(!importazioneCategorieSensoriAvvenuta) esiti.add(NOT_IMPORT_CAT_SENS_YET);
-        if(!importazioneCategorieAttuatoriAvvenuta) esiti.add(NOT_IMPORT_CAT_ATT_YET);
-        if(importazioneCategorieAttuatoriAvvenuta && importazioneCategorieSensoriAvvenuta) {
-            UnitaImmobiliare unita;
-            String[] nomiUnitaDaImportare = ImportaDati.getInstance().getNomiUnitaImmobiliari();
-            for (String nomeUnita : nomiUnitaDaImportare) {
+        UnitaImmobiliare unita = new UnitaImmobiliare("err");
+        String[] nomiUnitaDaImportare = new String[0];
+        try { nomiUnitaDaImportare = ImportaDati.getInstance().getNomiUnitaImmobiliare().toArray(new String[0]);
+        } catch (Exception e) {
+            return null;
+        }
+        for (String nomeUnita : nomiUnitaDaImportare) {
                 if(ElencoUnitaImmobiliari.getInstance().contains(nomeUnita)){
-                    esiti.add(String.format(UNITA_PRE_ESISTENTE, nomeUnita));
+                    esiti.add(nomeUnita);
                 }else{
-                    unita = ImportaDati.getInstance().leggiUnitaImmobiliare(nomeUnita);
+                    try { unita = ImportaDati.getInstance().leggiUnitaImmobiliare(nomeUnita);
+                    } catch (Exception e) {
+                        esiti.add(nomeUnita);
+                    }
                     ElencoUnitaImmobiliari.getInstance().add(unita);
-                    ImportaDati.getInstance().storicizzaUnitaImmobiliare(nomeUnita);
+                    try { ImportaDati.getInstance().storicizzaUnitaImmobiliare(nomeUnita);
+                    } catch (Exception e) {
+                        esiti.add(nomeUnita);
+                        ElencoUnitaImmobiliari.getInstance().remove("err"); //rimuovo ciò che di sbagliato ho aggiunto a causa della mancata storicizzazione
+                    }
                 }
             }
-        }
-        if(esiti.isEmpty()) esiti.add(IMPORT_UNITA_OK);
         return esiti;
     }
 
@@ -59,19 +54,28 @@ public class Importatore {
      */
     public static ArrayList<String> importaCategorieSensori(){
         ArrayList<String> esiti = new ArrayList<>();
-        CategoriaSensore categoria;
-        String[] nomiCategorieSensoriDaImportare = ImportaDati.getInstance().getNomiCategorieSensori();
+        CategoriaSensore categoria = new CategoriaSensore("err", "err");
+        String[] nomiCategorieSensoriDaImportare = new String[0];
+        try{ nomiCategorieSensoriDaImportare = ImportaDati.getInstance().getNomiCategorieSensori().toArray(new String[0]);
+        }catch(Exception e){
+                    return null; //chiudo tutto perché non parte proprio l'importazione
+        }
         for (String nomeCategoria : nomiCategorieSensoriDaImportare){
             if(ElencoCategorieSensori.getInstance().contains(nomeCategoria)){ //già presente -> aggiungo un esito_errore
-                esiti.add(String.format(CATEGORIA_PRE_ESISTENTE, nomeCategoria));
+                esiti.add(nomeCategoria);
             }else{ //non presente - nuova -> fetch + add + move
-                categoria = ImportaDati.getInstance().leggiCategoriaSensore(nomeCategoria);
+                try { categoria = ImportaDati.getInstance().leggiCategoriaSensore(nomeCategoria);
+                } catch (Exception e) {
+                    esiti.add(nomeCategoria);
+                }
                 ElencoCategorieSensori.getInstance().add(categoria);
-                ImportaDati.getInstance().storicizzaCategoriaSensore(nomeCategoria);
+                try { ImportaDati.getInstance().storicizzaCategoriaSensore(nomeCategoria);
+                } catch (Exception e) {
+                    esiti.add(nomeCategoria);
+                    ElencoCategorieSensori.getInstance().remove("err"); //rimuovo ciò che di sbagliato ho aggiunto a causa della mancata storicizzazione
+                }
             }
         }
-        if(esiti.isEmpty()) esiti.add(IMPORT_CAT_SENS_OK);
-        importazioneCategorieSensoriAvvenuta = true;
         return esiti;
     }
 
@@ -81,19 +85,30 @@ public class Importatore {
      */
     public static ArrayList<String> importaCategorieAttuatori(){
         ArrayList<String> esiti = new ArrayList<>();
-        CategoriaAttuatore categoria;
-        String[] nomiCategorieAttuatoriDaImportare = ImportaDati.getInstance().getNomiCategorieAttuatori();
+        CategoriaAttuatore categoria = new CategoriaAttuatore("err", "err");
+        String[] nomiCategorieAttuatoriDaImportare = new String[0];
+        try { nomiCategorieAttuatoriDaImportare = ImportaDati.getInstance().getNomiCategorieAttuatori().toArray(new String[0]);
+        }catch (Exception e){
+            return null;
+        }
         for (String nomeCategoria : nomiCategorieAttuatoriDaImportare){
             if(ElencoCategorieAttuatori.getInstance().contains(nomeCategoria)){ //già presente -> aggiungo un esito_errore
-                esiti.add(String.format(CATEGORIA_PRE_ESISTENTE, nomeCategoria));
+                esiti.add(nomeCategoria);
             }else{ //non presente - nuova -> fetch + add + move
-                categoria = ImportaDati.getInstance().leggiCategoriaAttuatore(nomeCategoria);
+                try {
+                    categoria = ImportaDati.getInstance().leggiCategoriaAttuatore(nomeCategoria);
+                } catch (Exception e) {
+                   esiti.add(nomeCategoria);
+                }
                 ElencoCategorieAttuatori.getInstance().add(categoria);
-                ImportaDati.getInstance().storicizzaCategoriaAttuatore(nomeCategoria);
+                try {
+                    ImportaDati.getInstance().storicizzaCategoriaAttuatore(nomeCategoria);
+                } catch (Exception e) {
+                    esiti.add(nomeCategoria);
+                    ElencoCategorieAttuatori.getInstance().remove("err"); //rimuovo quanto di sbagliato ho appena aggiunto a causa della mancata storicizzazione
+                }
             }
         }
-        if(esiti.isEmpty()) esiti.add(IMPORT_CAT_ATT_OK);
-        importazioneCategorieAttuatoriAvvenuta = true;
         return esiti;
     }
 }

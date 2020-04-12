@@ -6,6 +6,8 @@ import domotix.controller.Recuperatore;
 import domotix.view.InputDati;
 import domotix.view.MyMenu;
 
+import java.util.ArrayList;
+
 /** @author Edoardo Coppola*/
 public class MenuCategorieAttuatoriM {
     private static final String TITOLO = "Menu Categorie Attuatori Manutentore ";
@@ -32,6 +34,9 @@ public class MenuCategorieAttuatoriM {
     private static final String ERRORE_INSERIMENTO_PARAMETRO = "L'inserimento del parametro è fallito. " + GUIDA_IN_LINEA;
     private static final String INSERIMENTO_VALORE_PARAMETRO = "Inserisci il valore desiderato per il parametro %s : ";
     private static final String INTRO_IMPORT_CAT_ATT = "L'importazione delle categorie di attuatori di libreria è stata selezionata. Di seguito apparirà l'esito dell'importazione: ";
+    private static final String CATEGORIA_NON_IMPORTATA = "La categoria %s non è stata importata. " + GUIDA_IN_LINEA;
+    private static final String IMPORT_CAT_ATT_OK = "Importazione delle categorie di attuatori terminato con successo";
+    private static final String IMPORT_FAILED = "Importazione delle categorie di attuatori fallita completamente";
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
@@ -120,9 +125,13 @@ public class MenuCategorieAttuatoriM {
                     break;
                 case 4: //importa categorie attuatori
                     System.out.println(INTRO_IMPORT_CAT_ATT);
-                    for (String msg: Importatore.importaCategorieAttuatori()) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK
-                        System.out.println(msg);
-                    }
+                    ArrayList<String> msgs = Importatore.importaCategorieSensori();
+                    if(msgs == null) System.out.println(IMPORT_FAILED);
+                    if(msgs.size() > 0) {
+                        for (String msg : msgs) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK
+                            System.out.println(String.format(CATEGORIA_NON_IMPORTATA, msg));
+                        }
+                    }else System.out.println(IMPORT_CAT_ATT_OK);
                     break;
             }
         }while(sceltaMenu != 0);

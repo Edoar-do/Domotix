@@ -6,6 +6,8 @@ import domotix.controller.Recuperatore;
 import domotix.view.InputDati;
 import domotix.view.MyMenu;
 
+import java.util.ArrayList;
+
 
 /** @author Edoardo Coppola*/
 public class MenuCategorieSensoriM {
@@ -27,6 +29,10 @@ public class MenuCategorieSensoriM {
     private static final String ALMENO_UNA_INFO = "Deve essere presente almeno un'informazione rilevabile per la categoria di sensori creata!";
     private static final String IS_NUMERICA = "L'informazione %s è numerica? ";
     private static final String INTRO_IMPORT_CAT_SENS = "L'importazione delle categorie di sensori di libreria è stata selezionata. Di seguito apparirà l'esito dell'importazione: ";
+    private static final String GUIDA_IN_LINEA = "Consultare la guida in linea per maggiori informazioni";
+    private static final String CATEGORIA_NON_IMPORTATA = "La categoria %s non è stata importata. " + GUIDA_IN_LINEA;
+    private static final String IMPORT_CAT_SENS_OK = "Importazione delle categorie di sensori terminato con successo";
+    private static final String IMPORT_FAILED = "Importazione delle categorie di sensori fallita completamente";
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
@@ -89,9 +95,13 @@ public class MenuCategorieSensoriM {
                     break;
                 case 4: //importa categorie sensori
                     System.out.println(INTRO_IMPORT_CAT_SENS);
-                    for (String msg: Importatore.importaCategorieSensori()) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK
-                        System.out.println(msg);
-                    }
+                   ArrayList<String> msgs = Importatore.importaCategorieSensori();
+                   if(msgs == null) System.out.println(IMPORT_FAILED);
+                   if(msgs.size() > 0) {
+                        for (String msg : msgs) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK
+                            System.out.println(String.format(CATEGORIA_NON_IMPORTATA, msg));
+                        }
+                   }else System.out.println(IMPORT_CAT_SENS_OK);
                     break;
             }
         }while(sceltaMenu != 0);
