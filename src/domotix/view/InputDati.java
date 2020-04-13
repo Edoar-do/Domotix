@@ -34,10 +34,14 @@ public class InputDati
 	   creato.useDelimiter(System.getProperty("line.separator"));
 	   return creato;
 	  }
+
+    private static void stampaMessaggio(String messaggio) {
+        out.print(messaggio + " ");
+    }
 	  
 	  public static String leggiStringa (String messaggio)
 	  {
-		  out.print(messaggio);
+		  stampaMessaggio(messaggio);
 		  return lettore.nextLine();
 	  }
 	  
@@ -64,7 +68,7 @@ public class InputDati
 	   char valoreLetto = '\0';
 	   do
 	    {
-	     out.print(messaggio);
+	     stampaMessaggio(messaggio);
 	     String lettura = lettore.nextLine();
 	     if (lettura.length() > 0)
 	      {
@@ -102,7 +106,7 @@ public class InputDati
 	   int valoreLetto = 0;
 	   do
 	    {
-	     out.print(messaggio);
+	     stampaMessaggio(messaggio);
 	     try
 	      {
 	       valoreLetto = Integer.parseInt(lettore.nextLine());
@@ -170,7 +174,7 @@ public class InputDati
 	   double valoreLetto = 0;
 	   do
 	    {
-	     out.print(messaggio);
+	     stampaMessaggio(messaggio);
 	     try
 	      {
 	       valoreLetto = Double.parseDouble(lettore.nextLine());
