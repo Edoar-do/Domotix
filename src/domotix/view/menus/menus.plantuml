@@ -21,6 +21,10 @@ namespace src.domotix.view.menus {
 
         class src.domotix.view.menus.menuPrincipale.MenuManutentore {
             {static} - INTRO_IMPORT_UNITA : String
+            {static} - IMPORT_UNITA_OK : String
+            {static} - GUIDA_IN_LINEA : String
+            {static} - UNITA_NON_IMPORTATA : String
+            {static} - IMPORT_FAILED : String
         }
     }
 
@@ -37,6 +41,10 @@ namespace src.domotix.view.menus {
 
             class src.domotix.view.menus.menuCategorie.sensori.MenuCategorieSensoriM {
                 {static} - INTRO_IMPORT_CAT_SENS : String
+                {static} - GUIDA_IN_LINEA : String
+                {static} - CATEGORIA_NON_IMPORTATA : String
+                {static} - IMPORT_CAT_SES_OK : String
+                {static} - IMPORT_FAILED : String
             }
         }
 
@@ -46,7 +54,9 @@ namespace src.domotix.view.menus {
 
             class src.domotix.view.menus.menuCategorie.attuatori.MenuCategorieAttuatoriM {
                 {static} - INTRO_IMPORT_CAT_ATT : String
-
+                {static} - CATEGORIA_NON_IMPORTATA : String
+                {static} - IMPORT_CAT_ATT_OK : String
+                {static} - IMPORT_FAILED : String
             }
         }
     }
