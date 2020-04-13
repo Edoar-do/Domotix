@@ -23,28 +23,30 @@ public class Importatore {
      */
     public static ArrayList<String> importaUnitaImmobiliari(){
         ArrayList<String> esiti = new ArrayList<>();
-        UnitaImmobiliare unita = new UnitaImmobiliare("err");
-        String[] nomiUnitaDaImportare = new String[0];
+        UnitaImmobiliare unita;
+        String[] nomiUnitaDaImportare;
         try { nomiUnitaDaImportare = ImportaDati.getInstance().getNomiUnitaImmobiliare().toArray(new String[0]);
         } catch (Exception e) {
             return null;
         }
         for (String nomeUnita : nomiUnitaDaImportare) {
-                if(ElencoUnitaImmobiliari.getInstance().contains(nomeUnita)){
-                    esiti.add(nomeUnita);
-                }else{
-                    try { unita = ImportaDati.getInstance().leggiUnitaImmobiliare(nomeUnita);
-                    } catch (Exception e) {
-                        esiti.add(nomeUnita);
-                    }
+            if (ElencoUnitaImmobiliari.getInstance().contains(nomeUnita)) {
+                esiti.add(nomeUnita);
+            } else{
+                try {
+                    unita = ImportaDati.getInstance().leggiUnitaImmobiliare(nomeUnita);
                     ElencoUnitaImmobiliari.getInstance().add(unita);
-                    try { ImportaDati.getInstance().storicizzaUnitaImmobiliare(nomeUnita);
-                    } catch (Exception e) {
+                    try{
+                        ImportaDati.getInstance().storicizzaUnitaImmobiliare(nomeUnita);
+                    }catch(Exception e){
                         esiti.add(nomeUnita);
-                        ElencoUnitaImmobiliari.getInstance().remove("err"); //rimuovo ciò che di sbagliato ho aggiunto a causa della mancata storicizzazione
+                        ElencoUnitaImmobiliari.getInstance().remove(nomeUnita);
                     }
+                }catch(Exception e){
+                    esiti.add(nomeUnita);
                 }
             }
+        }
         return esiti;
     }
 
@@ -54,8 +56,8 @@ public class Importatore {
      */
     public static ArrayList<String> importaCategorieSensori(){
         ArrayList<String> esiti = new ArrayList<>();
-        CategoriaSensore categoria = new CategoriaSensore("err", "err");
-        String[] nomiCategorieSensoriDaImportare = new String[0];
+        CategoriaSensore categoria;
+        String[] nomiCategorieSensoriDaImportare;
         try{ nomiCategorieSensoriDaImportare = ImportaDati.getInstance().getNomiCategorieSensori().toArray(new String[0]);
         }catch(Exception e){
                     return null; //chiudo tutto perché non parte proprio l'importazione
@@ -64,15 +66,17 @@ public class Importatore {
             if(ElencoCategorieSensori.getInstance().contains(nomeCategoria)){ //già presente -> aggiungo un esito_errore
                 esiti.add(nomeCategoria);
             }else{ //non presente - nuova -> fetch + add + move
-                try { categoria = ImportaDati.getInstance().leggiCategoriaSensore(nomeCategoria);
+                try {
+                    categoria = ImportaDati.getInstance().leggiCategoriaSensore(nomeCategoria);
+                    ElencoCategorieSensori.getInstance().add(categoria);
+                    try {
+                        ImportaDati.getInstance().storicizzaCategoriaSensore(nomeCategoria);
+                    } catch (Exception e) {
+                        esiti.add(nomeCategoria);
+                        ElencoCategorieSensori.getInstance().remove(nomeCategoria); //rimuovo ciò che di sbagliato ho aggiunto a causa della mancata storicizzazione
+                    }
                 } catch (Exception e) {
                     esiti.add(nomeCategoria);
-                }
-                ElencoCategorieSensori.getInstance().add(categoria);
-                try { ImportaDati.getInstance().storicizzaCategoriaSensore(nomeCategoria);
-                } catch (Exception e) {
-                    esiti.add(nomeCategoria);
-                    ElencoCategorieSensori.getInstance().remove("err"); //rimuovo ciò che di sbagliato ho aggiunto a causa della mancata storicizzazione
                 }
             }
         }
@@ -85,9 +89,10 @@ public class Importatore {
      */
     public static ArrayList<String> importaCategorieAttuatori(){
         ArrayList<String> esiti = new ArrayList<>();
-        CategoriaAttuatore categoria = new CategoriaAttuatore("err", "err");
-        String[] nomiCategorieAttuatoriDaImportare = new String[0];
-        try { nomiCategorieAttuatoriDaImportare = ImportaDati.getInstance().getNomiCategorieAttuatori().toArray(new String[0]);
+        CategoriaAttuatore categoria;
+        String[] nomiCategorieAttuatoriDaImportare;
+        try {
+            nomiCategorieAttuatoriDaImportare = ImportaDati.getInstance().getNomiCategorieAttuatori().toArray(new String[0]);
         }catch (Exception e){
             return null;
         }
@@ -97,15 +102,15 @@ public class Importatore {
             }else{ //non presente - nuova -> fetch + add + move
                 try {
                     categoria = ImportaDati.getInstance().leggiCategoriaAttuatore(nomeCategoria);
-                } catch (Exception e) {
-                   esiti.add(nomeCategoria);
-                }
-                ElencoCategorieAttuatori.getInstance().add(categoria);
-                try {
-                    ImportaDati.getInstance().storicizzaCategoriaAttuatore(nomeCategoria);
+                    ElencoCategorieAttuatori.getInstance().add(categoria);
+                    try {
+                        ImportaDati.getInstance().storicizzaCategoriaAttuatore(nomeCategoria);
+                    } catch (Exception e) {
+                        esiti.add(nomeCategoria);
+                        ElencoCategorieAttuatori.getInstance().remove(nomeCategoria); //rimuovo quanto di sbagliato ho appena aggiunto a causa della mancata storicizzazione
+                    }
                 } catch (Exception e) {
                     esiti.add(nomeCategoria);
-                    ElencoCategorieAttuatori.getInstance().remove("err"); //rimuovo quanto di sbagliato ho appena aggiunto a causa della mancata storicizzazione
                 }
             }
         }
