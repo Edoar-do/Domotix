@@ -126,7 +126,7 @@ public class MenuCategorieAttuatoriM {
                     break;
                 case 4: //importa categorie attuatori
                     System.out.println(INTRO_IMPORT_CAT_ATT);
-                    ArrayList<String> msgs = Importatore.importaCategorieSensori();
+                    ArrayList<String> msgs = Importatore.importaCategorieAttuatori();
                     if(msgs == null) System.out.println(IMPORT_FAILED);
                     if(msgs.size() > 0) {
                         for (String msg : msgs) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK
