@@ -8,6 +8,8 @@ import domotix.view.MyMenu;
 import domotix.view.menus.menuCategorie.MenuCategorieM;
 import domotix.view.menus.menuUnita.MenuUnitaM;
 
+import java.util.ArrayList;
+
 /** @author Edoardo Coppola*/
 public class MenuManutentore {
     private static final String TITOLO = "Menu Manutentore ";
@@ -21,6 +23,10 @@ public class MenuManutentore {
     private static final String NOMI_UNITA_IMMOBILIARI_ESISTENTI = "Unità Immobiliare esistenti: ";
     private static final String NOME_NUOVA_UNITA = "Inserisci il nome della nuova unità immobiliare da aggiungere: ";
     private static final String INTRO_IMPORT_UNITA = "L'importazione delle unita' immobiliari di libreria è stata selezionata. Di seguito apparirà l'esito dell'importazione: ";
+    private static final String IMPORT_UNITA_OK = "Importazione delle unita' immobiliari terminata con successo ";
+    private static final String GUIDA_IN_LINEA = "Consultare la guida in linea per maggiori informazioni";
+    private static final String UNITA_NON_IMPORTATA = "L'unita' immobiliare %s non è stata importata. " + GUIDA_IN_LINEA;
+    private static final String IMPORT_FAILED = "Importazione delle unita' immobiliari fallita completamente";
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
@@ -61,9 +67,13 @@ public class MenuManutentore {
                     break;
                 case 5: //importazione unità immobiliari
                     System.out.println(INTRO_IMPORT_UNITA);
-                    for (String msg: Importatore.importaUnitaImmobiliari()) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK
-                        System.out.println(msg);
-                    }
+                    ArrayList<String> msgs = Importatore.importaUnitaImmobiliari();
+                    if(msgs == null) System.out.println(IMPORT_FAILED);
+                    if(msgs.size() > 0) {
+                        for (String msg : msgs) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK
+                            System.out.println(String.format(UNITA_NON_IMPORTATA, msg));
+                        }
+                    }else System.out.println(IMPORT_UNITA_OK);
                     break;
             }
         }while(sceltaMenu != 0);
