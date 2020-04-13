@@ -102,7 +102,7 @@ public class MenuCategorieSensoriM {
                         for (String msg : msgs) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK
                             System.out.println(String.format(CATEGORIA_NON_IMPORTATA, msg));
                         }
-                   }else if(msgs.size() == 0) System.out.println(NOTHING_IMPORTED);
+                   }
                    else System.out.println(IMPORT_CAT_SENS_OK);
                     break;
             }
