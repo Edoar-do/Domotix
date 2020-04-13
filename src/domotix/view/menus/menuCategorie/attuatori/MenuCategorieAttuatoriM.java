@@ -37,6 +37,7 @@ public class MenuCategorieAttuatoriM {
     private static final String CATEGORIA_NON_IMPORTATA = "La categoria %s non è stata importata. " + GUIDA_IN_LINEA;
     private static final String IMPORT_CAT_ATT_OK = "Importazione delle categorie di attuatori terminato con successo";
     private static final String IMPORT_FAILED = "Importazione delle categorie di attuatori fallita completamente";
+    private static final String NOTHING_IMPORTED = "Non è stato importato nulla";
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
@@ -131,7 +132,8 @@ public class MenuCategorieAttuatoriM {
                         for (String msg : msgs) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK
                             System.out.println(String.format(CATEGORIA_NON_IMPORTATA, msg));
                         }
-                    }else System.out.println(IMPORT_CAT_ATT_OK);
+                    }else if(msgs.size() == 0) System.out.println(NOTHING_IMPORTED);
+                    else System.out.println(IMPORT_CAT_ATT_OK);
                     break;
             }
         }while(sceltaMenu != 0);

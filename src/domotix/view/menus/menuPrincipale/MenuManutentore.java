@@ -27,6 +27,7 @@ public class MenuManutentore {
     private static final String GUIDA_IN_LINEA = "Consultare la guida in linea per maggiori informazioni";
     private static final String UNITA_NON_IMPORTATA = "L'unita' immobiliare %s non è stata importata. " + GUIDA_IN_LINEA;
     private static final String IMPORT_FAILED = "Importazione delle unita' immobiliari fallita completamente";
+    private static final String NOTHING_IMPORTED = "Non è stato importato nulla";
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
@@ -73,7 +74,8 @@ public class MenuManutentore {
                         for (String msg : msgs) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK
                             System.out.println(String.format(UNITA_NON_IMPORTATA, msg));
                         }
-                    }else System.out.println(IMPORT_UNITA_OK);
+                    }else if(msgs.size() == 0) System.out.println(NOTHING_IMPORTED);
+                    else System.out.println(IMPORT_UNITA_OK);
                     break;
             }
         }while(sceltaMenu != 0);
