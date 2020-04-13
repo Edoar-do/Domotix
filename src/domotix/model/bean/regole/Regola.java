@@ -165,9 +165,11 @@ public class Regola {
 
     public boolean isAttivabile(){
         //se anche solo un sensore è spento allora non è riattivabile
-        for (Sensore s : this.getSensori())
-            if(s.getStato() == false) //sensore spento
-                return false;
+        if(this.antecedente != null) {
+            for (Sensore s : this.getSensori())
+                if (s.getStato() == false) //sensore spento
+                    return false;
+        }
         //se anche solo un attuatore è spento allora non è riattivabile
         for (Attuatore a : this.getAttuatori())
             if(a.getStato() == false) //attuatore spento
