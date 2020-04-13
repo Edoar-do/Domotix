@@ -99,6 +99,7 @@ namespace src.domotix.model {
 
             class src.domotix.model.io.datilocali.ImportaDatiLocali {
                 {static} + getInstance()
+                - ImportaDatiLocali()
                 + getNomiCategorieAttuatori()
                 + getNomiCategorieSensori()
                 + getNomiUnitaImmobiliare()
@@ -108,6 +109,8 @@ namespace src.domotix.model {
                 + storicizzaCategorieAttuatori()
                 + storicizzaCategorieSensori()
                 + storicizzaUnitaImmobiliare()
+                - storicizzaFiles()
+                - getNomeTimestamp()
             }
         }
     }
