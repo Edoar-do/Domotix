@@ -5,6 +5,7 @@ title __DOMOTIX > VIEW's Class Diagram__\n
 namespace src.domotix.view {
 
     class src.domotix.view.InputDati {
+        {static} - stampaMessaggio()
     }
 
     class src.domotix.view.MyMenu {

@@ -25,6 +25,7 @@ namespace src.domotix.view.menus {
             {static} - GUIDA_IN_LINEA : String
             {static} - UNITA_NON_IMPORTATA : String
             {static} - IMPORT_FAILED : String
+            {static} - NOTHING_IMPORTED : String
         }
     }
 
@@ -45,6 +46,7 @@ namespace src.domotix.view.menus {
                 {static} - CATEGORIA_NON_IMPORTATA : String
                 {static} - IMPORT_CAT_SES_OK : String
                 {static} - IMPORT_FAILED : String
+                {static} - NOTHING_IMPORTED : String
             }
         }
 
@@ -57,6 +59,7 @@ namespace src.domotix.view.menus {
                 {static} - CATEGORIA_NON_IMPORTATA : String
                 {static} - IMPORT_CAT_ATT_OK : String
                 {static} - IMPORT_FAILED : String
+                {static} - NOTHING_IMPORTED : String
             }
         }
     }

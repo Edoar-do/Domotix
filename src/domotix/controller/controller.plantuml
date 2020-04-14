@@ -49,6 +49,7 @@ src.domotix.controller.Modificatore --> src.domotix.controller.util.StringUtil
 src.domotix.controller.Modificatore --> src.domotix.controller.Recuperatore
 src.domotix.controller.Modificatore --> src.domotix.controller.Verificatore
 src.domotix.controller.Modificatore --> src.domotix.model
+src.domotix.controller.Importatore --> src.domotix.model
 
 src.domotix.controller.Verificatore --> src.domotix.controller.Recuperatore
 src.domotix.controller.Verificatore --> src.domotix.model

@@ -1,6 +1,8 @@
 @startuml
 
 namespace FileSystem\UserHome\.DOMOTIX {
+    namespace dati {
+    }
     namespace libreria {
         namespace importata {
             namespace categorie_sensori {
