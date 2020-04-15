@@ -26,6 +26,8 @@ public class MenuUnitaF {
      */
     public static void avvia(){
         String nomeUnitaSuCuiLavorare = premenuUnita();
+        
+        if(nomeUnitaSuCuiLavorare == null) return;
 
         if(nomeUnitaSuCuiLavorare.equals(NONE)){
             System.out.println(NONE);
