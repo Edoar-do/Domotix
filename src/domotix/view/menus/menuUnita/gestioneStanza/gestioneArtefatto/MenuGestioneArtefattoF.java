@@ -13,7 +13,7 @@ public class MenuGestioneArtefattoF {
     private static final String[] VOCI = {"Visualizza Descrizione Artefatto", "Imposta la modalità operativa di un attuatore associato all'artefatto"};
     private static final String INDIETRO = "Indietro";
 
-    private static final String ELENCO_ARTEFATTI = "Elenco delle stanze presenti nell'unità: ";
+    private static final String ELENCO_ARTEFATTI = "Elenco degli artefatti presenti nella stanza: ";
     private static final String ELENCO_ATTUATORI_ARTEFATTO = "Attuatori associati all'artefatto: ";
     private static final String MODALITA_OPERATIVE = "Modalità Operative impostabili all'attuatore: ";
     private static final String NONE = "Non ci sono modalità operative impostabili all'attuatore all'infuori di quella corrente";
