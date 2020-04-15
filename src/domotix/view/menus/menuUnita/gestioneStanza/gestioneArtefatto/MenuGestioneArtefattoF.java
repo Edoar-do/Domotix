@@ -12,7 +12,7 @@ public class MenuGestioneArtefattoF {
     private static final String[] VOCI = {"Visualizza Descrizione Artefatto"};
     private static final String INDIETRO = "Indietro";
 
-    private static final String ELENCO_ARTEFATTI = "Elenco delle stanze presenti nell'unità: ";
+    private static final String ELENCO_ARTEFATTI = "Elenco degli artefatti presenti nella stanza: ";
 
     private static MyMenu menu = new MyMenu(TITOLO, VOCI);
 
