@@ -22,7 +22,7 @@ public class MenuGestioneArtefattoM {
     private static final String INSERIMENTO_NOME_ATTUATORE = "Inserisci il nome dell'attuatore da aggiungere all'artefatto: ";
 
 
-    private static final String ELENCO_ARTEFATTI = "Elenco delle stanze presenti nell'unità: ";
+    private static final String ELENCO_ARTEFATTI = "Elenco degli artefatti presenti nella stanza: ";
     private static final String ELENCO_CATEGORIE_SENSORI = "Elenco delle categorie di sensore esistenti: ";
     private static final String ELENCO_CATEGORIE_ATTUATORI = "Elenco delle categorie di attuatore esistenti: ";
     private static final String ELENCO_SENSORI_ARTEFATTTO = "Elenco dei sensori dell'artefatto: ";
