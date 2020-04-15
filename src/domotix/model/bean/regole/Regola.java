@@ -30,7 +30,10 @@ public class Regola {
     }
 
     public boolean contieneSensore(String nome) {
-        return antecedente.contieneSensore(nome);
+        if(antecedente != null){
+            return antecedente.contieneSensore(nome);
+        }
+        return false;
     }
 
     public boolean contieneAttuatore(String nome) {
