@@ -473,7 +473,8 @@ public class Recuperatore {
         Regola[] regole = getUnita(unita).getRegole();
         for (Regola r : regole) {
             if(r.getStato().name().equals("ATTIVA") || r.getStato().name().equals("DISATTIVA"))
-                map.put(r.getAntecedente().toString() + ":" + r.getStato().name(), r.getId());
+                if(r.getAntecedente() == null)  map.put("if true " + ":" + r.getStato().name(), r.getId());
+                else    map.put(r.getAntecedente().toString() + ":" + r.getStato().name(), r.getId());
         }
         return map;
     }
