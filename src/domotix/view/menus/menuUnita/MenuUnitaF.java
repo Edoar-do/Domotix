@@ -93,7 +93,6 @@ public class MenuUnitaF {
             return;
         }
 
-        if (nomeUnitaSuCuiLavorare == null) return;
 
         menu.setSottotitolo(SOTTOTITOLO + StringUtil.componiPercorso(nomeUnitaSuCuiLavorare));
 
