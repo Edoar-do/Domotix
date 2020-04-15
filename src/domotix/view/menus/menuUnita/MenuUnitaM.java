@@ -30,6 +30,8 @@ public class MenuUnitaM {
 
         String nomeUnitaSuCuiLavorare = premenuUnita();
 
+        if(nomeUnitaSuCuiLavorare == null) return;
+
         if(nomeUnitaSuCuiLavorare.equals(NONE)){
             System.out.println(NONE);
             return;
