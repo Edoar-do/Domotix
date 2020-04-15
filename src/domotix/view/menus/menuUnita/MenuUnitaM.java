@@ -29,13 +29,15 @@ public class MenuUnitaM {
     public static void avvia(){
 
         String nomeUnitaSuCuiLavorare = premenuUnita();
+        
+        if (nomeUnitaSuCuiLavorare == null) return;
 
         if(nomeUnitaSuCuiLavorare.equals(NONE)){
             System.out.println(NONE);
             return;
         }
 
-        if (nomeUnitaSuCuiLavorare == null) return;
+        
 
         menu.setSottotitolo(SOTTOTITOLO + StringUtil.componiPercorso(nomeUnitaSuCuiLavorare));
 
