@@ -36,7 +36,7 @@ public class MenuUnitaM {
             System.out.println(NONE);
             return;
         }
-        
+
 
         menu.setSottotitolo(SOTTOTITOLO + StringUtil.componiPercorso(nomeUnitaSuCuiLavorare));
 

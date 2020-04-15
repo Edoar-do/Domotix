@@ -132,8 +132,7 @@ public class MenuCategorieAttuatoriM {
                         for (String msg : msgs) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK
                             System.out.println(String.format(CATEGORIA_NON_IMPORTATA, msg));
                         }
-                    }
-                    else System.out.println(IMPORT_CAT_ATT_OK);
+                    }else System.out.println(IMPORT_CAT_ATT_OK);
                     break;
             }
         }while(sceltaMenu != 0);
