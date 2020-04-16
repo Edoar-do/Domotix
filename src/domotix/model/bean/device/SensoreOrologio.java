@@ -5,6 +5,7 @@ import domotix.controller.util.StringUtil;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 /**
  * Classe per rappresentare il sensore speciale orologio di sistema.
@@ -66,8 +67,9 @@ public class SensoreOrologio extends Sensore {
      * @throws java.time.DateTimeException  Eccezione lanciata in caso non siano rispettati i formati
      */
     public static LocalTime getTempo(double time) {
-        int ore = (int)Math.floor(time);
-        int minuti = (int)Math.floor((time - ore) * 100.0);
+        String orarioStringa = String.valueOf(time);
+        int ore = Integer.parseInt(orarioStringa.split(Pattern.quote("."))[0]);
+        int minuti = Integer.parseInt(orarioStringa.split(Pattern.quote("."))[1]);
         return LocalTime.of(ore, minuti);
     }
 
