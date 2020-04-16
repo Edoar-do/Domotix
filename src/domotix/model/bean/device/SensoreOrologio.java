@@ -53,8 +53,9 @@ public class SensoreOrologio extends Sensore {
      * @throws java.time.DateTimeException  Eccezione lanciata in caso non siano rispettati i formati
      */
     public static LocalTime getTempo(int time) {
-        int ore = time / MINUTI_IN_UN_ORA;
-        int minuti = time % MINUTI_IN_UN_ORA;
+        String orarioStringa = String.valueOf(time);
+        int ore = Integer.parseInt(orarioStringa.split(Pattern.quote("."))[0]);
+        int minuti = Integer.parseInt(orarioStringa.split(Pattern.quote("."))[1]);
         return LocalTime.of(ore, minuti);
     }
 
