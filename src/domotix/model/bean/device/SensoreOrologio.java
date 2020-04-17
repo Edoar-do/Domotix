@@ -5,6 +5,7 @@ import domotix.controller.util.StringUtil;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 /**
  * Classe per rappresentare il sensore speciale orologio di sistema.
