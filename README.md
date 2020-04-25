@@ -6,6 +6,10 @@ Domotix è un sistema software per la domotica alla portata di tutti: consente f
 Richiede solamente l’installazione di un impianto domotico di supporto a cui appoggiarsi ed interfacciarsi.
 La sua flessibilità ed adattabilità risiedono nella robustezza del software stesso che permette una facile gestione di ogni tipo di unità immobiliare.
 
+## Versione 5.1
+Le differenze rispetto alla versione precedente sono:
+* Correzioni struttura del codice (come da suggerimenti del professore)
+
 ## Versione 5
 Le differenze rispetto alla versione precedente sono:
 * Possibilità di importare categorie di sensori.
@@ -13,6 +17,10 @@ Le differenze rispetto alla versione precedente sono:
 * Possibilità di importare unità immobiliari.
 * Rilascio di librerie preconfezionate: bilocale, trilocale, magazzino.
 * Rilascio di tutta la documentazione.
+
+## Versione 4.1
+Le differenze rispetto alla versione precedente sono:
+* Bug fix
 
 ## Versione 4
 Le differenze rispetto alla versione precedente sono:
@@ -24,11 +32,19 @@ Le differenze rispetto alla versione precedente sono:
 * Possibilità per il fruitore di modificare lo stato di attuatori.
 * Il programma eseguirà un controllo temporizzato sulle azioni pianificate per valutarne l'orario di esecuzione.
 
+## Versione 3.1
+Le differenze rispetto alla versione precedente sono:
+* Bug fix
+
 ## Versione 3
 Le differenze rispetto alla versione precedente sono:
 * Possibilità per il fruitore di inserire regole di comportamento.
 * Il programma eseguirà un controllo temporizzato sulle regole per decidere se eseguirle o meno.
 * Il programma eseguirà la lettura temporizzata del valore aggiornato dei sensori dai dati memorizzati.
+
+## Versione 2.1
+Le differenze rispetto alla versione precedente sono:
+* Bug fix
 
 ## Versione 2
 Le differenze rispetto alla versione precedente sono:
@@ -36,6 +52,10 @@ Le differenze rispetto alla versione precedente sono:
 * Possibilità di inserire uno o più parametri in una modalità operativa di una categoria di attuatore.
 * Possibilità di aggiungere unità immobiliari oltre a quella base del programma.
 * Possibilità per il fruitore di impostare una modalità operativa ad un attuatore.
+
+## Versione 1.1
+Le differenze rispetto alla versione precedente sono:
+* Bug fix
 
 ## Versione 1
 La prima versione consente di inizializzare l'unità immobiliare con stanze ed artefatti.
