@@ -40,3 +40,31 @@ Le modifiche pensate per soddisfare le correzioni sono:
 I vantaggi ottenuti alla fine di tutte le migliorie saranno due:
 * Nessun componente statico (o quanto meno il minimo necessario).
 * Modello MVC puro (o quanto più puro possibile)
+
+# Ricevimento ulteriore con il prof
+
+## Quali singleton dovremmo eliminare?
+__Prof:__ in lato teorico non si dovrebbe avere nulla di statico eccetto che costanti e funzioni pure. Quelli usati in un solo posto non servono a nulla. I singleton creano dipendenze implicite, in quanto non si vede dall'esterno della classe che questa usa il sigleton.
+Le dipendenze implicite sono pericolose dato il possibile uso involontario di componenti e/o impossibilità di creare test automatici.
+Tutto esplicito invece rende chiaro chi usa quel sistema e ne decido il modo di utilizzo. Inoltre, è semplice mascherare la dipendenza dietro un'interfaccia e quindi rendere facile sostituire tale dipendenza.
+Pertanto volendo le cose fatte bene sono da eliminare tutti.
+
+## I toString() nascosti dietro al Controller come sono visti?
+__Prof:__ Sarebbe opportuno di no, pensate alla visualizzazione come HTML: la view si costruisce il codice dai getter dei dati, non il controller o il model.
+In una visione MVC il controller restituisce alla view l'istanza dell'oggetto del model e la view ne costruisce la rappresentazione. Si potrebbe poi introdurre delle interfacce intermedie contenenti i getter da visualizzare nella view.
+Un controller che costruisce in modo mirato alla view i dati da rappresentare _più che MVC è GRASP_.
+Realizzare una classe Rappresentatore per costruire quanto da visualizzare dall'istanza di un oggetto del model è accettabile. Questa classe può stare nel controller e il controller sa qualcosa della view (logica MVC) oppure stare nell view in ambito di logica di visualizzazione.
+
+## AccessoModel e AccessoController
+__Prof:__ Ok, basta che non ritornino oggetti sui quali eseguo altre operazioni, bensì abbia metodi per effettuare ciò che deve. Perciò AccessoModel agisce sugli elenchi e non fornisce gli elenchi per la modifica.
+Per il Controller invece conviene lasciare la logica divisa e non un'unica interfaccia che comprende tutti gli aspetti.
+Inoltre istanze del controller divise possono essere passate all'occorrenza della view e non tutte sempre ovunque.
+
+## Interfaccia per la view
+__Prof:__ Nessuno dipende dalla view e perciò non serve.
+
+
+
+
+
+
