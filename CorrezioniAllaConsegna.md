@@ -79,7 +79,7 @@ ImportaDati importaDati = new ImportaDatiLocali(xxx); //Questo è model e ci pen
 Impotatore importatoreLocale = new Importatore(modificatore, importaDatiLocali);
 Interpretatore interpretatore = new InterpretatoreConsole(modificatore);
 Rappresentatore rappresentatore = new RappresentatoreConsole(recuperatore);
-MenuLogin menuLogin = new MenuLogin(interpretatore, rappresentatore);
+MenuLogin menuLogin = new MenuLogin(interpretatore, rappresentatore, verificatore);
 ```
 
 
