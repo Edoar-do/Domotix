@@ -76,9 +76,10 @@ Recuperatore recuperatore = new Recuperatore(model);
 Verificatore verificatore = new Verificatore(recuperatore);
 Modificatore modificatore = new Modificatore(model, recuperatore, verificatore);
 ImportaDati importaDati = new ImportaDatiLocali(xxx); //Questo è model e ci pensiamo dopo
-Impotatore importatoreLocale = new ImportatoreLocale(modificatore, importaDatiLocali);
+Impotatore importatoreLocale = new Importatore(modificatore, importaDatiLocali);
 Interpretatore interpretatore = new InterpretatoreConsole(modificatore);
 Rappresentatore rappresentatore = new RappresentatoreConsole(recuperatore);
+MenuLogin menuLogin = new MenuLogin(interpretatore, rappresentatore);
 ```
 
 
