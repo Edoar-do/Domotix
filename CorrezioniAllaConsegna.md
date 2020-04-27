@@ -64,7 +64,22 @@ Inoltre istanze del controller divise possono essere passate all'occorrenza dell
 __Prof:__ Nessuno dipende dalla view e perciò non serve.
 
 
+# Decisioni dopo ricevimento
 
+## Classi singleton e statiche
+Rendere tutti i singleton e classi statiche ASSOLUTO.
+Per il model --> AccessoModel che unifica l'istanza del model e agisce sugli elenchi
+Per il controller --> Lasciare le istanze scollegate e passarle dove servono del tipo:
+```
+Model model = new AccessoModel();
+Recuperatore recuperatore = new Recuperatore(model);
+Verificatore verificatore = new Verificatore(recuperatore);
+Modificatore modificatore = new Modificatore(model, recuperatore, verificatore);
+ImportaDati importaDati = new ImportaDatiLocali(xxx); //Questo è model e ci pensiamo dopo
+Impotatore importatoreLocale = new ImportatoreLocale(modificatore, importaDatiLocali);
+Interpretatore interpretatore = new InterpretatoreConsole(modificatore);
+Rappresentatore rappresentatore = new RappresentatoreConsole(recuperatore);
+```
 
 
 
