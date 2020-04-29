@@ -115,12 +115,15 @@ TimerRinfrescoDati timerRinfrescoDati = new TimerRinfrescoDati(rinfrescaDati);
 TimerGestioneRegole timerGestioneRegole = new TimerGestioneRegole(recuperatore);
 TimerAzioniProgrammate timerAzioniProgrammate = new TimerAzioniProgrammate(recuperatore);
 
-PopolamentoDati popolamento = new PopolamentoDati(letturaDati, modificatore);
-SalvataggioDati salvataggio = new SalvataggioDati(scritturaDati, recuperatore);
+MenuAzioniConflitto menuAzioniConflitto = new MenuAzioniConflitto();
+MenuErroreApertura menuErroreApertura = new MenuErroreApertura();
+MenuErroreChiusura menuErroreChiusura = new MenuErroreChiusura();
+AperturaProgramma apertura = new PopolamentoDati(letturaDati, modificatore, menuErroreApertura, menuAzioniConflitto);
+ChiusuraProgramma chiusura = new SalvataggioDati(scritturaDati, recuperatore, menuErroreChiusura);
 
 MenuLogin menuLogin = new MenuLogin(interpretatore, rappresentatore, verificatore);
 
-boolean esegui = popolamento.apri();
+boolean esegui = apertura.apri();
 
 if (esegui) {
     //Controllo se non sono presenti unita immobiliari e in tal caso aggiungo l'unita base generata.
@@ -136,7 +139,7 @@ while (esegui) {
 
     menuLogin.avvia();
 
-    esegui = !salvataggio.chiudi();
+    esegui = !chiusura.chiudi();
 }
 
 timerAzioniProgrammate.stop();
