@@ -68,18 +68,81 @@ __Prof:__ Nessuno dipende dalla view e perciò non serve.
 
 ## Classi singleton e statiche
 Rendere tutti i singleton e classi statiche ASSOLUTO.
-Per il model --> AccessoModel che unifica l'istanza del model e agisce sugli elenchi
-Per il controller --> Lasciare le istanze scollegate e passarle dove servono del tipo:
+
+Per il model --> AccessoModel che unifica l'istanza del model e agisce sugli elenchi.
+
+Per il controller --> Lasciare le istanze scollegate e passarle dove servono (esempio: vedi collegamento istanze). Le classi OperazioniIniziali e OperatoriFinali possono diventare classi PopolamentoDati e SalvataggioDati con la responsabilità di caricare nel model tutti i dati salvati e salvare nei dati tutte le entità del model reciprocamente. Il metodo 'generaUnitaBase()' e 'controlloEsistenzaUnita()' sono demandati al model.
+
+Classi io --> LettoriXML esplode in una classe contenenti le costanti e la HashMap lettori ora contenuta in LetturaDatiLocali. Tutto statico in quanto viste come 'funzioni pure'.
+Per ciascuna entità si genera una classe composta da un'unica funzione per leggere l'entità.
+
+Per la view --> tutte le classi di menù saranno da rendere istanziabili e ciascuna nel costruttore accetta Interpretatore, Rappresentatore e Verificatore (se utilizzato). Nel costruttore genera le istanze dei menu figli richiamati nell'esecuzione. Il metodo avvia resta inalterato.
+
+## Spostamento dei package
+Il package io dentro a model, risulta più familiare a controller e pertanto qui viene spostato.
+
+## Pattern da implementare
+* _Visitor_ sulle entità per Rappresentatore e ScrittoriXML
+* _Observer_ puro per l'observer utilizzato del SommarioDispositivi
+
+## Collegamento istanze:
+Di seguito quello che dovrebbe diventare il metodo main a seguito delle modifiche:
+
 ```
+PercorsiFile.controllaStruttura();
+PercorsiFile generatoreDati = new PercorsiFile(PercorsiFile.SORGENTE_DATI);
+PercorsiFile generatoreLibreria = new PercorsiFile(PercorsiFile.SORGENTE_LIBRERIA);
+PercorsiFile generatoreLibreriaImportata = new PercorsiFile(PercorsiFile.SORGENTE_LIBRERIA_IMPORTATA);
+
+LetturaDatiSalvati letturaDati = new LetturaDatiLocali(generatoreDati);
+LetturaDatiSalvati letturaLibreria = new LetturaDatiLocali(generatoreLibreria);
+ScritturaDatiSalvati scritturaDati = new ScritturaDatiLocali(generatoreDati);
+RimozioneDatiLocali rimozioneDati = new RimozioneDatiLocali(generatoreDati);
+
+ImportaDati importaDati = new ImportaDatiLocali(generatoreLibreria, letturaLibreria, generatoreLibreriaImportata);
+//Da vedere per la storicizzazione
+
 Model model = new AccessoModel();
 Recuperatore recuperatore = new Recuperatore(model);
 Verificatore verificatore = new Verificatore(recuperatore);
 Modificatore modificatore = new Modificatore(model, recuperatore, verificatore);
-ImportaDati importaDati = new ImportaDatiLocali(xxx); //Questo è model e ci pensiamo dopo
 Impotatore importatoreLocale = new Importatore(modificatore, importaDatiLocali);
 Interpretatore interpretatore = new InterpretatoreConsole(modificatore);
 Rappresentatore rappresentatore = new RappresentatoreConsole(recuperatore);
+
+RinfrescaDati rinfrescaDati = new RinfrescaDatiLocali(letturaDati, recuperatore);
+TimerRinfrescoDati timerRinfrescoDati = new TimerRinfrescoDati(rinfrescaDati);
+TimerGestioneRegole timerGestioneRegole = new TimerGestioneRegole(recuperatore);
+TimerAzioniProgrammate timerAzioniProgrammate = new TimerAzioniProgrammate(recuperatore);
+
+PopolamentoDati popolamento = new PopolamentoDati(letturaDati, modificatore);
+SalvataggioDati salvataggio = new SalvataggioDati(scritturaDati, recuperatore);
+
 MenuLogin menuLogin = new MenuLogin(interpretatore, rappresentatore, verificatore);
+
+boolean esegui = popolamento.apri();
+
+if (esegui) {
+    //Controllo se non sono presenti unita immobiliari e in tal caso aggiungo l'unita base generata.
+    if (!recuperatore.controlloEsistenzaUnita())
+        modificatore.aggiungiUnita(recuperatore.getUnitaBase());
+
+    timerAzioniProgrammate.start(); //avvio timer gestione azioni programmate
+    timerRinfrescoDati.start(); //avvio timer rinfresco dati
+    timerGestioneRegole.start(); //avvio timer gestione regole
+}
+
+while (esegui) {
+
+    menuLogin.avvia();
+
+    esegui = !salvataggio.chiudi();
+}
+
+timerAzioniProgrammate.stop();
+timerRinfrescoDati.stop();
+timerGestioneRegole.stop();
+
 ```
 
 
