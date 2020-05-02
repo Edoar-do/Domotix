@@ -1,12 +1,12 @@
-package domotix.model.io.datilocali;
+package domotix.controller.io.datilocali;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
 import domotix.model.bean.regole.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-import domotix.model.io.ScritturaDatiSalvati;
-import domotix.model.io.ScritturaDatiSalvatiAdapter;
+import domotix.controller.io.ScritturaDatiSalvati;
+import domotix.controller.io.ScritturaDatiSalvatiAdapter;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;

@@ -54,6 +54,6 @@ src.domotix.controller -- src.domotix.view
 src.domotix.view.menus.menuPrincipale --> src.domotix.view.menus.menuUnita
 src.domotix.view.menus.menuPrincipale --> src.domotix.view.menus.menuCategorie
 src.domotix.model.bean --> src.domotix.model.util
-src.domotix.model.io --> src.domotix.model.util
+src.domotix.controller.io --> src.domotix.model.util
 
 @enduml

@@ -6,7 +6,7 @@
 <title>RinfrescaDatiLocali</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2020-04-16">
-<meta name="description" content="declaration: package: domotix.model.io.datilocali, class: RinfrescaDatiLocali">
+<meta name="description" content="declaration: package: domotix.controller.io.datilocali, class: RinfrescaDatiLocali">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../script-dir/jquery-ui.css" title="Style">
@@ -88,30 +88,30 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!-- ======== START OF CLASS DATA ======== -->
 <main role="main">
 <div class="header">
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">domotix.model.io.datilocali</a></div>
+<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">domotix.controller.io.datilocali</a></div>
 <h1 title="Class RinfrescaDatiLocali" class="title">Class RinfrescaDatiLocali</h1>
 </div>
 <div class="contentContainer">
 <div class="inheritance" title="Inheritance Tree">java.lang.Object
-<div class="inheritance"><a href="../RinfrescaDatiAdapter.html" title="class in domotix.model.io">domotix.model.io.RinfrescaDatiAdapter</a>
-<div class="inheritance">domotix.model.io.datilocali.RinfrescaDatiLocali</div>
+<div class="inheritance"><a href="../RinfrescaDatiAdapter.html" title="class in domotix.controller.io">domotix.controller.io.RinfrescaDatiAdapter</a>
+<div class="inheritance">domotix.controller.io.datilocali.RinfrescaDatiLocali</div>
 </div>
 </div>
 <section class="description">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../RinfrescaDati.html" title="interface in domotix.model.io">RinfrescaDati</a></code></dd>
+<dd><code><a href="../RinfrescaDati.html" title="interface in domotix.controller.io">RinfrescaDati</a></code></dd>
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">RinfrescaDatiLocali</span>
-extends <a href="../RinfrescaDatiAdapter.html" title="class in domotix.model.io">RinfrescaDatiAdapter</a></pre>
+extends <a href="../RinfrescaDatiAdapter.html" title="class in domotix.controller.io">RinfrescaDatiAdapter</a></pre>
 <div class="block">Classe che implementa l'interfaccia RinfrescaDati per definire un meccanismo di ri-lettura dei dati su file memorizzati
  localmente sulla macchina di esecuzione del programma.
  Si sviluppa una struttura ad albero nel FileSystem del SistemaOperativo posizionata nella cartella dell'applicazione (attualmente equivale ad
  una cartella contenuta nella cartella utente).</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../RinfrescaDati.html" title="interface in domotix.model.io"><code>RinfrescaDati</code></a></dd>
+<dd><a href="../RinfrescaDati.html" title="interface in domotix.controller.io"><code>RinfrescaDati</code></a></dd>
 </dl>
 </section>
 <section class="summary">
@@ -135,7 +135,7 @@ extends <a href="../RinfrescaDatiAdapter.html" title="class in domotix.model.io"
 </thead>
 <tbody>
 <tr class="altColor" id="i0">
-<td class="colFirst"><code>static <a href="RinfrescaDatiLocali.html" title="class in domotix.model.io.datilocali">RinfrescaDatiLocali</a></code></td>
+<td class="colFirst"><code>static <a href="RinfrescaDatiLocali.html" title="class in domotix.controller.io.datilocali">RinfrescaDatiLocali</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getInstance()">getInstance</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Unica istanza del meccanismo di salvataggio e caricamento implementato.</div>
@@ -173,7 +173,7 @@ extends <a href="../RinfrescaDatiAdapter.html" title="class in domotix.model.io"
 <li class="blockList">
 <section class="detail">
 <h3><a id="getInstance()">getInstance</a></h3>
-<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="RinfrescaDatiLocali.html" title="class in domotix.model.io.datilocali">RinfrescaDatiLocali</a></span>&nbsp;<span class="memberName">getInstance</span>()
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="RinfrescaDatiLocali.html" title="class in domotix.controller.io.datilocali">RinfrescaDatiLocali</a></span>&nbsp;<span class="memberName">getInstance</span>()
                                        throws <span class="exceptions">java.nio.file.NotDirectoryException,
 javax.xml.parsers.ParserConfigurationException,
 javax.xml.transform.TransformerConfigurationException</span></div>
@@ -199,9 +199,9 @@ javax.xml.transform.TransformerConfigurationException</span></div>
 <div class="block">Rinfresca gli attributi per ciascun Sensore contenuto in ElencoSensori passato.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RinfrescaDati.html#rinfrescaSensori(domotix.model.ElencoSensori)">rinfrescaSensori</a></code>&nbsp;in interface&nbsp;<code><a href="../RinfrescaDati.html" title="interface in domotix.model.io">RinfrescaDati</a></code></dd>
+<dd><code><a href="../RinfrescaDati.html#rinfrescaSensori(domotix.model.ElencoSensori)">rinfrescaSensori</a></code>&nbsp;in interface&nbsp;<code><a href="../RinfrescaDati.html" title="interface in domotix.controller.io">RinfrescaDati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RinfrescaDatiAdapter.html#rinfrescaSensori(domotix.model.ElencoSensori)">rinfrescaSensori</a></code>&nbsp;in class&nbsp;<code><a href="../RinfrescaDatiAdapter.html" title="class in domotix.model.io">RinfrescaDatiAdapter</a></code></dd>
+<dd><code><a href="../RinfrescaDatiAdapter.html#rinfrescaSensori(domotix.model.ElencoSensori)">rinfrescaSensori</a></code>&nbsp;in class&nbsp;<code><a href="../RinfrescaDatiAdapter.html" title="class in domotix.controller.io">RinfrescaDatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>elenco</code> - elenco di da elaborare (gestito come singleton, percio' unica istanza)</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>

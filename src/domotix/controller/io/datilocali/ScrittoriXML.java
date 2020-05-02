@@ -1,4 +1,4 @@
-package domotix.model.io.datilocali;
+package domotix.controller.io.datilocali;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;

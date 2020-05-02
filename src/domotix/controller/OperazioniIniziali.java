@@ -5,11 +5,10 @@ import domotix.model.ElencoCategorieAttuatori;
 import domotix.model.ElencoCategorieSensori;
 import domotix.model.ElencoUnitaImmobiliari;
 import domotix.model.bean.UnitaImmobiliare;
-import domotix.model.bean.device.SensoreOrologio;
 import domotix.model.bean.regole.Azione;
 import domotix.model.gestioneerrori.LogErrori;
 import domotix.model.gestioneerrori.StoreIstanzeErrori;
-import domotix.model.io.LetturaDatiSalvati;
+import domotix.controller.io.LetturaDatiSalvati;
 import domotix.view.menus.MenuAzioniConflitto;
 import domotix.view.menus.MenuErroreApertura;
 

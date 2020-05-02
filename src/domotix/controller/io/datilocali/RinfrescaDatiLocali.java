@@ -1,10 +1,9 @@
-package domotix.model.io.datilocali;
+package domotix.controller.io.datilocali;
 
 import domotix.model.ElencoSensori;
-import domotix.model.bean.device.InfoRilevabile;
 import domotix.model.bean.device.Sensore;
-import domotix.model.io.LetturaDatiSalvati;
-import domotix.model.io.RinfrescaDatiAdapter;
+import domotix.controller.io.LetturaDatiSalvati;
+import domotix.controller.io.RinfrescaDatiAdapter;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
@@ -17,7 +16,7 @@ import java.nio.file.NotDirectoryException;
  * una cartella contenuta nella cartella utente).
  *
  * @author paolopasqua
- * @see domotix.model.io.RinfrescaDati
+ * @see domotix.controller.io.RinfrescaDati
  */
 public class RinfrescaDatiLocali extends RinfrescaDatiAdapter {
 

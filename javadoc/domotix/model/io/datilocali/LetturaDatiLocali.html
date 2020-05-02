@@ -6,7 +6,7 @@
 <title>LetturaDatiLocali</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2020-04-16">
-<meta name="description" content="declaration: package: domotix.model.io.datilocali, class: LetturaDatiLocali">
+<meta name="description" content="declaration: package: domotix.controller.io.datilocali, class: LetturaDatiLocali">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../script-dir/jquery-ui.css" title="Style">
@@ -88,30 +88,30 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!-- ======== START OF CLASS DATA ======== -->
 <main role="main">
 <div class="header">
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">domotix.model.io.datilocali</a></div>
+<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">domotix.controller.io.datilocali</a></div>
 <h1 title="Class LetturaDatiLocali" class="title">Class LetturaDatiLocali</h1>
 </div>
 <div class="contentContainer">
 <div class="inheritance" title="Inheritance Tree">java.lang.Object
-<div class="inheritance"><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">domotix.model.io.LetturaDatiSalvatiAdapter</a>
-<div class="inheritance">domotix.model.io.datilocali.LetturaDatiLocali</div>
+<div class="inheritance"><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">domotix.controller.io.LetturaDatiSalvatiAdapter</a>
+<div class="inheritance">domotix.controller.io.datilocali.LetturaDatiLocali</div>
 </div>
 </div>
 <section class="description">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">LetturaDatiLocali</span>
-extends <a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></pre>
+extends <a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></pre>
 <div class="block">Classe che implementa l'interfaccia LetturaDatiSalvati per definire un meccanismo di caricamento dei dati da file memorizzati
  localmente sulla macchina di esecuzione del programma.
  Si sviluppa una struttura ad albero nel FileSystem del SistemaOperativo posizionata nella cartella dell'applicazione (attualmente equivale ad
  una cartella contenuta nella cartella utente).</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io"><code>LetturaDatiSalvati</code></a></dd>
+<dd><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io"><code>LetturaDatiSalvati</code></a></dd>
 </dl>
 </section>
 <section class="summary">
@@ -142,7 +142,7 @@ extends <a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.mode
 </td>
 </tr>
 <tr class="rowColor" id="i1">
-<td class="colFirst"><code>static <a href="LetturaDatiLocali.html" title="class in domotix.model.io.datilocali">LetturaDatiLocali</a></code></td>
+<td class="colFirst"><code>static <a href="LetturaDatiLocali.html" title="class in domotix.controller.io.datilocali">LetturaDatiLocali</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getInstance()">getInstance</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Unica istanza del meccanismo di salvataggio e caricamento implementato.</div>
@@ -326,8 +326,8 @@ java.lang.String&nbsp;unitaImmob)</code></th>
 </div>
 </div>
 <div class="inheritedList">
-<h3>Methods inherited from class&nbsp;domotix.model.io.<a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></h3>
-<a id="methods.inherited.from.class.domotix.model.io.LetturaDatiSalvatiAdapter">
+<h3>Methods inherited from class&nbsp;domotix.controller.io.<a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></h3>
+<a id="methods.inherited.from.class.domotix.controller.io.LetturaDatiSalvatiAdapter">
 <!--   -->
 </a><code><a href="../LetturaDatiSalvatiAdapter.html#leggiAttuatori()">leggiAttuatori</a>, <a href="../LetturaDatiSalvatiAdapter.html#leggiSensori()">leggiSensori</a></code></div>
 <div class="inheritedList">
@@ -351,7 +351,7 @@ java.lang.String&nbsp;unitaImmob)</code></th>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getInstance()">getInstance</a></h3>
-<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="LetturaDatiLocali.html" title="class in domotix.model.io.datilocali">LetturaDatiLocali</a></span>&nbsp;<span class="memberName">getInstance</span>()
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="LetturaDatiLocali.html" title="class in domotix.controller.io.datilocali">LetturaDatiLocali</a></span>&nbsp;<span class="memberName">getInstance</span>()
                                      throws <span class="exceptions">java.nio.file.NotDirectoryException,
 javax.xml.parsers.ParserConfigurationException,
 javax.xml.transform.TransformerConfigurationException</span></div>
@@ -376,9 +376,9 @@ javax.xml.transform.TransformerConfigurationException</span></div>
 <div class="block">Ritorna il nome di tutte le CategoriaSensore presenti nei dati memorizzati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#getNomiCategorieSensori()">getNomiCategorieSensori</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#getNomiCategorieSensori()">getNomiCategorieSensori</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiCategorieSensori()">getNomiCategorieSensori</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiCategorieSensori()">getNomiCategorieSensori</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutti i nomi delle istanze nei dati memorizzati.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -394,9 +394,9 @@ javax.xml.transform.TransformerConfigurationException</span></div>
 <div class="block">Ritorna il nome di tutte le InfoRilevabile presenti nei dati memorizzati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#getNomiInformazioniRilevabili(java.lang.String)">getNomiInformazioniRilevabili</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#getNomiInformazioniRilevabili(java.lang.String)">getNomiInformazioniRilevabili</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiInformazioniRilevabili(java.lang.String)">getNomiInformazioniRilevabili</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiInformazioniRilevabili(java.lang.String)">getNomiInformazioniRilevabili</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutti i nomi delle istanze nei dati memorizzati.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -412,9 +412,9 @@ javax.xml.transform.TransformerConfigurationException</span></div>
 <div class="block">Ritorna il nome di tutte le CategoriaAttuatore presenti nei dati memorizzati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#getNomiCategorieAttuatori()">getNomiCategorieAttuatori</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#getNomiCategorieAttuatori()">getNomiCategorieAttuatori</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiCategorieAttuatori()">getNomiCategorieAttuatori</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiCategorieAttuatori()">getNomiCategorieAttuatori</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutti i nomi delle istanze nei dati memorizzati.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -430,9 +430,9 @@ javax.xml.transform.TransformerConfigurationException</span></div>
 <div class="block">Ritorna il nome di tutte le Modalita presenti nei dati memorizzati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#getNomiModalita(java.lang.String)">getNomiModalita</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#getNomiModalita(java.lang.String)">getNomiModalita</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiModalita(java.lang.String)">getNomiModalita</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiModalita(java.lang.String)">getNomiModalita</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutti i nomi delle istanze nei dati memorizzati.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -448,9 +448,9 @@ javax.xml.transform.TransformerConfigurationException</span></div>
 <div class="block">Ritorna il nome di tutte le UnitaImmobiliare presenti nei dati memorizzati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#getNomiUnitaImmobiliare()">getNomiUnitaImmobiliare</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#getNomiUnitaImmobiliare()">getNomiUnitaImmobiliare</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiUnitaImmobiliare()">getNomiUnitaImmobiliare</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiUnitaImmobiliare()">getNomiUnitaImmobiliare</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutti i nomi delle istanze nei dati memorizzati.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -466,9 +466,9 @@ javax.xml.transform.TransformerConfigurationException</span></div>
 <div class="block">Ritorna il nome di tutte le Stanza presenti nei dati memorizzati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#getNomiStanze(java.lang.String)">getNomiStanze</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#getNomiStanze(java.lang.String)">getNomiStanze</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiStanze(java.lang.String)">getNomiStanze</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiStanze(java.lang.String)">getNomiStanze</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutti i nomi delle istanze nei dati memorizzati.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -484,9 +484,9 @@ javax.xml.transform.TransformerConfigurationException</span></div>
 <div class="block">Ritorna il nome di tutte le Artefatto presenti nei dati memorizzati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#getNomiArtefatti(java.lang.String)">getNomiArtefatti</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#getNomiArtefatti(java.lang.String)">getNomiArtefatti</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiArtefatti(java.lang.String)">getNomiArtefatti</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiArtefatti(java.lang.String)">getNomiArtefatti</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutti i nomi delle istanze nei dati memorizzati.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -502,9 +502,9 @@ javax.xml.transform.TransformerConfigurationException</span></div>
 <div class="block">Ritorna il nome di tutte le Sensore presenti nei dati memorizzati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#getNomiSensori()">getNomiSensori</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#getNomiSensori()">getNomiSensori</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiSensori()">getNomiSensori</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiSensori()">getNomiSensori</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutti i nomi delle istanze nei dati memorizzati.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -520,9 +520,9 @@ javax.xml.transform.TransformerConfigurationException</span></div>
 <div class="block">Ritorna il nome di tutte le Attuatore presenti nei dati memorizzati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#getNomiAttuatori()">getNomiAttuatori</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#getNomiAttuatori()">getNomiAttuatori</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiAttuatori()">getNomiAttuatori</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiAttuatori()">getNomiAttuatori</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutti i nomi delle istanze nei dati memorizzati.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -538,9 +538,9 @@ javax.xml.transform.TransformerConfigurationException</span></div>
 <div class="block">Ritorna il nome di tutte le Regole presenti nei dati memorizzati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#getNomiRegole(java.lang.String)">getNomiRegole</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#getNomiRegole(java.lang.String)">getNomiRegole</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiRegole(java.lang.String)">getNomiRegole</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getNomiRegole(java.lang.String)">getNomiRegole</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutti i nomi delle istanze nei dati memorizzati.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -556,9 +556,9 @@ javax.xml.transform.TransformerConfigurationException</span></div>
 <div class="block">Ritorna l'id di tutte le Azioni programmate presenti nei dati memorizzati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#getIdAzioniProgrammate()">getIdAzioniProgrammate</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#getIdAzioniProgrammate()">getIdAzioniProgrammate</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getIdAzioniProgrammate()">getIdAzioniProgrammate</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#getIdAzioniProgrammate()">getIdAzioniProgrammate</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutti i nomi delle istanze nei dati memorizzati.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -576,9 +576,9 @@ javax.xml.transform.TransformerConfigurationException</span></div>
 <div class="block">Lettura di tutte le CategorieSensori presenti nei dati memorizzati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#leggiCategorieSensori()">leggiCategorieSensori</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#leggiCategorieSensori()">leggiCategorieSensori</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiCategorieSensori()">leggiCategorieSensori</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiCategorieSensori()">leggiCategorieSensori</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutte le istanze presenti nei dati memorizzati.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -597,9 +597,9 @@ javax.xml.transform.TransformerConfigurationException</span></div>
 <div class="block">Lettura di una singola CategorieSensori presente nei dati memorizzati identificata dal nome.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#leggiCategoriaSensore(java.lang.String)">leggiCategoriaSensore</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#leggiCategoriaSensore(java.lang.String)">leggiCategoriaSensore</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiCategoriaSensore(java.lang.String)">leggiCategoriaSensore</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiCategoriaSensore(java.lang.String)">leggiCategoriaSensore</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nome</code> - stringa identificativa dell'istanza da leggere</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -621,9 +621,9 @@ java.lang.String&nbsp;categoria)</span>
 <div class="block">Lettura di una singola InfoRilevabile presente nei dati memorizzati identificata dal nome e categoria indicata.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#leggiInfoRilevabile(java.lang.String,java.lang.String)">leggiInfoRilevabile</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#leggiInfoRilevabile(java.lang.String,java.lang.String)">leggiInfoRilevabile</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiInfoRilevabile(java.lang.String,java.lang.String)">leggiInfoRilevabile</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiInfoRilevabile(java.lang.String,java.lang.String)">leggiInfoRilevabile</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nome</code> - stringa identificativa dell'istanza da leggere</dd>
 <dd><code>categoria</code> - stringa identificativa della categoria cui la modalita riferisce</dd>
@@ -645,9 +645,9 @@ java.lang.String&nbsp;categoria)</span>
 <div class="block">Lettura di tutte le CategoriaAttuatore presenti nei dati memorizzati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#leggiCategorieAttuatori()">leggiCategorieAttuatori</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#leggiCategorieAttuatori()">leggiCategorieAttuatori</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiCategorieAttuatori()">leggiCategorieAttuatori</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiCategorieAttuatori()">leggiCategorieAttuatori</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutte le istanze presenti nei dati memorizzati.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -666,9 +666,9 @@ java.lang.String&nbsp;categoria)</span>
 <div class="block">Lettura di una singola CategorieAttuatore presente nei dati memorizzati identificata dal nome.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#leggiCategoriaAttuatore(java.lang.String)">leggiCategoriaAttuatore</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#leggiCategoriaAttuatore(java.lang.String)">leggiCategoriaAttuatore</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiCategoriaAttuatore(java.lang.String)">leggiCategoriaAttuatore</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiCategoriaAttuatore(java.lang.String)">leggiCategoriaAttuatore</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nome</code> - stringa identificativa dell'istanza da leggere</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -690,9 +690,9 @@ java.lang.String&nbsp;categoria)</span>
 <div class="block">Lettura di una singola Modalita presente nei dati memorizzati identificata dal nome e categoria indicata.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#leggiModalita(java.lang.String,java.lang.String)">leggiModalita</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#leggiModalita(java.lang.String,java.lang.String)">leggiModalita</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiModalita(java.lang.String,java.lang.String)">leggiModalita</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiModalita(java.lang.String,java.lang.String)">leggiModalita</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nome</code> - stringa identificativa dell'istanza da leggere</dd>
 <dd><code>categoria</code> - stringa identificativa della categoria cui la modalita riferisce</dd>
@@ -714,9 +714,9 @@ java.lang.String&nbsp;categoria)</span>
 <div class="block">Lettura di tutte le UnitaImmobiliare presenti nei dati memorizzati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#leggiUnitaImmobiliare()">leggiUnitaImmobiliare</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#leggiUnitaImmobiliare()">leggiUnitaImmobiliare</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiUnitaImmobiliare()">leggiUnitaImmobiliare</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiUnitaImmobiliare()">leggiUnitaImmobiliare</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutte le istanze presenti nei dati memorizzati.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -735,9 +735,9 @@ java.lang.String&nbsp;categoria)</span>
 <div class="block">Lettura di una singola UnitaImmobiliare presente nei dati memorizzati identificata dal nome.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#leggiUnitaImmobiliare(java.lang.String)">leggiUnitaImmobiliare</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#leggiUnitaImmobiliare(java.lang.String)">leggiUnitaImmobiliare</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiUnitaImmobiliare(java.lang.String)">leggiUnitaImmobiliare</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiUnitaImmobiliare(java.lang.String)">leggiUnitaImmobiliare</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nome</code> - stringa identificativa dell'istanza da leggere</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -759,9 +759,9 @@ java.lang.String&nbsp;unitaImmob)</span>
 <div class="block">Lettura di una singola Stanza presente nei dati memorizzati identificata dal nome e l'unita immobiliare in cui e' contenuta.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#leggiStanza(java.lang.String,java.lang.String)">leggiStanza</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#leggiStanza(java.lang.String,java.lang.String)">leggiStanza</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiStanza(java.lang.String,java.lang.String)">leggiStanza</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiStanza(java.lang.String,java.lang.String)">leggiStanza</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nome</code> - stringa identificativa dell'istanza da leggere</dd>
 <dd><code>unitaImmob</code> - stringa identificativa dell'unita immobiliare cui la modalita riferisce</dd>
@@ -784,9 +784,9 @@ java.lang.String&nbsp;unitaImmob)</span>
 <div class="block">Lettura di un singolo Artefatto presente nei dati memorizzati identificata dal nome e l'unita immobiliare in cui e' contenuta.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#leggiArtefatto(java.lang.String,java.lang.String)">leggiArtefatto</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#leggiArtefatto(java.lang.String,java.lang.String)">leggiArtefatto</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiArtefatto(java.lang.String,java.lang.String)">leggiArtefatto</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiArtefatto(java.lang.String,java.lang.String)">leggiArtefatto</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nome</code> - stringa identificativa dell'istanza da leggere</dd>
 <dd><code>unitaImmob</code> - stringa identificativa dell'unita immobiliare cui la modalita riferisce</dd>
@@ -808,9 +808,9 @@ java.lang.String&nbsp;unitaImmob)</span>
 <div class="block">Lettura di un singolo Sensore presente nei dati memorizzati identificato dal nome.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#leggiSensore(java.lang.String)">leggiSensore</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#leggiSensore(java.lang.String)">leggiSensore</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiSensore(java.lang.String)">leggiSensore</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiSensore(java.lang.String)">leggiSensore</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nome</code> - stringa identificativa dell'istanza da leggere</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -831,9 +831,9 @@ java.lang.String&nbsp;unitaImmob)</span>
 <div class="block">Lettura di un singolo Attuatore presente nei dati memorizzati identificato dal nome.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#leggiAttuatore(java.lang.String)">leggiAttuatore</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#leggiAttuatore(java.lang.String)">leggiAttuatore</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiAttuatore(java.lang.String)">leggiAttuatore</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiAttuatore(java.lang.String)">leggiAttuatore</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nome</code> - stringa identificativa dell'istanza da leggere</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -855,9 +855,9 @@ java.lang.String&nbsp;unita)</span>
 <div class="block">Lettura di una singola Regola presente nei dati memorizzati identificata dal nome.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#leggiRegola(java.lang.String,java.lang.String)">leggiRegola</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#leggiRegola(java.lang.String,java.lang.String)">leggiRegola</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiRegola(java.lang.String,java.lang.String)">leggiRegola</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiRegola(java.lang.String,java.lang.String)">leggiRegola</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>idRegola</code> - stringa identificativa dell'istanza da leggere</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -878,9 +878,9 @@ java.lang.String&nbsp;unita)</span>
 <div class="block">Lettura di una singola Azione programmata presente nei dati memorizzati identificata dal nome.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../LetturaDatiSalvati.html#leggiAzioneProgrammata(java.lang.String)">leggiAzioneProgrammata</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.model.io">LetturaDatiSalvati</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvati.html#leggiAzioneProgrammata(java.lang.String)">leggiAzioneProgrammata</a></code>&nbsp;in interface&nbsp;<code><a href="../LetturaDatiSalvati.html" title="interface in domotix.controller.io">LetturaDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiAzioneProgrammata(java.lang.String)">leggiAzioneProgrammata</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.model.io">LetturaDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../LetturaDatiSalvatiAdapter.html#leggiAzioneProgrammata(java.lang.String)">leggiAzioneProgrammata</a></code>&nbsp;in class&nbsp;<code><a href="../LetturaDatiSalvatiAdapter.html" title="class in domotix.controller.io">LetturaDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>id</code> - stringa identificativa dell'istanza da leggere</dd>
 <dt><span class="returnLabel">Returns:</span></dt>

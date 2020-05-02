@@ -1,14 +1,12 @@
-package domotix.model.io;
+package domotix.controller.io;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
-import domotix.model.bean.regole.Antecedente;
 import domotix.model.bean.regole.Azione;
-import domotix.model.bean.regole.Conseguente;
 import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-import domotix.model.io.datilocali.LetturaDatiLocali;
+import domotix.controller.io.datilocali.LetturaDatiLocali;
 
 import java.util.List;
 

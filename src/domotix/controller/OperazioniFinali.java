@@ -6,8 +6,8 @@ import domotix.model.bean.device.CategoriaAttuatore;
 import domotix.model.bean.device.CategoriaSensore;
 import domotix.model.gestioneerrori.LogErrori;
 import domotix.model.gestioneerrori.StoreIstanzeErrori;
-import domotix.model.io.RimozioneDatiSalvati;
-import domotix.model.io.ScritturaDatiSalvati;
+import domotix.controller.io.RimozioneDatiSalvati;
+import domotix.controller.io.ScritturaDatiSalvati;
 import domotix.view.menus.MenuErroreChiusura;
 
 import java.util.List;

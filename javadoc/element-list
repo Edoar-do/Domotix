@@ -7,8 +7,8 @@ domotix.model.bean.device
 domotix.model.bean.regole
 domotix.model.bean.system
 domotix.model.gestioneerrori
-domotix.model.io
-domotix.model.io.datilocali
+domotix.controller.io
+domotix.controller.io.datilocali
 domotix.model.util
 domotix.view
 domotix.view.menus

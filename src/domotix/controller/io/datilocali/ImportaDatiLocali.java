@@ -1,4 +1,4 @@
-package domotix.model.io.datilocali;
+package domotix.controller.io.datilocali;
 
 import domotix.model.ElencoCategorieAttuatori;
 import domotix.model.ElencoCategorieSensori;
@@ -6,10 +6,8 @@ import domotix.model.ElencoUnitaImmobiliari;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.CategoriaAttuatore;
 import domotix.model.bean.device.CategoriaSensore;
-import domotix.model.io.ImportaDatiAdapter;
+import domotix.controller.io.ImportaDatiAdapter;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerConfigurationException;
 import java.io.File;
 import java.nio.file.NotDirectoryException;
 import java.time.LocalDateTime;
@@ -23,7 +21,7 @@ import java.util.List;
  * una cartella contenuta nella cartella utente).
  *
  * @author paolopasqua
- * @see domotix.model.io.ImportaDati
+ * @see domotix.controller.io.ImportaDati
  */
 public class ImportaDatiLocali extends ImportaDatiAdapter {
 
