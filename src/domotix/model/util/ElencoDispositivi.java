@@ -13,7 +13,7 @@ import java.util.Map;
  * @see Dispositivo
  * @see ObservableList
  */
-public class ElencoDispositivi implements Visitable implements ObservableList<Dispositivo> {
+public class ElencoDispositivi implements Visitable, ObservableList<Dispositivo> {
     private Map<String, Dispositivo> elenco;
     private ArrayList<ObserverList<Dispositivo>> osservatori;
 

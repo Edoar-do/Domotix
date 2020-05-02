@@ -11,7 +11,7 @@ import java.util.Map;
  * Realizza quindi un resoconto degli oggetti contenuti in piu' liste Dispositivo in modo da presentare un
  * elenco senza ripetizioni ed aggiornato.
  */
-public class SommarioDispositivi implements Visitable implements ObserverList<Dispositivo> {
+public class SommarioDispositivi implements Visitable, ObserverList<Dispositivo> {
     private Map<String, Dispositivo> elenco;
 
     /**
