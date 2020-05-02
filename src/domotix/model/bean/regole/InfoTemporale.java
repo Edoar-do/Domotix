@@ -12,7 +12,7 @@ import java.time.ZoneId;
  * Classe che rappresenta un InfoSensoriale rappresentante un valore temporale
  * @author andrea
  */
-public class InfoTemporale implements Visitable implements InfoSensoriale {
+public class InfoTemporale implements Visitable, InfoSensoriale {
     private LocalTime tempo;
 
     public InfoTemporale(LocalTime tempo) {

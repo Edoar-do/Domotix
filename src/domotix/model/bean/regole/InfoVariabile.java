@@ -7,7 +7,7 @@ import domotix.model.bean.device.Sensore;
  * @author andrea
  */
 
-public class InfoVariabile implements Visitable implements InfoSensoriale {
+public class InfoVariabile implements Visitable, InfoSensoriale {
     private Sensore sensore;
     private String nomeInfo;
 

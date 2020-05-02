@@ -4,7 +4,7 @@ package domotix.model.bean.regole;
  * Classe che rappresenta un InfoSensoriale costante
  * @author andrea
  */
-public class InfoCostante implements Visitable implements InfoSensoriale {
+public class InfoCostante implements Visitable, InfoSensoriale {
     private Object info;
 
     public InfoCostante(Object info) {
