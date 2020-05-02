@@ -1,7 +1,7 @@
-package domotix.model.io;
+package domotix.controller.io;
 
 import domotix.model.ElencoSensori;
-import domotix.model.io.datilocali.RinfrescaDatiLocali;
+import domotix.controller.io.datilocali.RinfrescaDatiLocali;
 
 /**
  *  Interfaccia per l'implementazione di strutture per il "rinfresco" dei dati, ovvero la ri-lettura di

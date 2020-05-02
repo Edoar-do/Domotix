@@ -6,7 +6,7 @@ import domotix.model.ElencoUnitaImmobiliari;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.CategoriaAttuatore;
 import domotix.model.bean.device.CategoriaSensore;
-import domotix.model.io.ImportaDati;
+import domotix.controller.io.ImportaDati;
 
 import java.util.ArrayList;
 

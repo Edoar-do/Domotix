@@ -1,4 +1,4 @@
-package domotix.model.io.datilocali;
+package domotix.controller.io.datilocali;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
@@ -6,8 +6,7 @@ import domotix.model.bean.regole.Azione;
 import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-import domotix.model.io.RimozioneDatiSalvati;
-import domotix.model.io.RimozioneDatiSalvatiAdapter;
+import domotix.controller.io.RimozioneDatiSalvatiAdapter;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
@@ -23,7 +22,7 @@ import java.util.Map;
  * una cartella contenuta nella cartella utente).
  *
  * @author paolopasqua
- * @see domotix.model.io.RimozioneDatiSalvati
+ * @see domotix.controller.io.RimozioneDatiSalvati
  */
 public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
 

@@ -1,4 +1,4 @@
-package domotix.model.io.datilocali;
+package domotix.controller.io.datilocali;
 
 import domotix.model.*;
 import domotix.model.bean.UnitaImmobiliare;
@@ -6,7 +6,6 @@ import domotix.model.bean.device.*;
 import domotix.model.bean.regole.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-import domotix.model.io.LetturaDatiSalvati;
 import domotix.model.util.Costanti;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -14,7 +13,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;

@@ -1,7 +1,7 @@
 package domotix.controller;
 
 import domotix.model.ElencoSensori;
-import domotix.model.io.RinfrescaDati;
+import domotix.controller.io.RinfrescaDati;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

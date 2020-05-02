@@ -1,0 +1,149 @@
+@startuml
+
+title __DOMOTIX > MODEL > IO's Class Diagram__\n
+
+namespace src.domotix.model {
+    namespace util {
+    }
+
+    namespace io {
+        interface src.domotix.controller.io.ImportaDati {
+            {static} + getInstance()
+            {abstract} + getNomiCategorieAttuatori()
+            {abstract} + getNomiCategorieSensori()
+            {abstract} + getNomiUnitaImmobiliare()
+            {abstract} + leggiCategorieAttuatori()
+            {abstract} + leggiCategorieSensori()
+            {abstract} + leggiUnitaImmobiliare()
+            {abstract} + storicizzaCategorieAttuatori()
+            {abstract} + storicizzaCategorieSensori()
+            {abstract} + storicizzaUnitaImmobiliare()
+        }
+
+        class src.domotix.controller.io.ImportaDatiAdapter {
+            + getNomiCategorieAttuatori()
+            + getNomiCategorieSensori()
+            + getNomiUnitaImmobiliare()
+            + leggiCategorieAttuatori()
+            + leggiCategorieSensori()
+            + leggiUnitaImmobiliare()
+            + storicizzaCategorieAttuatori()
+            + storicizzaCategorieSensori()
+            + storicizzaUnitaImmobiliare()
+        }
+
+        interface src.domotix.controller.io.LetturaDatiSalvati {
+        }
+
+        abstract class src.domotix.controller.io.LetturaDatiSalvatiAdapter {
+        }
+
+        interface src.domotix.controller.io.RimozioneDatiSalvati {
+        }
+
+        class src.domotix.controller.io.RimozioneDatiSalvatiAdapter {
+        }
+
+        interface src.domotix.controller.io.ScritturaDatiSalvati {
+        }
+
+        class src.domotix.controller.io.ScritturaDatiSalvatiAdapter {
+        }
+
+        class src.domotix.controller.io.RinfrescaDati {
+        }
+
+        class src.domotix.controller.io.RinfrescaDatiAdapter {
+        }
+
+        namespace datilocali {
+            enum src.domotix.controller.io.datilocali.LettoriXML {
+            }
+
+            interface src.domotix.controller.io.datilocali.LettoriXML.IstanziatoreXML {
+            }
+
+            class src.domotix.controller.io.datilocali.LetturaDatiLocali {
+            }
+
+            class src.domotix.controller.io.datilocali.PercorsiFile {
+                {static} + SORGENTE_DATI : int
+                {static} + SORGENTE_LIBRERIA : int
+                {static} + SORGENTE_LIBRERIA_IMPORTATA : int
+                {static} - PRIMA_SORGENTE : int
+                {static} - ULTIMA_SORGENTE : int
+                - sorgente : int
+                - controllaStruttura()
+                + getSorgente()
+                + setSorgente()
+                + getPercorsoSorgente()
+                + getCartellaCategorieSensore()
+                + getCartellaCategorieAttuatore()
+                + getCartellaUnitaImmobiliari()
+            }
+
+            class src.domotix.controller.io.datilocali.RimozioneDatiLocali {
+            }
+
+            enum src.domotix.controller.io.datilocali.ScrittoriXML {
+            }
+
+            interface src.domotix.controller.io.datilocali.ScrittoriXML.CompilatoreXML {
+            }
+
+            class src.domotix.controller.io.datilocali.ScritturaDatiLocali {
+            }
+
+            class src.domotix.controller.io.datilocali.RinfrescaDatiLocali {
+            }
+
+            class src.domotix.controller.io.datilocali.ImportaDatiLocali {
+                {static} + getInstance()
+                - ImportaDatiLocali()
+                + getNomiCategorieAttuatori()
+                + getNomiCategorieSensori()
+                + getNomiUnitaImmobiliare()
+                + leggiCategorieAttuatori()
+                + leggiCategorieSensori()
+                + leggiUnitaImmobiliare()
+                + storicizzaCategorieAttuatori()
+                + storicizzaCategorieSensori()
+                + storicizzaUnitaImmobiliare()
+                - storicizzaFiles()
+                - getNomeTimestamp()
+            }
+        }
+    }
+}
+
+
+src.domotix.controller.io.LetturaDatiSalvatiAdapter .up.|> src.domotix.controller.io.LetturaDatiSalvati
+src.domotix.controller.io.RimozioneDatiSalvatiAdapter .up.|> src.domotix.controller.io.RimozioneDatiSalvati
+src.domotix.controller.io.ScritturaDatiSalvatiAdapter .up.|> src.domotix.controller.io.ScritturaDatiSalvati
+src.domotix.controller.io.RinfrescaDatiAdapter .up.|> src.domotix.controller.io.RinfrescaDati
+src.domotix.controller.io.ImportaDatiAdapter .up.|> src.domotix.controller.io.ImportaDati
+
+src.domotix.controller.io.datilocali.LetturaDatiLocali -up-|> src.domotix.controller.io.LetturaDatiSalvatiAdapter
+src.domotix.controller.io.datilocali.RimozioneDatiLocali -up-|> src.domotix.controller.io.RimozioneDatiSalvatiAdapter
+src.domotix.controller.io.datilocali.ScritturaDatiLocali -up-|> src.domotix.controller.io.ScritturaDatiSalvatiAdapter
+src.domotix.controller.io.datilocali.RinfrescaDatiLocali -up-|> src.domotix.controller.io.RinfrescaDatiAdapter
+src.domotix.controller.io.datilocali.ImportaDatiLocali -up-|> src.domotix.controller.io.ImportaDatiAdapter
+
+src.domotix.controller.io.datilocali.LettoriXML "1" o-- "1" src.domotix.controller.io.datilocali.LettoriXML.IstanziatoreXML : istanziatore
+src.domotix.controller.io.datilocali.LettoriXML +-down- src.domotix.controller.io.datilocali.LettoriXML.IstanziatoreXML : contiene >
+src.domotix.controller.io.datilocali.ScrittoriXML "1" o-- "1" src.domotix.controller.io.datilocali.ScrittoriXML.CompilatoreXML : compilatore
+src.domotix.controller.io.datilocali.ScrittoriXML +-down- src.domotix.controller.io.datilocali.ScrittoriXML.CompilatoreXML : contiene >
+
+src.domotix.controller.io.datilocali.ImportaDatiLocali -- src.domotix.controller.io.datilocali.LetturaDatiLocali : usa >
+src.domotix.controller.io.datilocali.ImportaDatiLocali -- src.domotix.controller.io.datilocali.PercorsiFile : usa >
+src.domotix.controller.io.datilocali.LetturaDatiLocali -- src.domotix.controller.io.datilocali.PercorsiFile : usa >
+src.domotix.controller.io.datilocali.PercorsiFile -- src.domotix.model.util.Costanti : usa >
+src.domotix.controller.io.datilocali.LettoriXML -- src.domotix.model.util.Costanti : usa >
+src.domotix.controller.io.datilocali.ScrittoriXML -- src.domotix.model.util.Costanti : usa >
+src.domotix.controller.io.datilocali.LetturaDatiLocali -- src.domotix.model.util.Costanti : usa >
+src.domotix.controller.io.datilocali.ScritturaDatiSalvati -- src.domotix.model.util.Costanti : usa >
+src.domotix.controller.io.datilocali.LetturaDatiLocali -- src.domotix.controller.io.datilocali.LettoriXML : usa
+src.domotix.controller.io.datilocali.ScritturaDatiLocali -- src.domotix.controller.io.datilocali.ScrittoriXML : usa
+
+
+@enduml

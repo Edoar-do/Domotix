@@ -1,4 +1,4 @@
-package domotix.model.io;
+package domotix.controller.io;
 
 import domotix.model.ElencoSensori;
 

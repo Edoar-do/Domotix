@@ -1,16 +1,14 @@
-package domotix.model.io.datilocali;
+package domotix.controller.io.datilocali;
 
-import domotix.model.bean.regole.Antecedente;
 import domotix.model.bean.regole.Azione;
-import domotix.model.bean.regole.Conseguente;
 import domotix.model.bean.regole.Regola;
-import domotix.model.io.LetturaDatiSalvati;
+import domotix.controller.io.LetturaDatiSalvati;
 import domotix.model.util.Costanti;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-import domotix.model.io.LetturaDatiSalvatiAdapter;
+import domotix.controller.io.LetturaDatiSalvatiAdapter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

@@ -1,9 +1,9 @@
-package domotix.model.io;
+package domotix.controller.io;
 
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.CategoriaAttuatore;
 import domotix.model.bean.device.CategoriaSensore;
-import domotix.model.io.datilocali.ImportaDatiLocali;
+import domotix.controller.io.datilocali.ImportaDatiLocali;
 
 import java.util.List;
 

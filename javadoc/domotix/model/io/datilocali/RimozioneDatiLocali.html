@@ -6,7 +6,7 @@
 <title>RimozioneDatiLocali</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2020-04-16">
-<meta name="description" content="declaration: package: domotix.model.io.datilocali, class: RimozioneDatiLocali">
+<meta name="description" content="declaration: package: domotix.controller.io.datilocali, class: RimozioneDatiLocali">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../script-dir/jquery-ui.css" title="Style">
@@ -88,30 +88,30 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!-- ======== START OF CLASS DATA ======== -->
 <main role="main">
 <div class="header">
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">domotix.model.io.datilocali</a></div>
+<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">domotix.controller.io.datilocali</a></div>
 <h1 title="Class RimozioneDatiLocali" class="title">Class RimozioneDatiLocali</h1>
 </div>
 <div class="contentContainer">
 <div class="inheritance" title="Inheritance Tree">java.lang.Object
-<div class="inheritance"><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">domotix.model.io.RimozioneDatiSalvatiAdapter</a>
-<div class="inheritance">domotix.model.io.datilocali.RimozioneDatiLocali</div>
+<div class="inheritance"><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">domotix.controller.io.RimozioneDatiSalvatiAdapter</a>
+<div class="inheritance">domotix.controller.io.datilocali.RimozioneDatiLocali</div>
 </div>
 </div>
 <section class="description">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">RimozioneDatiLocali</span>
-extends <a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></pre>
+extends <a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></pre>
 <div class="block">Classe che implementa l'interfaccia RimozioneDatiSalvati per definire un meccanismo di rimozione dei dati su file memorizzati
  localmente sulla macchina di esecuzione del programma.
  Si sviluppa una struttura ad albero nel FileSystem del SistemaOperativo posizionata nella cartella dell'applicazione (attualmente equivale ad
  una cartella contenuta nella cartella utente).</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io"><code>RimozioneDatiSalvati</code></a></dd>
+<dd><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io"><code>RimozioneDatiSalvati</code></a></dd>
 </dl>
 </section>
 <section class="summary">
@@ -135,7 +135,7 @@ extends <a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.mo
 </thead>
 <tbody>
 <tr class="altColor" id="i0">
-<td class="colFirst"><code>static <a href="RimozioneDatiLocali.html" title="class in domotix.model.io.datilocali">RimozioneDatiLocali</a></code></td>
+<td class="colFirst"><code>static <a href="RimozioneDatiLocali.html" title="class in domotix.controller.io.datilocali">RimozioneDatiLocali</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getInstance()">getInstance</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Unica istanza del meccanismo di salvataggio e caricamento implementato.</div>
@@ -325,7 +325,7 @@ java.lang.String&nbsp;unita)</code></th>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getInstance()">getInstance</a></h3>
-<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="RimozioneDatiLocali.html" title="class in domotix.model.io.datilocali">RimozioneDatiLocali</a></span>&nbsp;<span class="memberName">getInstance</span>()
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="RimozioneDatiLocali.html" title="class in domotix.controller.io.datilocali">RimozioneDatiLocali</a></span>&nbsp;<span class="memberName">getInstance</span>()
                                        throws <span class="exceptions">java.nio.file.NotDirectoryException,
 javax.xml.parsers.ParserConfigurationException,
 javax.xml.transform.TransformerConfigurationException</span></div>
@@ -351,9 +351,9 @@ javax.xml.transform.TransformerConfigurationException</span></div>
 <div class="block">Cancellazione nei dati memorizzati di una singola istanza di CategoriaSensore.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviCategoriaSensore(java.lang.String)">rimuoviCategoriaSensore</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviCategoriaSensore(java.lang.String)">rimuoviCategoriaSensore</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviCategoriaSensore(java.lang.String)">rimuoviCategoriaSensore</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviCategoriaSensore(java.lang.String)">rimuoviCategoriaSensore</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>cat</code> - istanza da salvare</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -373,9 +373,9 @@ java.lang.String&nbsp;cat)</span>
 <div class="block">Cancellazione nei dati memorizzati di una singola istanza di InfoRilevabile.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviInfoRilevabile(java.lang.String,java.lang.String)">rimuoviInfoRilevabile</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviInfoRilevabile(java.lang.String,java.lang.String)">rimuoviInfoRilevabile</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviInfoRilevabile(java.lang.String,java.lang.String)">rimuoviInfoRilevabile</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviInfoRilevabile(java.lang.String,java.lang.String)">rimuoviInfoRilevabile</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>info</code> - istanza da rimuovere</dd>
 <dd><code>cat</code> - stringa identificativa cui l'informazione rilevabile riferisce</dd>
@@ -395,9 +395,9 @@ java.lang.String&nbsp;cat)</span>
 <div class="block">Cancellazione nei dati memorizzati di una singola istanza di CategoriaAttuatore.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviCategoriaAttuatore(java.lang.String)">rimuoviCategoriaAttuatore</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviCategoriaAttuatore(java.lang.String)">rimuoviCategoriaAttuatore</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviCategoriaAttuatore(java.lang.String)">rimuoviCategoriaAttuatore</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviCategoriaAttuatore(java.lang.String)">rimuoviCategoriaAttuatore</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>cat</code> - istanza da salvare</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -417,9 +417,9 @@ java.lang.String&nbsp;cat)</span>
 <div class="block">Cancellazione nei dati memorizzati di una singola istanza di Modalita.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviModalita(java.lang.String,java.lang.String)">rimuoviModalita</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviModalita(java.lang.String,java.lang.String)">rimuoviModalita</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviModalita(java.lang.String,java.lang.String)">rimuoviModalita</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviModalita(java.lang.String,java.lang.String)">rimuoviModalita</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>modalita</code> - istanza da salvare</dd>
 <dd><code>cat</code> - stringa identificativa cui la modalita riferisce</dd>
@@ -439,9 +439,9 @@ java.lang.String&nbsp;cat)</span>
 <div class="block">Cancellazione nei dati memorizzati di una singola istanza di UnitaImmobiliare.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviUnitaImmobiliare(java.lang.String)">rimuoviUnitaImmobiliare</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviUnitaImmobiliare(java.lang.String)">rimuoviUnitaImmobiliare</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviUnitaImmobiliare(java.lang.String)">rimuoviUnitaImmobiliare</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviUnitaImmobiliare(java.lang.String)">rimuoviUnitaImmobiliare</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>unita</code> - istanza da salvare</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -461,9 +461,9 @@ java.lang.String&nbsp;unita)</span>
 <div class="block">Cancellazione nei dati memorizzati di una singola istanza di Stanza.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviStanza(java.lang.String,java.lang.String)">rimuoviStanza</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviStanza(java.lang.String,java.lang.String)">rimuoviStanza</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviStanza(java.lang.String,java.lang.String)">rimuoviStanza</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviStanza(java.lang.String,java.lang.String)">rimuoviStanza</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>stanza</code> - istanza da salvare</dd>
 <dd><code>unita</code> - stringa identificativa cui la stanza riferisce</dd>
@@ -484,9 +484,9 @@ java.lang.String&nbsp;unita)</span>
 <div class="block">Cancellazione nei dati memorizzati di una singola istanza di Artefatto.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviArtefatto(java.lang.String,java.lang.String)">rimuoviArtefatto</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviArtefatto(java.lang.String,java.lang.String)">rimuoviArtefatto</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviArtefatto(java.lang.String,java.lang.String)">rimuoviArtefatto</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviArtefatto(java.lang.String,java.lang.String)">rimuoviArtefatto</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>artefatto</code> - istanza da salvare</dd>
 <dd><code>unita</code> - stringa identificativa cui l'artefatto riferisce</dd>
@@ -506,9 +506,9 @@ java.lang.String&nbsp;unita)</span>
 <div class="block">Cancellazione nei dati memorizzati di una singola istanza di Sensore.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviSensore(java.lang.String)">rimuoviSensore</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviSensore(java.lang.String)">rimuoviSensore</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviSensore(java.lang.String)">rimuoviSensore</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviSensore(java.lang.String)">rimuoviSensore</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>sensore</code> - istanza da salvare</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -527,9 +527,9 @@ java.lang.String&nbsp;unita)</span>
 <div class="block">Cancellazione nei dati memorizzati di una singola istanza di Attuatore.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviAttuatore(java.lang.String)">rimuoviAttuatore</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviAttuatore(java.lang.String)">rimuoviAttuatore</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviAttuatore(java.lang.String)">rimuoviAttuatore</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviAttuatore(java.lang.String)">rimuoviAttuatore</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>attuatore</code> - istanza da salvare</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -549,9 +549,9 @@ java.lang.String&nbsp;unita)</span>
 <div class="block">Cancellazione nei dati memorizzati di una singola istanza di Regola                                                                                                                                                                                                                                                                                                                                                                                                                                                   .</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviRegola(java.lang.String,java.lang.String)">rimuoviRegola</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviRegola(java.lang.String,java.lang.String)">rimuoviRegola</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviRegola(java.lang.String,java.lang.String)">rimuoviRegola</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviRegola(java.lang.String,java.lang.String)">rimuoviRegola</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>idRegola</code> - istanza da rimuovere</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -570,9 +570,9 @@ java.lang.String&nbsp;unita)</span>
 <div class="block">Cancellazione nei dati memorizzati di una singola istanza di Azione programmata                                                                                                                                                                                                                                                                                                                                                                                                                                                   .</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviAzioneProgrammata(java.lang.String)">rimuoviAzioneProgrammata</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#rimuoviAzioneProgrammata(java.lang.String)">rimuoviAzioneProgrammata</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviAzioneProgrammata(java.lang.String)">rimuoviAzioneProgrammata</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#rimuoviAzioneProgrammata(java.lang.String)">rimuoviAzioneProgrammata</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>id</code> - istanza da rimuovere</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -594,9 +594,9 @@ java.lang.String&nbsp;unita)</span>
  salvati con le entita' logiche.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaCategorieSensore(java.util.List)">sincronizzaCategorieSensore</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaCategorieSensore(java.util.List)">sincronizzaCategorieSensore</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaCategorieSensore(java.util.List)">sincronizzaCategorieSensore</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaCategorieSensore(java.util.List)">sincronizzaCategorieSensore</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>entita</code> - lista di entita' logiche presenti</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -617,9 +617,9 @@ java.lang.String&nbsp;unita)</span>
  salvati con le entita' logiche.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaInfoRilevabile(domotix.model.bean.device.CategoriaSensore)">sincronizzaInfoRilevabile</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaInfoRilevabile(domotix.model.bean.device.CategoriaSensore)">sincronizzaInfoRilevabile</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaInfoRilevabile(domotix.model.bean.device.CategoriaSensore)">sincronizzaInfoRilevabile</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaInfoRilevabile(domotix.model.bean.device.CategoriaSensore)">sincronizzaInfoRilevabile</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>entita</code> - istanza di CategoriaSensore di cui effettuare la sincronizzazione delle InfoRilevabili</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -641,9 +641,9 @@ java.lang.String&nbsp;unita)</span>
  salvati con le entita' logiche.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaCategorieAttuatore(java.util.List)">sincronizzaCategorieAttuatore</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaCategorieAttuatore(java.util.List)">sincronizzaCategorieAttuatore</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaCategorieAttuatore(java.util.List)">sincronizzaCategorieAttuatore</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaCategorieAttuatore(java.util.List)">sincronizzaCategorieAttuatore</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>entita</code> - lista di entita' logiche presenti</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -664,9 +664,9 @@ java.lang.String&nbsp;unita)</span>
  salvati con le entita' logiche.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaModalita(domotix.model.bean.device.CategoriaAttuatore)">sincronizzaModalita</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaModalita(domotix.model.bean.device.CategoriaAttuatore)">sincronizzaModalita</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaModalita(domotix.model.bean.device.CategoriaAttuatore)">sincronizzaModalita</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaModalita(domotix.model.bean.device.CategoriaAttuatore)">sincronizzaModalita</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>entita</code> - istanza di CategoriaAttuatore di cui effettuare la sincronizzazione delle Modalita</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -688,9 +688,9 @@ java.lang.String&nbsp;unita)</span>
  salvati con le entita' logiche.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaUnitaImmobiliari(java.util.List)">sincronizzaUnitaImmobiliari</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaUnitaImmobiliari(java.util.List)">sincronizzaUnitaImmobiliari</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaUnitaImmobiliari(java.util.List)">sincronizzaUnitaImmobiliari</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaUnitaImmobiliari(java.util.List)">sincronizzaUnitaImmobiliari</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>entita</code> - lista di entita' logiche presenti</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -711,9 +711,9 @@ java.lang.String&nbsp;unita)</span>
  salvati con le entita' logiche.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaStanze(domotix.model.bean.UnitaImmobiliare)">sincronizzaStanze</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaStanze(domotix.model.bean.UnitaImmobiliare)">sincronizzaStanze</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaStanze(domotix.model.bean.UnitaImmobiliare)">sincronizzaStanze</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaStanze(domotix.model.bean.UnitaImmobiliare)">sincronizzaStanze</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>entita</code> - istanza di UnitaImmobiliare di cui effettuare la sincronizzazione delle Stanze</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -735,9 +735,9 @@ java.lang.String&nbsp;unita)</span>
  salvati con le entita' logiche.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaArtefatti(domotix.model.bean.UnitaImmobiliare)">sincronizzaArtefatti</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaArtefatti(domotix.model.bean.UnitaImmobiliare)">sincronizzaArtefatti</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaArtefatti(domotix.model.bean.UnitaImmobiliare)">sincronizzaArtefatti</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaArtefatti(domotix.model.bean.UnitaImmobiliare)">sincronizzaArtefatti</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>entita</code> - istanza di UnitaImmobiliare di cui effettuare la sincronizzazione dei Artefatto</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -759,9 +759,9 @@ java.lang.String&nbsp;unita)</span>
  salvati con le entita' logiche.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaSensori(java.util.List)">sincronizzaSensori</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaSensori(java.util.List)">sincronizzaSensori</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaSensori(java.util.List)">sincronizzaSensori</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaSensori(java.util.List)">sincronizzaSensori</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>entita</code> - lista di entita' logiche presenti</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -782,9 +782,9 @@ java.lang.String&nbsp;unita)</span>
  salvati con le entita' logiche.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaAttuatori(java.util.List)">sincronizzaAttuatori</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaAttuatori(java.util.List)">sincronizzaAttuatori</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaAttuatori(java.util.List)">sincronizzaAttuatori</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaAttuatori(java.util.List)">sincronizzaAttuatori</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>entita</code> - lista di entita' logiche presenti</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -805,9 +805,9 @@ java.lang.String&nbsp;unita)</span>
  salvati con le entita' logiche.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaRegole(domotix.model.bean.UnitaImmobiliare)">sincronizzaRegole</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaRegole(domotix.model.bean.UnitaImmobiliare)">sincronizzaRegole</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaRegole(domotix.model.bean.UnitaImmobiliare)">sincronizzaRegole</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaRegole(domotix.model.bean.UnitaImmobiliare)">sincronizzaRegole</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>entita</code> - lista di entita' logiche presenti</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -828,9 +828,9 @@ java.lang.String&nbsp;unita)</span>
  salvati con le entita' logiche.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaAzioniProgrammate(java.util.Map)">sincronizzaAzioniProgrammate</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.model.io">RimozioneDatiSalvati</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvati.html#sincronizzaAzioniProgrammate(java.util.Map)">sincronizzaAzioniProgrammate</a></code>&nbsp;in interface&nbsp;<code><a href="../RimozioneDatiSalvati.html" title="interface in domotix.controller.io">RimozioneDatiSalvati</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaAzioniProgrammate(java.util.Map)">sincronizzaAzioniProgrammate</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.model.io">RimozioneDatiSalvatiAdapter</a></code></dd>
+<dd><code><a href="../RimozioneDatiSalvatiAdapter.html#sincronizzaAzioniProgrammate(java.util.Map)">sincronizzaAzioniProgrammate</a></code>&nbsp;in class&nbsp;<code><a href="../RimozioneDatiSalvatiAdapter.html" title="class in domotix.controller.io">RimozioneDatiSalvatiAdapter</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>entita</code> - lista di entita' logiche presenti</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>

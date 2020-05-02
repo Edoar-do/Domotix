@@ -6,7 +6,7 @@
 <title>ImportaDatiAdapter</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2020-04-16">
-<meta name="description" content="declaration: package: domotix.model.io, class: ImportaDatiAdapter">
+<meta name="description" content="declaration: package: domotix.controller.io, class: ImportaDatiAdapter">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../script-dir/jquery-ui.css" title="Style">
@@ -88,26 +88,26 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!-- ======== START OF CLASS DATA ======== -->
 <main role="main">
 <div class="header">
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">domotix.model.io</a></div>
+<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">domotix.controller.io</a></div>
 <h1 title="Class ImportaDatiAdapter" class="title">Class ImportaDatiAdapter</h1>
 </div>
 <div class="contentContainer">
 <div class="inheritance" title="Inheritance Tree">java.lang.Object
-<div class="inheritance">domotix.model.io.ImportaDatiAdapter</div>
+<div class="inheritance">domotix.controller.io.ImportaDatiAdapter</div>
 </div>
 <section class="description">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="ImportaDati.html" title="interface in domotix.model.io">ImportaDati</a></code></dd>
+<dd><code><a href="ImportaDati.html" title="interface in domotix.controller.io">ImportaDati</a></code></dd>
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="datilocali/ImportaDatiLocali.html" title="class in domotix.model.io.datilocali">ImportaDatiLocali</a></code></dd>
+<dd><code><a href="datilocali/ImportaDatiLocali.html" title="class in domotix.controller.io.datilocali">ImportaDatiLocali</a></code></dd>
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">ImportaDatiAdapter</span>
 extends java.lang.Object
-implements <a href="ImportaDati.html" title="interface in domotix.model.io">ImportaDati</a></pre>
+implements <a href="ImportaDati.html" title="interface in domotix.controller.io">ImportaDati</a></pre>
 <div class="block">Classe che implementa l'interfaccia ImportaDati come base per le implementazioni complesse.
  Si intende rendere semplice la retrocompatibilita' per i cambiamenti dell'interfaccia.</div>
 </section>
@@ -265,7 +265,7 @@ implements <a href="ImportaDati.html" title="interface in domotix.model.io">Impo
 <div class="block">Ritorna il nome di tutte le CategoriaSensore presenti nella libreria.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="ImportaDati.html#getNomiCategorieSensori()">getNomiCategorieSensori</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.model.io">ImportaDati</a></code></dd>
+<dd><code><a href="ImportaDati.html#getNomiCategorieSensori()">getNomiCategorieSensori</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.controller.io">ImportaDati</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutti i nomi delle istanze nella libreria.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -281,7 +281,7 @@ implements <a href="ImportaDati.html" title="interface in domotix.model.io">Impo
 <div class="block">Ritorna il nome di tutte le CategoriaAttuatore presenti nella libreria.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="ImportaDati.html#getNomiCategorieAttuatori()">getNomiCategorieAttuatori</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.model.io">ImportaDati</a></code></dd>
+<dd><code><a href="ImportaDati.html#getNomiCategorieAttuatori()">getNomiCategorieAttuatori</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.controller.io">ImportaDati</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutti i nomi delle istanze nella libreria.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -297,7 +297,7 @@ implements <a href="ImportaDati.html" title="interface in domotix.model.io">Impo
 <div class="block">Ritorna il nome di tutte le UnitaImmobiliare presenti nella libreria.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="ImportaDati.html#getNomiUnitaImmobiliare()">getNomiUnitaImmobiliare</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.model.io">ImportaDati</a></code></dd>
+<dd><code><a href="ImportaDati.html#getNomiUnitaImmobiliare()">getNomiUnitaImmobiliare</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.controller.io">ImportaDati</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Lista di tutti i nomi delle istanze nella libreria.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -314,7 +314,7 @@ implements <a href="ImportaDati.html" title="interface in domotix.model.io">Impo
 <div class="block">Lettura di una singola CategorieSensore presente nella librearia identificata dal nome.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="ImportaDati.html#leggiCategoriaSensore(java.lang.String)">leggiCategoriaSensore</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.model.io">ImportaDati</a></code></dd>
+<dd><code><a href="ImportaDati.html#leggiCategoriaSensore(java.lang.String)">leggiCategoriaSensore</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.controller.io">ImportaDati</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nome</code> - stringa identificativa dell'istanza da leggere</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -335,7 +335,7 @@ implements <a href="ImportaDati.html" title="interface in domotix.model.io">Impo
 <div class="block">Lettura di una singola CategorieAttuatore presente nella libreria identificata dal nome.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="ImportaDati.html#leggiCategoriaAttuatore(java.lang.String)">leggiCategoriaAttuatore</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.model.io">ImportaDati</a></code></dd>
+<dd><code><a href="ImportaDati.html#leggiCategoriaAttuatore(java.lang.String)">leggiCategoriaAttuatore</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.controller.io">ImportaDati</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nome</code> - stringa identificativa dell'istanza da leggere</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -356,7 +356,7 @@ implements <a href="ImportaDati.html" title="interface in domotix.model.io">Impo
 <div class="block">Lettura di una singola UnitaImmobiliare presente nella libreria identificata dal nome.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="ImportaDati.html#leggiUnitaImmobiliare(java.lang.String)">leggiUnitaImmobiliare</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.model.io">ImportaDati</a></code></dd>
+<dd><code><a href="ImportaDati.html#leggiUnitaImmobiliare(java.lang.String)">leggiUnitaImmobiliare</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.controller.io">ImportaDati</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nome</code> - stringa identificativa dell'istanza da leggere</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -377,7 +377,7 @@ implements <a href="ImportaDati.html" title="interface in domotix.model.io">Impo
 <div class="block">Spostamento di una singola CategorieSensore presente nella librearia identificata dal nome nello storico dei dati importati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="ImportaDati.html#storicizzaCategoriaSensore(java.lang.String)">storicizzaCategoriaSensore</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.model.io">ImportaDati</a></code></dd>
+<dd><code><a href="ImportaDati.html#storicizzaCategoriaSensore(java.lang.String)">storicizzaCategoriaSensore</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.controller.io">ImportaDati</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nome</code> - stringa identificativa dell'istanza da leggere</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -398,7 +398,7 @@ implements <a href="ImportaDati.html" title="interface in domotix.model.io">Impo
 <div class="block">Spostamento di una singola CategoriaAttuatore presente nella librearia identificata dal nome nello storico dei dati importati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="ImportaDati.html#storicizzaCategoriaAttuatore(java.lang.String)">storicizzaCategoriaAttuatore</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.model.io">ImportaDati</a></code></dd>
+<dd><code><a href="ImportaDati.html#storicizzaCategoriaAttuatore(java.lang.String)">storicizzaCategoriaAttuatore</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.controller.io">ImportaDati</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nome</code> - stringa identificativa dell'istanza da leggere</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -419,7 +419,7 @@ implements <a href="ImportaDati.html" title="interface in domotix.model.io">Impo
 <div class="block">Spostamento di una singola UnitaImmobiliare presente nella librearia identificata dal nome nello storico dei dati importati.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="ImportaDati.html#storicizzaUnitaImmobiliare(java.lang.String)">storicizzaUnitaImmobiliare</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.model.io">ImportaDati</a></code></dd>
+<dd><code><a href="ImportaDati.html#storicizzaUnitaImmobiliare(java.lang.String)">storicizzaUnitaImmobiliare</a></code>&nbsp;in interface&nbsp;<code><a href="ImportaDati.html" title="interface in domotix.controller.io">ImportaDati</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>nome</code> - stringa identificativa dell'istanza da leggere</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
