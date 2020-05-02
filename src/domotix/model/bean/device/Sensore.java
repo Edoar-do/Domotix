@@ -5,7 +5,7 @@ import domotix.model.bean.device.Dispositivo;
 import java.util.HashMap;
 
 /** @author Edoardo Coppola */
-public class Sensore extends Dispositivo {
+public class Sensore implements Visitable extends Dispositivo {
     private CategoriaSensore categoria;
     private HashMap<String, Object> valori;
 
@@ -120,5 +120,10 @@ public class Sensore extends Dispositivo {
         buffer.append("[" + (getStato() ? "ON" : "OFF") + "]");
         valori.forEach((k, v) -> buffer.append("\n" + StringUtil.indent(k + " = " + v, 1)));
         return buffer.toString();
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaSensore(this);
     }
 }

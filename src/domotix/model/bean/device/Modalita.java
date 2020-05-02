@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /** @author Edoardo Coppola */
-public class Modalita {
+public class Modalita implements Visitable {
     private static final String TOSTRING_TEMPLATE = "%s";
     private String nome;
     private HashMap<String, Parametro> parametri;
@@ -120,5 +120,10 @@ public class Modalita {
         }
 
         return false;
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaModalita(this);
     }
 }

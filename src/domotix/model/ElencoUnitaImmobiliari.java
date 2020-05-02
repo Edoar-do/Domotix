@@ -12,7 +12,7 @@ import java.util.HashMap;
  *
  * @see UnitaImmobiliare
  */
-public class ElencoUnitaImmobiliari {
+public class ElencoUnitaImmobiliari implements Visitable {
 
     private static ElencoUnitaImmobiliari instance = null;
     private HashMap<String, UnitaImmobiliare> unita;
@@ -92,5 +92,10 @@ public class ElencoUnitaImmobiliari {
             buffer.append(v.toString() + "\n");
         });
         return StringUtil.removeLast(buffer.toString());
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaElencoUnitaImmobiliari(this);
     }
 }

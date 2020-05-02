@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Classe che rappresenta l'antecedente di una regola.
  * @author andrea
  */
-public class Antecedente {
+public class Antecedente implements Visitable {
     private Condizione condizione;
     private String operatoreLogico;
     private Antecedente prossimoAntecedente; // una sorta di linked list
@@ -192,5 +192,10 @@ public class Antecedente {
         }
         return sensori.toArray(new Sensore[0]);
 
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaAntecedente(this);
     }
 }

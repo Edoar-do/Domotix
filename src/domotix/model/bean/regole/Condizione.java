@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * una regola.
  * @author andrea
  */
-public class Condizione {
+public class Condizione implements Visitable {
     private InfoSensoriale sinistra;
     private String operatore;
     private InfoSensoriale destra;
@@ -128,5 +128,10 @@ public class Condizione {
         if(destra instanceof  InfoVariabile)
             sensori.add(((InfoVariabile) destra).getSensore());
         return sensori.toArray(new Sensore[0]);
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaCondizione(this);
     }
 }

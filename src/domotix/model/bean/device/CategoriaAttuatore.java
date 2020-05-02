@@ -5,7 +5,7 @@ import domotix.controller.util.StringUtil;
 import java.util.ArrayList;
 
 /** @author Edoardo Coppola */
-public class CategoriaAttuatore {
+public class CategoriaAttuatore implements Visitable {
 
     private String nome;
     private String testoLibero;
@@ -149,5 +149,10 @@ public class CategoriaAttuatore {
         if (!(obj instanceof CategoriaSensore)) return false;
         CategoriaAttuatore other = (CategoriaAttuatore) obj;
         return other.nome.equals(this.nome);
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaCategoriaAttuatore(this);
     }
 }

@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @see Modalita
  * @see CategoriaAttuatore
  */
-public class Parametro {
+public class Parametro implements Visitable {
 
     private String nome;
     private double valore;
@@ -60,5 +60,10 @@ public class Parametro {
         }
 
         return false;
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaParametro(this);
     }
 }

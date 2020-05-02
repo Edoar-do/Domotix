@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * Classe che rappresenta il conseguente di una regola.
  * @author andrea
  */
-public class Conseguente {
+public class Conseguente implements Visitable {
     private List<Azione> azioni;
 
     public Conseguente() {
@@ -64,5 +64,10 @@ public class Conseguente {
             attuatori.add(att);
         }
         return attuatori.toArray(new Attuatore[0]);
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaConseguente(this);
     }
 }

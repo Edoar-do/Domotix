@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * una regola.
  * @author andrea
  */
-public class Azione {
+public class Azione implements Visitable {
     private Attuatore attuatore;
     private Modalita modalita;
     private List<Parametro> parametri;
@@ -97,4 +97,8 @@ public class Azione {
         return false;
     }
 
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaAzione(this);
+    }
 }

@@ -30,3 +30,6 @@ hs_err_pid*
 java/
 out/
 src/META-INF/*
+
+# helper scripts
+*.helper.sh

@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  *
  * @author paolopasqua
  */
-public class SensoreOrologio extends Sensore {
+public class SensoreOrologio implements Visitable extends Sensore {
 
     public static final DateTimeFormatter TIME_FORMATTER =  DateTimeFormatter.ofPattern("HH.mm");
     public static final int MINUTI_IN_UN_GIORNO = 1440; //24 ore * 60 minuti
@@ -232,5 +232,10 @@ public class SensoreOrologio extends Sensore {
         buffer.append(getNome());
         buffer.append("\n" + StringUtil.indent(NOME_INFO_RILEVABILE_OROLOGIO + " = " + getValoreStampabile()));
         return buffer.toString();
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaSensoreOrologio(this);
     }
 }

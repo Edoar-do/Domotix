@@ -15,7 +15,7 @@ import static domotix.model.bean.regole.StatoRegola.DISATTIVA;
  * Classe che rappresenta una delle regole periodicamente eseguite.
  * @author andrea
  */
-public class Regola {
+public class Regola implements Visitable {
     private String id; //UUID
     private StatoRegola stato;
     private Antecedente antecedente;
@@ -178,5 +178,10 @@ public class Regola {
                 return false;
         //non ci sono né sensori né attuatori spenti -> è riattivabile
         return true;
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaRegola(this);
     }
 }

@@ -17,7 +17,7 @@ import java.util.Map;
  * Classe che implementa l'entita' unita' immobiliare: un insieme di stanze al cui interno vi sono artefatti/sensori/attuatori.
  * Vi e' sempre una stanza chiamata di "default" per identificare l'esterno dell'unita' immobiliare.
  */
-public class UnitaImmobiliare {
+public class UnitaImmobiliare implements Visitable {
     public static final String NOME_UNITA_DEFAULT = "casa";
     public static final String NOME_STANZA_DEFAULT = "esterno";
     private static final int POS_STANZA_DEFAULT = 0;
@@ -273,4 +273,9 @@ public class UnitaImmobiliare {
         return buffer.toString();
     }
 
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaUnitaImmobiliare(this);
+    }
 }

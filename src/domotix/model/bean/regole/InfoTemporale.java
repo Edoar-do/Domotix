@@ -12,7 +12,7 @@ import java.time.ZoneId;
  * Classe che rappresenta un InfoSensoriale rappresentante un valore temporale
  * @author andrea
  */
-public class InfoTemporale implements InfoSensoriale {
+public class InfoTemporale implements Visitable implements InfoSensoriale {
     private LocalTime tempo;
 
     public InfoTemporale(LocalTime tempo) {
@@ -31,5 +31,10 @@ public class InfoTemporale implements InfoSensoriale {
     @Override
     public String toString() {
         return SensoreOrologio.getValoreStampabile(tempo);
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaInfoTemporale(this);
     }
 }

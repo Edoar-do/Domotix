@@ -3,7 +3,7 @@ package domotix.model.bean.device;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**@author Edoardo Coppola */
-public class Attuatore extends Dispositivo {
+public class Attuatore implements Visitable extends Dispositivo {
     private static final String TOSTRING_TEMPLATE = "%s [%s]: %s";
     private CategoriaAttuatore categoria;
     private Modalita modoOp;
@@ -58,5 +58,10 @@ public class Attuatore extends Dispositivo {
         }
 
         return false;
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaAttuatore(this);
     }
 }

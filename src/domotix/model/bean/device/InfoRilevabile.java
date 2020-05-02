@@ -7,7 +7,7 @@ package domotix.model.bean.device;
  * @see Sensore
  * @see CategoriaSensore
  */
-public class InfoRilevabile {
+public class InfoRilevabile implements Visitable {
 
     private String nome;
     private boolean numerica;
@@ -42,5 +42,10 @@ public class InfoRilevabile {
     @Override
     public String toString() {
         return nome + ":" + (numerica ? " " : " non") + " numerica";
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaInfoRilevabile(this);
     }
 }

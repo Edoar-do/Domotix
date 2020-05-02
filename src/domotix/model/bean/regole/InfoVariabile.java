@@ -7,7 +7,7 @@ import domotix.model.bean.device.Sensore;
  * @author andrea
  */
 
-public class InfoVariabile implements InfoSensoriale {
+public class InfoVariabile implements Visitable implements InfoSensoriale {
     private Sensore sensore;
     private String nomeInfo;
 
@@ -32,5 +32,10 @@ public class InfoVariabile implements InfoSensoriale {
     @Override
     public String toString() {
         return sensore.getNome() + "." + nomeInfo;
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaInfoVariabile(this);
     }
 }

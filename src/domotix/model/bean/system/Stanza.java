@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Stanza extends Sistema {
+public class Stanza implements Visitable extends Sistema {
     private static final String NO_ARTEFATTI = "Non e' presente alcun artefatto";
     private Map<String, Artefatto> artefatti;
     private String unitaOwner;
@@ -182,5 +182,10 @@ public class Stanza extends Sistema {
         for (Artefatto a : getArtefatti())
             a.distruggi();
         super.distruggi();
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaStanza(this);
     }
 }
