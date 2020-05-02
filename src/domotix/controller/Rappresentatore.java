@@ -9,7 +9,27 @@ public class Rappresentatore extends AbstractVisitor {
     private String getStringaDispositivi(Dispositivo[] dispositivi) {
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < dispositivi.length; i++) {
-            buffer.append(dispositivi[i].toString() + (i < dispositivi.length - 1 ? "\n" : ""));
+            buffer.append(rappresenta(dispositivi[i]) + (i < dispositivi.length - 1 ? "\n" : ""));
+        }
+        return buffer.toString();
+    }
+
+    private String getStringaSistema(Sistema s) {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(s.getNome() + ":" + "\n");
+        buffer.append("\tSENSORI:");
+        if (s.getSensori().length > 0) {
+            String stringaSensori = getStringaDispositivi(s.getSensori());
+            buffer.append(StringUtil.indent("\n" + stringaSensori, 2) + "\n");
+        } else {
+            buffer.append(StringUtil.indent("\n" + NO_SENSORI, 2) + "\n");
+        }
+        buffer.append("\tATTUATORI:");
+        if (s.getAttuatori().length > 0) {
+            String stringaAttuatori = "\n" + getStringaDispositivi(s.getAttuatori());
+            buffer.append(StringUtil.indent(stringaAttuatori, 2));
+        } else {
+            buffer.append(StringUtil.indent("\n" + NO_ATTUATORI, 2));
         }
         return buffer.toString();
     }
@@ -19,10 +39,16 @@ public class Rappresentatore extends AbstractVisitor {
     }
 
     @Override
+    public Object visitaArtefatto(Visitabile visitabileArtefatto) {
+        Artefatto v = (Artefatto) visitabileArtefatto;
+        return getStringaSistema(v);
+    }
+
+    @Override
     public Object visitaStanza(Visitable visitabileStanza) {
         Stanza v = (Stanza) visitabileStanza;
         StringBuffer buffer = new StringBuffer();
-        buffer.append(super.toString() + "\n");
+        buffer.append(getStringaSistema(v) + "\n");
         buffer.append("\tARTEFATTI:");
         if (v.getArtefatti().length > 0) {
             for (Artefatto artefatto : getArtefatti()) {
@@ -31,28 +57,6 @@ public class Rappresentatore extends AbstractVisitor {
             }
         } else {
             buffer.append(StringUtil.indent("\n" + NO_ARTEFATTI, 2));
-        }
-        return buffer.toString();
-    }
-
-    @Override
-    public Object visitaSistema(Visitable visitabileSistema) {
-        Sistema v = (Sistema) visitabileSistema;
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(v.getNome() + ":" + "\n");
-        buffer.append("\tSENSORI:");
-        if (getSensori().length > 0) {
-            String stringaSensori = getStringaDispositivi(getSensori());
-            buffer.append(StringUtil.indent("\n" + stringaSensori, 2) + "\n");
-        } else {
-            buffer.append(StringUtil.indent("\n" + NO_SENSORI, 2) + "\n");
-        }
-        buffer.append("\tATTUATORI:");
-        if (v.getAttuatori().length > 0) {
-            String stringaAttuatori = "\n" + getStringaDispositivi(getAttuatori());
-            buffer.append(StringUtil.indent(stringaAttuatori, 2));
-        } else {
-            buffer.append(StringUtil.indent("\n" + NO_ATTUATORI, 2));
         }
         return buffer.toString();
     }
