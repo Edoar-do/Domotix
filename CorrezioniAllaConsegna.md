@@ -72,6 +72,7 @@ Rendere tutti i singleton e classi statiche ASSOLUTO.
 Per il model --> AccessoModel che unifica l'istanza del model e agisce sugli elenchi.
 
 Per il controller --> Lasciare le istanze scollegate e passarle dove servono (esempio: vedi collegamento istanze). Le classi OperazioniIniziali e OperatoriFinali possono diventare classi PopolamentoDati e SalvataggioDati con la responsabilità di caricare nel model tutti i dati salvati e salvare nei dati tutte le entità del model reciprocamente. Il metodo 'generaUnitaBase()' e 'controlloEsistenzaUnita()' sono demandati al model.
+Rappresentatore è classe derivata da Recuperatore con la sola responsabilità di ricavare la descrizione da mostrare a video da una istanza passata. Interpretatore è simile all'attuale Modificatore, con la sola modifica che si appoggerà al nuovo Modificatore il quale avrà metodi che agiscono sul model con i dati indicati (istanza di entità per aggiunta, dati per modifiche, ...)
 
 Classi io --> LettoriXML esplode in una classe contenenti le costanti e la HashMap lettori ora contenuta in LetturaDatiLocali. Tutto statico in quanto viste come 'funzioni pure'.
 Per ciascuna entità si genera una classe composta da un'unica funzione per leggere l'entità.
@@ -81,9 +82,11 @@ Per la view --> tutte le classi di menù saranno da rendere istanziabili e ciasc
 ## Spostamento dei package
 Il package io dentro a model, risulta più familiare a controller e pertanto qui viene spostato.
 
+Le classi ora implementate con pattern visitor da spostare in package 'visitatori' e sottopackage per 'xml' e 'console'
+
 ## Pattern da implementare
-* _Visitor_ sulle entità per Rappresentatore e ScrittoriXML
-* _Observer_ puro per l'observer utilizzato del SommarioDispositivi
+* _Visitor_ sulle entità per Rappresentatore e ScrittoriXML (Interfaccia Visitatore con metodi per entità con la relativa classe astratta VisitatoreAdapter ed interfaccia Visitabile<V>)
+* _Observer_ puro per l'observer utilizzato del SommarioDispositivi --> Implementato già correttamente, con aggiunte legittimate dall'uso che ci serviva (per giustificare il non uso delle interfacce già incluse in Java).
 
 ## Collegamento istanze:
 Di seguito quello che dovrebbe diventare il metodo main a seguito delle modifiche:
@@ -148,7 +151,20 @@ timerGestioneRegole.stop();
 
 ```
 
+# Suddivisioni delle modifiche
+Da intendere le modifiche come spiegate sopra.
 
+## Andrea
+* Trasformare classi del controller
+* Realizzare AccessoModel
 
+## Edoardo
+* Trasformare le classi della view
+* Interfacce pattern visitor e spostamento package io in controller
 
+## Paolo
+* Trasformazione package io e model
+* Trasformazione classi OperazioniIniziali e Operazioni finali (con spostamento metodi)
 
+## Tutti
+* Se si incontra un HashMap o ArrayList come parametro o tipo di ritorno si cambia in Map o List relativamente.
