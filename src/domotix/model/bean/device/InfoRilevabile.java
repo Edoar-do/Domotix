@@ -40,11 +40,6 @@ public class InfoRilevabile implements Visitable {
     }
 
     @Override
-    public String toString() {
-        return nome + ":" + (numerica ? " " : " non") + " numerica";
-    }
-
-    @Override
     public Object fattiVisitare(Visitor v) {
         return v.visitaInfoRilevabile(this);
     }

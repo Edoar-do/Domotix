@@ -149,14 +149,6 @@ public class Regola implements Visitable {
         return conseguente;
     }
 
-    @Override
-    public String toString() {
-        String antstr = antecedente == null ? "true" : antecedente.toString();
-        String consstr = conseguente.toString();
-        String statostr = "; Stato -> [" + stato.toString() + "]";
-        return "if " + antstr + " then " + consstr + statostr;
-    }
-
     public Sensore[] getSensori(){
         return antecedente.getSensori();
     }

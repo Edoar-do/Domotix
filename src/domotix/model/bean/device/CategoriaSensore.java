@@ -173,18 +173,6 @@ public class CategoriaSensore implements Visitable {
     }
 
     @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(getNome() + ":\n");
-        buffer.append("\tTESTO LIBERO:\n");
-        buffer.append(StringUtil.indent(getTestoLibero() + "\n", 2));
-        buffer.append("\tINFORMAZIONI RILEVABILI:");
-        for(InfoRilevabile i : informazioneRilevabile)
-            buffer.append(StringUtil.indent("\n" + i.toString(), 2));
-        return buffer.toString();
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (!(obj instanceof CategoriaSensore)) return false;

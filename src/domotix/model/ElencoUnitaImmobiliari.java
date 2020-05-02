@@ -86,15 +86,6 @@ public class ElencoUnitaImmobiliari implements Visitable {
     }
 
     @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        unita.forEach((k, v) -> {
-            buffer.append(v.toString() + "\n");
-        });
-        return StringUtil.removeLast(buffer.toString());
-    }
-
-    @Override
     public Object fattiVisitare(Visitor v) {
         return v.visitaElencoUnitaImmobiliari(this);
     }

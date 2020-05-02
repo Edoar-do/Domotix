@@ -30,11 +30,6 @@ public class InfoVariabile implements Visitable, InfoSensoriale {
     }
 
     @Override
-    public String toString() {
-        return sensore.getNome() + "." + nomeInfo;
-    }
-
-    @Override
     public Object fattiVisitare(Visitor v) {
         return v.visitaInfoVariabile(this);
     }

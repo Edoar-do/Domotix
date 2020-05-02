@@ -21,11 +21,6 @@ public class InfoCostante implements Visitable, InfoSensoriale {
     }
 
     @Override
-    public String toString() {
-        return info.toString();
-    }
-
-    @Override
     public Object fattiVisitare(Visitor v) {
         return v.visitaInfoCostante(this);
     }

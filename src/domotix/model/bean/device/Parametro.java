@@ -41,11 +41,6 @@ public class Parametro implements Visitable {
     }
 
     @Override
-    public String toString() {
-        return nome + ": " + String.format("%.2f", valore);
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (super.equals(obj))  return true;
 

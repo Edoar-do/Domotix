@@ -29,11 +29,6 @@ public class InfoTemporale implements Visitable, InfoSensoriale {
     }
 
     @Override
-    public String toString() {
-        return SensoreOrologio.getValoreStampabile(tempo);
-    }
-
-    @Override
     public Object fattiVisitare(Visitor v) {
         return v.visitaInfoTemporale(this);
     }

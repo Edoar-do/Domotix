@@ -162,22 +162,6 @@ public class Stanza implements Visitable extends Sistema {
     }
 
     @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(super.toString() + "\n");
-        buffer.append("\tARTEFATTI:");
-        if (getArtefatti().length > 0) {
-            for (Artefatto artefatto : getArtefatti()) {
-                String stringaArtefatto = "\n" + artefatto.toString();
-                buffer.append(StringUtil.indent(stringaArtefatto, 2));
-            }
-        } else {
-            buffer.append(StringUtil.indent("\n" + NO_ARTEFATTI, 2));
-        }
-        return buffer.toString();
-    }
-
-    @Override
     public void distruggi() {
         for (Artefatto a : getArtefatti())
             a.distruggi();

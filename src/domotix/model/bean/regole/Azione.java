@@ -69,13 +69,6 @@ public class Azione implements Visitable {
     }
 
     @Override
-    public String toString() {
-        String parstr = parametri.size() > 0 ? parametri.toString() : "";
-        String timestr = start == null ? "" : ", start := " + start.toString(); // todo
-        return attuatore.getNome() + " := " + modalita.getNome() + parstr + timestr;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (super.equals(obj))  return true;
 

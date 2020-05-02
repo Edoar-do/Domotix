@@ -227,14 +227,6 @@ public class SensoreOrologio implements Visitable extends Sensore {
     }
 
     @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(getNome());
-        buffer.append("\n" + StringUtil.indent(NOME_INFO_RILEVABILE_OROLOGIO + " = " + getValoreStampabile()));
-        return buffer.toString();
-    }
-
-    @Override
     public Object fattiVisitare(Visitor v) {
         return v.visitaSensoreOrologio(this);
     }

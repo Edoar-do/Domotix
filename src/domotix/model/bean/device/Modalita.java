@@ -95,18 +95,6 @@ public class Modalita implements Visitable {
     }
 
     @Override
-    public String toString() {
-        String str = "" + this.getNome();
-        if (!parametri.isEmpty()) {
-            str += "\n" + StringUtil.indent("PARAMETRI:", 1);
-            for (Parametro p : parametri.values()) {
-                str += "\n" + StringUtil.indent(p.toString(), 2);
-            }
-        }
-        return str;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (super.equals(obj))  return true;
 

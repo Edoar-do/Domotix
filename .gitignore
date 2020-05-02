@@ -33,3 +33,4 @@ src/META-INF/*
 
 # helper scripts
 *.helper.sh
+*.helper.js

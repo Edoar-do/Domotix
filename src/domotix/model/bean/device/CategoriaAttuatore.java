@@ -131,19 +131,6 @@ public class CategoriaAttuatore implements Visitable {
     }
 
     @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(getNome() + ":\n");
-        buffer.append("\tTESTO LIBERO:\n");
-        buffer.append(StringUtil.indent(getTestoLibero() + "\n", 2));
-        buffer.append("\tELENCO MODALITA':");
-        elencoModalita.forEach((e) -> {
-            buffer.append(StringUtil.indent("\n" + e.toString(), 2));
-        });
-        return buffer.toString();
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (!(obj instanceof CategoriaSensore)) return false;

@@ -114,15 +114,6 @@ public class Sensore implements Visitable extends Dispositivo {
     }
 
     @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(getNome());
-        buffer.append("[" + (getStato() ? "ON" : "OFF") + "]");
-        valori.forEach((k, v) -> buffer.append("\n" + StringUtil.indent(k + " = " + v, 1)));
-        return buffer.toString();
-    }
-
-    @Override
     public Object fattiVisitare(Visitor v) {
         return v.visitaSensore(this);
     }

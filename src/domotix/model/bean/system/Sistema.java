@@ -249,27 +249,6 @@ public abstract class Sistema implements Osservabile, Azionabile {
     }
 
     @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(getNome() + ":" + "\n");
-        buffer.append("\tSENSORI:");
-        if (getSensori().length > 0) {
-            String stringaSensori = getStringaDispositivi(getSensori());
-            buffer.append(StringUtil.indent("\n" + stringaSensori, 2) + "\n");
-        } else {
-            buffer.append(StringUtil.indent("\n" + NO_SENSORI, 2) + "\n");
-        }
-        buffer.append("\tATTUATORI:");
-        if (getAttuatori().length > 0) {
-            String stringaAttuatori = "\n" + getStringaDispositivi(getAttuatori());
-            buffer.append(StringUtil.indent(stringaAttuatori, 2));
-        } else {
-            buffer.append(StringUtil.indent("\n" + NO_ATTUATORI, 2));
-        }
-        return buffer.toString();
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (!(obj instanceof Sistema)) return false;

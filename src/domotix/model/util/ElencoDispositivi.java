@@ -164,15 +164,6 @@ public class ElencoDispositivi implements Visitable, ObservableList<Dispositivo>
     }
 
     @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        for (Dispositivo dispositivo : getDispositivi()) {
-            buffer.append(dispositivo.toString() + "\n");
-        }
-        return buffer.toString();
-    }
-
-    @Override
     public Object fattiVisitare(Visitor v) {
         return v.visitaElencoDispositivi(this);
     }

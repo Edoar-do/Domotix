@@ -40,11 +40,6 @@ public class Attuatore implements Visitable extends Dispositivo {
     }
 
     @Override
-    public String toString() {
-        return String.format(this.TOSTRING_TEMPLATE, this.getNome(), (getStato() ? "ON" : "OFF"), this.getModoOp().toString());
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (super.equals(obj))  return true;
 

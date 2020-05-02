@@ -116,11 +116,6 @@ public class Condizione implements Visitable {
         }
     }
 
-    @Override
-    public String toString() {
-        return sinistra.toString() + " " + operatore + " " + destra.toString();
-    }
-
     public Sensore[] getSensori(){
         ArrayList<Sensore> sensori = new ArrayList<>();
         if(sinistra instanceof InfoVariabile)

@@ -48,11 +48,6 @@ public class Conseguente implements Visitable {
         }
     }
 
-    @Override
-    public String toString() {
-        return azioni.stream().map(a -> a.toString()).collect(Collectors.joining(", "));
-    }
-
     /**
      * Metodo che ritorna gli attuatori di tutte le azioni del conseguente
      * @return un array degli attuatori del conseguente

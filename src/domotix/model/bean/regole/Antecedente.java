@@ -168,14 +168,6 @@ public class Antecedente implements Visitable {
         return sinistro;
     }
 
-    @Override
-    public String toString() {
-        String lhs = condizione.toString();
-        String opstr = operatoreLogico == null ? "" : " " + operatoreLogico + " ";
-        String rhs = prossimoAntecedente == null ? "" : prossimoAntecedente.toString();
-        return lhs + opstr + rhs;
-    }
-
     /**
      * Metodo che ritorna i sensori di tutte le condizioni dell'antecendente
      * @return i sensori dell'antecedente

@@ -253,26 +253,6 @@ public class UnitaImmobiliare implements Visitable {
         return this.regole.values().toArray(new Regola[0]);
     }
 
-    @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(getNome() + ":\n");
-        buffer.append("\tSTANZE:");
-        for (Stanza stanza : getStanze()) {
-            String stringaStanza = "\n" + stanza.toString();
-            buffer.append(StringUtil.indent(stringaStanza, 2));
-        }
-        buffer.append("\n\tREGOLE:");
-        if(getRegole().length > 0) {
-            for (Regola regola : getRegole()) {
-                String stringaRegola = "\n" + regola.toString();
-                buffer.append(StringUtil.indent(stringaRegola, 2));
-            }
-        }else
-            buffer.append(StringUtil.indent("\n" + NO_REGOLE, 2));
-        return buffer.toString();
-    }
-
 
     @Override
     public Object fattiVisitare(Visitor v) {

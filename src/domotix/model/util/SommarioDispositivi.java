@@ -74,15 +74,6 @@ public class SommarioDispositivi implements Visitable, ObserverList<Dispositivo>
     }
 
     @Override
-    public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        elenco.forEach((k, v) -> {
-            buffer.append(v.toString() + "\n");
-        });
-        return StringUtil.removeLast(buffer.toString());
-    }
-
-    @Override
     public Object fattiVisitare(Visitor v) {
         return v.visitaSommarioDispositivi(this);
     }
