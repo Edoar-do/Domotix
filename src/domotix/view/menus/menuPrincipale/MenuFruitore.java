@@ -1,26 +1,42 @@
 package domotix.view.menus.menuPrincipale;
 
-import domotix.controller.Recuperatore;
+import domotix.controller.Rappresentatore;
+import domotix.controller.Verificatore;
 import domotix.view.MyMenu;
 import domotix.view.menus.menuCategorie.MenuCategorieF;
 import domotix.view.menus.menuUnita.MenuUnitaF;
 
 import java.util.ArrayList;
+import static domotix.view.menus.ViewConstants.*;
 
 /** @author Edoardo Coppola*/
 public class MenuFruitore {
     private static final String TITOLO = "Menu Fruitore ";
     private static final String[] VOCI = {"Menu Categorie Dispositivi Fruitore", "Menu Unita Fruitore", "Visualizza Azioni Programmate"};
-    private static final String INDIETRO = "Indietro";
-    private static final String NESSUNA_AZIONE_PROGRAMMATA = "Nessuna azione programmata";
 
-    private static MyMenu menu = new MyMenu(TITOLO, VOCI);
+    private MyMenu menu;
+    private Interpretatore interpretatore;
+    private Verificatore verificatore;
+    private Rappresentatore rappresentatore;
+    private MenuCategorieF menuCategorieF;
+    private MenuUnitaF menuUnitaF;
+
+    public MenuFruitore(Interpretatore i, Verificatore v, Rappresentatore r, MyMenu m){
+        this.menu = m;
+        menu.setTitolo(TITOLO);
+        menu.setVoci(VOCI);
+        this.interpretatore = i;
+        this.verificatore = v;
+        this.rappresentatore = r;
+        this.menuCategorieF = new MenuCategorieF(rappresentatore, menu);
+        this.menuUnitaF = new MenuUnitaF(interpretatore, verificatore, rappresentatore, menu);
+    }
 
     /**
      * Presenta all'utente fruitore un menu che offre la possibilità di aprire un menu per fruitori per la gestione delle categorie di sensori ed
      * attuatori oppure di aprire un menu per fruitori per la gestione dell'unità immobiliare oppure di tornare indietro e chiudere questo menu
      */
-    public static void avvia(){
+    public void avvia(){
 
         int sceltaMenu = 0;
         do {
@@ -30,13 +46,13 @@ public class MenuFruitore {
                 case 0://Indietro
                     return;
                 case 1: //MenuCategorieDispositivi
-                    MenuCategorieF.avvia();
+                    menuCategorieF.avvia();
                     break;
                 case 2: //MenuUnita
-                    MenuUnitaF.avvia();
+                    menuUnitaF.avvia();
                     break;
                 case 3: //Visualizza azioni programmate
-                    String[] azioni = Recuperatore.getDescrizioniAzioniProgrammate();
+                    String[] azioni = rappresentatore.getDescrizioniAzioniProgrammate();
                     if (azioni.length > 0) {
                         for (String descrizione : azioni)
                             System.out.println(descrizione);

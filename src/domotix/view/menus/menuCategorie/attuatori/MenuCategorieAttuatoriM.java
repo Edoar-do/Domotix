@@ -1,12 +1,11 @@
 package domotix.view.menus.menuCategorie.attuatori;
 
-import domotix.controller.Importatore;
-import domotix.controller.Modificatore;
-import domotix.controller.Recuperatore;
+import domotix.controller.*;
 import domotix.view.InputDati;
 import domotix.view.MyMenu;
 
-import java.util.ArrayList;
+import java.util.List;
+import static domotix.view.menus.ViewConstants.*;
 
 /** @author Edoardo Coppola*/
 public class MenuCategorieAttuatoriM {
@@ -14,32 +13,19 @@ public class MenuCategorieAttuatoriM {
     private static final String[] VOCI = {"Aggiungi Categoria Attuatore", "Rimuovi Categoria Attuatore", "Visualizza Categorie Attuatori", "Importa Categorie Attuatori"};
     private static final String INDIETRO = "Indietro";
 
-    private static final String INSERIMENTO_CATEGORIA_ATTUATORE = "Inserisci un nome per la nuova categoria di attuatore";
-    private static final String INSERIMENTO_TESTO_LIBERO = "Inserisci un testo libero di descrizione del attuatore";
-    private static final String CATEGORIE_ESISTENTI_ATTUATORI = "Elenco delle categorie di sensori esistenti: ";
-    private static final String GUIDA_IN_LINEA = "Consultare la guida in linea per maggiori informazioni";
-    private static final String ERRORE_INSERIMENTO_MODALITA = "Inserimento della modalità fallito. " + GUIDA_IN_LINEA;
-    private static final String ERRORE_INSERIMENTO = "Inserimento della categori fallito. " + GUIDA_IN_LINEA;
-    private static final String TERMINATORE = "-q";
-    private static final String INSERIMENTO_NOME_MODALITA_OPERATIVA = "Inserisci un nome per la nuova modalita' operativa (inserire " + TERMINATORE + " per terminare)";
-    private static final String INSERIMENTO_SUCCESSO = "Inserimento della categoria avvenuto con successo";
-    private static final String INSERIMENTO_SUCCESSO_MODALITA = "Inserimento della modalità avvenuta con successo";
-    private static final String ERRORE_RIMOZIONE_CATEGORIA = "Rimozione della categoria fallita. " + GUIDA_IN_LINEA;
-    private static final String SUCCESSO_RIMOZIONE_CATEGORIA = "Rimozione della categoria avvenuta con successo";
-    private static final String ERRORE_MODALITA_DEFAULT_MANCANTE = "Inserire almeno la modalita' di default!";
-    private static final String IS_PARAMATRICA = "La modalità operativa %s è parametrica? ";
-    private static final String INSERIMENTO_NOME_PARAMETRO = "Inserisci un nome per il parametro della modalità operativa parametrica (inserire " + TERMINATORE + " per terminare)";
-    private static final String SUCCESSO_INSERIMENTO_PARAMETRO = "Parametro inserito con successo";
-    private static final String ERRORE_ALMENO_UN_PARAMETRO = "Almeno un parametro deve essere inserito nella modalita' parametrica";
-    private static final String ERRORE_INSERIMENTO_PARAMETRO = "L'inserimento del parametro è fallito. " + GUIDA_IN_LINEA;
-    private static final String INSERIMENTO_VALORE_PARAMETRO = "Inserisci il valore desiderato per il parametro %s : ";
-    private static final String INTRO_IMPORT_CAT_ATT = "L'importazione delle categorie di attuatori di libreria è stata selezionata. Di seguito apparirà l'esito dell'importazione: ";
-    private static final String CATEGORIA_NON_IMPORTATA = "La categoria %s non è stata importata. " + GUIDA_IN_LINEA;
-    private static final String IMPORT_CAT_ATT_OK = "Importazione delle categorie di attuatori terminato con successo";
-    private static final String IMPORT_FAILED = "Importazione delle categorie di attuatori fallita completamente";
-    private static final String NOTHING_IMPORTED = "Non è stato importato nulla";
+    private MyMenu menu;
+    private Interpretatore i;
+    private Rappresentatore r;
+    private Importatore imp;
 
-    private static MyMenu menu = new MyMenu(TITOLO, VOCI);
+    public MenuCategorieAttuatoriM(MyMenu menu, Interpretatore i, Rappresentatore r, Importatore imp) {
+        this.menu = menu;
+        this.menu.setTitolo(TITOLO);
+        this.menu.setVoci(VOCI);
+        this.i = i;
+        this.r = r;
+        this.imp = imp;
+    }
 
     /**
      * Prensenta all'utente manutentore un menu che consente di aggiungere un nuova categoria di attuatori, rimuoverne una (se presente) oppure di
@@ -48,7 +34,7 @@ public class MenuCategorieAttuatoriM {
      * L'aggiunta di una categoria comporta l'inserimento di almeno una modalità operativa la quale può essere parametrica o meno. Se sì
      * è richiesto almeno un parametro per essa
      */
-    public static void avvia(){
+    public void avvia(){
 
         int sceltaMenu = 0;
         String nome;
@@ -61,7 +47,7 @@ public class MenuCategorieAttuatoriM {
                 case 1: // aggiungi categoria attuatori
                     nome = InputDati.leggiStringaNonVuota(INSERIMENTO_CATEGORIA_ATTUATORE);
                     //creo la categoria vuota e la popolo poi con le modalità
-                    if(Modificatore.aggiungiCategoriaAttuatore(nome, InputDati.leggiStringaNonVuota(INSERIMENTO_TESTO_LIBERO)))
+                    if(i.aggiungiCategoriaAttuatore(nome, InputDati.leggiStringaNonVuota(INSERIMENTO_TESTO_LIBERO_ATT)))
                         System.out.println(INSERIMENTO_SUCCESSO);
                     else {
                         System.out.println(ERRORE_INSERIMENTO);
@@ -80,7 +66,7 @@ public class MenuCategorieAttuatoriM {
                             System.out.println(ERRORE_MODALITA_DEFAULT_MANCANTE);
                         }else{
                             //creo la modalità vuota e poi aggiungo eventualmente i parametri
-                            if (Modificatore.aggiungiModalitaCategoriaAttuatore(nome, nomeModalita)) {
+                            if (i.aggiungiModalitaCategoriaAttuatore(nome, nomeModalita)) {
                                 modalitaDefault = true;
                                 System.out.println(INSERIMENTO_SUCCESSO_MODALITA);
                             } else {
@@ -99,7 +85,7 @@ public class MenuCategorieAttuatoriM {
                                             break;
                                         System.out.println(ERRORE_ALMENO_UN_PARAMETRO);
                                     }else{
-                                        if(Modificatore.aggiungiParametro(nome, nomeModalita, parametro, InputDati.leggiDouble(String.format(INSERIMENTO_VALORE_PARAMETRO, parametro)))){
+                                        if(i.aggiungiParametro(nome, nomeModalita, parametro, InputDati.leggiDouble(String.format(INSERIMENTO_VALORE_PARAMETRO, parametro)))){
                                             System.out.println(SUCCESSO_INSERIMENTO_PARAMETRO);
                                             almenoUnParametro = true;
                                         }else
@@ -113,21 +99,21 @@ public class MenuCategorieAttuatoriM {
                 case 2: //rimuovi categoria attuatori
                     nome = premenu();
                     if (nome != null) {
-                        if (Modificatore.rimuoviCategoriaAttuatore(nome))
+                        if (i.rimuoviCategoriaAttuatore(nome))
                             System.out.println(SUCCESSO_RIMOZIONE_CATEGORIA);
                         else
                             System.out.println(ERRORE_RIMOZIONE_CATEGORIA);
                     }
                     break;
                 case 3: //visualizza categorie attuatori
-                    for (String descrizione: Recuperatore.getDescrizioniCategorieAttuatori()) {
+                    for (String descrizione: r.getDescrizioniCategorieAttuatori()) {
                         System.out.println(descrizione);
                     }
                     break;
                 case 4: //importa categorie attuatori
                     System.out.println(INTRO_IMPORT_CAT_ATT);
-                    ArrayList<String> msgs = Importatore.importaCategorieAttuatori();
-                    if(msgs == null) System.out.println(IMPORT_FAILED);
+                    List<String> msgs = imp.importaCategorieAttuatori();
+                    if(msgs == null) System.out.println(IMPORT_FAILED_ATT_CAT);
                     if(msgs.size() > 0) {
                         for (String msg : msgs) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK
                             System.out.println(String.format(CATEGORIA_NON_IMPORTATA, msg));
@@ -138,8 +124,8 @@ public class MenuCategorieAttuatoriM {
         }while(sceltaMenu != 0);
     }
 
-    private static String premenu(){
-        String[] nomiCategorie = Recuperatore.getNomiCategorieAttuatori();
+    private String premenu(){
+        String[] nomiCategorie = r.getNomiCategorieAttuatori();
         MyMenu m = new MyMenu(CATEGORIE_ESISTENTI_ATTUATORI, nomiCategorie);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : nomiCategorie[scelta-1];

@@ -1,36 +1,36 @@
 package domotix.view.menus.menuUnita.gestioneUnita;
 
-import domotix.controller.Modificatore;
-import domotix.controller.Recuperatore;
+import domotix.controller.Rappresentatore;
 import domotix.view.InputDati;
 import domotix.view.MyMenu;
 
 import domotix.controller.util.StringUtil;
+import static domotix.view.menus.ViewConstants.*;
 
 /** @author Edoardo Coppola*/
 public class MenuGestioneUnitaM {
     private static final String TITOLO = "Menu Gestione Unità Manutentore ";
     private static final String SOTTOTITOLO = "oggetto: ";
     private static final String[] VOCI = {"Visualizza Descrizione Unita", "Aggiungi Stanza all'unita", "Rimuovi Stanza dall'unita"};
-    private static final String INDIETRO = "Indietro";
 
+    private MyMenu menu;
+    private Rappresentatore r;
+    private Interpretatore i;
 
-    private static final String INSERIMENTO_FALLITO = "L'inserimento della stanza è fallito. Consultare la guida in linea per maggiori informazioni";
-    private static final String SUCCESSO_INSERIMENTO_STANZA = "Inserimento stanza avvenuto con successo.";
-    private static final String SUCCESSO_RIMOZIONE_STANZA = "Rimozione stanza avvenuta con successo";
-    private static final String ERRORE_RIMOZIONE_STANZA = "Rimozione stanza fallita. Consultare la guida in linea per maggori informazioni";
-    private static final String INSERIMENTO_NOME_STANZA = "Inserisci il nome della stanza da aggiungere all'unità immobiliare: ";
-    private static final String ELENCO_STANZE = "Elenco delle stanze presenti nell'unità: ";
-
-
-    private static MyMenu menu = new MyMenu(TITOLO, VOCI);
+    public MenuGestioneUnitaM(MyMenu m, Rappresentatore r, Interpretatore i){
+        this.menu = m;
+        menu.setTitolo(TITOLO);
+        menu.setVoci(VOCI);
+        this.r = r;
+        this.i = i;
+    }
 
     /**
      * Presenta all'utente manutentore un menu che offre la possibilità di aggiungere una stanza all'unità scelta (passata come parametro)
      * rimuoverne una dall'unità scelta oppure di visualizzarne una descrizione. Consente anche di tornare indietro e chiudere questo menu
      * @param nomeUnitaSuCuiLavorare è il nome dell'unità immobiliare scelta nel menu precedente e su cui operare
      */
-    public static void avvia(String nomeUnitaSuCuiLavorare){
+    public void avvia(String nomeUnitaSuCuiLavorare){
 
         menu.setSottotitolo(SOTTOTITOLO + StringUtil.componiPercorso(nomeUnitaSuCuiLavorare));
 
@@ -44,20 +44,20 @@ public class MenuGestioneUnitaM {
                 case 0://Indietro
                     return;
                 case 1: //visualizza descrizione unita
-                    System.out.println(Recuperatore.getDescrizioneUnita(nomeUnitaSuCuiLavorare));
+                    System.out.println(r.getDescrizioneUnita(nomeUnitaSuCuiLavorare));
                     break;
                 case 2: //aggiungi stanza all'unità
                     nomeStanzaDaAggiungere = InputDati.leggiStringaNonVuota(INSERIMENTO_NOME_STANZA);
-                    if(Modificatore.aggiungiStanza(nomeStanzaDaAggiungere, nomeUnitaSuCuiLavorare)){
+                    if(i.aggiungiStanza(nomeStanzaDaAggiungere, nomeUnitaSuCuiLavorare)){
                         System.out.println(SUCCESSO_INSERIMENTO_STANZA); //stanza aggiunta con successo
                     }else{
-                        System.out.println(INSERIMENTO_FALLITO);
+                        System.out.println(INSERIMENTO_STANZA_FALLITO);
                     }
                     break;
                 case 3: //rimuovi stanza all'unità
                     nomeStanzaDaRimuovere = premenuStanze(nomeUnitaSuCuiLavorare);
                     if (nomeStanzaDaRimuovere != null) {
-                        if (Modificatore.rimuoviStanza(nomeStanzaDaRimuovere, nomeUnitaSuCuiLavorare))
+                        if (i.rimuoviStanza(nomeStanzaDaRimuovere, nomeUnitaSuCuiLavorare))
                             System.out.println(SUCCESSO_RIMOZIONE_STANZA);
                         else
                             System.out.println(ERRORE_RIMOZIONE_STANZA);
@@ -67,10 +67,8 @@ public class MenuGestioneUnitaM {
         }while(sceltaMenu != 0);
     }
 
-
-
-    private static String premenuStanze(String unita){
-        String[] nomiStanze = Recuperatore.getNomiStanze(unita, false);
+    private String premenuStanze(String unita){
+        String[] nomiStanze = r.getNomiStanze(unita, false);
         MyMenu m = new MyMenu(ELENCO_STANZE, nomiStanze);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : nomiStanze[scelta-1];
