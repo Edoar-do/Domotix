@@ -109,7 +109,7 @@ public class Rappresentatore {
      * @return Array di nomi di attuatori
      */
     public String[] getNomiAttuatori(String nomeStanza, String nomeUnita) {
-        return getNomiAttuatoriSistema(recuperatore.getStanza(nomeStanza, nomeUnita));
+        return this.getNomiAttuatoriSistema(recuperatore.getStanza(nomeStanza, nomeUnita));
     }
 
     /**
@@ -119,7 +119,7 @@ public class Rappresentatore {
      * @return Array di nomi di sensori
      */
     public String[] getNomiSensori(String nomeStanza, String nomeUnita) {
-        return getNomiSensoriSistema(recuperatore.getStanza(nomeStanza, nomeUnita));
+        return this.getNomiSensoriSistema(recuperatore.getStanza(nomeStanza, nomeUnita));
     }
 
     /**
@@ -130,7 +130,7 @@ public class Rappresentatore {
      * @return Array di nomi di attuatori
      */
     public String[] getNomiAttuatori(String nomeArtefatto, String nomeStanza, String nomeUnita) {
-        return getNomiAttuatoriSistema(recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita));
+        return this.getNomiAttuatoriSistema(recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita));
     }
 
     /**
@@ -141,7 +141,7 @@ public class Rappresentatore {
      * @return Array di nomi di sensori
      */
     public String[] getNomiSensori(String nomeArtefatto, String nomeStanza, String nomeUnita) {
-        return getNomiSensoriSistema(recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita));
+        return this.getNomiSensoriSistema(recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita));
     }
 
     /**
@@ -326,7 +326,7 @@ public class Rappresentatore {
      * @return un array dei nomi degli attuatori dell'unità immobiliare
      */
     public String[] getNomiAttuatori(String unita){
-        List<Attuatori> attuatori = getUnita(unita).getAttuatori();
+        List<Attuatori> attuatori = recuperatore.getAttuatori();
         return attuatori.stream().map(a -> a.getNome()).toArray(String[]::new);
     }
 
