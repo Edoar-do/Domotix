@@ -41,7 +41,7 @@ public class Rappresentatore {
      */
     public String[] getModalitaOperativeImpostabili(String nomeAttuatore) {
         List<Modalita> elencoModalita = recuperatore.getModalitaOperativeImpostabili(nomeAttuatore);
-        return  modalita.stream()
+        return  elencoModalita.stream()
             .map(mod -> mod.getNome())
             .toArray(String[]::new);
     }
@@ -161,7 +161,7 @@ public class Rappresentatore {
      * @return Array di nomi di categorie di sensori
      */
     public String[] getNomiCategorieSensori() {
-        return recuperatore.getCategorie()
+        return recuperatore.getCategorieSensori()
             .stream()
             .map(cs -> cs.getNome())
             .toArray(String[]::new);
@@ -173,7 +173,7 @@ public class Rappresentatore {
      * @return Array di nomi di categorie di attuatori
      */
     public String[] getNomiCategorieAttuatori() {
-        return  recuperatore.getCategorie()
+        return  recuperatore.getCategorieAttuatori()
             .stream()
             .map(cs -> cs.getNome())
             .toArray(String[]::new);
@@ -185,7 +185,7 @@ public class Rappresentatore {
      * @return Array di descrizioni di categorie di sensori
      */
     public String[] getDescrizioniCategorieSensori() {
-        return  recuperatore.getCategorie()
+        return  recuperatore.getCategorieSensori()
             .stream()
             .map(cs -> stringatore.rappresenta(cs))
             .toArray(String[]::new);
@@ -197,9 +197,9 @@ public class Rappresentatore {
      * @return Array di descrizioni di categorie di attuatori
      */
     public String[] getDescrizioniCategorieAttuatori() {
-        return  recuperatore.getCategorie()
+        return  recuperatore.getCategorieAttuatori()
             .stream()
-            .map(cs -> stringatore.rappresenta(cs))
+            .map(ca -> stringatore.rappresenta(ca))
             .toArray(String[]::new);
     }
 
@@ -236,15 +236,15 @@ public class Rappresentatore {
         return stringatore.rappresenta(recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita));
     }
 
-    private static String[] getNomiSensoriAggiungibiliSistema(Sistema sistema, String nomeUnita) {
+    private String[] getNomiSensoriAggiungibiliSistema(Sistema sistema, String nomeUnita) {
         List<Sensore> sensori = recuperatore.getSensoriAggiungibiliSistema(sistema, nomeUnita);
         return sensori.stream()
             .map(s -> s.getNome())
             .toArray(String[]::new);
     }
 
-    private static String[] getNomiAttuatoriAggiungibiliSistema(Sistema sistema, String nomeUnita) {
-        List<Attuatori> attuatori = recuperatore.getAttuatoriAggiungibiliSistema(sitema, nomeUnita);
+    private String[] getNomiAttuatoriAggiungibiliSistema(Sistema sistema, String nomeUnita) {
+        List<Attuatore> attuatori = recuperatore.getAttuatoriAggiungibiliSistema(sistema, nomeUnita);
         return attuatori.stream()
             .map(a -> a.getNome())
             .toArray(String[]::new);
@@ -326,7 +326,7 @@ public class Rappresentatore {
      * @return un array dei nomi degli attuatori dell'unità immobiliare
      */
     public String[] getNomiAttuatori(String unita){
-        List<Attuatori> attuatori = recuperatore.getAttuatori();
+        List<Attuatore> attuatori = recuperatore.getAttuatori(unita);
         return attuatori.stream().map(a -> a.getNome()).toArray(String[]::new);
     }
 
@@ -415,8 +415,8 @@ public class Rappresentatore {
         for (Regola r : regole) {
             map.put(stringatore.rappresenta(r.getAntecedente()) + ":" + r.getStato().name(), r.getId());
         }
+        return map;
     }
-    return map;
 
     /**
      * Ritorna la descrizione di un'azione programmata in elenco se presente.

@@ -10,6 +10,7 @@ import domotix.model.bean.system.Sistema;
 import domotix.model.bean.system.Stanza;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**Classe per implementare una parte di logica controller relativa al recupero di informazioni sulle entita'.
@@ -55,7 +56,7 @@ public class Recuperatore {
      * presenti all'interno del model.
      * @return Array di nomi delle unita' immobiliari esistenti
      */
-    public List<Unita> getListaUnita() {
+    public List<UnitaImmobiliare> getListaUnita() {
         return model.getListaUnita();
     }
 
@@ -83,11 +84,11 @@ public class Recuperatore {
         return unita.getStanze().stream().filter(s -> elencaStanzaDefault || !s.equals(UnitaImmobiliare.NOME_STANZA_DEFAULT)).collect(Collectors.toList());
     }
 
-    private static List<Attuatore> getAttuatoriSistema(Sistema sistema) {
+    public List<Attuatore> getAttuatoriSistema(Sistema sistema) {
         return sistema.getAttuatori(); // nonsense
     }
 
-    private static List<Sensore> getSensoriSistema(Sistema sistema) {
+    public List<Sensore> getSensoriSistema(Sistema sistema) {
         return sistema.getSensori(); // nonsense
     }
 
@@ -173,7 +174,7 @@ public class Recuperatore {
      * @param nomeUnita Nome dell'untia' immobiliare
      * @return Descrizione dell'unita' immobiliare
      */
-    public Unita getUnita(String nomeUnita) {
+    public UnitaImmobiliare getUnita(String nomeUnita) {
         return model.getUnita(nomeUnita);
     }
 
@@ -200,14 +201,14 @@ public class Recuperatore {
         return model.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita);
     }
 
-    private static List<Sensore> getSensoriAggiungibiliSistema(Sistema sistema, String nomeUnita) {
+    public List<Sensore> getSensoriAggiungibiliSistema(Sistema sistema, String nomeUnita) {
         List<Sensore> sensori = model.getUnita(nomeUnita).getSensori();
         return Stream.of(sensori)
                 .filter(s -> !sistema.contieneCategoriaSensore(s.getCategoria().getNome()))
                 .collect(Collectors.toList());
     }
 
-    private static List<Attuatore> getAttuatoriAggiungibiliSistema(Sistema sistema, String nomeUnita) {
+    public List<Attuatore> getAttuatoriAggiungibiliSistema(Sistema sistema, String nomeUnita) {
         List<Attuatore> attuatori = model.getUnita(nomeUnita).getAttuatori();
         return attuatori
                 .filter(a -> !sistema.contieneCategoriaAttuatore(a.getCategoria().getNome()))
@@ -295,7 +296,7 @@ public class Recuperatore {
      * @param unita da cui pescare i nomi degli attuatori
      * @return un array dei nomi degli attuatori dell'unità immobiliare
      */
-    public List<Attuatori> getAttuatori(String unita){
+    public List<Attuatore> getAttuatori(String unita){
         return model.getUnita(unita).getAttuatori();
     }
 
@@ -323,7 +324,7 @@ public class Recuperatore {
     }
 
     public List<Parametro> getParametriModalita(String attuatore, String modalita) {
-        return getAttuatore(attuatore)
+        return model.getAttuatore(attuatore)
                 .getCategoria()
                 .getModalita(modalita)
                 .getParametri()
@@ -366,7 +367,7 @@ public class Recuperatore {
      * @param id    identificativo dell'azione
      * @return  stringa contenente la descrizione dell'azione se presente, stringa vuota altrimenti
      */
-    public Azione getProgrammata(String id) {
+    public Azione getAzioneProgrammata(String id) {
         Azione a = model.getAzioneProgrammata(id);
         return a;
     }
