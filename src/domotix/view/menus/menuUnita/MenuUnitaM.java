@@ -1,11 +1,13 @@
 package domotix.view.menus.menuUnita;
 
 
-import domotix.controller.Recuperatore;
+import domotix.controller.Rappresentatore;
+import domotix.controller.Verificatore;
 import domotix.view.MyMenu;
 import domotix.controller.util.StringUtil;
 import domotix.view.menus.menuUnita.gestioneStanza.MenuGestioneStanzaM;
 import domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaM;
+import static domotix.view.menus.ViewConstants.*;
 
 /** @author Edoardo Coppola*/
 public class MenuUnitaM {
@@ -13,11 +15,26 @@ public class MenuUnitaM {
     private static final String TITOLO = "Menu Unita Manutentore ";
     private static final String SOTTOTITOLO = "oggetto: ";
     private static final String[] VOCI = {"Menu Gestione Unita Manutentore", "Menu Gestione Stanza Manutentore"};
-    private static final String INDIETRO = "Indietro";
-    private static final String UNITA_IMMOBILIARI_ESISTENTI = "Unità Immobiliari: ";
+
     private static final String NONE = "Nessuna unità immobiliare esistente. L'utente manutentore deve prima crearne una";
 
-    private static MyMenu menu = new MyMenu(TITOLO, VOCI);
+    private MyMenu menu;
+    private Interpretatore i;
+    private Rappresentatore r;
+    private Verificatore v;
+    private MenuGestioneUnitaM menuGestioneUnitaM;
+    private MenuGestioneStanzaM menuGestioneStanzaM;
+
+    public MenuUnitaM(Interpretatore i, Verificatore v, Rappresentatore r, MyMenu m){
+        this.menu = m;
+        menu.setTitolo(TITOLO);
+        menu.setVoci(VOCI);
+        this.i = i;
+        this.r = r;
+        this.v = v;
+        menuGestioneUnitaM = new MenuGestioneUnitaM(menu, r, i);
+        menuGestioneStanzaM = new MenuGestioneStanzaM(menu, r, i, v);
+    }
 
     /**
      * Presenta all'utente manutentore un menu che offre la possibilità di aprire un menu per manutentori per la gestione dell'unità immobiliare
@@ -26,7 +43,7 @@ public class MenuUnitaM {
      * menu precedente perché bisogna crearne una.
      * Il menu consete anche di tornare indietro e chiudere questo menu
      */
-    public static void avvia(){
+    public void avvia(){
 
         String nomeUnitaSuCuiLavorare = premenuUnita();
 
@@ -36,7 +53,6 @@ public class MenuUnitaM {
             System.out.println(NONE);
             return;
         }
-
 
         menu.setSottotitolo(SOTTOTITOLO + StringUtil.componiPercorso(nomeUnitaSuCuiLavorare));
 
@@ -48,17 +64,17 @@ public class MenuUnitaM {
                 case 0://Indietro
                     return;
                 case 1: // menu gestione unita
-                    MenuGestioneUnitaM.avvia(nomeUnitaSuCuiLavorare);
+                    menuGestioneUnitaM.avvia(nomeUnitaSuCuiLavorare);
                     break;
                 case 2: //menu gestione stanza
-                    MenuGestioneStanzaM.avvia(nomeUnitaSuCuiLavorare);
+                    menuGestioneStanzaM.avvia(nomeUnitaSuCuiLavorare);
                     break;
             }
         }while(sceltaMenu != 0);
     }
 
-    private static String premenuUnita(){
-        String[] nomiUnitaImmobiliari = Recuperatore.getNomiUnita();
+    private String premenuUnita(){
+        String[] nomiUnitaImmobiliari = r.getNomiUnita();
 
         if(nomiUnitaImmobiliari.length == 0) //non esistono unità immobiliari
             return NONE;

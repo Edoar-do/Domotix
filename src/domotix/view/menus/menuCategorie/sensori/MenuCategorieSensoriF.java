@@ -1,6 +1,7 @@
 package domotix.view.menus.menuCategorie.sensori;
 
 
+import domotix.controller.Rappresentatore;
 import domotix.controller.Recuperatore;
 import domotix.view.MyMenu;
 
@@ -10,14 +11,21 @@ public class MenuCategorieSensoriF {
     private static final String[] VOCI = { "Visualizza Categorie Sensori"};
     private static final String INDIETRO = "Indietro";
 
+    private MyMenu menu;
+    private Rappresentatore r;
 
-    private static MyMenu menu = new MyMenu(TITOLO, VOCI);
+    public MenuCategorieSensoriF(MyMenu menu, Rappresentatore r) {
+        this.menu = menu;
+        this.menu.setTitolo(TITOLO);
+        this.menu.setVoci(VOCI);
+        this.r = r;
+    }
 
     /**
      * Presenta all'utente fruitore un menu che consente di visualizzare tutte le categorie di sensori presenti oppure di
      * tornare indietro e chiuedere questo menu
      */
-    public static void avvia(){
+    public void avvia(){
 
         int sceltaMenu = 0;
         do {
@@ -27,7 +35,7 @@ public class MenuCategorieSensoriF {
                 case 0://Indietro
                     return;
                 case 1: //visualizza categorie sensori
-                    for (String descrizione: Recuperatore.getDescrizioniCategorieSensori()) {
+                    for (String descrizione: r.getDescrizioniCategorieSensori()) {
                         System.out.println(descrizione);
                     }
                     break;

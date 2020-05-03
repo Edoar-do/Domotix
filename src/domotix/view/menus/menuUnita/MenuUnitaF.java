@@ -1,79 +1,42 @@
 package domotix.view.menus.menuUnita;
 
-import domotix.controller.Modificatore;
-import domotix.controller.Recuperatore;
-import domotix.controller.Verificatore;
-import domotix.model.bean.device.SensoreOrologio;
+import domotix.controller.*;
+
 import domotix.view.InputDati;
 import domotix.view.MyMenu;
 import domotix.controller.util.StringUtil;
 import domotix.view.menus.menuUnita.gestioneStanza.MenuGestioneStanzaF;
 import domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaF;
-
-import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
+import static domotix.view.menus.ViewConstants.*;
 
 /** @author Edoardo Coppola*/
 public class MenuUnitaF {
     private static final String TITOLO = "Menu Unita Fruitore ";
     private static final String SOTTOTITOLO = "oggetto: ";
     private static final String[] VOCI = {"Menu Gestione Unita Fruitore", "Menu Gestione Stanza Fruitore", "Crea una nuova regola", "Rimuovi una regola", "Visualizza Regole", "Attiva/Disattiva Regola"};
-    private static final String INDIETRO = "Indietro";
-    private static final String UNITA_IMMOBILIARI_ESISTENTI = "Unità Immobiliari: ";
     private static final String NONE = "Nessuna unità immobiliare esistente. L'utente manutentore deve prima crearne una";
-    private static final String GUIDA_IN_LINEA = " Consultare la guida in linea per maggiori informazioni";
-    private static final String SUCCESSO_INSERIMENTO_REGOLA = "Regola id: %s inserita con successo";
-    private static final String SUCCESSO_INSERIMENTO_COMPONENTE = "Condizione componente l'antecedente inserita con successo";
-    private static final String SUCCESSO_RIMOZIONE_REGOLA = "Regola rimossa correttamente";
-    private static final String ERRORE_INSERIMENTO_REGOLA = "Inserimento regola fallito." + GUIDA_IN_LINEA;
-    private static final String ERRORE_INSERIMENTO_COMPONENTE_ANTECEDENTE = "Inserimento della condizione componente l'antecedente fallita." + GUIDA_IN_LINEA;
-    private static final String ERRORE_INSERIMENTO_OP_LOGICO = "Errore nell'inserimento dell'operatore logico." + GUIDA_IN_LINEA;
-    private static final String ERRORE_RIMOZIONE_REGOLA = "Rimozione della regola fallita." + GUIDA_IN_LINEA;
-    private static final String SCELTA_LHS = "Scegli la variabile sensoriale da valutare: ";
-    private static final String SCELTA_RELOP = "Scegli un operatore relazionale (se l'informazione rilevata dal sensore è scalare la scelta sara' automatica)";
-    private static final String SCELTA_RHS = "Scegli la seconda variabile sensoriale da confrontare oppure inserisci una costante";
-    private static final String ANTECEDENTE_SI_NO = "Desideri inserire un'antecedente? (Se scegli no verrà assegnato il valore TRUE di default)";
-    private static final String RELOP_NECESSARIO = "Operatore relazionale necessario";
-    private static final String LHS_NECESSARIO = "Variabile sensoriale necessaria!";
-    private static final String RHS_NECESSARIO = "Variabile sensoriale o costante necessaria";
-    private static final String RHS_IS_COSTANTE = "Vuoi inserire un valore costante numerico per completare la condizione? ";
-    private static final String INSERIMENTO_COSTANTE_RHS = "Inserisci un valore numerico: ";
-    private static final String CONTINUARE_CON_ANTECEDENTE = "Desideri continuare con la costruzione dell'antecedente? ";
-    private static final String LOGIC_OP_NECESSARIO = "Operatore logico necessario!";
-    private static final String ZERO_SENSORI = "Impossibile creare una nuova regola perche' non sono presenti sensori nell'unita'. Il manutentore deve prima crearne";
-    private static final String INFO_DEL_SENSORE = "Informazione rilevabili dal sensore %s: ";
-    private static final String SENSORI_UNITA = "Sensori presenti nell'unita' %s: ";
-    private static final String[] OPERATORI_LOGICI = {"AND", "OR"};
-    private static final String[] OPERATORI_RELAZIONALI = {"<", ">", "<=", ">=", "="};
-    private static final String REGOLE_UNITA = "Elenco delle regole nell'unita %s";
-    private static final String SUCCESSO_INSERIMENTO_AZIONE = "Azione del conseguente inserita con successo";
-    private static final String ERRORE_INSERIMENTO_AZIONE = "Inserimento azione del conseguente fallito. " + GUIDA_IN_LINEA;
-    private static final String ZERO_ATTUATORI = "Impossibile creare una nuova regola perché non sono presenti attuatori nell'unita'. Il manutentore deve prima crearne";
-    private static final String CONTINUARE_CON_CONSEGUENTE = "Desideri continuare con la costruzione del conseguente? ";
-    private static final String ALMENO_UNA_AZIONE = "E' necessario inserire almeno un'azione per il conseguente!";
-    private static final String LHS_ATT_NECESSARIO = "E' necessario specificare l'attuatore per un'azione!";
-    private static final String RHS_ATT_NECESSARIO = "E' necessario specificare una modalita' da assegnare all'attuatore!";
-    private static final String ELENCO_MODALITA_ATTUATORE = "Elenco di tutte le modalità dell'attuatore: ";
-    private static final String STRINGA_COST = "Vuoi inserire una stringa costante come secondo termine della condizione? (se no allora sceglierai una variabile sensoriale): ";
-    private static final String INSERIMENTO_STRINGA_COSTANTE_RHS = "Inserisci una stringa costante come secondo termine della condizione: ";
-    private static final String ATTUATORI_UNITA = "Attuatori presenti nell'unita'%s: ";
-    private static final String SUCCESSO_INSERIMENTO_LHS = "Lhs della condizione inserito con successo";
-    private static final String SUCCESSO_INSERIMENTO_REL_OP = "Operatore relazionale della condizione inserito con successo";
-    private static final String COSTRUZIONE_CONSEGUENTE = "Costruisci il conseguente inserendone le azioni: ";
-    private static final String INSERIMENTO_RHS_ORA = "Inserisci un orario di riferimento nel formato ora.minuto: ";
-    private static final String ERRORE_VALIDITA_ORARIO = "Errore! L'orario inserito non è valido";
-    private static final String CONDIZIONE_START = "Desideri inserire un istante di inizio 'start' dell'azione? ";
-    private static final String ERRORE_CAMBIO_STATO_REGOLA = "Cambio di stato della regola fallito. " + GUIDA_IN_LINEA;
-    private static final String SUCCESSO_DISATTIVAZIONE = "Regola disattivata correttamente";
-    private static final String SUCCESSO_ATTIVAZIONE = "Regola attivata correttamente";
-    private static final String SOSPENSIONE = "La regola non era attivabile a causa di alcuni suoi dispositivi spenti. E' stata quindi sospesa fino alla riaccensione di tali dispositivi";
-    private static final String REGOLE_UNITA_ATTIVE_O_DISATTIVE = "Regole dell'unita' in stato 'Attiva' o 'Disattiva'. ATTENZIONE: le regole in stato 'Sospesa' non appaiono in elenco";
 
+    private MyMenu menu;
+    private Interpretatore i;
+    private Verificatore v;
+    private Rappresentatore r;
+    private MenuGestioneUnitaF menuGestioneUnitaF;
+    private MenuGestioneStanzaF menuGestioneStanzaF;
+    
 
-
-    private static MyMenu menu = new MyMenu(TITOLO, VOCI);
+    public MenuUnitaF(Interpretatore i, Verificatore v, Rappresentatore r, MyMenu m){
+        this.menu = m;
+        menu.setTitolo(TITOLO);
+        menu.setVoci(VOCI);
+        this.i = i;
+        this.v = v;
+        this.r = r;
+        menuGestioneStanzaF = new MenuGestioneStanzaF(menu, r, i);
+        menuGestioneUnitaF = new MenuGestioneUnitaF(menu, i, r);
+    }
 
     /**
      * Presenta all'utente fruitore un menu che offre la possibilità di aprire un menu per fruitori per la gestione dell'unità immobiliare,
@@ -83,7 +46,7 @@ public class MenuUnitaF {
      * perché bisogna crearne una.
      * Il menu consente anche di tornare indietro e chiudere questo menu
      */
-    public static void avvia() {
+    public void avvia() {
         String nomeUnitaSuCuiLavorare = premenuUnita();
 
         if(nomeUnitaSuCuiLavorare == null) return;
@@ -92,8 +55,7 @@ public class MenuUnitaF {
             System.out.println(NONE);
             return;
         }
-
-
+        
         menu.setSottotitolo(SOTTOTITOLO + StringUtil.componiPercorso(nomeUnitaSuCuiLavorare));
 
         int sceltaMenu = 0;
@@ -104,10 +66,10 @@ public class MenuUnitaF {
                 case 0://Indietro
                     return;
                 case 1: // menu gestione unita
-                    MenuGestioneUnitaF.avvia(nomeUnitaSuCuiLavorare);
+                    menuGestioneUnitaF.avvia(nomeUnitaSuCuiLavorare);
                     break;
                 case 2: //menu gestione stanza
-                    MenuGestioneStanzaF.avvia(nomeUnitaSuCuiLavorare);
+                    menuGestioneStanzaF.avvia(nomeUnitaSuCuiLavorare);
                     break;
                 case 3: //crea nuova regola
                     if (!checkSensori(nomeUnitaSuCuiLavorare)) {
@@ -118,7 +80,7 @@ public class MenuUnitaF {
                         System.out.println(ZERO_ATTUATORI);
                         break;
                     }
-                    String IDregolaNuova = Modificatore.aggiungiRegola(nomeUnitaSuCuiLavorare);
+                    String IDregolaNuova = i.aggiungiRegola(nomeUnitaSuCuiLavorare);
                     if (IDregolaNuova != null)
                         System.out.println(String.format(SUCCESSO_INSERIMENTO_REGOLA, IDregolaNuova));
                     else {
@@ -145,10 +107,10 @@ public class MenuUnitaF {
                                 System.out.println(SUCCESSO_INSERIMENTO_REL_OP);
                             }
                             System.out.println(SCELTA_RHS);
-                            if (Verificatore.checkIsSensoreOrologio(lhs)) { //allora lo obbligo a scegliere un orario double
+                            if (v.checkIsSensoreOrologio(lhs)) { //allora lo obbligo a scegliere un orario double
                                 double rhsOrario = InputDati.leggiDoubleConMinimo(INSERIMENTO_RHS_ORA, 0.0);
-                                if (Verificatore.checkValiditaOrario(rhsOrario)) {
-                                    if (Modificatore.aggiungiComponenteAntecedente(lhs, relOp, rhsOrario, nomeUnitaSuCuiLavorare, IDregolaNuova))
+                                if (v.checkValiditaOrario(rhsOrario)) {
+                                    if (i.aggiungiComponenteAntecedente(lhs, relOp, rhsOrario, nomeUnitaSuCuiLavorare, IDregolaNuova))
                                         System.out.println(SUCCESSO_INSERIMENTO_COMPONENTE); //da qui balzo alla richiesta di voler continuare o meno l'antecedente
                                     else {
                                         System.out.println(ERRORE_INSERIMENTO_COMPONENTE_ANTECEDENTE);
@@ -160,7 +122,7 @@ public class MenuUnitaF {
                                 }
                             } else if (InputDati.yesOrNo(RHS_IS_COSTANTE)) { //RHS NUMERICO
                                 double rhsNum = InputDati.leggiDouble(INSERIMENTO_COSTANTE_RHS);
-                                if (Modificatore.aggiungiComponenteAntecedente(lhs, relOp, rhsNum, nomeUnitaSuCuiLavorare, IDregolaNuova))//inserimento componente
+                                if (i.aggiungiComponenteAntecedente(lhs, relOp, rhsNum, nomeUnitaSuCuiLavorare, IDregolaNuova))//inserimento componente
                                     System.out.println(SUCCESSO_INSERIMENTO_COMPONENTE);
                                 else {
                                     System.out.println(ERRORE_INSERIMENTO_COMPONENTE_ANTECEDENTE);
@@ -180,7 +142,7 @@ public class MenuUnitaF {
                                         continue; // fa reinserire tutta la condizione
                                     }
                                 }
-                                if (Modificatore.aggiungiComponenteAntecedente(lhs, relOp, rhs, scalare, nomeUnitaSuCuiLavorare, IDregolaNuova)) //inserimento componente
+                                if (i.aggiungiComponenteAntecedente(lhs, relOp, rhs, scalare, nomeUnitaSuCuiLavorare, IDregolaNuova)) //inserimento componente
                                     System.out.println(SUCCESSO_INSERIMENTO_COMPONENTE);
                                 else {
                                     System.out.println(ERRORE_INSERIMENTO_COMPONENTE_ANTECEDENTE);
@@ -193,7 +155,7 @@ public class MenuUnitaF {
                                 while (true) {
                                     String logicOp = premenuLogicOp(); // && o ||
                                     if (logicOp != null) {
-                                        if (Modificatore.aggiungiOperatoreLogico(nomeUnitaSuCuiLavorare, IDregolaNuova, logicOp))
+                                        if (i.aggiungiOperatoreLogico(nomeUnitaSuCuiLavorare, IDregolaNuova, logicOp))
                                             break; //si può proseguire con nuovi componenti
                                         System.out.println(ERRORE_INSERIMENTO_OP_LOGICO);
                                     } else
@@ -216,31 +178,30 @@ public class MenuUnitaF {
                         }
                         if (!InputDati.yesOrNo(CONTINUARE_CON_CONSEGUENTE)) {
                             if (almenoUnaAzione) {
-                                Modificatore.cambioStatoRegola(IDregolaNuova, nomeUnitaSuCuiLavorare); //CAMBIA LO STATO DELLA REGOLA DA DISATTIVA AD ATTIVA PERCHE' VIENE CREATA DISATTIVA
+                                i.cambioStatoRegola(IDregolaNuova, nomeUnitaSuCuiLavorare); //CAMBIA LO STATO DELLA REGOLA DA DISATTIVA AD ATTIVA PERCHE' VIENE CREATA DISATTIVA
                                 break;
                             }
                             System.out.println(ALMENO_UNA_AZIONE);
                         }
                     }
-
                     break;
                 case 4: //rimuovi una regola
                     String regolaDaCancellare = premenuAntecedentiRegole(nomeUnitaSuCuiLavorare); //viene presentato all'utente un elenco delle antecedenti da cui riconoscerle e sceglierle
                     if (regolaDaCancellare != null) {
-                        if (Modificatore.rimuoviRegola(nomeUnitaSuCuiLavorare, regolaDaCancellare))
+                        if (i.rimuoviRegola(nomeUnitaSuCuiLavorare, regolaDaCancellare))
                             System.out.println(SUCCESSO_RIMOZIONE_REGOLA);
                         else
                             System.out.println(ERRORE_RIMOZIONE_REGOLA);
                     }
                     break;
                 case 5: //visualizzaRegole
-                    for (String descrizioneRegola : Recuperatore.getRegoleUnita(nomeUnitaSuCuiLavorare))
+                    for (String descrizioneRegola : r.getRegoleUnita(nomeUnitaSuCuiLavorare))
                         System.out.println(descrizioneRegola);
                     break;
                 case 6: //attiva/disattiva regola
                     String IDregolaDaCambiare = premenuRegoleAttive_Disattive(nomeUnitaSuCuiLavorare);
                     if (IDregolaDaCambiare != null) {
-                        switch(Modificatore.cambioStatoRegola(IDregolaDaCambiare, nomeUnitaSuCuiLavorare)){
+                        switch(i.cambioStatoRegola(IDregolaDaCambiare, nomeUnitaSuCuiLavorare)){
                             case -1:
                                 System.out.println(ERRORE_CAMBIO_STATO_REGOLA);
                                 break;
@@ -260,8 +221,8 @@ public class MenuUnitaF {
         } while (sceltaMenu != 0);
     }
 
-    private static String premenuUnita() {
-        String[] nomiUnitaImmobiliari = Recuperatore.getNomiUnita();
+    private String premenuUnita() {
+        String[] nomiUnitaImmobiliari = r.getNomiUnita();
 
         if (nomiUnitaImmobiliari.length == 0) //non esistono unità immobiliari
             return NONE;
@@ -275,7 +236,7 @@ public class MenuUnitaF {
         return scelta == 0 ? null : nomiUnitaImmobiliari[scelta - 1];
     }
 
-    private static String sceltaLhs(String unita) {
+    private String sceltaLhs(String unita) {
         //if (InputDati.yesOrNo(CONDIZIONE_TEMPORALE)) return "time";
         String nomeSensoreScelto = premenuSensori(unita);
         if (nomeSensoreScelto == null) return null;
@@ -284,66 +245,66 @@ public class MenuUnitaF {
         return (nomeSensoreScelto + "." + infoRilevabile);
     }
 
-    private static String sceltaRelOp(String lhs) {
+    private String sceltaRelOp(String lhs) {
         if (lhs.equals("time"))
             return premenuRelOp();
         String[] campi = lhs.split(Pattern.quote("."));
-        if (Recuperatore.isInfoNumerica(campi[0], campi[1])) //[0] t1_termometro   [1] infoRilevabile
+        if (v.isInfoNumerica(campi[0], campi[1])) //[0] t1_termometro   [1] infoRilevabile
             return premenuRelOp();
         else return "="; //se l'info è scalare l'unico operatore applicabile è '='
     }
 
-    private static String premenuSensori(String unita) {
-        String[] sensori = Recuperatore.getNomiSensori(unita, true); // con true include anche il sensore orologio
+    private String premenuSensori(String unita) {
+        String[] sensori = r.getNomiSensori(unita, true); // con true include anche il sensore orologio
         MyMenu m = new MyMenu(String.format(SENSORI_UNITA, unita), sensori);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : sensori[scelta - 1];
     }
 
-    private static boolean checkSensori(String unita) {
-        String[] sensori = Recuperatore.getNomiSensori(unita);
+    private boolean checkSensori(String unita) {
+        String[] sensori = r.getNomiSensori(unita);
         if (sensori.length == 0) return false;
         return true;
     }
 
-    private static boolean checkAttuatori(String unita) {
-        String[] attuatori = Recuperatore.getNomiAttuatori(unita);
+    private boolean checkAttuatori(String unita) {
+        String[] attuatori = r.getNomiAttuatori(unita);
         if (attuatori.length == 0) return false;
         return true;
 
     }
 
-    private static String premenuInfo(String sensore) {
-        String[] info = Recuperatore.getInformazioniRilevabili(sensore);
+    private String premenuInfo(String sensore) {
+        String[] info = r.getInformazioniRilevabili(sensore);
         //if(info.length == 1) return info[0];
         MyMenu m = new MyMenu(String.format(INFO_DEL_SENSORE, sensore), info);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : info[scelta - 1];
     }
 
-    private static String premenuLogicOp() {
+    private String premenuLogicOp() {
         String[] logicOps = new String[]{"&&", "||"};
         MyMenu m = new MyMenu("Operatori Logici: ", logicOps);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : logicOps[scelta - 1];
     }
 
-    private static String premenuRelOp() {
+    private String premenuRelOp() {
         String[] relOps = new String[]{"<", ">", "<=", ">=", "="};
         MyMenu m = new MyMenu("Operatori Relazionali: ", relOps);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : relOps[scelta - 1];
     }
 
-    private static final String premenuAntecedentiRegole(String unita) { //presenta un elenco delle antecedenti da cui sceglierne una da rimuovere
-        HashMap<String, String> coppieAntID = (HashMap<String, String>) Recuperatore.getAntecedentiRegoleUnita(unita);
+    private final String premenuAntecedentiRegole(String unita) { //presenta un elenco delle antecedenti da cui sceglierne una da rimuovere
+        HashMap<String, String> coppieAntID = (HashMap<String, String>) r.getAntecedentiRegoleUnita(unita);
         String[] antecedenti = coppieAntID.keySet().toArray(new String[0]);
         MyMenu m = new MyMenu(String.format(REGOLE_UNITA, unita), antecedenti);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : coppieAntID.get(antecedenti[scelta - 1]);
     }
 
-    private static boolean costruisciAzione(String nomeUnitaSuCuiLavorare, String IDregola) {
+    private boolean costruisciAzione(String nomeUnitaSuCuiLavorare, String IDregola) {
         while (true) {
             String attuatore = premenuAttuatori(nomeUnitaSuCuiLavorare);
             if (attuatore == null) {
@@ -356,8 +317,8 @@ public class MenuUnitaF {
                 continue;
             }
             //da fare solo se la modalità è parametrica
-            if (Recuperatore.isModalitaParametrica(attuatore, modalita)) {
-                String[] params = Recuperatore.getNomiParametriModalita(attuatore, modalita);
+            if (v.isModalitaParametrica(attuatore, modalita)) {
+                String[] params = r.getNomiParametriModalita(attuatore, modalita);
                 Map<String, Double> listaParams = new HashMap<>();
                 for (int i = 0; i < params.length; i++) {
                     double nuovoValore = InputDati.leggiDouble(String.format("Imposta un nuovo valore per il parametro %s della modalita %s di %s", params[i], modalita, attuatore));
@@ -365,8 +326,8 @@ public class MenuUnitaF {
                 }
                 if (InputDati.yesOrNo(CONDIZIONE_START)) { //aggiunta azione con parametri CON start
                     double orarioStart = InputDati.leggiDoubleConMinimo(INSERIMENTO_RHS_ORA, 0.0);
-                    if (Verificatore.checkValiditaOrario(orarioStart)) {
-                        if (Modificatore.aggiungiAzioneConseguente(attuatore, modalita, listaParams, orarioStart, nomeUnitaSuCuiLavorare, IDregola))
+                    if (v.checkValiditaOrario(orarioStart)) {
+                        if (i.aggiungiAzioneConseguente(attuatore, modalita, listaParams, orarioStart, nomeUnitaSuCuiLavorare, IDregola))
                             return true;
                         else return false;
                     } else {
@@ -374,7 +335,7 @@ public class MenuUnitaF {
                         continue;
                     } //se sbagli orario rifai tutta la costruzione dell'azione
                 } else { //aggiunta azione con parametri SENZA start
-                    if (Modificatore.aggiungiAzioneConseguente(attuatore, modalita, listaParams, nomeUnitaSuCuiLavorare, IDregola)) {
+                    if (i.aggiungiAzioneConseguente(attuatore, modalita, listaParams, nomeUnitaSuCuiLavorare, IDregola)) {
                         return true;
                     } else
                         return false;
@@ -382,8 +343,8 @@ public class MenuUnitaF {
             } else {//finisco qui se la modalità non è parametrica
                 if (InputDati.yesOrNo(CONDIZIONE_START)) { //aggiunta azioni senza parametri con start
                     double orarioStart = InputDati.leggiDoubleConMinimo(INSERIMENTO_RHS_ORA, 0.0);
-                    if (Verificatore.checkValiditaOrario(orarioStart)) {
-                        if (Modificatore.aggiungiAzioneConseguente(attuatore, modalita, orarioStart, nomeUnitaSuCuiLavorare, IDregola))
+                    if (v.checkValiditaOrario(orarioStart)) {
+                        if (i.aggiungiAzioneConseguente(attuatore, modalita, orarioStart, nomeUnitaSuCuiLavorare, IDregola))
                             return true;
                         else return false;
                     } else {
@@ -391,7 +352,7 @@ public class MenuUnitaF {
                         continue;
                     }
                 } else { //aggiunta azione senza parametri senza start
-                    if (Modificatore.aggiungiAzioneConseguente(attuatore, modalita, nomeUnitaSuCuiLavorare, IDregola)) {
+                    if (i.aggiungiAzioneConseguente(attuatore, modalita, nomeUnitaSuCuiLavorare, IDregola)) {
                         return true;
                     } else
                         return false;
@@ -400,30 +361,25 @@ public class MenuUnitaF {
         }
     }
 
-    private static String premenuAttuatori(String unita) {
-        String[] attuatori = Recuperatore.getNomiAttuatori(unita);
+    private String premenuAttuatori(String unita) {
+        String[] attuatori = r.getNomiAttuatori(unita);
         MyMenu m = new MyMenu(String.format(ATTUATORI_UNITA, unita), attuatori);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : attuatori[scelta - 1];
     }
 
-    private static String premenuModalita(String attuatore) {
-        String[] modes = Recuperatore.getModalitaTutte(attuatore);
+    private String premenuModalita(String attuatore) {
+        String[] modes = r.getModalitaTutte(attuatore);
         MyMenu m = new MyMenu(ELENCO_MODALITA_ATTUATORE, modes);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : modes[scelta - 1];
     }
 
-    private static String premenuRegoleAttive_Disattive(String unita){
-        HashMap<String, String> coppieAntIDregoleAttive_Disattive = (HashMap<String, String>) Recuperatore.getAntecentiRegoleAttiveDisattive(unita);
+    private String premenuRegoleAttive_Disattive(String unita){
+        HashMap<String, String> coppieAntIDregoleAttive_Disattive = (HashMap<String, String>) r.getAntecentiRegoleAttiveDisattive(unita);
         String[] antecedentiPiuStato = coppieAntIDregoleAttive_Disattive.keySet().toArray(new String[0]);
         MyMenu m = new MyMenu(String.format(REGOLE_UNITA_ATTIVE_O_DISATTIVE, unita), antecedentiPiuStato);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : coppieAntIDregoleAttive_Disattive.get(antecedentiPiuStato[scelta - 1]);
     }
-
-
-
-
-
 }

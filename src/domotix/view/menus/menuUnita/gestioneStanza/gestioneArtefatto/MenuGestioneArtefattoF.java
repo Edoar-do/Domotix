@@ -1,9 +1,9 @@
 package domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto;
 
-import domotix.controller.Modificatore;
-import domotix.controller.Recuperatore;
+import domotix.controller.Rappresentatore;
 import domotix.view.MyMenu;
 import domotix.controller.util.StringUtil;
+import static  domotix.view.menus.ViewConstants.*;
 
 /** @author Edoardo Coppola*/
 public class MenuGestioneArtefattoF {
@@ -11,16 +11,19 @@ public class MenuGestioneArtefattoF {
     private static final String TITOLO = "Menu Gestione Artefatto Fruitore ";
     private static final String SOTTOTITOLO = "oggetto: ";
     private static final String[] VOCI = {"Visualizza Descrizione Artefatto", "Imposta la modalità operativa di un attuatore associato all'artefatto"};
-    private static final String INDIETRO = "Indietro";
-
-    private static final String ELENCO_ARTEFATTI = "Elenco degli artefatti presenti nella stanza: ";
-    private static final String ELENCO_ATTUATORI_ARTEFATTO = "Attuatori associati all'artefatto: ";
-    private static final String MODALITA_OPERATIVE = "Modalità Operative impostabili all'attuatore: ";
     private static final String NONE = "Non ci sono modalità operative impostabili all'attuatore all'infuori di quella corrente";
-    private static final String SUCCESSO_SETTAGGIO_MODALITA = "Modalità operativa %s impostata con successo";
-    private static final String FALLIMENTO_SETTAGGIO_MODALITA = "Impostazione modalità operativa %s fallita. Consultare la guida in linea per maggiori informazioni";
+    
+    private MyMenu menu;
+    private Rappresentatore r;
+    private Interpretatore i;
 
-    private static MyMenu menu = new MyMenu(TITOLO, VOCI);
+    public MenuGestioneArtefattoF(MyMenu menu, Rappresentatore r, Interpretatore i) {
+        this.menu = menu;
+        this.menu.setTitolo(TITOLO);
+        this.menu.setVoci(VOCI);
+        this.r = r;
+        this.i = i;
+    }
 
     /**
      * Presenta all'utente fruitore un menu che offre la possibilità di scegliere di visualizzare la descrizione di un artefatto, di impostare la modalità operativa
@@ -31,7 +34,7 @@ public class MenuGestioneArtefattoF {
      * @param nomeUnitaSuCuiLavorare è il nome dell'unità entro cui si trova la stanza scelta al menu precedente
      * @param nomeStanza è il nome della stanza all'interno della quale si trova l'artefatto su cui lavoriamo
      */
-    public static void avvia(String nomeUnitaSuCuiLavorare, String nomeStanza) {
+    public void avvia(String nomeUnitaSuCuiLavorare, String nomeStanza) {
 
         String nomeArtefatto = premenuArtefatto(nomeUnitaSuCuiLavorare, nomeStanza);
 
@@ -47,7 +50,7 @@ public class MenuGestioneArtefattoF {
                 case 0://Indietro
                     return;
                 case 1: //visualizza descrizione artefatto
-                    System.out.println(Recuperatore.getDescrizioneArtefatto(nomeArtefatto, nomeStanza, nomeUnitaSuCuiLavorare));
+                    System.out.println(r.getDescrizioneArtefatto(nomeArtefatto, nomeStanza, nomeUnitaSuCuiLavorare));
                     break;
                 case 2: //imposta modalità operativa
                     String nomeAttuatore = premenuAttuatori(nomeArtefatto, nomeStanza, nomeUnitaSuCuiLavorare);
@@ -58,7 +61,7 @@ public class MenuGestioneArtefattoF {
                             System.out.println(NONE);
                             break;
                         }
-                        if(Modificatore.setModalitaOperativa(nomeAttuatore, mode))
+                        if(i.setModalitaOperativa(nomeAttuatore, mode))
                             System.out.println(String.format(SUCCESSO_SETTAGGIO_MODALITA, mode));
                         else
                             System.out.println(String.format(FALLIMENTO_SETTAGGIO_MODALITA, mode));
@@ -68,8 +71,8 @@ public class MenuGestioneArtefattoF {
         } while (sceltaMenu != 0);
     }
 
-    private static String premenuArtefatto(String unita, String stanza) {
-        String[] nomiArtefatti = Recuperatore.getNomiArtefatti(stanza, unita);
+    private  String premenuArtefatto(String unita, String stanza) {
+        String[] nomiArtefatti = r.getNomiArtefatti(stanza, unita);
 
         //se solo una scelta allora seleziono quella e procedo automaticamente
         if (nomiArtefatti.length == 1)
@@ -80,15 +83,15 @@ public class MenuGestioneArtefattoF {
         return scelta == 0 ? null : nomiArtefatti[scelta - 1];
     }
 
-    private static String premenuAttuatori(String artefatto, String stanza, String unita) {
-        String[] nomiAttuatori = Recuperatore.getNomiAttuatori(artefatto, stanza, unita);
+    private  String premenuAttuatori(String artefatto, String stanza, String unita) {
+        String[] nomiAttuatori = r.getNomiAttuatori(artefatto, stanza, unita);
         MyMenu m = new MyMenu(ELENCO_ATTUATORI_ARTEFATTO, nomiAttuatori);
         int scelta = m.scegli(INDIETRO);
         return scelta == 0 ? null : nomiAttuatori[scelta - 1];
     }
 
-    private static String premenuModalitaOperative(String attuatore){
-        String[] modes = Recuperatore.getModalitaOperativeImpostabili(attuatore); //ritorna le modalità operative non correnti
+    private  String premenuModalitaOperative(String attuatore){
+        String[] modes = r.getModalitaOperativeImpostabili(attuatore); //ritorna le modalità operative non correnti
         if(modes.length == 0) //se non ce n'è sono allora l'attuatore ha una sola modalità operativa e non la si cambia
             return NONE;
         if(modes.length == 1) //se ce n'è solo una impostabile allora la scelta è automatica

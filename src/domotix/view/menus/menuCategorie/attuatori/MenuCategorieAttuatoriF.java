@@ -1,8 +1,10 @@
 package domotix.view.menus.menuCategorie.attuatori;
 
 
+import domotix.controller.Rappresentatore;
 import domotix.controller.Recuperatore;
 
+import domotix.controller.Verificatore;
 import domotix.view.MyMenu;
 
 /** @author Edoardo Coppola*/
@@ -11,14 +13,21 @@ public class MenuCategorieAttuatoriF {
     private static final String[] VOCI = { "Visualizza Categorie Attuatori"};
     private static final String INDIETRO = "Indietro";
 
+    private MyMenu menu;
+    private Rappresentatore r;
 
-    private static MyMenu menu = new MyMenu(TITOLO, VOCI);
+    public MenuCategorieAttuatoriF(MyMenu menu, Rappresentatore r) {
+        this.menu = menu;
+        this.menu.setTitolo(TITOLO);
+        this.menu.setVoci(VOCI);
+        this.r = r;
+    }
 
     /**
      * Prensenta all'utente manutentore un menu che consente di visualizzare tutte le descrizioni delle categorie
      * di attuatori presenti oppure consente di tornare indietro e chiudere questo menu
      */
-    public static void avvia(){
+    public void avvia(){
 
         int sceltaMenu = 0;
         do {
@@ -28,7 +37,7 @@ public class MenuCategorieAttuatoriF {
                 case 0://Indietro
                     return;
                 case 1: //visualizza categorie attuatori
-                    for (String descrizione: Recuperatore.getDescrizioniCategorieAttuatori()) {
+                    for (String descrizione: r.getDescrizioniCategorieAttuatori()) {
                         System.out.println(descrizione);
                     }
                     break;
