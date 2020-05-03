@@ -1,10 +1,13 @@
 package domotix.model;
 
+import domotix.controller.io.visitor.Visitable;
+import domotix.controller.io.visitor.Visitor;
 import domotix.controller.util.StringUtil;
 import domotix.model.bean.UnitaImmobiliare;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Classe di accesso al Model per le UnitaImmobiliari salvate.
@@ -35,7 +38,7 @@ public class ElencoUnitaImmobiliari implements Visitable {
      * Recupera tutte le unita' salvate in elenco
      * @return  array di unita' contenute
      */
-    public ArrayList<UnitaImmobiliare> getUnita(){
+    public List<UnitaImmobiliare> getUnita(){
         return new ArrayList<>(unita.values());
     }
 

@@ -1,6 +1,8 @@
 package domotix.model.bean.regole;
 
 import domotix.controller.Recuperatore;
+import domotix.controller.io.visitor.Visitable;
+import domotix.controller.io.visitor.Visitor;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.device.Attuatore;
 

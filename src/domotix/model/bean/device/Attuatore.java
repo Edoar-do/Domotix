@@ -1,10 +1,12 @@
 package domotix.model.bean.device;
 
+import domotix.controller.io.visitor.Visitable;
+import domotix.controller.io.visitor.Visitor;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**@author Edoardo Coppola */
-public class Attuatore implements Visitable extends Dispositivo {
-    private static final String TOSTRING_TEMPLATE = "%s [%s]: %s";
+public class Attuatore extends Dispositivo implements Visitable {
     private CategoriaAttuatore categoria;
     private Modalita modoOp;
 

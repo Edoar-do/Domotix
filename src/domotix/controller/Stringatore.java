@@ -1,6 +1,33 @@
+package domotix.controller;
+
+import domotix.controller.io.visitor.AbstractVisitor;
+import domotix.controller.io.visitor.Visitable;
+import domotix.controller.util.StringUtil;
+import domotix.model.ElencoUnitaImmobiliari;
+import domotix.model.bean.UnitaImmobiliare;
+import domotix.model.bean.device.*;
+import domotix.model.bean.regole.*;
+import domotix.model.bean.system.Artefatto;
+import domotix.model.bean.system.Sistema;
+import domotix.model.bean.system.Stanza;
+import domotix.model.util.ElencoDispositivi;
+import domotix.model.util.SommarioDispositivi;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+/**@author andrea */
+
 public class Stringatore extends AbstractVisitor {
     private static final DateTimeFormatter TIME_FORMATTER =  DateTimeFormatter.ofPattern("HH.mm");
+    private static final String NO_ARTEFATTI = "Non e' presente alcun artefatto";
     private static final String NO_REGOLE = "Non e' presente alcuna regola";
+    private static final String NO_SENSORI = "Non e' presente alcun sensore";
+    private static final String NO_ATTUATORI = "Non e' presente alcun attuatore";
+    public static final String NOME_INFO_RILEVABILE_OROLOGIO = SensoreOrologio.NOME_INFO_RILEVABILE_OROLOGIO;
 
     private static String getValoreStampabileTempo(LocalTime time) {
         return TIME_FORMATTER.format(time);
@@ -34,12 +61,16 @@ public class Stringatore extends AbstractVisitor {
         return buffer.toString();
     }
 
+    private String rappresentaLista(List<Visitable> lv) {
+        return lv.stream().map(v -> this.rappresenta(v)).collect(Collectors.joining(","));
+    }
+
     public String rappresenta(Visitable vis) {
         return (String) vis.fattiVisitare(this);
     }
 
     @Override
-    public Object visitaArtefatto(Visitabile visitabileArtefatto) {
+    public Object visitaArtefatto(Visitable visitabileArtefatto) {
         Artefatto v = (Artefatto) visitabileArtefatto;
         return getStringaSistema(v);
     }
@@ -51,7 +82,7 @@ public class Stringatore extends AbstractVisitor {
         buffer.append(getStringaSistema(v) + "\n");
         buffer.append("\tARTEFATTI:");
         if (v.getArtefatti().length > 0) {
-            for (Artefatto artefatto : getArtefatti()) {
+            for (Artefatto artefatto : v.getArtefatti()) {
                 String stringaArtefatto = "\n" + artefatto.toString();
                 buffer.append(StringUtil.indent(stringaArtefatto, 2));
             }
@@ -64,8 +95,9 @@ public class Stringatore extends AbstractVisitor {
     @Override
     public Object visitaParametro(Visitable visitabileParametro) {
         Parametro v = (Parametro) visitabileParametro;
-        return v.nome + ": " + String.format("%.2f", v.valore);
+        return v.getNome() + ": " + String.format("%.2f", v.getValore());
     }
+
     @Override
     public Object visitaCategoriaAttuatore(Visitable visitabileCategoriaAttuatore) {
         CategoriaAttuatore v = (CategoriaAttuatore) visitabileCategoriaAttuatore;
@@ -74,7 +106,7 @@ public class Stringatore extends AbstractVisitor {
         buffer.append("\tTESTO LIBERO:\n");
         buffer.append(StringUtil.indent(v.getTestoLibero() + "\n", 2));
         buffer.append("\tELENCO MODALITA':");
-        v.getElencoModalita.forEach((e) -> {
+        v.getElencoModalita().forEach((e) -> {
             buffer.append(StringUtil.indent("\n" + rappresenta(e), 2));
         });
         return buffer.toString();
@@ -83,16 +115,16 @@ public class Stringatore extends AbstractVisitor {
     @Override
     public Object visitaAttuatore(Visitable visitabileAttuatore) {
         Attuatore v = (Attuatore) visitabileAttuatore;
-        return String.format(this.TOSTRING_TEMPLATE, this.getNome(), (getStato() ? "ON" : "OFF"), v.getModoOp());
+        return String.format("%s [%s]: %s", v.getNome(), (v.getStato() ? "ON" : "OFF"), v.getModoOp());
     }
 
     @Override
     public Object visitaModalita(Visitable visitabileModalita) {
         Modalita v = (Modalita) visitabileModalita;
-        String str = "" + this.getNome();
-        if (!parametri.isEmpty()) {
+        String str = "" + v.getNome();
+        if (!v.getParametri().isEmpty()) {
             str += "\n" + StringUtil.indent("PARAMETRI:", 1);
-            for (Parametro p : parametri.values()) {
+            for (Parametro p : v.getParametri()) {
                 str += "\n" + StringUtil.indent(rappresenta(p), 2);
             }
         }
@@ -107,7 +139,7 @@ public class Stringatore extends AbstractVisitor {
         buffer.append("\tTESTO LIBERO:\n");
         buffer.append(StringUtil.indent(v.getTestoLibero() + "\n", 2));
         buffer.append("\tINFORMAZIONI RILEVABILI:");
-        for(InfoRilevabile i : informazioneRilevabile)
+        for(InfoRilevabile i : v.getInformazioniRilevabili())
             buffer.append(StringUtil.indent("\n" + rappresenta(i), 2));
         return buffer.toString();
     }
@@ -117,8 +149,8 @@ public class Stringatore extends AbstractVisitor {
         Sensore v = (Sensore) visitabileSensore;
         StringBuffer buffer = new StringBuffer();
         buffer.append(v.getNome());
-        buffer.append("[" + (getStato() ? "ON" : "OFF") + "]");
-        v.getValori().forEach((k, v) -> buffer.append("\n" + StringUtil.indent(k + " = " + v, 1)));
+        buffer.append("[" + (v.getStato() ? "ON" : "OFF") + "]");
+        v.getValori().forEach((key, val) -> buffer.append("\n" + StringUtil.indent(key + " = " + val, 1)));
         return buffer.toString();
     }
 
@@ -144,12 +176,12 @@ public class Stringatore extends AbstractVisitor {
         buffer.append(v.getNome() + ":\n");
         buffer.append("\tSTANZE:");
         for (Stanza stanza : v.getStanze()) {
-            String stringaStanza = "\n" + rappresenta(stanza));
+            String stringaStanza = "\n" + rappresenta(stanza);
             buffer.append(StringUtil.indent(stringaStanza, 2));
         }
         buffer.append("\n\tREGOLE:");
         if(v.getRegole().length > 0) {
-            for (Regola regola : getRegole()) {
+            for (Regola regola : v.getRegole()) {
                 String stringaRegola = "\n" + rappresenta(regola);
                 buffer.append(StringUtil.indent(stringaRegola, 2));
             }
@@ -161,7 +193,7 @@ public class Stringatore extends AbstractVisitor {
     @Override
     public Object visitaAntecedente(Visitable visitabileAntecedente) {
         Antecedente v = (Antecedente) visitabileAntecedente;
-        String lhs = rappresenta(condizione);
+        String lhs = rappresenta(v.getCondizione());
         String opstr = v.getOperatoreLogico() == null ? "" : " " + v.getOperatoreLogico() + " ";
         String rhs = v.getProssimoAntecedente() == null ? "" : rappresenta(v.getProssimoAntecedente());
         return lhs + opstr + rhs;
@@ -170,19 +202,19 @@ public class Stringatore extends AbstractVisitor {
     @Override
     public Object visitaCondizione(Visitable visitabileCondizione) {
         Condizione v = (Condizione) visitabileCondizione;
-        return rappresenta(sinistra) + " " + v.getOperatore() + " " + rappresenta(destra);
+        return rappresenta(v.getSinistra()) + " " + v.getOperatore() + " " + rappresenta(v.getDestra());
     }
 
     @Override
     public Object visitaInfoCostante(Visitable visitabileInfoCostante) {
         InfoCostante v = (InfoCostante) visitabileInfoCostante;
-        return rappresenta(v.getInfo());
+        return v.getInfo().toString();
     }
 
     @Override
     public Object visitaInfoTemporale(Visitable visitabileInfoTemporale) {
         InfoTemporale v = (InfoTemporale) visitabileInfoTemporale;
-        return getValoreStampabile(v.getTempo());
+        return getValoreStampabileTempo(v.getTempo());
     }
 
     @Override
@@ -190,7 +222,7 @@ public class Stringatore extends AbstractVisitor {
         Regola v = (Regola) visitabileRegola;
         String antstr = v.getAntecedente() == null ? "true" : rappresenta(v.getAntecedente());
         String consstr = rappresenta(v.getConseguente());
-        String statostr = "; Stato -> [" + rappresenta(v.getStato()) + "]";
+        String statostr = "; Stato -> [" + v.getStato().toString() + "]";
         return "if " + antstr + " then " + consstr + statostr;
     }
 
@@ -207,8 +239,8 @@ public class Stringatore extends AbstractVisitor {
     @Override
     public Object visitaAzione(Visitable visitabileAzione) {
         Azione v = (Azione) visitabileAzione;
-        String parstr = v.getParametri().size() > 0 ? rappresenta(v.getParametri()) : "";
-        String timestr = v.getStart() == null ? "" : ", start := " + rappresenta(v.getStart()); // todo
+        String parstr = v.getParametri().size() > 0 ? v.getParametri().stream().map(e -> this.rappresenta(e)).collect(Collectors.joining(",")) : "";
+        String timestr = v.getStart() == null ? "" : ", start := " + v.getStart().toString(); // todo
         return v.getAttuatore().getNome() + " := " + v.getModalita().getNome() + parstr + timestr;
     }
 
@@ -226,8 +258,8 @@ public class Stringatore extends AbstractVisitor {
     public Object visitaSommarioDispositivi(Visitable visitabileSommarioDispositivi) {
         SommarioDispositivi v = (SommarioDispositivi) visitabileSommarioDispositivi;
         StringBuffer buffer = new StringBuffer();
-        v.getElenco().forEach((k, v) -> {
-            buffer.append(rappresenta(v) + "\n");
+        Stream.of(v.getDispositivi()).forEach(val -> {
+            buffer.append(rappresenta(val) + "\n");
         });
         return StringUtil.removeLast(buffer.toString());
     }
@@ -236,8 +268,8 @@ public class Stringatore extends AbstractVisitor {
     public Object visitaElencoUnitaImmobiliari(Visitable visitabileElencoUnitaImmobiliari) {
         ElencoUnitaImmobiliari v = (ElencoUnitaImmobiliari) visitabileElencoUnitaImmobiliari;
         StringBuffer buffer = new StringBuffer();
-        v.getUnita().forEach((k, v) -> {
-            buffer.append(rappresenta(v) + "\n");
+        v.getUnita().forEach(val -> {
+            buffer.append(rappresenta(val) + "\n");
         });
         return StringUtil.removeLast(buffer.toString());
     }

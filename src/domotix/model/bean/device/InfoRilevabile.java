@@ -1,5 +1,8 @@
 package domotix.model.bean.device;
 
+import domotix.controller.io.visitor.Visitable;
+import domotix.controller.io.visitor.Visitor;
+
 /**
  * Classe per la rappresentazione di una informazione rilevabile da un Sensore di una CategoriaSensore.
  *

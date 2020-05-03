@@ -1,6 +1,8 @@
 package domotix.model.bean.system;
 
 
+import domotix.controller.io.visitor.Visitable;
+import domotix.controller.io.visitor.Visitor;
 import domotix.controller.util.StringUtil;
 import domotix.model.bean.device.Dispositivo;
 import domotix.model.util.ObserverList;
@@ -9,8 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Stanza implements Visitable extends Sistema {
-    private static final String NO_ARTEFATTI = "Non e' presente alcun artefatto";
+public class Stanza extends Sistema implements Visitable {
     private Map<String, Artefatto> artefatti;
     private String unitaOwner;
 

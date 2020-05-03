@@ -14,8 +14,6 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public abstract class Sistema implements Osservabile, Azionabile {
-    private static final String NO_SENSORI = "Non e' presente alcun sensore";
-    private static final String NO_ATTUATORI = "Non e' presente alcun attuatore";
     private String nome;
     private ElencoDispositivi sensori;
     private ElencoDispositivi attuatori;

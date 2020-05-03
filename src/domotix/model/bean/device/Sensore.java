@@ -1,11 +1,13 @@
 package domotix.model.bean.device;
+import domotix.controller.io.visitor.Visitable;
+import domotix.controller.io.visitor.Visitor;
 import domotix.controller.util.StringUtil;
 import domotix.model.bean.device.Dispositivo;
 
 import java.util.HashMap;
 
 /** @author Edoardo Coppola */
-public class Sensore implements Visitable extends Dispositivo {
+public class Sensore extends Dispositivo implements Visitable {
     private CategoriaSensore categoria;
     private HashMap<String, Object> valori;
 

@@ -1,6 +1,9 @@
 package domotix.model.bean.device;
+
+import domotix.controller.io.visitor.Visitable;
+
 /** @author Edoardo Coppola */
-public abstract class Dispositivo {
+public abstract class Dispositivo implements Visitable {
     private String nome;
     private boolean stato;
     private int numeroAssociazioni;

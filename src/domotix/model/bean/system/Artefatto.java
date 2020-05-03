@@ -1,6 +1,9 @@
 package domotix.model.bean.system;
 
-public class Artefatto extends Sistema {
+import domotix.controller.io.visitor.Visitable;
+import domotix.controller.io.visitor.Visitor;
+
+public class Artefatto extends Sistema implements Visitable {
 
     private String unitaOwner;
 
@@ -23,5 +26,10 @@ public class Artefatto extends Sistema {
      */
     public String getUnitaOwner() {
         return unitaOwner;
+    }
+
+    @Override
+    public Object fattiVisitare(Visitor v) {
+        return v.visitaArtefatto(this);
     }
 }
