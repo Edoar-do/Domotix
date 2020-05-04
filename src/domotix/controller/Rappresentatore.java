@@ -161,7 +161,7 @@ public class Rappresentatore {
      * @return Array di nomi di categorie di sensori
      */
     public String[] getNomiCategorieSensori() {
-        return recuperatore.getCategorieSensori()
+        return recuperatore.getCategorieSensore()
             .stream()
             .map(cs -> cs.getNome())
             .toArray(String[]::new);
@@ -173,7 +173,7 @@ public class Rappresentatore {
      * @return Array di nomi di categorie di attuatori
      */
     public String[] getNomiCategorieAttuatori() {
-        return  recuperatore.getCategorieAttuatori()
+        return  recuperatore.getCategorieAttuatore()
             .stream()
             .map(cs -> cs.getNome())
             .toArray(String[]::new);
@@ -185,7 +185,7 @@ public class Rappresentatore {
      * @return Array di descrizioni di categorie di sensori
      */
     public String[] getDescrizioniCategorieSensori() {
-        return  recuperatore.getCategorieSensori()
+        return  recuperatore.getCategorieSensore()
             .stream()
             .map(cs -> stringatore.rappresenta(cs))
             .toArray(String[]::new);
@@ -197,7 +197,7 @@ public class Rappresentatore {
      * @return Array di descrizioni di categorie di attuatori
      */
     public String[] getDescrizioniCategorieAttuatori() {
-        return  recuperatore.getCategorieAttuatori()
+        return  recuperatore.getCategorieAttuatore()
             .stream()
             .map(ca -> stringatore.rappresenta(ca))
             .toArray(String[]::new);
@@ -424,6 +424,7 @@ public class Rappresentatore {
      * @return  stringa contenente la descrizione dell'azione se presente, stringa vuota altrimenti
      */
     public String getDescrizioneAzioneProgrammata(String id) {
+        // TODO: da rimuovere? (Non e' mai usato)
         Azione a = recuperatore.getAzioneProgrammata(id);
         if (a != null)
             return stringatore.rappresenta(a);

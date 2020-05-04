@@ -81,15 +81,15 @@ public class Recuperatore {
      */
     public List<Stanza> getStanze(String nomeUnita, boolean elencaStanzaDefault) {
         UnitaImmobiliare unita = model.getUnita(nomeUnita);
-        return unita.getStanze().stream().filter(s -> elencaStanzaDefault || !s.equals(UnitaImmobiliare.NOME_STANZA_DEFAULT)).collect(Collectors.toList());
+        return Stream.of(unita.getStanze()).filter(s -> elencaStanzaDefault || !s.equals(UnitaImmobiliare.NOME_STANZA_DEFAULT)).collect(Collectors.toList());
     }
 
     public List<Attuatore> getAttuatoriSistema(Sistema sistema) {
-        return sistema.getAttuatori(); // nonsense
+        return Arrays.asList(sistema.getAttuatori()); // nonsense
     }
 
     public List<Sensore> getSensoriSistema(Sistema sistema) {
-        return sistema.getSensori(); // nonsense
+        return Arrays.asList(sistema.getSensori()); // nonsense
     }
 
     /**
@@ -142,7 +142,7 @@ public class Recuperatore {
      */
     public List<Artefatto> getArtefatti(String nomeStanza, String nomeUnita) {
         // catena evitabile?
-        List<Artefatto> artefatti = model.getStanza(nomeStanza, nomeUnita).getArtefatti();
+        List<Artefatto> artefatti = Arrays.asList(model.getStanza(nomeStanza, nomeUnita).getArtefatti());
         return artefatti;
     }
 
@@ -151,10 +151,8 @@ public class Recuperatore {
      * all'interno del model.
      * @return Array di descrizioni di categorie di sensori
      */
-    public List<CategoriaSensore> getCategorieSensori() {
-        return model.getCategorie()
-                .stream()
-                .collect(Collectors.toList()); // nonsense
+    public List<CategoriaSensore> getCategorieSensore() {
+        return model.getCategorieSensore();
     }
 
     /**
@@ -162,10 +160,8 @@ public class Recuperatore {
      * all'interno del model.
      * @return Array di descrizioni di categorie di attuatori
      */
-    public List<CategoriaAttuatore> getCategorieAttuatori() {
-        return model.getCategorie()
-                .stream()
-                .collect(Collectors.toList()); // nonsense
+    public List<CategoriaAttuatore> getCategorieAttuatore() {
+        return model.getCategorieAttuatore();
     }
 
     /**
@@ -202,67 +198,17 @@ public class Recuperatore {
     }
 
     public List<Sensore> getSensoriAggiungibiliSistema(Sistema sistema, String nomeUnita) {
-        List<Sensore> sensori = model.getUnita(nomeUnita).getSensori();
-        return Stream.of(sensori)
+        List<Sensore> sensori = Arrays.asList(model.getUnita(nomeUnita).getSensori());
+        return sensori.stream()
                 .filter(s -> !sistema.contieneCategoriaSensore(s.getCategoria().getNome()))
                 .collect(Collectors.toList());
     }
 
     public List<Attuatore> getAttuatoriAggiungibiliSistema(Sistema sistema, String nomeUnita) {
-        List<Attuatore> attuatori = model.getUnita(nomeUnita).getAttuatori();
-        return attuatori
+        List<Attuatore> attuatori = Arrays.asList(model.getUnita(nomeUnita).getAttuatori());
+        return attuatori.stream()
                 .filter(a -> !sistema.contieneCategoriaAttuatore(a.getCategoria().getNome()))
                 .collect(Collectors.toList());
-    }
-
-    /**
-     * Metodo di recupero dei nomi dei sensori gia' esistenti che possono essere
-     * condivisi con la stanza specificata. In sostanza: il metodo recupera tutti i sensori
-     * con una categoria di sensore che non e' gia' presente all'interno della stanza.
-     * @param nomeStanza Nome della stanza
-     * @param nomeUnita Nome dell'unita' immobiliare selezionata
-     * @return Array di nomi di sensori condivisibili con la stanza
-     */
-    public List<Sensore> getSensoriAggiungibiliStanza(String nomeStanza, String nomeUnita) {
-        return this.getSensoriAggiungibiliSistema(getStanza(nomeStanza, nomeUnita), nomeUnita);
-    }
-
-    /**
-     * Metodo di recupero dei nomi dei sensori gia' esistenti che possono essere
-     * condivisi con l'artefatto specificato. In sostanza: il metodo recupera tutti i sensori
-     * con una categoria di sensore che non e' gia' presente all'interno dell'artefatto.
-     * @param nomeArtefatto Nome dell'artefatto
-     * @param nomeStanza Nome della stanza selezionata
-     * @param nomeUnita Nome dell'unita' immobiliare selezionata
-     * @return Array di nomi di sensori condivisibili con l'artefatto
-     */
-    public List<Sensore> getSensoriAggiungibiliArtefatto(String nomeArtefatto, String nomeStanza, String nomeUnita) {
-        return this.getSensoriAggiungibiliSistema(getArtefatto(nomeArtefatto, nomeStanza, nomeUnita), nomeUnita);
-    }
-
-    /**
-     * Metodo di recupero dei nomi degli attuatori gia' esistenti che possono essere
-     * condivisi con la stanza specificata. In sostanza: il metodo recupera tutti gli attuatori
-     * con una categoria di attuatore che non e' gia' presente all'interno della stanza.
-     * @param nomeStanza Nome della stanza
-     * @param nomeUnita Nome dell'unita' immobiliare selezionata
-     * @return Array di nomi di attuatori condivisibili con la stanza
-     */
-    public List<Attuatore> getAttuatoriAggiungibiliStanza(String nomeStanza, String nomeUnita) {
-        return this.getAttuatoriAggiungibiliSistema(getStanza(nomeStanza, nomeUnita), nomeUnita);
-    }
-
-    /**
-     * Metodo di recupero dei nomi degli attuatori gia' esistenti che possono essere
-     * condivisi con l'artefatto specificato. In sostanza: il metodo recupera tutti gli attuatori
-     * con una categoria di attuatore che non e' gia' presente all'interno dell'artefatto.
-     * @param nomeArtefatto Nome dell'artefatto
-     * @param nomeStanza Nome della stanza selezionata
-     * @param nomeUnita Nome dell'unita' immobiliare selezionata
-     * @return Array di nomi di attuatori condivisibili con l'artefatto
-     */
-    public List<Attuatore> getAttuatoriAggiungibiliArtefatto(String nomeArtefatto, String nomeStanza, String nomeUnita) {
-        return this.getAttuatoriAggiungibiliSistema(getArtefatto(nomeArtefatto, nomeStanza, nomeUnita), nomeUnita);
     }
 
     /**
@@ -286,7 +232,7 @@ public class Recuperatore {
         if (includiOrologio)
             sensori.add(model.getOrologio());
 
-        List<Sensore> sensoriUnita = model.getUnita(unita).getSensori();
+        List<Sensore> sensoriUnita = Arrays.asList(model.getUnita(unita).getSensori());
         sensori.addAll(sensoriUnita);
         return sensori;
     }
@@ -297,7 +243,7 @@ public class Recuperatore {
      * @return un array dei nomi degli attuatori dell'unità immobiliare
      */
     public List<Attuatore> getAttuatori(String unita){
-        return model.getUnita(unita).getAttuatori();
+        return Arrays.asList(model.getUnita(unita).getAttuatori());
     }
 
     /**
@@ -320,7 +266,7 @@ public class Recuperatore {
      * @return La mappa delle descrizioni degli antecedenti
      */
     public List<Regola> getRegoleUnita(String unita) {
-        return model.getUnita(unita).getRegole();
+        return Arrays.asList(model.getUnita(unita).getRegole());
     }
 
     public List<Parametro> getParametriModalita(String attuatore, String modalita) {
@@ -377,6 +323,6 @@ public class Recuperatore {
      * @return  array di stringhe con le descrizioni delle azioni programmate
      */
     public List<Azione> getAzioniProgrammate() {
-        return model.getAzioniProgrammate().stream().map(azione -> azione.toString()).collect(Collectors.toList());
+        return model.getAzioniProgrammate();
     }
 }
