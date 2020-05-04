@@ -353,12 +353,6 @@ public class Rappresentatore {
         return regole.stream().map(r -> stringatore.rappresenta(r)).toArray(String[]::new);
     }
 
-    // TODO: sposta in verificatore
-    public boolean isInfoNumerica(String nsensoreDestro, String info) {
-        Sensore sensore = getSensore(nsensoreDestro);
-        return (sensore.getValore(info) instanceof Number); 
-    }
-
     /**
      * Metodo che ritorna la mappa delle descrizioni degli antecedenti delle regole relative a un'unita'.
      * La mappa ha come chiavi le descrizioni delle regole unite al loro stato, come valori gli ID delle regole.
@@ -372,14 +366,6 @@ public class Rappresentatore {
             map.put(stringatore.rappresenta(r), r.getId());
         }
         return map;
-    }
-
-    // TODO: sposta in verificatore
-    public boolean isModalitaParametrica(String attuatore, String modalita) {
-        return getAttuatore(attuatore)
-            .getCategoria()
-            .getModalita(modalita)
-            .isParametrica(); //
     }
 
     public String[] getNomiParametriModalita(String attuatore, String modalita) {
