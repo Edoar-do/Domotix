@@ -6,9 +6,10 @@ import domotix.model.bean.regole.Azione;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
+import java.util.Arrays;
 import java.util.List;
 
-public AccessoModel implements Model {
+public class AccessoModel implements Model {
     private ElencoCategorieAttuatori elencoCategorieAttuatori; 
     private ElencoAzioniProgrammate elencoAzioniProgrammate; 
     private ElencoAttuatori elencoAttuatori; 
@@ -18,6 +19,7 @@ public AccessoModel implements Model {
     private SensoreOrologio sensoreOrologio;
 
     public AccessoModel() {
+        // TODO: rendi costruttori pubblici (i.e. desigletonizza)
         this.elencoCategorieSensori = new ElencoCategorieSensori();
         this.elencoSensori = new ElencoSensori();
         this.elencoUnitaImmobiliari = new ElencoUnitaImmobiliari();
@@ -29,22 +31,26 @@ public AccessoModel implements Model {
 
     @Override
     public List<UnitaImmobiliare> getListaUnita() {
-        return Arrays.asList(this.elencoUnitaImmobiliari.getUnita()); 
+        return this.elencoUnitaImmobiliari.getUnita();
     }
 
     @Override
     public Stanza getStanza(String stanza, String unita) {
-       return this.getUnita(unita).getStanza(stanza);
+       for (Stanza stz : this.getUnita(unita).getStanze()) {
+           if (stz.getNome().equals(stanza))
+               return stz;
+       }
+       return null;
     }
 
     @Override
     public List<CategoriaSensore> getCategorieSensore() {
-        return Arrays.asList(this.elencoCategorieSensori.elencoCategorieSensori.getCategorie());
+        return this.elencoCategorieSensori.getCategorie();
     }
 
     @Override
     public List<CategoriaAttuatore> getCategorieAttuatore() {
-        return Arrays.asList(this.elencoCategorieAttuatori.getCategorie());
+        return this.elencoCategorieAttuatori.getCategorie();
     }
 
     @Override
@@ -64,31 +70,31 @@ public AccessoModel implements Model {
 
     @Override
     public Sensore getSensore(String sensore) {
-        return this.elencoSensori.getSensore(sensore);
+        return this.elencoSensori.getDispositivo(sensore);
     }
 
     @Override
     public Attuatore getAttuatore(String attuatore) {
-        return this.elencoAttuatori.getAttuatore(attuatore);
+        return this.elencoAttuatori.getDispositivo(attuatore);
     }
 
     @Override
     public Azione getAzioneProgrammata(String id) {
-        return Arrays.asList(this.elencoAzioniProgrammate.getAzioneProgrammata(id));
+        return this.elencoAzioniProgrammate.getAzione(id);
     }
 
     @Override
     public List<Azione> getAzioniProgrammate() {
-        return Arrays.asList(this.elencoAzioniProgrammate.getAzioniProgrammate());
+        return Arrays.asList(this.elencoAzioniProgrammate.getAzioni();
     }
 
     @Override
     public CategoriaAttuatore getCategoriaAttuatore(String nomeCategoriaAttuatore) {
-        return this.elencoCategorieAttuatore.getCategoria(nomeCategoriaAttuatore);
+        return this.elencoCategorieAttuatori.getCategoria(nomeCategoriaAttuatore);
     }
 
     @Override
     public CategoriaSensore getCategoriaSensore(String nomeCategoriaSensore) {
-        return this.elencoCategorieSensore.getCategoria(nomeCategoriaSensore);
+        return this.elencoCategorieSensori.getCategoria(nomeCategoriaSensore);
     }
 }
