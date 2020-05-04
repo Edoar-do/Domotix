@@ -1,7 +1,7 @@
 package domotix.controller;
 
-import domotix.controller.io.visitor.AbstractVisitor;
-import domotix.controller.io.visitor.Visitable;
+import domotix.model.visitor.AbstractVisitor;
+import domotix.model.visitor.Visitable;
 import domotix.controller.util.StringUtil;
 import domotix.model.ElencoUnitaImmobiliari;
 import domotix.model.bean.UnitaImmobiliare;

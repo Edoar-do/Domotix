@@ -1,6 +1,4 @@
-package domotix.controller.io.visitor;
-
-import domotix.model.bean.device.InfoRilevabile;
+package domotix.model.visitor;
 
 /**
  * @author  Edoardo Coppola, andrea

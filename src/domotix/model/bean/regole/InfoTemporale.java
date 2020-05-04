@@ -1,14 +1,10 @@
 package domotix.model.bean.regole;
 
-import domotix.controller.io.visitor.Visitable;
-import domotix.controller.io.visitor.Visitor;
-import domotix.controller.util.StringUtil;
-import domotix.model.bean.device.Sensore;
+import domotix.model.visitor.Visitable;
+import domotix.model.visitor.Visitor;
 import domotix.model.bean.device.SensoreOrologio;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
 
 /**
  * Classe che rappresenta un InfoSensoriale rappresentante un valore temporale

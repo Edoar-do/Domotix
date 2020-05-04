@@ -1,8 +1,7 @@
 package domotix.model.bean;
 
-import domotix.controller.io.visitor.Visitable;
-import domotix.controller.io.visitor.Visitor;
-import domotix.controller.util.StringUtil;
+import domotix.model.visitor.Visitable;
+import domotix.model.visitor.Visitor;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.regole.Regola;

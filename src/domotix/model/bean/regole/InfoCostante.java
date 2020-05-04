@@ -1,7 +1,7 @@
 package domotix.model.bean.regole;
 
-import domotix.controller.io.visitor.Visitable;
-import domotix.controller.io.visitor.Visitor;
+import domotix.model.visitor.Visitable;
+import domotix.model.visitor.Visitor;
 
 /**
  * Classe che rappresenta un InfoSensoriale costante

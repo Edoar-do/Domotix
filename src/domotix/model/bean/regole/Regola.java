@@ -1,13 +1,10 @@
 package domotix.model.bean.regole;
 
-import domotix.controller.Recuperatore;
-import domotix.controller.io.visitor.Visitable;
-import domotix.controller.io.visitor.Visitor;
+import domotix.model.visitor.Visitable;
+import domotix.model.visitor.Visitor;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.device.Attuatore;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import static domotix.model.bean.regole.StatoRegola.ATTIVA;

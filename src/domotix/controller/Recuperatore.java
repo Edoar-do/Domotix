@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**Classe per implementare una parte di logica controller relativa al recupero di informazioni sulle entita'.
+ * Tale classe funge anche da unico punto di accesso per view e controller al model, passando per l'interfaccia Model.
+ * Recuperatore è quindi un accesso centralizzato da cui passano tutte le richieste di oggetti di dominio.
  * @author andrea*/
 public class Recuperatore {
     // TODO: rivedi javadoc (rimuoverlo tutto e rifarlo da 0?)
@@ -325,4 +327,32 @@ public class Recuperatore {
     public List<Azione> getAzioniProgrammate() {
         return model.getAzioniProgrammate();
     }
+
+    /**
+     * Ritorna la categoria di sensori specificata dal nome univoco
+     * @param catSensore nome su cui avviene la ricerca
+     * @return la categoria di sensori richiesta
+     */
+    public CategoriaSensore getCategoriaSensore(String catSensore) {   return this.model.getCategoriaSensore(catSensore);   }
+
+    /**
+     * Ritorna la categoria di attuatori specificata dal nome univoco
+     * @param cat nome su cui avviene la ricerca
+     * @return la  categoria di attuatori richiesta
+     */
+    public CategoriaAttuatore getCategoriaAttuatore(String cat) {   return this.model.getCategoriaAttuatore(cat);   }
+
+    /**
+     * Ritorna l'attuatore richiesto sulla base del suo nome
+     * @param nomeAttuatore su cui effettuare la ricerca
+     * @return l'attuatore richiesto
+     */
+    public Attuatore getAttuatore(String nomeAttuatore) {  return this.model.getAttuatore(nomeAttuatore);  }
+
+    /**
+     * Ritorna il sensore richiesto sulla base del nome fornito
+     * @param nsensoreDestro nome su cui effettuare la ricerca
+     * @return sensore richiesto
+     */
+    public Sensore getSensore(String nsensoreDestro) { return this.model.getSensore(nsensoreDestro); }
 }

@@ -1,4 +1,4 @@
-package domotix.controller.io.visitor;
+package domotix.model.visitor;
 
 /**
  * @author Edoardo Coppola

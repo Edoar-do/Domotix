@@ -1,8 +1,7 @@
 package domotix.model.bean.device;
 
-import domotix.controller.io.visitor.Visitable;
-import domotix.controller.io.visitor.Visitor;
-import domotix.controller.util.StringUtil;
+import domotix.model.visitor.Visitable;
+import domotix.model.visitor.Visitor;
 
 import java.util.ArrayList;
 

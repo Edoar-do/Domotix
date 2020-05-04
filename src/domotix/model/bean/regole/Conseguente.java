@@ -1,13 +1,12 @@
 package domotix.model.bean.regole;
 
-import domotix.controller.io.visitor.Visitable;
-import domotix.controller.io.visitor.Visitor;
+import domotix.model.visitor.Visitable;
+import domotix.model.visitor.Visitor;
 import domotix.model.ElencoAzioniProgrammate;
 import domotix.model.bean.device.Attuatore;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Classe che rappresenta il conseguente di una regola.

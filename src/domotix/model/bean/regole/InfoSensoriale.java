@@ -1,6 +1,6 @@
 package domotix.model.bean.regole;
 
-import domotix.controller.io.visitor.Visitable;
+import domotix.model.visitor.Visitable;
 
 /**
  * Interfaccia per identificare un elemento che puo' apparire in una condizione

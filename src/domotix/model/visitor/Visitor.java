@@ -1,15 +1,4 @@
-package domotix.controller.io.visitor;
-
-import domotix.controller.io.visitor.Visitable;
-import domotix.model.ElencoUnitaImmobiliari;
-import domotix.model.bean.UnitaImmobiliare;
-import domotix.model.bean.device.InfoRilevabile;
-import domotix.model.bean.device.Modalita;
-import domotix.model.bean.device.Parametro;
-import domotix.model.bean.device.SensoreOrologio;
-import domotix.model.bean.regole.*;
-import domotix.model.util.ElencoDispositivi;
-import domotix.model.util.SommarioDispositivi;
+package domotix.model.visitor;
 
 /**
  * @author Edoardo Coppola
