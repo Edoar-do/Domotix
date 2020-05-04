@@ -46,12 +46,12 @@ public class Verificatore {
      * @return  true: coincide con i dati del SensoreOrologio; false: altrimenti;
      * @see SensoreOrologio
      */
-    public  boolean checkIsSensoreOrologio(String valore) {
+    public boolean checkIsSensoreOrologio(String valore) {
         return valore.equals(SensoreOrologio.NOME_SENSORE_OROLOGIO) ||
             valore.equals(SensoreOrologio.NOME_SENSORE_OROLOGIO + "." + SensoreOrologio.NOME_INFO_RILEVABILE_OROLOGIO);
     }
 
-    public  boolean checkValiditaOperatoreLogico(String oplog) {
+    public boolean checkValiditaOperatoreLogico(String oplog) {
         return Antecedente.OPERATORE_AND.equals(oplog) || Antecedente.OPERATORE_OR.equals(oplog);
     }
 
@@ -62,7 +62,7 @@ public class Verificatore {
      * @param nome Nome dell'InfoRilevabile
      * @return true se le informazioni sono valide
      */
-    public  boolean checkValiditaInfoRilevabile(String catSensore, String nome) {
+    public boolean checkValiditaInfoRilevabile(String catSensore, String nome) {
         // Il nome deve essere univoco a livello di categoria sensore
         if (!isNomeValido(nome)) return false;
         CategoriaSensore categoriaSensore = recuperatore.getCategoriaSensore(catSensore);
@@ -78,7 +78,7 @@ public class Verificatore {
      * @param nome Nome del Parametro
      * @return true se le informazioni sono valide
      */
-    public  boolean checkValiditaParametro(String cat, String mod, String nome) {
+    public boolean checkValiditaParametro(String cat, String mod, String nome) {
         if (!isNomeValido(nome)) return false;
         CategoriaAttuatore categoria = recuperatore.getCategoriaAttuatore(cat);
         if (categoria == null) return false;
@@ -95,7 +95,7 @@ public class Verificatore {
      * @param nome Nome dell'UnitaImmobiliare
      * @return true se le informazioni sono valide
      */
-    public  boolean checkValiditaUnitaImmobiliare(String nome) {
+    public boolean checkValiditaUnitaImmobiliare(String nome) {
         return isNomeValido(nome) && checkUnivocitaUnitaImmobiliare(nome);
     }
 
@@ -105,11 +105,11 @@ public class Verificatore {
      * @param nome Nome della modalita' operativa
      * @return true se le informazioni sono valide
      */
-    public  boolean checkValiditaModalitaOperativa(String nome) {
+    public boolean checkValiditaModalitaOperativa(String nome) {
         return isNomeValido(nome);
     }
 
-    public  boolean checkValiditaModalitaOperativaPerAttuatore(String nomeAttuatore, String nomeModalita) {
+    public boolean checkValiditaModalitaOperativaPerAttuatore(String nomeAttuatore, String nomeModalita) {
         Attuatore attuatore = recuperatore.getAttuatore(nomeAttuatore);
         if (attuatore == null) return false;
         CategoriaAttuatore categoriaAttuatore = attuatore.getCategoria();
@@ -123,7 +123,7 @@ public class Verificatore {
      * @param nome Nome della categoria di sensore
      * @return true se le informazioni sono valide
      */
-    public  boolean checkValiditaCategoriaSensore(String nome) {
+    public boolean checkValiditaCategoriaSensore(String nome) {
         return isNomeValido(nome) &&
             !ElencoCategorieSensori.getInstance().contains(nome);
     }
@@ -134,7 +134,7 @@ public class Verificatore {
      * @param nome Nome della categoria di attuatore
      * @return true se le informazioni sono valide
      */
-    public  boolean checkValiditaCategoriaAttuatore(String nome) {
+    public boolean checkValiditaCategoriaAttuatore(String nome) {
         return isNomeValido(nome) &&
             !ElencoCategorieAttuatori.getInstance().contains(nome);
     }
@@ -146,7 +146,7 @@ public class Verificatore {
      * @param nomeUnita Nome dell'unita' immobiliare selezionata
      * @return true se le informazioni sono valide
      */
-    public  boolean checkValiditaStanza(String nomeStanza, String nomeUnita) {
+    public boolean checkValiditaStanza(String nomeStanza, String nomeUnita) {
         return isNomeValido(nomeStanza) &&
             !nomeStanza.equals(UnitaImmobiliare.NOME_STANZA_DEFAULT) &&
             recuperatore.getUnita(nomeUnita) != null &&
@@ -160,7 +160,7 @@ public class Verificatore {
      * @param nomeUnita Nome dell'unita' immobiliare selezionata
      * @return true se le informazioni sono valide
      */
-    public  boolean checkValiditaArtefatto(String nomeArtefatto, String nomeUnita) {
+    public boolean checkValiditaArtefatto(String nomeArtefatto, String nomeUnita) {
         if (!isNomeValido(nomeArtefatto)) return false;
         if (recuperatore.getUnita(nomeUnita) == null) return false;
         for (Stanza s : recuperatore.getUnita(nomeUnita).getStanze()) {
@@ -176,7 +176,7 @@ public class Verificatore {
      * @param nomeSensore Nome del sensore
      * @return true se il sensore e' univoco
      */
-    public  boolean checkUnivocitaSensore(String nomeSensore) {
+    public boolean checkUnivocitaSensore(String nomeSensore) {
         for (Sensore s : ElencoSensori.getInstance().getDispositivi()) {
             if (s.getNome().equals(nomeSensore)) return false;
         }
@@ -188,7 +188,7 @@ public class Verificatore {
      * @param nomeAttuatore Nome dell'attuatore
      * @return true se l'attuatore e' univoco
      */
-    public  boolean checkUnivocitaAttuatore(String nomeAttuatore) {
+    public boolean checkUnivocitaAttuatore(String nomeAttuatore) {
         for (Attuatore a : ElencoAttuatori.getInstance().getDispositivi()) {
             if (a.getNome().equals(nomeAttuatore)) return false;
         }
@@ -204,7 +204,7 @@ public class Verificatore {
      * @param nomeUnita Nome dell'unita' immobiliare a cui appartiene il sensore
      * @return true se le informazioni sono valide
      */
-    public  boolean checkValiditaSensore(String nomeComposto, String nomeCategoria, String nomeStanza, String nomeUnita) {
+    public boolean checkValiditaSensore(String nomeComposto, String nomeCategoria, String nomeStanza, String nomeUnita) {
         return isNomeDispositivoValido(nomeComposto) &&
             checkUnivocitaSensore(nomeComposto) &&
             recuperatore.getUnita(nomeUnita) != null &&
@@ -221,7 +221,7 @@ public class Verificatore {
      * @param nomeUnita Nome dell'unita' immobiliare a cui appartiene l'attuatore
      * @return true se le informazioni sono valide
      */
-    public  boolean checkValiditaAttuatore(String nomeComposto, String nomeCategoria, String nomeStanza, String nomeUnita) {
+    public boolean checkValiditaAttuatore(String nomeComposto, String nomeCategoria, String nomeStanza, String nomeUnita) {
         return isNomeDispositivoValido(nomeComposto) &&
             checkUnivocitaAttuatore(nomeComposto) &&
             recuperatore.getUnita(nomeUnita) != null &&
@@ -239,7 +239,7 @@ public class Verificatore {
      * @param nomeUnita Nome dell'unita' immobiliare a cui appartiene il sensore
      * @return true se le informazioni sono valide
      */
-    public  boolean checkValiditaSensore(String nomeComposto, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
+    public boolean checkValiditaSensore(String nomeComposto, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
         return isNomeDispositivoValido(nomeComposto) &&
             checkUnivocitaSensore(nomeComposto) &&
             recuperatore.getUnita(nomeUnita) != null &&
@@ -258,7 +258,7 @@ public class Verificatore {
      * @param nomeUnita Nome dell'unita' immobiliare a cui appartiene l'attuatore
      * @return true se le informazioni sono valide
      */
-    public  boolean checkValiditaAttuatore(String nomeComposto, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
+    public boolean checkValiditaAttuatore(String nomeComposto, String nomeCategoria, String nomeArtefatto, String nomeStanza, String nomeUnita) {
         return isNomeDispositivoValido(nomeComposto) &&
             checkUnivocitaAttuatore(nomeComposto) &&
             recuperatore.getUnita(nomeUnita) != null &&
@@ -273,7 +273,7 @@ public class Verificatore {
      * @param orario da verificare
      * @return true se l'orario è valido. False altrimenti
      */
-    public  boolean checkValiditaOrario(double orario){
+    public boolean checkValiditaOrario(double orario){
         String orarioStringa = String.valueOf(orario);
         int ora = Integer.parseInt(orarioStringa.split(Pattern.quote("."))[0]);
         int minuti = Integer.parseInt(orarioStringa.split(Pattern.quote("."))[1]);
