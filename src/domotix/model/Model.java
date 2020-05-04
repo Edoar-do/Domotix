@@ -20,6 +20,6 @@ public interface Model {
     Attuatore getAttuatore(String attuatore);
     Azione getAzioneProgrammata(String id);
     List<Azione> getAzioniProgrammate();
-    CategoriaAttuatore getCategoriaAttuatore(String nomeCategoriaSensore);
-    CategoriaSensore getCategoriaSensore(String nomeCategoriaAttuatore);
+    CategoriaAttuatore getCategoriaAttuatore(String nomeCategoriaAttuatore);
+    CategoriaSensore getCategoriaSensore(String nomeCategoriaSensore);
 }
