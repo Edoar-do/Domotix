@@ -20,14 +20,6 @@ import java.nio.file.NotDirectoryException;
  */
 public class RinfrescaDatiLocali extends RinfrescaDatiAdapter {
 
-    private static RinfrescaDatiLocali _instance = null;
-
-    public static RinfrescaDatiLocali getInstance() throws NotDirectoryException, ParserConfigurationException, TransformerConfigurationException {
-        if (_instance == null)
-            _instance = new RinfrescaDatiLocali();
-        return _instance;
-    }
-
     private RinfrescaDatiLocali() throws NotDirectoryException, ParserConfigurationException, TransformerConfigurationException {
         //test esistenza struttura dati
         PercorsiFile.getInstance().controllaStruttura();

@@ -1,14 +1,11 @@
 package domotix.model;
 
-import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.device.SensoreOrologio;
 import domotix.model.util.SommarioDispositivi;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 /**
  * Classe di accesso al Model per i Sensori salvati. Implementa l'interfaccia SommarioDispositivi in quanto l'elenco

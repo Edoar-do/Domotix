@@ -42,15 +42,6 @@ import java.util.List;
 public interface LetturaDatiSalvati {
 
     /**
-     * Unica istanza del meccanismo di salvataggio e caricamento implementato.
-     * Riferirsi a questo metodo all'interno del programma in modo da non dover sostituire alcuna chiamata in caso di cambiamenti interni.
-     *
-     * @return  unica istanza accessibile
-     * @throws Exception    Eccezione lanciata per diverse circostanze relative al meccanismo implementato.
-     */
-    static LetturaDatiSalvati getInstance() throws Exception { return LetturaDatiLocali.getInstance(); }
-
-    /**
      * Ritorna il nome di tutte le CategoriaSensore presenti nei dati memorizzati.
      *
      * @return  Lista di tutti i nomi delle istanze nei dati memorizzati.

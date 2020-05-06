@@ -21,28 +21,17 @@ import java.util.List;
  */
 public class PercorsiFile {
 
-    /** Costante per indicare la sorgente Dati verso cui generare il percorso. Valore di default */
-    public static final int SORGENTE_DATI = 0;
-    /** Costante per indicare la sorgente Libreria verso cui generare il percorso */
-    public static final int SORGENTE_LIBRERIA = 1;
-    /** Costante per indicare la sorgente Importati in Libreria verso cui generare il percorso */
-    public static final int SORGENTE_LIBRERIA_IMPORTATA = 2;
-    //per controllo validita' sorgente da impostare in setSorgente()
-    private static final int PRIMA_SORGENTE = SORGENTE_DATI;
-    private static final int ULTIMA_SORGENTE = SORGENTE_LIBRERIA_IMPORTATA; //riportare sempre l'ultimo valore accettabile di sorgente
-
-    private static PercorsiFile instance = null;
-
-    public static PercorsiFile getInstance() {
-        if (instance == null)
-            instance = new PercorsiFile();
-        return instance;
+    public enum SORGENTE {
+        DATI,
+        LIBRERIA,
+        LIBRERIA_IMPORTATA
     }
 
     //sorgente verso cui generare i percorsi
-    private int sorgente = SORGENTE_DATI;
+    private SORGENTE sorgente;
 
-    private PercorsiFile() {
+    private PercorsiFile(SORGENTE sorgente) {
+        this.sorgente = sorgente;
     }
 
     /**
@@ -103,10 +92,13 @@ public class PercorsiFile {
         }
     }
 
-    private void controllaStruttura(int sorgente) throws NotDirectoryException {
-        setSorgente(sorgente);
-        controllaCartella(getPercorsoSorgente());
-
+    /**
+     * Controlla la struttura dei file utili al funzionamento del programma.
+     * Se struttura non esistente, la crea.
+     * Se qualcosa esistente non dovesse essere corretto, viene segnalato tramite eccezione
+     * @throws NotDirectoryException    qualche percorso interno esiste non come cartella
+     */
+    public void controllaStruttura() throws NotDirectoryException {
         /* CONTROLLO CATEGORIE SENSORI */
         controllaCartella(getCartellaCategorieSensore());
         //controllo l'esistenza di una cartella per categoria (in modo cioe' che non vi sia una categoria come file senza la propria cartella)
@@ -143,28 +135,15 @@ public class PercorsiFile {
         /* CONTROLLO ATTUATORI */
         controllaCartella(getCartellaAttuatori()); //attuatori gestiti come singoli file contenuti nella cartella
         /* CONTROLLO AZIONI PROGRAMMATE */
-        if (sorgente == SORGENTE_DATI) //in libreria non viene gestita l'entita' azione programmabile
+        if (sorgente == SORGENTE.DATI) //in libreria non viene gestita l'entita' azione programmabile
             controllaCartella(getCartellaAzioniProgrammabili()); //azioni programamte gestite come singoli file contenuti nella cartella
-    }
-
-    /**
-     * Controlla la struttura dei file utili al funzionamento del programma.
-     * Se struttura non esistente, la crea.
-     * Se qualcosa esistente non dovesse essere corretto, viene segnalato tramite eccezione
-     * @throws NotDirectoryException    qualche percorso interno esiste non come cartella
-     */
-    public void controllaStruttura() throws NotDirectoryException {
-        controllaStruttura(SORGENTE_DATI);
-        controllaStruttura(SORGENTE_LIBRERIA);
-        controllaStruttura(SORGENTE_LIBRERIA_IMPORTATA);
-        setSorgente(SORGENTE_DATI);
     }
 
     /**
      * Ritorna l'attuale sorgente impostata
      * @return  intero che identifica attraverso le costanti la sorgente
      */
-    public int getSorgente() {
+    public SORGENTE getSorgente() {
         return sorgente;
     }
 
@@ -173,9 +152,8 @@ public class PercorsiFile {
      * identificato da un'apposita costante.
      * @param sorgente intero che identifica la sorgente attraverso le apposite costanti
      */
-    public void setSorgente(int sorgente) {
-        if (sorgente >= PRIMA_SORGENTE && sorgente <= ULTIMA_SORGENTE)
-            this.sorgente = sorgente;
+    public void setSorgente(SORGENTE sorgente) {
+        this.sorgente = sorgente;
     }
 
     /**
@@ -184,11 +162,11 @@ public class PercorsiFile {
      */
     public String getPercorsoSorgente() {
         switch(this.sorgente) {
-            case SORGENTE_DATI:
+            case DATI:
                 return Costanti.PERCORSO_CARTELLA_DATI;
-            case SORGENTE_LIBRERIA:
+            case LIBRERIA:
                 return Costanti.PERCORSO_CARTELLA_LIBRERIA;
-            case SORGENTE_LIBRERIA_IMPORTATA:
+            case LIBRERIA_IMPORTATA:
                 return Costanti.PERCORSO_CARTELLA_LIBRERIA_IMPORTATA;
         }
         return "";

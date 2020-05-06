@@ -43,14 +43,6 @@ import java.util.Map;
  * @author paolopasqua
  */
 public interface RimozioneDatiSalvati {
-    /**
-     * Unica istanza del meccanismo di salvataggio e caricamento implementato.
-     * Riferirsi a questo metodo all'interno del programma in modo da non dover sostituire alcuna chiamata in caso di cambiamenti interni.
-     *
-     * @return  unica istanza accessibile
-     * @throws Exception    Eccezione lanciata per diverse circostanze relative al meccanismo implementato.
-     */
-    static RimozioneDatiSalvati getInstance() throws Exception { return RimozioneDatiLocali.getInstance(); }
 
     /**
      * Cancellazione nei dati memorizzati di una singola istanza di CategoriaSensore.

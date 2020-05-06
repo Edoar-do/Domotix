@@ -35,14 +35,6 @@ import java.util.HashMap;
  */
 public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
 
-    private static ScritturaDatiLocali _instance = null;
-
-    public static ScritturaDatiLocali getInstance() throws NotDirectoryException, ParserConfigurationException, TransformerConfigurationException {
-        if (_instance == null)
-            _instance = new ScritturaDatiLocali();
-        return _instance;
-    }
-
     private DocumentBuilderFactory documentFactory = null;
     private DocumentBuilder documentBuilder = null;
     private TransformerFactory transformerFactory = null;

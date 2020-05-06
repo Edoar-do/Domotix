@@ -5,7 +5,6 @@ import domotix.model.visitor.Visitor;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 

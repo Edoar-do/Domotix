@@ -37,14 +37,6 @@ import java.util.List;
  */
 public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
 
-    private static LetturaDatiLocali _instance = null;
-
-    public static LetturaDatiLocali getInstance() throws NotDirectoryException, ParserConfigurationException, TransformerConfigurationException {
-        if (_instance == null)
-            _instance = new LetturaDatiLocali();
-        return _instance;
-    }
-
     private DocumentBuilderFactory documentFactory = null;
     private DocumentBuilder documentBuilder = null;
     private HashMap<String, LettoriXML> lettori = null;

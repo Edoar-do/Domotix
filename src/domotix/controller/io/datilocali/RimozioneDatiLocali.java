@@ -26,14 +26,6 @@ import java.util.Map;
  */
 public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
 
-    private static RimozioneDatiLocali _instance = null;
-
-    public static RimozioneDatiLocali getInstance() throws NotDirectoryException, ParserConfigurationException, TransformerConfigurationException {
-        if (_instance == null)
-            _instance = new RimozioneDatiLocali();
-        return _instance;
-    }
-
     private RimozioneDatiLocali() throws NotDirectoryException, ParserConfigurationException, TransformerConfigurationException {
         //test esistenza struttura dati
         PercorsiFile.getInstance().controllaStruttura();

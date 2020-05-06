@@ -18,15 +18,6 @@ import domotix.controller.io.datilocali.RinfrescaDatiLocali;
 public interface RinfrescaDati {
 
     /**
-     * Unica istanza del meccanismo di salvataggio e caricamento implementato.
-     * Riferirsi a questo metodo all'interno del programma in modo da non dover sostituire alcuna chiamata in caso di cambiamenti interni.
-     *
-     * @return  unica istanza accessibile
-     * @throws Exception    Eccezione lanciata per diverse circostanze relative al meccanismo implementato.
-     */
-    static RinfrescaDati getInstance() throws Exception { return RinfrescaDatiLocali.getInstance(); }
-
-    /**
      * Rinfresca gli attributi per ciascun Sensore contenuto in ElencoSensori passato.
      *
      * @param elenco    elenco di da elaborare (gestito come singleton, percio' unica istanza)

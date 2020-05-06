@@ -37,15 +37,6 @@ import java.util.List;
 public interface ImportaDati {
 
     /**
-     * Unica istanza del meccanismo di importazione implementato.
-     * Riferirsi a questo metodo all'interno del programma in modo da non dover sostituire alcuna chiamata in caso di cambiamenti interni.
-     *
-     * @return  unica istanza accessibile
-     * @throws Exception    Eccezione lanciata per diverse circostanze relative al meccanismo implementato.
-     */
-    static ImportaDati getInstance() throws Exception { return ImportaDatiLocali.getInstance(); }
-
-    /**
      * Ritorna il nome di tutte le CategoriaSensore presenti nella libreria.
      *
      * @return  Lista di tutti i nomi delle istanze nella libreria.

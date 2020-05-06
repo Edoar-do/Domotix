@@ -32,15 +32,6 @@ import domotix.controller.io.datilocali.ScritturaDatiLocali;
 public interface ScritturaDatiSalvati {
 
     /**
-     * Unica istanza del meccanismo di salvataggio e caricamento implementato.
-     * Riferirsi a questo metodo all'interno del programma in modo da non dover sostituire alcuna chiamata in caso di cambiamenti interni.
-     *
-     * @return  unica istanza accessibile
-     * @throws Exception    Eccezione lanciata per diverse circostanze relative al meccanismo implementato.
-     */
-    static ScritturaDatiSalvati getInstance() throws Exception { return ScritturaDatiLocali.getInstance(); }
-
-    /**
      * Scrittura/Sovrascrittura nei dati memorizzati di una singola istanza di CategoriaSensore.
      *
      * @param cat  istanza da salvare

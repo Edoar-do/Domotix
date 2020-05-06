@@ -1,7 +1,6 @@
 package domotix.controller.util;
 
 import domotix.controller.TimerAzioniProgrammate;
-import domotix.model.ElencoAzioniProgrammate;
 import domotix.model.bean.regole.Azione;
 
 import java.util.TimerTask;
