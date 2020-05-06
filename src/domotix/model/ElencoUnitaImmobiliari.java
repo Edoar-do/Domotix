@@ -7,29 +7,18 @@ import domotix.model.bean.UnitaImmobiliare;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe di accesso al Model per le UnitaImmobiliari salvate.
- * Implementa il modello Singleton per avere un'unica istanza di questa classe.
  *
  * @see UnitaImmobiliare
  */
 public class ElencoUnitaImmobiliari implements Visitable {
 
-    private static ElencoUnitaImmobiliari instance = null;
-    private HashMap<String, UnitaImmobiliare> unita;
+    private Map<String, UnitaImmobiliare> unita;
 
-    /**
-     * Recupera l'unica istanza dell'elenco.
-     * @return  Unica istanza dell'elenco.
-     */
-    public static ElencoUnitaImmobiliari getInstance() {
-        if (instance == null)
-            instance = new ElencoUnitaImmobiliari();
-        return instance;
-    }
-
-    private ElencoUnitaImmobiliari() {
+    public ElencoUnitaImmobiliari() {
         unita = new HashMap<>();
     }
 

@@ -1,8 +1,10 @@
 package domotix.model.bean.device;
+
 import domotix.model.visitor.Visitable;
 import domotix.model.visitor.Visitor;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /** @author Edoardo Coppola */
 public class Sensore extends Dispositivo implements Visitable {
@@ -66,7 +68,7 @@ public class Sensore extends Dispositivo implements Visitable {
      *
      * @return  HashMap popolata con chiavi stringhe per i nomi dell'informazione rilevabile e valori i rispettivi valori.
      */
-    public HashMap<String, Object> getValori() {
+    public Map<String, Object> getValori() {
         return new HashMap<String, Object>(valori);
     }
 

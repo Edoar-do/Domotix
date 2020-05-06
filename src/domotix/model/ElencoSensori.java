@@ -13,7 +13,6 @@ import java.util.HashMap;
 /**
  * Classe di accesso al Model per i Sensori salvati. Implementa l'interfaccia SommarioDispositivi in quanto l'elenco
  * e' popolato in automatico con le modifiche dei sensori collegati a stanze/artefatti.
- * Implementa il modello Singleton per avere un'unica istanza di questa classe.
  *
  * @see Sensore
  * @see SommarioDispositivi
@@ -22,19 +21,7 @@ import java.util.HashMap;
  */
 public class ElencoSensori extends SommarioDispositivi {
 
-    private static ElencoSensori instance = null;
-
-    /**
-     * Recupera l'unica istanza dell'elenco.
-     * @return  Unica istanza dell'elenco.
-     */
-    public static ElencoSensori getInstance() {
-        if (instance == null)
-            instance = new ElencoSensori();
-        return instance;
-    }
-
-    private ElencoSensori() {
+    public ElencoSensori() {
         super();
         elaboraAggiunta(SensoreOrologio.getInstance());
     }

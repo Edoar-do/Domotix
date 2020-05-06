@@ -6,6 +6,7 @@ import domotix.model.visitor.Visitor;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -26,18 +27,6 @@ public class SensoreOrologio extends Sensore implements Visitable {
     public static final String NOME_INFO_RILEVABILE_OROLOGIO = "tempo";
     private static final InfoRilevabile INFO_RILEVABILE_OROLOGIO = new InfoRilevabile(NOME_INFO_RILEVABILE_OROLOGIO, true);
     private static final CategoriaSensore CATEGORIA_SENSORE_OROLOGIO = new CategoriaSensore(NOME_CATEGORIA_OROLOGIO, "", INFO_RILEVABILE_OROLOGIO);
-
-    private static SensoreOrologio instance = null;
-
-    /**
-     * Recupera l'unica istanza del sensore orologio.
-     * @return  Unica istanza dell'elenco.
-     */
-    public static SensoreOrologio getInstance() {
-        if (instance == null)
-            instance = new SensoreOrologio();
-        return instance;
-    }
 
     /**
      * Converte il tempo passato in un intero che rappresenta i minuti dalla mezzanotte
@@ -103,7 +92,7 @@ public class SensoreOrologio extends Sensore implements Visitable {
     /**
      * Costruttore della classe
      */
-    private SensoreOrologio() {
+    public SensoreOrologio() {
         super(NOME_SENSORE_OROLOGIO, CATEGORIA_SENSORE_OROLOGIO);
     }
 
@@ -197,7 +186,7 @@ public class SensoreOrologio extends Sensore implements Visitable {
      * @return  mappa contenente la coppia (NOME_INFO_RILEVABILE_OROLOGIO , intero per i minuti dalla mezzanotte)
      */
     @Override
-    public HashMap<String, Object> getValori() {
+    public Map<String, Object> getValori() {
         super.setValore(NOME_INFO_RILEVABILE_OROLOGIO, getValore()); //set current time
         return super.getValori();
     }

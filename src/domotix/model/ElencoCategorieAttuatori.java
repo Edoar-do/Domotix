@@ -8,26 +8,14 @@ import java.util.List;
 import java.util.Map;
 /**
  * Classe di accesso al Model per le CategoriaAttuatore salvate.
- * Implementa il modello Singleton per avere un'unica istanza di questa classe.
  *
  * @see CategoriaAttuatore
  */
 public class ElencoCategorieAttuatori {
 
-    private static ElencoCategorieAttuatori instance;
-    private HashMap<String, CategoriaAttuatore> categorie;
+    private Map<String, CategoriaAttuatore> categorie;
 
-    /**
-     * Recupera l'unica istanza dell'elenco.
-     * @return  Unica istanza dell'elenco.
-     */
-    public static ElencoCategorieAttuatori getInstance() {
-        if (instance == null)
-            instance = new ElencoCategorieAttuatori();
-        return instance;
-    }
-
-    private ElencoCategorieAttuatori() {
+    public ElencoCategorieAttuatori() {
         categorie = new HashMap<>();
     }
 
@@ -44,7 +32,7 @@ public class ElencoCategorieAttuatori {
      * Recupera tutte le categorie salvate in elenco
      * @return  array di categorie contenute
      */
-    public ArrayList<CategoriaAttuatore> getCategorie(){
+    public List<CategoriaAttuatore> getCategorie(){
         return new ArrayList<>(categorie.values());
     }
 

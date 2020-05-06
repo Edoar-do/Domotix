@@ -4,29 +4,18 @@ import domotix.model.bean.device.CategoriaSensore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Classe di accesso al Model per le CategoriaSensore salvate.
- * Implementa il modello Singleton per avere un'unica istanza di questa classe.
  *
  * @see CategoriaSensore
  */
 public class ElencoCategorieSensori {
-    private static ElencoCategorieSensori instance;
-    private HashMap<String, CategoriaSensore> categorie;
+    private Map<String, CategoriaSensore> categorie;
 
-    /**
-     * Recupera l'unica istanza dell'elenco.
-     * @return  Unica istanza dell'elenco.
-     */
-    public static ElencoCategorieSensori getInstance() {
-        if (instance == null)
-            instance = new ElencoCategorieSensori();
-        return instance;
-    }
-
-    private ElencoCategorieSensori() {
+    public ElencoCategorieSensori() {
         categorie = new HashMap<>();
     }
 
@@ -41,7 +30,7 @@ public class ElencoCategorieSensori {
      * Recupera tutte le categorie salvate in elenco
      * @return  array di categorie contenute
      */
-    public ArrayList<CategoriaSensore> getCategorie(){
+    public List<CategoriaSensore> getCategorie(){
         return new ArrayList<>(categorie.values());
     }
 

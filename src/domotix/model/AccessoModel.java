@@ -5,21 +5,23 @@ import domotix.model.bean.device.*;
 import domotix.model.bean.regole.Azione;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
+import domotix.model.util.SommarioDispositivi;
 
-import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Implementazione dell'interfaccia Model.
+ */
 public class AccessoModel implements Model {
-    private ElencoCategorieAttuatori elencoCategorieAttuatori; 
-    private ElencoAzioniProgrammate elencoAzioniProgrammate; 
-    private ElencoAttuatori elencoAttuatori; 
-    private ElencoUnitaImmobiliari elencoUnitaImmobiliari; 
-    private ElencoSensori elencoSensori; 
-    private ElencoCategorieSensori elencoCategorieSensori; 
+    private ElencoCategorieAttuatori elencoCategorieAttuatori;
+    private ElencoAzioniProgrammate elencoAzioniProgrammate;
+    private ElencoAttuatori elencoAttuatori;
+    private ElencoUnitaImmobiliari elencoUnitaImmobiliari;
+    private ElencoSensori elencoSensori;
+    private ElencoCategorieSensori elencoCategorieSensori;
     private SensoreOrologio sensoreOrologio;
 
     public AccessoModel() {
-        // TODO: rendi costruttori pubblici (i.e. desigletonizza)
         this.elencoCategorieSensori = new ElencoCategorieSensori();
         this.elencoSensori = new ElencoSensori();
         this.elencoUnitaImmobiliari = new ElencoUnitaImmobiliari();
@@ -36,11 +38,11 @@ public class AccessoModel implements Model {
 
     @Override
     public Stanza getStanza(String stanza, String unita) {
-       for (Stanza stz : this.getUnita(unita).getStanze()) {
-           if (stz.getNome().equals(stanza))
-               return stz;
-       }
-       return null;
+        for (Stanza stz : this.getUnita(unita).getStanze()) {
+            if (stz.getNome().equals(stanza))
+                return stz;
+        }
+        return null;
     }
 
     @Override
@@ -85,7 +87,7 @@ public class AccessoModel implements Model {
 
     @Override
     public List<Azione> getAzioniProgrammate() {
-        return Arrays.asList(this.elencoAzioniProgrammate.getAzioni();
+        return this.elencoAzioniProgrammate.getAzioni();
     }
 
     @Override
@@ -97,4 +99,15 @@ public class AccessoModel implements Model {
     public CategoriaSensore getCategoriaSensore(String nomeCategoriaSensore) {
         return this.elencoCategorieSensori.getCategoria(nomeCategoriaSensore);
     }
+
+    @Override
+    public SommarioDispositivi getSommarioSensori() {
+        return this.elencoSensori;
+    }
+
+    @Override
+    public SommarioDispositivi getSommarioAttuatori() {
+        return this.elencoAttuatori;
+    }
+
 }

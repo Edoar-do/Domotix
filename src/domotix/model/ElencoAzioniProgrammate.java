@@ -12,20 +12,9 @@ import java.util.*;
  */
 public class ElencoAzioniProgrammate {
 
-    private static ElencoAzioniProgrammate instance;
-    private HashMap<String, Azione> azioni;
+    private Map<String, Azione> azioni;
 
-    /**
-     * Recupera l'unica istanza dell'elenco.
-     * @return  Unica istanza dell'elenco.
-     */
-    public static ElencoAzioniProgrammate getInstance() {
-        if (instance == null)
-            instance = new ElencoAzioniProgrammate();
-        return instance;
-    }
-
-    private ElencoAzioniProgrammate() {
+    public ElencoAzioniProgrammate() {
         azioni = new HashMap<>();
     }
 
@@ -89,15 +78,17 @@ public class ElencoAzioniProgrammate {
      * Recupera tutte le azioni salvate in elenco con l'id associato
      * @return  array di azioni contenute
      */
-    public HashMap<String, Azione> getCoppieIdAzione(){
-        return new HashMap<>((HashMap<String,Azione>)azioni.clone());
+    public Map<String, Azione> getCoppieIdAzione(){
+        Map<String, Azione> ret = new HashMap<>(azioni);
+        azioni.forEach( (id, azione) -> ret.put(id, azione) );
+        return ret;
     }
 
     /**
      * Recupera tutte le azioni salvate in elenco
      * @return  array di azioni contenute
      */
-    public ArrayList<Azione> getAzioni(){
+    public List<Azione> getAzioni(){
         return new ArrayList<Azione>(azioni.values());
     }
 
@@ -105,7 +96,7 @@ public class ElencoAzioniProgrammate {
      * Ritorna un array di tutte gli id contenuti in elenco
      * @return  array di id contenuti
      */
-    public ArrayList<String> getIdAzioni() {
+    public List<String> getIdAzioni() {
         return new ArrayList<>(azioni.keySet());
     }
 
