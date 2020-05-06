@@ -21,9 +21,9 @@ import java.util.HashMap;
  */
 public class ElencoSensori extends SommarioDispositivi {
 
-    public ElencoSensori() {
+    public ElencoSensori(SensoreOrologio orologio) {
         super();
-        elaboraAggiunta(SensoreOrologio.getInstance());
+        elaboraAggiunta(orologio);
     }
 
     @Override

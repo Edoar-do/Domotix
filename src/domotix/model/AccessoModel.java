@@ -22,13 +22,13 @@ public class AccessoModel implements Model {
     private SensoreOrologio sensoreOrologio;
 
     public AccessoModel() {
+        this.sensoreOrologio = new SensoreOrologio();
         this.elencoCategorieSensori = new ElencoCategorieSensori();
-        this.elencoSensori = new ElencoSensori();
+        this.elencoSensori = new ElencoSensori(this.sensoreOrologio);
         this.elencoUnitaImmobiliari = new ElencoUnitaImmobiliari();
         this.elencoAttuatori = new ElencoAttuatori();
         this.elencoAzioniProgrammate = new ElencoAzioniProgrammate();
         this.elencoCategorieAttuatori = new ElencoCategorieAttuatori();
-        this.sensoreOrologio = new SensoreOrologio();
     }
 
     @Override
