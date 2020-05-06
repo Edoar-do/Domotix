@@ -15,7 +15,7 @@ import java.util.Map;
  * @see Dispositivo
  * @see ObservableList
  */
-public class ElencoDispositivi implements Visitable, ObservableList<Dispositivo> {
+public class ElencoDispositivi implements ObservableList<Dispositivo> {
     private Map<String, Dispositivo> elenco;
     private ArrayList<ObserverList<Dispositivo>> osservatori;
 
@@ -163,10 +163,5 @@ public class ElencoDispositivi implements Visitable, ObservableList<Dispositivo>
     @Override
     public void informaAggiunta(Dispositivo dato) {
         osservatori.forEach(osservatore -> osservatore.elaboraAggiunta(dato));
-    }
-
-    @Override
-    public Object fattiVisitare(Visitor v) {
-        return v.visitaElencoDispositivi(this);
     }
 }

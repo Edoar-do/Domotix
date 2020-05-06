@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @see UnitaImmobiliare
  */
-public class ElencoUnitaImmobiliari implements Visitable {
+public class ElencoUnitaImmobiliari {
 
     private Map<String, UnitaImmobiliare> unita;
 
@@ -74,10 +74,5 @@ public class ElencoUnitaImmobiliari implements Visitable {
      */
     public void add(UnitaImmobiliare ca){
         unita.put(ca.getNome(), ca);
-    }
-
-    @Override
-    public Object fattiVisitare(Visitor v) {
-        return v.visitaElencoUnitaImmobiliari(this);
     }
 }

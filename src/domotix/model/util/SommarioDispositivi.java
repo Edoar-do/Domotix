@@ -12,7 +12,7 @@ import java.util.Map;
  * Realizza quindi un resoconto degli oggetti contenuti in piu' liste Dispositivo in modo da presentare un
  * elenco senza ripetizioni ed aggiornato.
  */
-public class SommarioDispositivi implements Visitable, ObserverList<Dispositivo> {
+public class SommarioDispositivi implements ObserverList<Dispositivo> {
     private Map<String, Dispositivo> elenco;
 
     /**
@@ -72,10 +72,5 @@ public class SommarioDispositivi implements Visitable, ObserverList<Dispositivo>
         if (!elenco.containsKey(dato.getNome())) {
             elenco.put(dato.getNome(), dato);
         }
-    }
-
-    @Override
-    public Object fattiVisitare(Visitor v) {
-        return v.visitaSommarioDispositivi(this);
     }
 }

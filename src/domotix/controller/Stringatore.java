@@ -3,21 +3,16 @@ package domotix.controller;
 import domotix.model.visitor.AbstractVisitor;
 import domotix.model.visitor.Visitable;
 import domotix.controller.util.StringUtil;
-import domotix.model.ElencoUnitaImmobiliari;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
 import domotix.model.bean.regole.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Sistema;
 import domotix.model.bean.system.Stanza;
-import domotix.model.util.ElencoDispositivi;
-import domotix.model.util.SommarioDispositivi;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**@author andrea */
 
@@ -59,10 +54,6 @@ public class Stringatore extends AbstractVisitor {
             buffer.append(StringUtil.indent("\n" + NO_ATTUATORI, 2));
         }
         return buffer.toString();
-    }
-
-    private String rappresentaLista(List<Visitable> lv) {
-        return lv.stream().map(v -> this.rappresenta(v)).collect(Collectors.joining(","));
     }
 
     public String rappresenta(Visitable vis) {
@@ -242,35 +233,5 @@ public class Stringatore extends AbstractVisitor {
         String parstr = v.getParametri().size() > 0 ? v.getParametri().stream().map(e -> this.rappresenta(e)).collect(Collectors.joining(",")) : "";
         String timestr = v.getStart() == null ? "" : ", start := " + v.getStart().toString(); // todo
         return v.getAttuatore().getNome() + " := " + v.getModalita().getNome() + parstr + timestr;
-    }
-
-    @Override
-    public Object visitaElencoDispositivi(Visitable visitabileElencoDispositivi) {
-        ElencoDispositivi v = (ElencoDispositivi) visitabileElencoDispositivi;
-        StringBuffer buffer = new StringBuffer();
-        for (Dispositivo dispositivo : v.getDispositivi()) {
-            buffer.append(rappresenta(dispositivo) + "\n");
-        }
-        return buffer.toString();
-    }
-
-    @Override
-    public Object visitaSommarioDispositivi(Visitable visitabileSommarioDispositivi) {
-        SommarioDispositivi v = (SommarioDispositivi) visitabileSommarioDispositivi;
-        StringBuffer buffer = new StringBuffer();
-        Stream.of(v.getDispositivi()).forEach(val -> {
-            buffer.append(rappresenta(val) + "\n");
-        });
-        return StringUtil.removeLast(buffer.toString());
-    }
-
-    @Override
-    public Object visitaElencoUnitaImmobiliari(Visitable visitabileElencoUnitaImmobiliari) {
-        ElencoUnitaImmobiliari v = (ElencoUnitaImmobiliari) visitabileElencoUnitaImmobiliari;
-        StringBuffer buffer = new StringBuffer();
-        v.getUnita().forEach(val -> {
-            buffer.append(rappresenta(val) + "\n");
-        });
-        return StringUtil.removeLast(buffer.toString());
     }
 }

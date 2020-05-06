@@ -67,10 +67,6 @@ public interface Visitor {
 
     Object visitaInfoTemporale(Visitable infoTemporale);
 
-    Object visitaElencoDispositivi(Visitable elencoDispositivi);
-
-    Object visitaSommarioDispositivi(Visitable sommarioDispositivi);
-
 
     /**
      * Metodo che consente di visitare una data unità immobiliare visitabile
@@ -93,6 +89,4 @@ public interface Visitor {
     Object visitaInfoVariabile(Visitable infoVariabile);
 
     Object visitaAzione(Visitable azione);
-
-    Object visitaElencoUnitaImmobiliari(Visitable elencoUnitaImmobiliari);
 }
