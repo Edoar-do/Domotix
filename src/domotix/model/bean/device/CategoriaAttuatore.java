@@ -4,13 +4,14 @@ import domotix.model.visitor.Visitable;
 import domotix.model.visitor.Visitor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /** @author Edoardo Coppola */
 public class CategoriaAttuatore implements Visitable {
 
     private String nome;
     private String testoLibero;
-    private ArrayList<Modalita> elencoModalita;
+    private List<Modalita> elencoModalita;
 
     public CategoriaAttuatore(String nome, String testoLibero){
         this.nome = nome;
@@ -83,7 +84,7 @@ public class CategoriaAttuatore implements Visitable {
      * Metodo che recupera la lista completa di tutte le modalita' disponibili alla CategoriaAttuatore.
      * @return La lista di modalita'
      */
-    public ArrayList<Modalita> getElencoModalita(){
+    public List<Modalita> getElencoModalita(){
         return elencoModalita;
     }
 

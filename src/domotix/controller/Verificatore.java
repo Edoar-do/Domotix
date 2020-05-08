@@ -39,6 +39,17 @@ public class Verificatore {
     }
 
     /**
+     * Controlla l'esistenza di almeno un'unita' immobiliare.
+     * Questo perche' vi deve essere una sola (o almeno una) unita immobiliare, la quale viene generata vuota con
+     * un nome scolpito all'avvio del programma nel caso non sia gia' presente.
+     *
+     * @return  true: esiste almeno un'unita immobiliare; false: l'elenco e' vuoto
+     */
+    public boolean controlloEsistenzaUnita() {
+        return !this.recuperatore.getListaUnita().isEmpty();
+    }
+
+    /**
      * Verifica che il valore passato come parametro coincida con il nome del sensore orologio oppure alla composizione
      * del nome del sensore orologio con la sua informazione rilevabile (composizione tramite un punto '.')
      *

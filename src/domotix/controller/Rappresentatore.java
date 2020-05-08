@@ -66,7 +66,7 @@ public class Rappresentatore {
     public String[] getDescrizioniUnita() {
         return recuperatore.getListaUnita()
             .stream()
-            .map(u -> stringatore.rappresenta(u))
+            .map(u -> stringatore.visita(u))
             .toArray(String[]::new);
     }
 
@@ -187,7 +187,7 @@ public class Rappresentatore {
     public String[] getDescrizioniCategorieSensori() {
         return  recuperatore.getCategorieSensore()
             .stream()
-            .map(cs -> stringatore.rappresenta(cs))
+            .map(cs -> stringatore.visita(cs))
             .toArray(String[]::new);
     }
 
@@ -199,7 +199,7 @@ public class Rappresentatore {
     public String[] getDescrizioniCategorieAttuatori() {
         return  recuperatore.getCategorieAttuatore()
             .stream()
-            .map(ca -> stringatore.rappresenta(ca))
+            .map(ca -> stringatore.visita(ca))
             .toArray(String[]::new);
     }
 
@@ -210,7 +210,7 @@ public class Rappresentatore {
      * @return Descrizione dell'unita' immobiliare
      */
     public String getDescrizioneUnita(String nomeUnita) {
-        return stringatore.rappresenta(recuperatore.getUnita(nomeUnita));
+        return stringatore.visita(recuperatore.getUnita(nomeUnita));
     }
 
     /**
@@ -221,7 +221,7 @@ public class Rappresentatore {
      * @return Descrizione della stanza
      */
     public String getDescrizioneStanza(String nomeStanza, String nomeUnita) {
-        return stringatore.rappresenta(recuperatore.getStanza(nomeStanza, nomeUnita));
+        return stringatore.visita(recuperatore.getStanza(nomeStanza, nomeUnita));
     }
 
     /**
@@ -233,7 +233,7 @@ public class Rappresentatore {
      * @return Descrizione della stanza
      */
     public String getDescrizioneArtefatto(String nomeArtefatto, String nomeStanza, String nomeUnita) {
-        return stringatore.rappresenta(recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita));
+        return stringatore.visita(recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita));
     }
 
     private String[] getNomiSensoriAggiungibiliSistema(Sistema sistema, String nomeUnita) {
@@ -350,7 +350,7 @@ public class Rappresentatore {
      */
     public String[] getRegoleUnita(String unita) {
         List<Regola> regole = recuperatore.getRegoleUnita(unita);
-        return regole.stream().map(r -> stringatore.rappresenta(r)).toArray(String[]::new);
+        return regole.stream().map(r -> stringatore.visita(r)).toArray(String[]::new);
     }
 
     /**
@@ -363,7 +363,7 @@ public class Rappresentatore {
         Map<String, String> map = new HashMap<>();
         List<Regola> regole = recuperatore.getRegoleUnita(unita);
         for (Regola r : regole) {
-            map.put(stringatore.rappresenta(r), r.getId());
+            map.put(stringatore.visita(r), r.getId());
         }
         return map;
     }
@@ -399,7 +399,7 @@ public class Rappresentatore {
         Map<String, String> map = new HashMap<>();
         List<Regola> regole = recuperatore.getRegoleAttiveDisattive(unita);
         for (Regola r : regole) {
-            map.put(stringatore.rappresenta(r.getAntecedente()) + ":" + r.getStato().name(), r.getId());
+            map.put(stringatore.visita(r.getAntecedente()) + ":" + r.getStato().name(), r.getId());
         }
         return map;
     }
@@ -413,7 +413,7 @@ public class Rappresentatore {
         // TODO: da rimuovere? (Non e' mai usato)
         Azione a = recuperatore.getAzioneProgrammata(id);
         if (a != null)
-            return stringatore.rappresenta(a);
+            return stringatore.visita(a);
         else
             return "";
     }
@@ -423,6 +423,6 @@ public class Rappresentatore {
      * @return  array di stringhe con le descrizioni delle azioni programmate
      */
     public String[] getDescrizioniAzioniProgrammate() {
-        return recuperatore.getAzioniProgrammate().stream().map(azione -> stringatore.rappresenta(azione)).toArray(String[]::new);
+        return recuperatore.getAzioniProgrammate().stream().map(azione -> stringatore.visita(azione)).toArray(String[]::new);
     }
 }

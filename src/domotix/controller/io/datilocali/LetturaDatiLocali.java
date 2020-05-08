@@ -3,12 +3,13 @@ package domotix.controller.io.datilocali;
 import domotix.model.bean.regole.Azione;
 import domotix.model.bean.regole.Regola;
 import domotix.controller.io.LetturaDatiSalvati;
-import domotix.model.util.Costanti;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.controller.io.LetturaDatiSalvatiAdapter;
+import domotix.controller.io.xml.CostantiXML;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -37,32 +38,33 @@ import java.util.List;
  */
 public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
 
+    private PercorsiFile generatorePercorsi = null;
     private DocumentBuilderFactory documentFactory = null;
     private DocumentBuilder documentBuilder = null;
     private HashMap<String, LettoriXML> lettori = null;
 
-    private LetturaDatiLocali() throws NotDirectoryException, ParserConfigurationException, TransformerConfigurationException {
-        //test esistenza struttura dati
-        PercorsiFile.getInstance().controllaStruttura();
-
+    private LetturaDatiLocali(PercorsiFile generatorePercorsi) throws NotDirectoryException, ParserConfigurationException {
+        
+        this.generatorePercorsi = generatorePercorsi;
+        
         documentFactory = DocumentBuilderFactory.newInstance();
         documentBuilder = documentFactory.newDocumentBuilder();
 
         //Popolo la tabella dei lettori
         lettori = new HashMap<>();
-        lettori.put(Costanti.NODO_XML_AZIONE, LettoriXML.AZIONE);
-        lettori.put(Costanti.NODO_XML_REGOLA, LettoriXML.REGOLA);
-        lettori.put(Costanti.NODO_XML_ANTECEDENTE, LettoriXML.ANTECEDENTE);
-        lettori.put(Costanti.NODO_XML_CONSEGUENTE, LettoriXML.CONSEGUENTE);
-        lettori.put(Costanti.NODO_XML_ATTUATORE, LettoriXML.ATTUATORE);
-        lettori.put(Costanti.NODO_XML_SENSORE, LettoriXML.SENSORE);
-        lettori.put(Costanti.NODO_XML_ARTEFATTO, LettoriXML.ARTEFATTO);
-        lettori.put(Costanti.NODO_XML_STANZA, LettoriXML.STANZA);
-        lettori.put(Costanti.NODO_XML_UNITA_IMMOB, LettoriXML.UNITA_IMMOB);
-        lettori.put(Costanti.NODO_XML_MODALITA, LettoriXML.MODALITA);
-        lettori.put(Costanti.NODO_XML_CATEGORIA_ATTUATORE, LettoriXML.CATEGORIA_ATTUATORE);
-        lettori.put(Costanti.NODO_XML_INFORILEVABILE, LettoriXML.INFORMAZIONE_RILEVABILE);
-        lettori.put(Costanti.NODO_XML_CATEGORIA_SENSORE, LettoriXML.CATEGORIA_SENSORE);
+        lettori.put(CostantiXML.NODO_XML_AZIONE, LettoriXML.AZIONE);
+        lettori.put(CostantiXML.NODO_XML_REGOLA, LettoriXML.REGOLA);
+        lettori.put(CostantiXML.NODO_XML_ANTECEDENTE, LettoriXML.ANTECEDENTE);
+        lettori.put(CostantiXML.NODO_XML_CONSEGUENTE, LettoriXML.CONSEGUENTE);
+        lettori.put(CostantiXML.NODO_XML_ATTUATORE, LettoriXML.ATTUATORE);
+        lettori.put(CostantiXML.NODO_XML_SENSORE, LettoriXML.SENSORE);
+        lettori.put(CostantiXML.NODO_XML_ARTEFATTO, LettoriXML.ARTEFATTO);
+        lettori.put(CostantiXML.NODO_XML_STANZA, LettoriXML.STANZA);
+        lettori.put(CostantiXML.NODO_XML_UNITA_IMMOB, LettoriXML.UNITA_IMMOB);
+        lettori.put(CostantiXML.NODO_XML_MODALITA, LettoriXML.MODALITA);
+        lettori.put(CostantiXML.NODO_XML_CATEGORIA_ATTUATORE, LettoriXML.CATEGORIA_ATTUATORE);
+        lettori.put(CostantiXML.NODO_XML_INFORILEVABILE, LettoriXML.INFORMAZIONE_RILEVABILE);
+        lettori.put(CostantiXML.NODO_XML_CATEGORIA_SENSORE, LettoriXML.CATEGORIA_SENSORE);
     }
 
     @Override

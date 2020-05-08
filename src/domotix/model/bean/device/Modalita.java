@@ -5,13 +5,15 @@ import domotix.model.visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /** @author Edoardo Coppola */
 public class Modalita implements Visitable {
     private static final String TOSTRING_TEMPLATE = "%s";
     private String nome;
-    private HashMap<String, Parametro> parametri;
+    private Map<String, Parametro> parametri;
 
     public Modalita(String nome){
         this.nome = nome;
@@ -38,7 +40,7 @@ public class Modalita implements Visitable {
      * Ritorna l'elenco dei parametri per la modalita
      * @return  ArrayList dei Parametro contenuti
      */
-    public ArrayList<Parametro> getParametri() {
+    public List<Parametro> getParametri() {
         return new ArrayList<>(parametri.values());
     }
 

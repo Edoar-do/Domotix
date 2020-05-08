@@ -4,13 +4,14 @@ import domotix.model.visitor.Visitable;
 import domotix.model.visitor.Visitor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /** @author Edoardo Coppola */
 public class CategoriaSensore implements Visitable {
 
     private String nome;
     private String testoLibero;
-    private ArrayList<InfoRilevabile> informazioneRilevabile;
+    private List<InfoRilevabile> informazioneRilevabile;
 
     /**
      * Costruttore privato comune a tutte le alternative
@@ -117,7 +118,7 @@ public class CategoriaSensore implements Visitable {
      *
      * @return  ArrayList di informazioni rilevabili
      */
-    public ArrayList<InfoRilevabile> getInformazioniRilevabili() {
+    public List<InfoRilevabile> getInformazioniRilevabili() {
         return new ArrayList<>(this.informazioneRilevabile);
     }
 

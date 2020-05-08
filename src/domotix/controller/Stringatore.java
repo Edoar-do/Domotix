@@ -31,7 +31,7 @@ public class Stringatore extends AbstractVisitor {
     private String getStringaDispositivi(Dispositivo[] dispositivi) {
         StringBuffer buffer = new StringBuffer();
         for (int i = 0; i < dispositivi.length; i++) {
-            buffer.append(rappresenta(dispositivi[i]) + (i < dispositivi.length - 1 ? "\n" : ""));
+            buffer.append(visita(dispositivi[i]) + (i < dispositivi.length - 1 ? "\n" : ""));
         }
         return buffer.toString();
     }
@@ -56,7 +56,8 @@ public class Stringatore extends AbstractVisitor {
         return buffer.toString();
     }
 
-    public String rappresenta(Visitable vis) {
+    @Override
+    public String visita(Visitable vis) {
         return (String) vis.fattiVisitare(this);
     }
 
@@ -98,7 +99,7 @@ public class Stringatore extends AbstractVisitor {
         buffer.append(StringUtil.indent(v.getTestoLibero() + "\n", 2));
         buffer.append("\tELENCO MODALITA':");
         v.getElencoModalita().forEach((e) -> {
-            buffer.append(StringUtil.indent("\n" + rappresenta(e), 2));
+            buffer.append(StringUtil.indent("\n" + visita(e), 2));
         });
         return buffer.toString();
     }
@@ -116,7 +117,7 @@ public class Stringatore extends AbstractVisitor {
         if (!v.getParametri().isEmpty()) {
             str += "\n" + StringUtil.indent("PARAMETRI:", 1);
             for (Parametro p : v.getParametri()) {
-                str += "\n" + StringUtil.indent(rappresenta(p), 2);
+                str += "\n" + StringUtil.indent(visita(p), 2);
             }
         }
         return str;
@@ -131,7 +132,7 @@ public class Stringatore extends AbstractVisitor {
         buffer.append(StringUtil.indent(v.getTestoLibero() + "\n", 2));
         buffer.append("\tINFORMAZIONI RILEVABILI:");
         for(InfoRilevabile i : v.getInformazioniRilevabili())
-            buffer.append(StringUtil.indent("\n" + rappresenta(i), 2));
+            buffer.append(StringUtil.indent("\n" + visita(i), 2));
         return buffer.toString();
     }
 
@@ -167,13 +168,13 @@ public class Stringatore extends AbstractVisitor {
         buffer.append(v.getNome() + ":\n");
         buffer.append("\tSTANZE:");
         for (Stanza stanza : v.getStanze()) {
-            String stringaStanza = "\n" + rappresenta(stanza);
+            String stringaStanza = "\n" + visita(stanza);
             buffer.append(StringUtil.indent(stringaStanza, 2));
         }
         buffer.append("\n\tREGOLE:");
         if(v.getRegole().length > 0) {
             for (Regola regola : v.getRegole()) {
-                String stringaRegola = "\n" + rappresenta(regola);
+                String stringaRegola = "\n" + visita(regola);
                 buffer.append(StringUtil.indent(stringaRegola, 2));
             }
         }else
@@ -184,16 +185,16 @@ public class Stringatore extends AbstractVisitor {
     @Override
     public Object visitaAntecedente(Visitable visitabileAntecedente) {
         Antecedente v = (Antecedente) visitabileAntecedente;
-        String lhs = rappresenta(v.getCondizione());
+        String lhs = visita(v.getCondizione());
         String opstr = v.getOperatoreLogico() == null ? "" : " " + v.getOperatoreLogico() + " ";
-        String rhs = v.getProssimoAntecedente() == null ? "" : rappresenta(v.getProssimoAntecedente());
+        String rhs = v.getProssimoAntecedente() == null ? "" : visita(v.getProssimoAntecedente());
         return lhs + opstr + rhs;
     }
 
     @Override
     public Object visitaCondizione(Visitable visitabileCondizione) {
         Condizione v = (Condizione) visitabileCondizione;
-        return rappresenta(v.getSinistra()) + " " + v.getOperatore() + " " + rappresenta(v.getDestra());
+        return visita(v.getSinistra()) + " " + v.getOperatore() + " " + visita(v.getDestra());
     }
 
     @Override
@@ -211,8 +212,8 @@ public class Stringatore extends AbstractVisitor {
     @Override
     public Object visitaRegola(Visitable visitabileRegola) {
         Regola v = (Regola) visitabileRegola;
-        String antstr = v.getAntecedente() == null ? "true" : rappresenta(v.getAntecedente());
-        String consstr = rappresenta(v.getConseguente());
+        String antstr = v.getAntecedente() == null ? "true" : visita(v.getAntecedente());
+        String consstr = visita(v.getConseguente());
         String statostr = "; Stato -> [" + v.getStato().toString() + "]";
         return "if " + antstr + " then " + consstr + statostr;
     }
@@ -220,7 +221,7 @@ public class Stringatore extends AbstractVisitor {
     @Override
     public Object visitaConseguente(Visitable visitabileConseguente) {
         Conseguente v = (Conseguente) visitabileConseguente;
-        return v.getAzioni().stream().map(a -> rappresenta(a)).collect(Collectors.joining(", "));
+        return v.getAzioni().stream().map(a -> visita(a)).collect(Collectors.joining(", "));
     }
     @Override
     public Object visitaInfoVariabile(Visitable visitabileInfoVariabile) {
@@ -230,7 +231,7 @@ public class Stringatore extends AbstractVisitor {
     @Override
     public Object visitaAzione(Visitable visitabileAzione) {
         Azione v = (Azione) visitabileAzione;
-        String parstr = v.getParametri().size() > 0 ? v.getParametri().stream().map(e -> this.rappresenta(e)).collect(Collectors.joining(",")) : "";
+        String parstr = v.getParametri().size() > 0 ? v.getParametri().stream().map(e -> this.visita(e)).collect(Collectors.joining(",")) : "";
         String timestr = v.getStart() == null ? "" : ", start := " + v.getStart().toString(); // todo
         return v.getAttuatore().getNome() + " := " + v.getModalita().getNome() + parstr + timestr;
     }

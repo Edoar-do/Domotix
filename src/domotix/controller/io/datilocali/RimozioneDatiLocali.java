@@ -8,10 +8,7 @@ import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.controller.io.RimozioneDatiSalvatiAdapter;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerConfigurationException;
 import java.io.File;
-import java.nio.file.NotDirectoryException;
 import java.util.List;
 import java.util.Map;
 
@@ -26,9 +23,10 @@ import java.util.Map;
  */
 public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
 
-    private RimozioneDatiLocali() throws NotDirectoryException, ParserConfigurationException, TransformerConfigurationException {
-        //test esistenza struttura dati
-        PercorsiFile.getInstance().controllaStruttura();
+    private PercorsiFile generatorePercorsi = null;
+
+    private RimozioneDatiLocali(PercorsiFile generatorePercorsi) {
+        this.generatorePercorsi = generatorePercorsi;
     }
 
     /**
@@ -56,84 +54,84 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
 
     @Override
     public void rimuoviCategoriaSensore(String cat) throws Exception {
-        String percorso = PercorsiFile.getInstance().getCartellaCategoriaSensore(cat);
+        String percorso = this.generatorePercorsi.getCartellaCategoriaSensore(cat);
         File f = new File(percorso);
         rimuoviRicorsivo(f);
     }
 
     @Override
     public void rimuoviInfoRilevabile(String info, String cat) throws Exception {
-        String percorso = PercorsiFile.getInstance().getPercorsoInformazioneRilevabile(info, cat);
+        String percorso = this.generatorePercorsi.getPercorsoInformazioneRilevabile(info, cat);
         File f = new File(percorso);
         rimuoviRicorsivo(f);
     }
 
     @Override
     public void rimuoviCategoriaAttuatore(String cat) throws Exception {
-        String percorso = PercorsiFile.getInstance().getCartellaCategoriaAttuatore(cat);
+        String percorso = this.generatorePercorsi.getCartellaCategoriaAttuatore(cat);
         File f = new File(percorso);
         rimuoviRicorsivo(f);
     }
 
     @Override
     public void rimuoviModalita(String modalita, String cat) throws Exception {
-        String percorso = PercorsiFile.getInstance().getPercorsoModalita(modalita, cat);
+        String percorso = this.generatorePercorsi.getPercorsoModalita(modalita, cat);
         File f = new File(percorso);
         rimuoviRicorsivo(f);
     }
 
     @Override
     public void rimuoviUnitaImmobiliare(String unita) throws Exception {
-        String percorso = PercorsiFile.getInstance().getCartellaUnitaImmobiliare(unita);
+        String percorso = this.generatorePercorsi.getCartellaUnitaImmobiliare(unita);
         File f = new File(percorso);
         rimuoviRicorsivo(f);
     }
 
     @Override
     public void rimuoviStanza(String stanza, String unita) throws Exception {
-        String percorso = PercorsiFile.getInstance().getPercorsoStanza(stanza, unita);
+        String percorso = this.generatorePercorsi.getPercorsoStanza(stanza, unita);
         File f = new File(percorso);
         rimuoviRicorsivo(f);
     }
 
     @Override
     public void rimuoviArtefatto(String artefatto, String unita) throws Exception {
-        String percorso = PercorsiFile.getInstance().getPercorsoArtefatto(artefatto, unita);
+        String percorso = this.generatorePercorsi.getPercorsoArtefatto(artefatto, unita);
         File f = new File(percorso);
         rimuoviRicorsivo(f);
     }
 
     @Override
     public void rimuoviSensore(String sensore) throws Exception {
-        String percorso = PercorsiFile.getInstance().getPercorsoSensore(sensore);
+        String percorso = this.generatorePercorsi.getPercorsoSensore(sensore);
         File f = new File(percorso);
         rimuoviRicorsivo(f);
     }
 
     @Override
     public void rimuoviAttuatore(String attuatore) throws Exception {
-        String percorso = PercorsiFile.getInstance().getAttuatore(attuatore);
+        String percorso = this.generatorePercorsi.getAttuatore(attuatore);
         File f = new File(percorso);
         rimuoviRicorsivo(f);
     }
 
     @Override
     public void rimuoviRegola(String idRegola, String unita) throws Exception {
-        String percorso = PercorsiFile.getInstance().getPercorsoRegola(idRegola, unita);
+        String percorso = this.generatorePercorsi.getPercorsoRegola(idRegola, unita);
         File f = new File(percorso);
         rimuoviRicorsivo(f);
     }
 
     @Override
     public void rimuoviAzioneProgrammata(String id) throws Exception {
-        String percorso = PercorsiFile.getInstance().getPercorsoAzioneProgrammabile(id);
+        String percorso = this.generatorePercorsi.getPercorsoAzioneProgrammabile(id);
         File f = new File(percorso);
         rimuoviRicorsivo(f);
     }
 
     @Override
     public void sincronizzaCategorieSensore(List<CategoriaSensore> entita) throws Exception {
-        List<String> nomiDati = PercorsiFile.getInstance().getNomiCategorieSensori();
+        List<String> nomiDati = this.generatorePercorsi.getNomiCategorieSensori();
 
         //rimuovo le entita logiche presenti
         for (CategoriaSensore categoriaSensore : entita) {
@@ -148,7 +146,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
 
     @Override
     public void sincronizzaInfoRilevabile(CategoriaSensore entita) throws Exception {
-        List<String> nomiDati = PercorsiFile.getInstance().getNomiInformazioniRilevabili(entita.getNome());
+        List<String> nomiDati = this.generatorePercorsi.getNomiInformazioniRilevabili(entita.getNome());
 
         //rimuovo le entita logiche presenti
         for (InfoRilevabile info : entita.getInformazioniRilevabili()) {
@@ -162,7 +160,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
 
     @Override
     public void sincronizzaCategorieAttuatore(List<CategoriaAttuatore> entita) throws Exception {
-        List<String> nomiDati = PercorsiFile.getInstance().getNomiCategorieAttuatori();
+        List<String> nomiDati = this.generatorePercorsi.getNomiCategorieAttuatori();
 
         //rimuovo le entita logiche presenti
         for (CategoriaAttuatore catAtt : entita) {
@@ -177,7 +175,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
 
     @Override
     public void sincronizzaModalita(CategoriaAttuatore entita) throws Exception {
-        List<String> nomiDati = PercorsiFile.getInstance().getNomiModalita(entita.getNome());
+        List<String> nomiDati = this.generatorePercorsi.getNomiModalita(entita.getNome());
 
         //rimuovo le entita logiche presenti
         for (Modalita modalita : entita.getElencoModalita()) {
@@ -191,7 +189,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
 
     @Override
     public void sincronizzaUnitaImmobiliari(List<UnitaImmobiliare> entita) throws Exception {
-        List<String> nomiDati = PercorsiFile.getInstance().getNomiUnitaImmobiliare();
+        List<String> nomiDati = this.generatorePercorsi.getNomiUnitaImmobiliare();
 
         //rimuovo le entita logiche presenti
         for (UnitaImmobiliare unita : entita) {
@@ -208,7 +206,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
 
     @Override
     public void sincronizzaStanze(UnitaImmobiliare entita) throws Exception {
-        List<String> nomiDati = PercorsiFile.getInstance().getNomiStanze(entita.getNome());
+        List<String> nomiDati = this.generatorePercorsi.getNomiStanze(entita.getNome());
 
         //rimuovo le entita logiche presenti
         for (Stanza stanza : entita.getStanze()) {
@@ -222,7 +220,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
 
     @Override
     public void sincronizzaArtefatti(UnitaImmobiliare entita) throws Exception {
-        List<String> nomiDati = PercorsiFile.getInstance().getNomiArtefatti(entita.getNome());
+        List<String> nomiDati = this.generatorePercorsi.getNomiArtefatti(entita.getNome());
 
         //rimuovo le entita logiche presenti
         for (Stanza stanza : entita.getStanze()) {
@@ -238,7 +236,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
 
     @Override
     public void sincronizzaSensori(List<Sensore> entita) throws Exception {
-        List<String> nomiDati = PercorsiFile.getInstance().getNomiSensori();
+        List<String> nomiDati = this.generatorePercorsi.getNomiSensori();
 
         //rimuovo le entita logiche presenti
         for (Sensore sensore : entita) {
@@ -252,7 +250,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
 
     @Override
     public void sincronizzaAttuatori(List<Attuatore> entita) throws Exception {
-        List<String> nomiDati = PercorsiFile.getInstance().getNomiAttuatori();
+        List<String> nomiDati = this.generatorePercorsi.getNomiAttuatori();
 
         //rimuovo le entita logiche presenti
         for (Attuatore attuatore : entita) {
@@ -266,7 +264,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
 
     @Override
     public void sincronizzaRegole(UnitaImmobiliare entita) throws Exception {
-        List<String> nomiDati = PercorsiFile.getInstance().getNomiRegola(entita.getNome());
+        List<String> nomiDati = this.generatorePercorsi.getNomiRegola(entita.getNome());
 
         //rimuovo le entita logiche presenti
         for (Regola regola : entita.getRegole()) {
@@ -280,7 +278,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
 
     @Override
     public void sincronizzaAzioniProgrammate(Map<String, Azione> entita) throws Exception {
-        List<String> nomiDati = PercorsiFile.getInstance().getNomiAzioniProgramamte();
+        List<String> nomiDati = this.generatorePercorsi.getNomiAzioniProgramamte();
 
         //rimuovo le entita logiche presenti
         for (String id : entita.keySet()) {

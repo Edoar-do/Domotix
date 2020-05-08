@@ -1,7 +1,5 @@
 package domotix.model.util;
 
-import domotix.model.visitor.Visitable;
-import domotix.model.visitor.Visitor;
 import domotix.model.bean.device.Dispositivo;
 
 import java.util.ArrayList;
@@ -17,7 +15,7 @@ import java.util.Map;
  */
 public class ElencoDispositivi implements ObservableList<Dispositivo> {
     private Map<String, Dispositivo> elenco;
-    private ArrayList<ObserverList<Dispositivo>> osservatori;
+    private List<ObserverList<Dispositivo>> osservatori;
 
     /**
      * Costruttore che prevede un elenco iniziale di dispositivi da aggiungere come elenco in creazione

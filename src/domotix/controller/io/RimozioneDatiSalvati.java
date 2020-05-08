@@ -5,7 +5,6 @@ import domotix.model.bean.device.*;
 import domotix.model.bean.regole.Azione;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-import domotix.controller.io.datilocali.RimozioneDatiLocali;
 
 import java.util.List;
 import java.util.Map;

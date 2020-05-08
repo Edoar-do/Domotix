@@ -66,6 +66,12 @@ public class AccessoModel implements Model {
     }
 
     @Override
+    public UnitaImmobiliare generaUnitaBase() {
+        UnitaImmobiliare unita = new UnitaImmobiliare(UnitaImmobiliare.NOME_UNITA_DEFAULT);
+        return unita;
+    }
+
+    @Override
     public SensoreOrologio getOrologio() {
         return this.sensoreOrologio;
     }

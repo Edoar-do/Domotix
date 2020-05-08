@@ -51,6 +51,12 @@ public interface Model {
      */
     UnitaImmobiliare getUnita(String unita);
     /**
+     * Genera l'unita' base che deve esistere per il funzionamento del programma.
+     *
+     * @return  istanza di una nuova unita immobiliare inizializzata con i dati di default del programma
+     */
+    UnitaImmobiliare generaUnitaBase();
+    /**
      * Ritorna il sensore orologio
      * @return  istanza del sensore orologio
      */

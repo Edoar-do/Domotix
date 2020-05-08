@@ -28,7 +28,7 @@ public class ImportaDatiLocali extends ImportaDatiAdapter {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
     private ImportaDatiLocali() throws NotDirectoryException {
-        PercorsiFile.getInstance().controllaStruttura();
+        
     }
 
     @Override

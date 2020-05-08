@@ -21,6 +21,8 @@ public class Recuperatore {
     // TODO: rivedi javadoc (rimuoverlo tutto e rifarlo da 0?)
     private Model model;
 
+    private UnitaImmobiliare unitaBase = null;
+
     public Recuperatore(Model model) {
         this.model = model;
     }
@@ -60,6 +62,17 @@ public class Recuperatore {
      */
     public List<UnitaImmobiliare> getListaUnita() {
         return model.getListaUnita();
+    }
+
+    /**
+     * Recupera l'unita' base che deve esistere per il funzionamento del programma.
+     *
+     * @return  istanza di una nuova unita immobiliare inizializzata con i dati di default del programma
+     */
+    public UnitaImmobiliare getUnitaBase() {
+        if (unitaBase == null)
+            unitaBase = this.model.generaUnitaBase();
+        return unitaBase;
     }
 
     /**

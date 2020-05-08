@@ -155,16 +155,16 @@ timerGestioneRegole.stop();
 Da intendere le modifiche come spiegate sopra.
 
 ## Andrea
-* Trasformare classi del controller
-* Realizzare AccessoModel
+- [ ] Trasformare classi del controller
+- [x] Realizzare AccessoModel
 
 ## Edoardo
-* Trasformare le classi della view
-* Interfacce pattern visitor e spostamento package io in controller
+- [ ] Trasformare le classi della view
+- [x] Interfacce pattern visitor e spostamento package io in controller
 
 ## Paolo
-* Trasformazione package io e model
-* Trasformazione classi OperazioniIniziali e Operazioni finali (con spostamento metodi)
+- [ ] Trasformazione package io e model
+- [x] Trasformazione classi OperazioniIniziali e Operazioni finali (con spostamento metodi)
 
 ## Tutti
-* Se si incontra un HashMap o ArrayList come parametro o tipo di ritorno si cambia in Map o List relativamente.
+- [ ] Se si incontra un HashMap o ArrayList come parametro o tipo di ritorno si cambia in Map o List relativamente.

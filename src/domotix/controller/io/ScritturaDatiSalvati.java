@@ -5,7 +5,6 @@ import domotix.model.bean.device.*;
 import domotix.model.bean.regole.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-import domotix.controller.io.datilocali.ScritturaDatiLocali;
 
 /**
  * Interfaccia per l'implementazione di strutture per il salvataggio dei dati.

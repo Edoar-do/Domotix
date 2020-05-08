@@ -1,11 +1,11 @@
 package domotix.controller.io.datilocali;
 
-import domotix.model.util.Costanti;
-
 import java.io.File;
 import java.nio.file.NotDirectoryException;
 import java.util.ArrayList;
 import java.util.List;
+
+import domotix.controller.io.Costanti;
 
 /**
  * Classe che implementa il pattern Singleton per la gestione dei percorsi dei file locali in cui sono salvati i dati del programma.
@@ -30,7 +30,7 @@ public class PercorsiFile {
     //sorgente verso cui generare i percorsi
     private SORGENTE sorgente;
 
-    private PercorsiFile(SORGENTE sorgente) {
+    public PercorsiFile(SORGENTE sorgente) {
         this.sorgente = sorgente;
     }
 

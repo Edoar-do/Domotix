@@ -9,7 +9,7 @@ import java.util.Map;
 /** @author Edoardo Coppola */
 public class Sensore extends Dispositivo implements Visitable {
     private CategoriaSensore categoria;
-    private HashMap<String, Object> valori;
+    private Map<String, Object> valori;
 
     /**
      * Costruttore della classe
@@ -69,7 +69,9 @@ public class Sensore extends Dispositivo implements Visitable {
      * @return  HashMap popolata con chiavi stringhe per i nomi dell'informazione rilevabile e valori i rispettivi valori.
      */
     public Map<String, Object> getValori() {
-        return new HashMap<String, Object>(valori);
+        Map<String, Object> ret = new HashMap<String, Object>();
+        ret.putAll(valori);
+        return ret;
     }
 
     /**

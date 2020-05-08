@@ -6,7 +6,6 @@ import domotix.model.bean.regole.Azione;
 import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-import domotix.controller.io.datilocali.LetturaDatiLocali;
 
 import java.util.List;
 

@@ -10,6 +10,14 @@ public interface Visitor {
     // TODO: rimuovi metodi inutili (cioe' quelli inutilizzati)
 
     /**
+     * Metodo generico per visitare un oggetto Visitable
+     * 
+     * @param visitable oggetto da visitare
+     * @return  una forma della rappresentazione dell'oggetto
+     */
+    Object visita(Visitable visitable);
+
+    /**
      * Metodo che consente di visitare una data stanza visitabile
      *
      * @param stanza da visitare
@@ -89,4 +97,6 @@ public interface Visitor {
     Object visitaInfoVariabile(Visitable infoVariabile);
 
     Object visitaAzione(Visitable azione);
+
+    Object visitaInfoSensoriale(Visitable infoSensoriale);
 }
