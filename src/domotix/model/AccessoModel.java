@@ -110,4 +110,38 @@ public class AccessoModel implements Model {
         return this.elencoAttuatori;
     }
 
+    @Override
+    public void addUnita(UnitaImmobiliare unitaImmobiliare) {
+        elencoUnitaImmobiliari.add(unitaImmobiliare);
+    }
+
+    @Override
+    public void removeUnita(String unitaImmobiliare) {
+        elencoUnitaImmobiliari.remove(unitaImmobiliare);
+    }
+
+    @Override
+    public void addCategoriaSensore(CategoriaSensore cs) {
+        elencoCategorieSensori.add(cs);
+    }
+
+    @Override
+    public void removeCategoriaSensore(String cs) {
+        elencoCategorieSensori.remove(cs);
+    }
+
+    @Override
+    public void addCategoriaAttuatore(CategoriaAttuatore ca) {
+        elencoCategorieAttuatori.add(ca);
+    }
+
+    @Override
+    public void removeCategoriaAttuatore(String ca) {
+        elencoCategorieAttuatori.remove(ca);
+    }
+
+    @Override
+    public void removeAzioneProgrammata(String idAzione) {
+        elencoAzioniProgrammate.remove(idAzione);
+    }
 }

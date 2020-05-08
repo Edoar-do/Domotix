@@ -100,4 +100,19 @@ public interface Model {
      * @return  istanza del sommario attuatori
      */
     SommarioDispositivi getSommarioAttuatori();
+
+    void addUnita(UnitaImmobiliare unitaImmobiliare);
+
+    void removeUnita(String unitaImmobiliare);
+
+    void addCategoriaSensore(CategoriaSensore cs);
+
+    void removeCategoriaSensore(String cs);
+
+    void addCategoriaAttuatore(CategoriaAttuatore ca);
+
+    void removeCategoriaAttuatore(String ca);
+
+    void removeAzioneProgrammata(String idAzione);
+
 }
