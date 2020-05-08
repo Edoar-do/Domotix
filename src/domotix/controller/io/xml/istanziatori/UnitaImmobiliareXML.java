@@ -2,13 +2,11 @@ package domotix.controller.io.xml.istanziatori;
 
 import java.util.NoSuchElementException;
 
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import domotix.controller.io.datilocali.LetturaDatiLocali;
-import domotix.controller.io.xml.CompilatoreXML;
+import domotix.controller.Recuperatore;
+import domotix.controller.io.LetturaDatiSalvati;
 import domotix.controller.io.xml.CostantiXML;
 import domotix.controller.io.xml.IstanziatoreXML;
 import domotix.model.bean.UnitaImmobiliare;
@@ -17,14 +15,26 @@ import domotix.model.bean.system.Stanza;
 
 public class UnitaImmobiliareXML implements IstanziatoreXML<UnitaImmobiliare> {
 
+	private Recuperatore recuperatore = null;
+	private LetturaDatiSalvati lettore = null;
+
+	public UnitaImmobiliareXML(Recuperatore recuperatore, LetturaDatiSalvati lettore) {
+		this.recuperatore = recuperatore;
+		this.lettore = lettore;
+	}
+
     /** Metodo per scrittore: UNITA_IMMOB **/
     @Override
     public UnitaImmobiliare getInstance(Element el) throws Exception {
-        return null;
-    }
+        return instanceElement(el, this.recuperatore, this.lettore);
+	}
 
-	/** Metodo per lettore: UNITA_IMMOB **/
-	public static Object leggiUnitaImmobiliare(Element el) throws Exception {
+	/**
+	 * Metodo per lettore: UNITA_IMMOB
+	 * 
+	 * @throws Exception
+	 **/
+	public static UnitaImmobiliare instanceElement(Element el, Recuperatore recuperatore, LetturaDatiSalvati lettore) throws Exception {
 	    //controllo tag elemento
 	    if (el.getTagName().equals(CostantiXML.NODO_XML_UNITA_IMMOB)) {
 	        String nome;
@@ -34,7 +44,7 @@ public class UnitaImmobiliareXML implements IstanziatoreXML<UnitaImmobiliare> {
 	        if (el.hasAttribute(CostantiXML.NODO_XML_UNITA_IMMOB_NOME)) {
 	            nome = el.getAttribute(CostantiXML.NODO_XML_UNITA_IMMOB_NOME);
 	        } else
-	            throw new NoSuchElementException("LettoriXML.UNITA_IMMOB.getInstance(): attributo " + CostantiXML.NODO_XML_UNITA_IMMOB_NOME + " assente.");
+	            throw new NoSuchElementException("UnitaImmobiliareXML.instanceElement(): attributo " + CostantiXML.NODO_XML_UNITA_IMMOB_NOME + " assente.");
 	
 	        unit = new UnitaImmobiliare(nome);
 	
@@ -43,7 +53,7 @@ public class UnitaImmobiliareXML implements IstanziatoreXML<UnitaImmobiliare> {
 	        if (childs.getLength() > 0) {
 	            for (int i = 0; i < childs.getLength(); i++) {
 	                String stanza = childs.item(i).getTextContent();
-	                Stanza s = LetturaDatiLocali.getInstance().leggiStanza(stanza, nome);
+	                Stanza s = lettore.leggiStanza(stanza, nome);
 	                if (stanza.equals(UnitaImmobiliare.NOME_STANZA_DEFAULT))
 	                    unit.setStanzaDefault(s);
 	                else
@@ -55,7 +65,7 @@ public class UnitaImmobiliareXML implements IstanziatoreXML<UnitaImmobiliare> {
 	        if (childs.getLength() > 0) {
 	            for (int i = 0; i < childs.getLength(); i++) {
 	                String regola = childs.item(i).getTextContent();
-	                Regola r = LetturaDatiLocali.getInstance().leggiRegola(regola, nome);
+	                Regola r = lettore.leggiRegola(regola, nome);
 	                unit.addRegola(r);
 	            }
 	        }
@@ -64,7 +74,7 @@ public class UnitaImmobiliareXML implements IstanziatoreXML<UnitaImmobiliare> {
 	        return unit;
 	    }
 	    else
-	        throw new NoSuchElementException("LettoriXML.UNITA_IMMOB.getInstance(): elemento " + el.getTagName() + "non di tipo " + CostantiXML.NODO_XML_UNITA_IMMOB);
+	        throw new NoSuchElementException("UnitaImmobiliareXML.instanceElement(): elemento " + el.getTagName() + "non di tipo " + CostantiXML.NODO_XML_UNITA_IMMOB);
 	}
 
     

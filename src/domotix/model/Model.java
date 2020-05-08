@@ -68,11 +68,21 @@ public interface Model {
      */
     Sensore getSensore(String sensore);
     /**
+     * Ritorna la lista di sensori contenuti
+     * @return  lista di sensori
+     */
+    List<Sensore> getSensori();
+    /**
      * Ritorna l'attuatore identificato
      * @param attuatore identificativo attuatore
      * @return  istanza dell'attuatore
      */
     Attuatore getAttuatore(String attuatore);
+    /**
+     * Ritorna la lista di attuatori contenuti
+     * @return  lista di attuatori
+     */
+    List<Attuatore> getAttuatori();
     /**
      * Ritorna l'azione programmata identificata
      * @param id    identificativo azione
@@ -84,6 +94,11 @@ public interface Model {
      * @return lista di istanze di azioni
      */
     List<Azione> getAzioniProgrammate();
+    /**
+     * Ritorna la lista di id di azioni programmate
+     * @return lista di istanze di azioni
+     */
+    List<String> getIdAzioniProgrammate();
     /**
      * Ritorna la categoria attuatore identificata
      * @param nomeCategoriaAttuatore    identificativo categoria attuatore

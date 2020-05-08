@@ -8,6 +8,7 @@ import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Sistema;
 import domotix.model.bean.system.Stanza;
+import domotix.model.util.SommarioDispositivi;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -334,11 +335,29 @@ public class Recuperatore {
     }
 
     /**
-     * Ritorna l'elenco di descrizioni delle azioni programmate.
-     * @return  array di stringhe con le descrizioni delle azioni programmate
+     * Ritorna l'elenco di azioni programmate.
+     * @return  array di azioni programmate
      */
     public List<Azione> getAzioniProgrammate() {
         return model.getAzioniProgrammate();
+    }
+
+     /**
+     * Ritorna l'elenco di id delle azioni programmate.
+     * @return  array di stringhe con gli id delle azioni programmate
+     */
+    public List<String> getIdAzioniProgrammate() {
+        return model.getIdAzioniProgrammate();
+    }
+
+    /**
+     * Ritorna un elenco di coppie id - azione per le azioni programmate
+     * @return  map di stringhe e azioni per tutte le azioni programmate con relativo id
+     */
+    public Map<String, Azione> getCoppieIdAzione() {
+        Map<String, Azione> ret = new HashMap<>();
+        getIdAzioniProgrammate().forEach(s -> ret.put(s, getAzioneProgrammata(s)));
+        return ret;
     }
 
     /**
@@ -368,4 +387,44 @@ public class Recuperatore {
      * @return sensore richiesto
      */
     public Sensore getSensore(String nsensoreDestro) { return this.model.getSensore(nsensoreDestro); }
+
+    /**
+     * Ritorna la lista di sensori
+     * @return  lista di sensori
+     */
+    public List<Sensore> getSensori() {
+        return model.getSensori();
+    }
+    
+    /**
+     * Ritorna la lista di attuatori
+     * @return  lista di attuatori
+     */
+    public List<Attuatore> getAttuatori() {
+        return model.getAttuatori();
+    }
+
+    /**
+     * Ritorna il sensore orologio
+     * @return  istanza di sensore orologio
+     */
+    public SensoreOrologio getSensoreOrologio() {
+        return this.model.getOrologio();
+    }
+
+    /**
+     * Ritorna il sommario per i sensori
+     * @return  istanza di sommariodispositivi inerenti a sensori
+     */
+    public SommarioDispositivi getSommarioSensori() {
+        return this.model.getSommarioSensori();
+    }
+
+    /**
+     * Ritorna il sommario per i attuatori
+     * @return  istanza di sommariodispositivi inerenti a attuatori
+     */
+    public SommarioDispositivi getSommarioAttuatori() {
+        return this.model.getSommarioAttuatori();
+    }
 }

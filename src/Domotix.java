@@ -10,6 +10,7 @@ import domotix.controller.io.datilocali.PercorsiFile;
 import domotix.controller.io.datilocali.RimozioneDatiLocali;
 import domotix.controller.io.datilocali.RinfrescaDatiLocali;
 import domotix.controller.io.datilocali.ScritturaDatiLocali;
+import domotix.controller.io.xml.VisitorXML;
 import domotix.model.AccessoModel;
 import domotix.model.ElencoUnitaImmobiliari;
 import domotix.model.Model;
@@ -31,36 +32,43 @@ public class Domotix {
      * @param args  eventuali argomenti non utilizzati
      */
     public static void main(String ...args) {
+        /* DICHIARAZIONE ELEMENTI BASE */
+        Model model = new AccessoModel();
+        Recuperatore recuperatore = new Recuperatore(model);
+        Verificatore verificatore = new Verificatore(recuperatore);
+        Modificatore modificatore = new Modificatore(model, recuperatore, verificatore);
+
+        /* DICHIARAZIONE ELEMENTI GENERAZIONE PERCORSI LOCALI */
         PercorsiFile generatoreDati = new PercorsiFile(PercorsiFile.SORGENTE.DATI);
         PercorsiFile generatoreLibreria = new PercorsiFile(PercorsiFile.SORGENTE.LIBRERIA);
         PercorsiFile generatoreLibreriaImportata = new PercorsiFile(PercorsiFile.SORGENTE.LIBRERIA_IMPORTATA);
 
+        /* CONTROLLO STRUTTURA DATI LOCALI */
         //TODO manage exceptions
         generatoreDati.controllaStruttura();
         generatoreLibreria.controllaStruttura();
         generatoreLibreriaImportata.controllaStruttura();
 
-        LetturaDatiSalvati letturaDati = new LetturaDatiLocali(generatoreDati);
-        LetturaDatiSalvati letturaLibreria = new LetturaDatiLocali(generatoreLibreria);
-        ScritturaDatiSalvati scritturaDati = new ScritturaDatiLocali(generatoreDati);
+        /* DICHIARAZIONE ELEMENTI IO */
+        VisitorXML visitatoriXML = new VisitorXML(); //TODO: manage exceptions
+        LetturaDatiSalvati letturaDati = new LetturaDatiLocali(generatoreDati, recuperatore);
+        LetturaDatiSalvati letturaLibreria = new LetturaDatiLocali(generatoreLibreria, recuperatore);
+        ScritturaDatiSalvati scritturaDati = new ScritturaDatiLocali(generatoreDati, visitatoriXML); //TODO: manage exceptions
         RimozioneDatiSalvati rimozioneDati = new RimozioneDatiLocali(generatoreDati);
-
-        ImportaDati importaDati = new ImportaDatiLocali(generatoreLibreria, letturaLibreria, generatoreLibreriaImportata);
-        //Da vedere per la storicizzazione
-
-        Model model = new AccessoModel();
-        Recuperatore recuperatore = new Recuperatore(model);
-        Verificatore verificatore = new Verificatore(recuperatore);
-        Modificatore modificatore = new Modificatore(model, recuperatore, verificatore);
+        ImportaDati importaDati = new ImportaDatiLocali(generatoreLibreria, generatoreLibreriaImportata, letturaLibreria);
+        
+        /* DICHIARAZIONE ELEMENTI CONTROLLER */
         Importatore importatoreLocale = new Importatore(modificatore, importaDatiLocali);
-        Interpretatore interpretatore = new InterpretatoreConsole(modificatore);
-        Rappresentatore rappresentatore = new RappresentatoreConsole(recuperatore);
+        Interpretatore interpretatore = new Interpretatore(modificatore);
+        Rappresentatore rappresentatore = new Rappresentatore(recuperatore);
 
+        /* DICHIARAZIONE ELEMENTI TIMER */
         RinfrescaDati rinfrescaDati = new RinfrescaDatiLocali(letturaDati, recuperatore);
         TimerRinfrescoDati timerRinfrescoDati = new TimerRinfrescoDati(rinfrescaDati);
         TimerGestioneRegole timerGestioneRegole = new TimerGestioneRegole(recuperatore);
-        TimerAzioniProgrammate timerAzioniProgrammate = new TimerAzioniProgrammate(recuperatore);
+        TimerAzioniProgrammate timerAzioniProgrammate = new TimerAzioniProgrammate(recuperatore, modificatore);
 
+        /* DICHIARAZIONE ELEMENTI FUNZIONAMENTO PROGRAMMA */
         AperturaProgramma apertura = new AperturaProgramma(letturaDati, modificatore);
         MenuApertura menuApertura = new MenuApertura(apertura);
         MenuAzioniConflitto menuAzioniConflitto = new MenuAzioniConflitto(recuperatore, modificatore);
@@ -81,7 +89,7 @@ public class Domotix {
 
             //Controllo se non sono presenti unita immobiliari e in tal caso aggiungo l'unita base generata.
             if (!verificatore.controlloEsistenzaUnita())
-                modificatore.aggiungiUnita(recuperatore.getUnitaBase());
+                modificatore.aggiungiUnitaImmobiliare(recuperatore.getUnitaBase());
 
             timerAzioniProgrammate.start(); //avvio timer gestione azioni programmate
             timerRinfrescoDati.start(); //avvio timer rinfresco dati

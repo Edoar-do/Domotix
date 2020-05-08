@@ -25,7 +25,7 @@ public class RimozioneDatiLocali extends RimozioneDatiSalvatiAdapter {
 
     private PercorsiFile generatorePercorsi = null;
 
-    private RimozioneDatiLocali(PercorsiFile generatorePercorsi) {
+    public RimozioneDatiLocali(PercorsiFile generatorePercorsi) {
         this.generatorePercorsi = generatorePercorsi;
     }
 

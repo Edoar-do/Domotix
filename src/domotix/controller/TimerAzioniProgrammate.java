@@ -22,36 +22,27 @@ public class TimerAzioniProgrammate {
     private int delay = DEFAULT_DELAY;
     private TimerTask taskControlloAzioni;
     private ArrayList<String> azioniPianificate;
+    //private Recuperatore recuperatore = null;
+    private Modificatore modificatore = null;
 
-    private static TimerAzioniProgrammate instance = null;
-
-    /**
-     * Recupera la unica istanza della classe
-     * @return  unica istanza della classe
-     */
-    public static TimerAzioniProgrammate getInstance() {
-        if (instance == null)
-            instance = new TimerAzioniProgrammate();
-        return instance;
-    }
-
-    private TimerAzioniProgrammate() {
+    public TimerAzioniProgrammate(Recuperatore recuperatore, Modificatore modificatore) {
+        TimerAzioniProgrammate instance = this;
+        //this.recuperatore = recuperatore;
+        this.modificatore = modificatore;
         this.timer = new Timer();
         this.timerAzione = new Timer();
         this.azioniPianificate = new ArrayList<>();
         this.taskControlloAzioni = new TimerTask() {
             @Override
             public void run() {
-                ElencoAzioniProgrammate
-                        .getInstance()
-                        .getIdAzioni()
+                recuperatore.getIdAzioniProgrammate()
                         .stream()
                         .filter(s -> !azioniPianificate.contains(s))
                         .forEach(s -> {
                             //per ogni nuova azione da pianificare
-                            Azione a = ElencoAzioniProgrammate.getInstance().getAzione(s); //recupero l'azione
-                            long delay = SensoreOrologio.getInstance().getMinutiDifferenza(a.getStart()) * 60000; //ricavo il tempo in millisecondi
-                            timerAzione.schedule(new TimerTaskAzione(s, a, getInstance()), delay); //schedulo l'azione
+                            Azione a = recuperatore.getAzioneProgrammata(s); //recupero l'azione
+                            long delay = recuperatore.getSensoreOrologio().getMinutiDifferenza(a.getStart()) * 60000; //ricavo il tempo in millisecondi
+                            timerAzione.schedule(new TimerTaskAzione(s, a, instance), delay); //schedulo l'azione
                             azioniPianificate.add(s);
                             //la classe TimerTaskAzione esegue l'azione e richiama il metodo consume
                 });
@@ -97,7 +88,7 @@ public class TimerAzioniProgrammate {
      * @param idAzione  identificativo dell'azione
      */
     public void consume(String idAzione) {
-        ElencoAzioniProgrammate.getInstance().remove(idAzione);
+        modificatore.rimuoviAzioneProgrammata(idAzione, false);
         azioniPianificate.remove(idAzione);
     }
 }

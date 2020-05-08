@@ -1,12 +1,10 @@
 package domotix.controller.io.datilocali;
 
-import domotix.model.ElencoCategorieAttuatori;
-import domotix.model.ElencoCategorieSensori;
-import domotix.model.ElencoUnitaImmobiliari;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.CategoriaAttuatore;
 import domotix.model.bean.device.CategoriaSensore;
 import domotix.controller.io.ImportaDatiAdapter;
+import domotix.controller.io.LetturaDatiSalvati;
 
 import java.io.File;
 import java.nio.file.NotDirectoryException;
@@ -27,143 +25,130 @@ public class ImportaDatiLocali extends ImportaDatiAdapter {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
-    private ImportaDatiLocali() throws NotDirectoryException {
-        
+    private PercorsiFile generatoreLibreria = null;
+    private PercorsiFile generatoreLibreriaImportata = null;
+    private LetturaDatiSalvati lettoreLibreria = null;
+
+    public ImportaDatiLocali(PercorsiFile generatoreLibreria, PercorsiFile generatoreLibreriaImportata, LetturaDatiSalvati lettoreLibreria) throws NotDirectoryException {
+        this.generatoreLibreria = generatoreLibreria;
+        this.generatoreLibreriaImportata = generatoreLibreriaImportata;
+        this.lettoreLibreria = lettoreLibreria;
     }
 
     @Override
     public List<String> getNomiCategorieSensori() {
         List<String> retVal = null;
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA);
-        retVal = PercorsiFile.getInstance().getNomiCategorieSensori();
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_DATI);
+        retVal = generatoreLibreria.getNomiCategorieSensori();
         return retVal;
     }
 
     @Override
     public List<String> getNomiCategorieAttuatori() {
         List<String> retVal = null;
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA);
-        retVal = PercorsiFile.getInstance().getNomiCategorieAttuatori();
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_DATI);
+        retVal = generatoreLibreria.getNomiCategorieAttuatori();
         return retVal;
     }
 
     @Override
     public List<String> getNomiUnitaImmobiliare() {
         List<String> retVal = null;
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA);
-        retVal = PercorsiFile.getInstance().getNomiUnitaImmobiliare();
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_DATI);
+        retVal = generatoreLibreria.getNomiUnitaImmobiliare();
         return retVal;
     }
 
     @Override
     public CategoriaSensore leggiCategoriaSensore(String nome) throws Exception {
         CategoriaSensore retVal = null;
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA);
-        retVal = LetturaDatiLocali.getInstance().leggiCategoriaSensore(nome);
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_DATI);
+        retVal = lettoreLibreria.leggiCategoriaSensore(nome);
         return retVal;
     }
 
     @Override
     public CategoriaAttuatore leggiCategoriaAttuatore(String nome) throws Exception {
         CategoriaAttuatore retVal = null;
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA);
-        retVal = LetturaDatiLocali.getInstance().leggiCategoriaAttuatore(nome);
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_DATI);
+        retVal = lettoreLibreria.leggiCategoriaAttuatore(nome);
         return retVal;
     }
 
     @Override
     public UnitaImmobiliare leggiUnitaImmobiliare(String nome) throws Exception {
         UnitaImmobiliare retVal = null;
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA);
-        retVal = LetturaDatiLocali.getInstance().leggiUnitaImmobiliare(nome);
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_DATI);
+        retVal = lettoreLibreria.leggiUnitaImmobiliare(nome);
         return retVal;
     }
 
     @Override
     public boolean storicizzaCategoriaSensore(String nome) throws Exception {
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA);
-        String percorsoAttuale = PercorsiFile.getInstance().getCartellaCategoriaSensore(nome);
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA_IMPORTATA);
-        String percorsoFinale = PercorsiFile.getInstance().getCartellaCategoriaSensore(getNomeTimestamp(nome)); //recupero il nome della cartella con il timestamp
+        String percorsoAttuale = generatoreLibreria.getCartellaCategoriaSensore(nome);
+        String percorsoFinale = generatoreLibreriaImportata.getCartellaCategoriaSensore(getNomeTimestamp(nome)); //recupero il nome della cartella con il timestamp
 
         //tento la storicizzazione facile: rinominare la cartella per spostarli
         boolean esito = storicizzaFiles(percorsoAttuale, percorsoFinale);
 
-        if (!esito) { //problema di sicurezza con il S.O. --> salvo nuovamente e cancello il vecchio
-            CategoriaSensore cat = ElencoCategorieSensori.getInstance().getCategoria(nome); //sto storicizzando, quindi e' stata aggiunta
-            if (cat == null) throw new IllegalArgumentException("ImportaDati.storicizzaCategoriaSensore(): categoria da storicizzare " + nome + " non corrisponde ad alcuna categoria in elenco.");
+        // if (!esito) { //problema di sicurezza con il S.O. --> salvo nuovamente e cancello il vecchio
+        //     CategoriaSensore cat = ElencoCategorieSensori.getInstance().getCategoria(nome); //sto storicizzando, quindi e' stata aggiunta
+        //     if (cat == null) throw new IllegalArgumentException("ImportaDati.storicizzaCategoriaSensore(): categoria da storicizzare " + nome + " non corrisponde ad alcuna categoria in elenco.");
 
-            PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA_IMPORTATA);
-            ScritturaDatiLocali.getInstance().salva(cat);
-            percorsoAttuale = PercorsiFile.getInstance().getCartellaCategoriaSensore(nome);
-            esito = storicizzaFiles(percorsoAttuale, percorsoFinale); //rinomino solamente la cartella
+        //     PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA_IMPORTATA);
+        //     ScritturaDatiLocali.getInstance().salva(cat);
+        //     percorsoAttuale = PercorsiFile.getInstance().getCartellaCategoriaSensore(nome);
+        //     esito = storicizzaFiles(percorsoAttuale, percorsoFinale); //rinomino solamente la cartella
 
-            if (esito) //se ancora fallisce il rinomino allora elimino i file appena creati in libreria importata per evitare errori futuri (stesso nome)
-                PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA);
-            RimozioneDatiLocali.getInstance().rimuoviCategoriaSensore(nome);
-        }
+        //     if (esito) //se ancora fallisce il rinomino allora elimino i file appena creati in libreria importata per evitare errori futuri (stesso nome)
+        //         PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA);
+        //     RimozioneDatiLocali.getInstance().rimuoviCategoriaSensore(nome);
+        // }
 
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_DATI);
         return esito;
     }
 
     @Override
     public boolean storicizzaCategoriaAttuatore(String nome) throws Exception {
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA);
-        String percorsoAttuale = PercorsiFile.getInstance().getCartellaCategoriaAttuatore(nome);
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA_IMPORTATA);
-        String percorsoFinale = PercorsiFile.getInstance().getCartellaCategoriaAttuatore(getNomeTimestamp(nome)); //recupero il nome della cartella con il timestamp
+        String percorsoAttuale = generatoreLibreria.getCartellaCategoriaAttuatore(nome);
+        String percorsoFinale = generatoreLibreriaImportata.getCartellaCategoriaAttuatore(getNomeTimestamp(nome)); //recupero il nome della cartella con il timestamp
 
         //tento la storicizzazione facile: rinominare la cartella per spostarli
         boolean esito = storicizzaFiles(percorsoAttuale, percorsoFinale);
-        if (!esito) { //problema di sicurezza con il S.O. --> salvo nuovamente e cancello il vecchio
-            CategoriaAttuatore cat = ElencoCategorieAttuatori.getInstance().getCategoria(nome); //sto storicizzando, quindi e' stata aggiunta
-            if (cat == null) throw new IllegalArgumentException("ImportaDati.storicizzaCategoriaAttuatore(): categoria da storicizzare " + nome + " non corrisponde ad alcuna categoria in elenco.");
 
-            PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA_IMPORTATA);
-            ScritturaDatiLocali.getInstance().salva(cat);
-            percorsoAttuale = PercorsiFile.getInstance().getCartellaCategoriaAttuatore(nome);
-            esito = storicizzaFiles(percorsoAttuale, percorsoFinale); //rinomino solamente la cartella
+        // if (!esito) { //problema di sicurezza con il S.O. --> salvo nuovamente e cancello il vecchio
+        //     CategoriaAttuatore cat = ElencoCategorieAttuatori.getInstance().getCategoria(nome); //sto storicizzando, quindi e' stata aggiunta
+        //     if (cat == null) throw new IllegalArgumentException("ImportaDati.storicizzaCategoriaAttuatore(): categoria da storicizzare " + nome + " non corrisponde ad alcuna categoria in elenco.");
 
-            if (esito) //se ancora fallisce il rinomino allora elimino i file appena creati in libreria importata per evitare errori futuri (stesso nome)
-                PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA);
-            RimozioneDatiLocali.getInstance().rimuoviCategoriaAttuatore(nome);
-        }
+        //     PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA_IMPORTATA);
+        //     ScritturaDatiLocali.getInstance().salva(cat);
+        //     percorsoAttuale = PercorsiFile.getInstance().getCartellaCategoriaAttuatore(nome);
+        //     esito = storicizzaFiles(percorsoAttuale, percorsoFinale); //rinomino solamente la cartella
 
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_DATI);
+        //     if (esito) //se ancora fallisce il rinomino allora elimino i file appena creati in libreria importata per evitare errori futuri (stesso nome)
+        //         PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA);
+        //     RimozioneDatiLocali.getInstance().rimuoviCategoriaAttuatore(nome);
+        // }
+
         return esito;
     }
 
     @Override
     public boolean storicizzaUnitaImmobiliare(String nome) throws Exception {
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA);
-        String percorsoAttuale = PercorsiFile.getInstance().getCartellaUnitaImmobiliare(nome);
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA_IMPORTATA);
-        String percorsoFinale = PercorsiFile.getInstance().getCartellaUnitaImmobiliare(getNomeTimestamp(nome)); //recupero il nome della cartella con il timestamp
+        String percorsoAttuale = generatoreLibreria.getCartellaUnitaImmobiliare(nome);
+        String percorsoFinale = generatoreLibreriaImportata.getCartellaUnitaImmobiliare(getNomeTimestamp(nome)); //recupero il nome della cartella con il timestamp
 
         //tento la storicizzazione facile: rinominare la cartella per spostarli
         boolean esito = storicizzaFiles(percorsoAttuale, percorsoFinale);
-        if (!esito) { //problema di sicurezza con il S.O. --> salvo nuovamente e cancello il vecchio
-            UnitaImmobiliare unita = ElencoUnitaImmobiliari.getInstance().getUnita(nome); //sto storicizzando, quindi e' stata aggiunta
-            if (unita == null) throw new IllegalArgumentException("ImportaDati.storicizzaUnitaImmobiliare(): unita da storicizzare " + nome + " non corrisponde ad alcuna unita in elenco.");
 
-            PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA_IMPORTATA);
-            ScritturaDatiLocali.getInstance().salva(unita);
-            percorsoAttuale = PercorsiFile.getInstance().getCartellaUnitaImmobiliare(nome);
-            esito = storicizzaFiles(percorsoAttuale, percorsoFinale); //rinomino solamente la cartella
+        // if (!esito) { //problema di sicurezza con il S.O. --> salvo nuovamente e cancello il vecchio
+        //     UnitaImmobiliare unita = ElencoUnitaImmobiliari.getInstance().getUnita(nome); //sto storicizzando, quindi e' stata aggiunta
+        //     if (unita == null) throw new IllegalArgumentException("ImportaDati.storicizzaUnitaImmobiliare(): unita da storicizzare " + nome + " non corrisponde ad alcuna unita in elenco.");
 
-            if (esito) //se ancora fallisce il rinomino allora elimino i file appena creati in libreria importata per evitare errori futuri (stesso nome)
-                PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA);
-            RimozioneDatiLocali.getInstance().rimuoviUnitaImmobiliare(nome);
-        }
+        //     PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA_IMPORTATA);
+        //     ScritturaDatiLocali.getInstance().salva(unita);
+        //     percorsoAttuale = PercorsiFile.getInstance().getCartellaUnitaImmobiliare(nome);
+        //     esito = storicizzaFiles(percorsoAttuale, percorsoFinale); //rinomino solamente la cartella
 
-        PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_DATI);
+        //     if (esito) //se ancora fallisce il rinomino allora elimino i file appena creati in libreria importata per evitare errori futuri (stesso nome)
+        //         PercorsiFile.getInstance().setSorgente(PercorsiFile.SORGENTE_LIBRERIA);
+        //     RimozioneDatiLocali.getInstance().rimuoviUnitaImmobiliare(nome);
+        // }
+
         return esito;
     }
 

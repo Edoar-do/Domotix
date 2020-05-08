@@ -72,7 +72,7 @@ public class AperturaProgramma {
         //popolo le categorie sensori
         this.letturaDati.getNomiCategorieSensori().forEach(s -> {
             try {
-                //TODO this.modificatore.aggiungiCategoriaSensore(this.letturaDati.leggiCategoriaSensore(s));
+                this.modificatore.aggiungiCategoriaSensore(this.letturaDati.leggiCategoriaSensore(s));
             } catch (Exception e) {
                 this.erroriLettura.add(e.getMessage());
                 result.set(false);
@@ -88,7 +88,7 @@ public class AperturaProgramma {
         //popolo le categorie attuatori
         this.letturaDati.getNomiCategorieAttuatori().forEach(s -> {
             try {
-                //TODO this.modificatore.aggiungiCategoriaAttuatore(this.letturaDati.leggiCategoriaAttuatore(s));
+                this.modificatore.aggiungiCategoriaAttuatore(this.letturaDati.leggiCategoriaAttuatore(s));
             } catch (Exception e) {
                 this.erroriLettura.add(e.getMessage());
                 result.set(false);
@@ -103,7 +103,7 @@ public class AperturaProgramma {
         //popolo le unita immobiliari
         this.letturaDati.getNomiUnitaImmobiliare().forEach(s -> {
             try {
-                //TODO this.modificatore.aggiungiUnitaImmobiliare(this.letturaDati.leggiUnitaImmobiliare(s));
+                this.modificatore.aggiungiUnitaImmobiliare(this.letturaDati.leggiUnitaImmobiliare(s));
             } catch (Exception e) {
                 this.erroriLettura.add(e.getMessage());
                 result.set(false);
@@ -119,7 +119,7 @@ public class AperturaProgramma {
         this.letturaDati.getIdAzioniProgrammate().forEach(s -> {
             try {
                 Azione a = this.letturaDati.leggiAzioneProgrammata(s);
-                //TODO this.modificatore.aggiungiAzioneProgrammata(s, a);
+                this.modificatore.aggiungiAzioneProgrammata(s, a);
             } catch (Exception e) {
                 this.erroriLettura.add(e.getMessage());
                 result.set(false);

@@ -1,6 +1,5 @@
 package domotix.controller;
 
-import domotix.model.ElencoSensori;
 import domotix.controller.io.RinfrescaDati;
 
 import javax.swing.*;
@@ -17,27 +16,17 @@ public class TimerRinfrescoDati {
 
     private Timer timer;
     private int delay = DEFAULT_DELAY;
+    private RinfrescaDati rinfrescaDati = null;
 
-    private static TimerRinfrescoDati instance = null;
-
-    /**
-     * Recupera la unica istanza della classe
-     * @return  unica istanza della classe
-     */
-    public static TimerRinfrescoDati getInstance() {
-        if (instance == null)
-            instance = new TimerRinfrescoDati();
-        return instance;
-    }
-
-    private TimerRinfrescoDati() {
+    public TimerRinfrescoDati(RinfrescaDati rinfrescaDati) {
         this.timer = new Timer(delay, this::action);
         this.timer.setRepeats(true);
+        this.rinfrescaDati = rinfrescaDati;
     }
 
     private void action(ActionEvent e) {
         try {
-            RinfrescaDati.getInstance().rinfrescaSensori(ElencoSensori.getInstance());
+            rinfrescaDati.rinfrescaSensori();
         } catch (Exception ex) {
             //ex.printStackTrace();
         }

@@ -8,7 +8,7 @@ import domotix.model.bean.system.Stanza;
 import domotix.model.visitor.Visitable;
 import domotix.controller.io.ScritturaDatiSalvati;
 import domotix.controller.io.ScritturaDatiSalvatiAdapter;
-import domotix.controller.visitors.xml.VisitorXML;
+import domotix.controller.io.xml.VisitorXML;
 
 import org.w3c.dom.Document;
 

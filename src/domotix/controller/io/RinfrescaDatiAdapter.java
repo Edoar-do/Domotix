@@ -1,8 +1,6 @@
 package domotix.controller.io;
 
-import java.util.List;
 
-import domotix.model.bean.device.Sensore;
 
 /**
  * Classe che implementa l'interfaccia RinfrescaDati come base per le implementazioni complesse.
@@ -12,7 +10,7 @@ import domotix.model.bean.device.Sensore;
  */
 public class RinfrescaDatiAdapter implements RinfrescaDati {
     @Override
-    public void rinfrescaSensori(List<Sensore> elenco) throws Exception {
+    public void rinfrescaSensori() throws Exception {
 
     }
 }

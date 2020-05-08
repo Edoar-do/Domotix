@@ -2,6 +2,7 @@ package domotix.controller.io.datilocali;
 
 import domotix.model.bean.regole.Azione;
 import domotix.model.bean.regole.Regola;
+import domotix.controller.Recuperatore;
 import domotix.controller.io.LetturaDatiSalvati;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
@@ -9,6 +10,20 @@ import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.controller.io.LetturaDatiSalvatiAdapter;
 import domotix.controller.io.xml.CostantiXML;
+import domotix.controller.io.xml.IstanziatoreXML;
+import domotix.controller.io.xml.istanziatori.AntecedenteXML;
+import domotix.controller.io.xml.istanziatori.ArtefattoXML;
+import domotix.controller.io.xml.istanziatori.AttuatoreXML;
+import domotix.controller.io.xml.istanziatori.AzioneXML;
+import domotix.controller.io.xml.istanziatori.CategoriaAttuatoreXML;
+import domotix.controller.io.xml.istanziatori.CategoriaSensoreXML;
+import domotix.controller.io.xml.istanziatori.ConseguenteXML;
+import domotix.controller.io.xml.istanziatori.InfoRilevabileXML;
+import domotix.controller.io.xml.istanziatori.ModalitaXML;
+import domotix.controller.io.xml.istanziatori.RegolaXML;
+import domotix.controller.io.xml.istanziatori.SensoreXML;
+import domotix.controller.io.xml.istanziatori.StanzaXML;
+import domotix.controller.io.xml.istanziatori.UnitaImmobiliareXML;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,7 +33,6 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerConfigurationException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.FileSystemException;
@@ -39,87 +53,88 @@ import java.util.List;
 public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
 
     private PercorsiFile generatorePercorsi = null;
+    //private Recuperatore recuperatore = null;
     private DocumentBuilderFactory documentFactory = null;
     private DocumentBuilder documentBuilder = null;
-    private HashMap<String, LettoriXML> lettori = null;
+    private HashMap<String, IstanziatoreXML<? extends Object>> lettori = null;
 
-    private LetturaDatiLocali(PercorsiFile generatorePercorsi) throws NotDirectoryException, ParserConfigurationException {
+    public LetturaDatiLocali(PercorsiFile generatorePercorsi, Recuperatore recuperatore) throws NotDirectoryException, ParserConfigurationException {
         
         this.generatorePercorsi = generatorePercorsi;
-        
+        //this.recuperatore = recuperatore;
         documentFactory = DocumentBuilderFactory.newInstance();
         documentBuilder = documentFactory.newDocumentBuilder();
 
         //Popolo la tabella dei lettori
         lettori = new HashMap<>();
-        lettori.put(CostantiXML.NODO_XML_AZIONE, LettoriXML.AZIONE);
-        lettori.put(CostantiXML.NODO_XML_REGOLA, LettoriXML.REGOLA);
-        lettori.put(CostantiXML.NODO_XML_ANTECEDENTE, LettoriXML.ANTECEDENTE);
-        lettori.put(CostantiXML.NODO_XML_CONSEGUENTE, LettoriXML.CONSEGUENTE);
-        lettori.put(CostantiXML.NODO_XML_ATTUATORE, LettoriXML.ATTUATORE);
-        lettori.put(CostantiXML.NODO_XML_SENSORE, LettoriXML.SENSORE);
-        lettori.put(CostantiXML.NODO_XML_ARTEFATTO, LettoriXML.ARTEFATTO);
-        lettori.put(CostantiXML.NODO_XML_STANZA, LettoriXML.STANZA);
-        lettori.put(CostantiXML.NODO_XML_UNITA_IMMOB, LettoriXML.UNITA_IMMOB);
-        lettori.put(CostantiXML.NODO_XML_MODALITA, LettoriXML.MODALITA);
-        lettori.put(CostantiXML.NODO_XML_CATEGORIA_ATTUATORE, LettoriXML.CATEGORIA_ATTUATORE);
-        lettori.put(CostantiXML.NODO_XML_INFORILEVABILE, LettoriXML.INFORMAZIONE_RILEVABILE);
-        lettori.put(CostantiXML.NODO_XML_CATEGORIA_SENSORE, LettoriXML.CATEGORIA_SENSORE);
+        lettori.put(CostantiXML.NODO_XML_AZIONE, new AzioneXML(recuperatore));
+        lettori.put(CostantiXML.NODO_XML_REGOLA, new RegolaXML(recuperatore));
+        lettori.put(CostantiXML.NODO_XML_ANTECEDENTE, new AntecedenteXML(recuperatore));
+        lettori.put(CostantiXML.NODO_XML_CONSEGUENTE, new ConseguenteXML(recuperatore));
+        lettori.put(CostantiXML.NODO_XML_ATTUATORE, new AttuatoreXML(recuperatore));
+        lettori.put(CostantiXML.NODO_XML_SENSORE, new SensoreXML(recuperatore));
+        lettori.put(CostantiXML.NODO_XML_ARTEFATTO, new ArtefattoXML(recuperatore, this));
+        lettori.put(CostantiXML.NODO_XML_STANZA, new StanzaXML(recuperatore, this));
+        lettori.put(CostantiXML.NODO_XML_UNITA_IMMOB, new UnitaImmobiliareXML(recuperatore, this));
+        lettori.put(CostantiXML.NODO_XML_MODALITA, new ModalitaXML());
+        lettori.put(CostantiXML.NODO_XML_CATEGORIA_ATTUATORE, new CategoriaAttuatoreXML(this));
+        lettori.put(CostantiXML.NODO_XML_INFORILEVABILE, new InfoRilevabileXML());
+        lettori.put(CostantiXML.NODO_XML_CATEGORIA_SENSORE, new CategoriaSensoreXML(this));
     }
 
     @Override
     public List<String> getNomiCategorieSensori() {
-        return PercorsiFile.getInstance().getNomiCategorieSensori();
+        return this.generatorePercorsi.getNomiCategorieSensori();
     }
 
     @Override
     public List<String> getNomiInformazioniRilevabili(String categoriaSensore) {
-        return PercorsiFile.getInstance().getNomiInformazioniRilevabili(categoriaSensore);
+        return this.generatorePercorsi.getNomiInformazioniRilevabili(categoriaSensore);
     }
 
     @Override
     public List<String> getNomiCategorieAttuatori() {
-        return PercorsiFile.getInstance().getNomiCategorieAttuatori();
+        return this.generatorePercorsi.getNomiCategorieAttuatori();
     }
 
     @Override
     public List<String> getNomiModalita(String categoriaAttuatore) {
-        return PercorsiFile.getInstance().getNomiModalita(categoriaAttuatore);
+        return this.generatorePercorsi.getNomiModalita(categoriaAttuatore);
     }
 
     @Override
     public List<String> getNomiUnitaImmobiliare() {
-        return PercorsiFile.getInstance().getNomiUnitaImmobiliare();
+        return this.generatorePercorsi.getNomiUnitaImmobiliare();
     }
 
     @Override
     public List<String> getNomiStanze(String unitaImmobiliare) {
-        return PercorsiFile.getInstance().getNomiStanze(unitaImmobiliare);
+        return this.generatorePercorsi.getNomiStanze(unitaImmobiliare);
     }
 
     @Override
     public List<String> getNomiArtefatti(String unitaImmobiliare) {
-        return PercorsiFile.getInstance().getNomiArtefatti(unitaImmobiliare);
+        return this.generatorePercorsi.getNomiArtefatti(unitaImmobiliare);
     }
 
     @Override
     public List<String> getNomiSensori() {
-        return PercorsiFile.getInstance().getNomiSensori();
+        return this.generatorePercorsi.getNomiSensori();
     }
 
     @Override
     public List<String> getNomiAttuatori() {
-        return PercorsiFile.getInstance().getNomiAttuatori();
+        return this.generatorePercorsi.getNomiAttuatori();
     }
 
     @Override
     public List<String> getNomiRegole(String unita) {
-        return PercorsiFile.getInstance().getNomiRegola(unita);
+        return this.generatorePercorsi.getNomiRegola(unita);
     }
 
     @Override
     public List<String> getIdAzioniProgrammate() {
-        return PercorsiFile.getInstance().getNomiAzioniProgramamte();
+        return this.generatorePercorsi.getNomiAzioniProgramamte();
     }
 
     private Object leggi(String path) throws Exception {
@@ -150,7 +165,7 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
             if (nodo.getNodeType() == Node.ELEMENT_NODE) {
                 Element el = (Element) nodo;
 
-                LettoriXML lett = lettori.get(el.getTagName());
+                IstanziatoreXML<? extends Object> lett = lettori.get(el.getTagName());
                 if (lett == null) {
                     throw new IllegalArgumentException(this.getClass().getName() + ": elemento XML " + el.getTagName() + " non gestito.");
                 }
@@ -175,13 +190,13 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
 
     @Override
     public CategoriaSensore leggiCategoriaSensore(String nome) throws Exception {
-        String path = PercorsiFile.getInstance().getPercorsoCategoriaSensore(nome);
+        String path = this.generatorePercorsi.getPercorsoCategoriaSensore(nome);
         return (CategoriaSensore)leggi(path);
     }
 
     @Override
     public InfoRilevabile leggiInfoRilevabile(String nome, String categoria) throws Exception {
-        String path = PercorsiFile.getInstance().getPercorsoInformazioneRilevabile(nome, categoria);
+        String path = this.generatorePercorsi.getPercorsoInformazioneRilevabile(nome, categoria);
         return (InfoRilevabile)leggi(path);
     }
 
@@ -198,13 +213,13 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
 
     @Override
     public CategoriaAttuatore leggiCategoriaAttuatore(String nome) throws Exception {
-        String path = PercorsiFile.getInstance().getPercorsoCategoriaAttuatore(nome);
+        String path = this.generatorePercorsi.getPercorsoCategoriaAttuatore(nome);
         return (CategoriaAttuatore) leggi(path);
     }
 
     @Override
     public Modalita leggiModalita(String nome, String categoria) throws Exception {
-        String path = PercorsiFile.getInstance().getPercorsoModalita(nome, categoria);
+        String path = this.generatorePercorsi.getPercorsoModalita(nome, categoria);
         return (Modalita) leggi(path);
     }
 
@@ -221,43 +236,43 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
 
     @Override
     public UnitaImmobiliare leggiUnitaImmobiliare(String nome) throws Exception {
-        String path = PercorsiFile.getInstance().getPercorsoUnitaImmobiliare(nome);
+        String path = this.generatorePercorsi.getPercorsoUnitaImmobiliare(nome);
         return (UnitaImmobiliare) leggi(path);
     }
 
     @Override
     public Stanza leggiStanza(String nome, String unitaImmob) throws Exception {
-        String path = PercorsiFile.getInstance().getPercorsoStanza(nome, unitaImmob);
+        String path = this.generatorePercorsi.getPercorsoStanza(nome, unitaImmob);
         return (Stanza) leggi(path);
     }
 
     @Override
     public Artefatto leggiArtefatto(String nome, String unitaImmob) throws Exception {
-        String path = PercorsiFile.getInstance().getPercorsoArtefatto(nome, unitaImmob);
+        String path = this.generatorePercorsi.getPercorsoArtefatto(nome, unitaImmob);
         return (Artefatto) leggi(path);
     }
 
     @Override
     public Sensore leggiSensore(String nome) throws Exception {
-        String path = PercorsiFile.getInstance().getPercorsoSensore(nome);
+        String path = this.generatorePercorsi.getPercorsoSensore(nome);
         return (Sensore) leggi(path);
     }
 
     @Override
     public Attuatore leggiAttuatore(String nome) throws Exception {
-        String path = PercorsiFile.getInstance().getAttuatore(nome);
+        String path = this.generatorePercorsi.getAttuatore(nome);
         return (Attuatore) leggi(path);
     }
 
     @Override
     public Regola leggiRegola(String idRegola, String unita) throws Exception {
-        String path = PercorsiFile.getInstance().getPercorsoRegola(idRegola, unita);
+        String path = this.generatorePercorsi.getPercorsoRegola(idRegola, unita);
         return (Regola) leggi(path);
     }
 
     @Override
     public Azione leggiAzioneProgrammata(String id) throws Exception {
-        String path = PercorsiFile.getInstance().getPercorsoAzioneProgrammabile(id);
+        String path = this.generatorePercorsi.getPercorsoAzioneProgrammabile(id);
         return (Azione) leggi(path);
     }
 }

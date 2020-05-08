@@ -1,10 +1,10 @@
 package domotix.controller.io.datilocali;
 
 import domotix.model.bean.device.Sensore;
+import domotix.controller.Recuperatore;
 import domotix.controller.io.LetturaDatiSalvati;
 import domotix.controller.io.RinfrescaDatiAdapter;
 
-import java.util.List;
 
 /**
  * Classe che implementa l'interfaccia RinfrescaDati per definire un meccanismo di ri-lettura dei dati su file memorizzati
@@ -18,14 +18,16 @@ import java.util.List;
 public class RinfrescaDatiLocali extends RinfrescaDatiAdapter {
 
     private LetturaDatiSalvati lettore = null;
+    private Recuperatore recuperatore = null;
 
-    private RinfrescaDatiLocali(LetturaDatiSalvati lettore) {
+    public RinfrescaDatiLocali(LetturaDatiSalvati lettore, Recuperatore recuperatore) {
         this.lettore = lettore;
+        this.recuperatore = recuperatore;
     }
 
     @Override
-    public void rinfrescaSensori(List<Sensore> elenco) throws Exception {
-        for (Sensore s : elenco) {
+    public void rinfrescaSensori() throws Exception {
+        for (Sensore s : recuperatore.getSensori()) {
             Sensore letto = this.lettore.leggiSensore(s.getNome());
             for (String nomeInfo : s.getValori().keySet()) {
                 s.setValore(nomeInfo, letto.getValore(nomeInfo));

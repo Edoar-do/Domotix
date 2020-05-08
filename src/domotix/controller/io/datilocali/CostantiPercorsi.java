@@ -1,4 +1,4 @@
-package domotix.controller.io;
+package domotix.controller.io.datilocali;
 
 import java.io.File;
 
@@ -9,8 +9,7 @@ import java.io.File;
  *
  * @author paolopasqua
  */
-public final class Costanti {
-    private Costanti() {}
+public final class CostantiPercorsi {
 
     /*
     Costanti utilizzate per la costruzione dei percorsi in cui trovare i dati locali del programma

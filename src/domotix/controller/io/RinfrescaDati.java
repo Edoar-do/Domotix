@@ -1,9 +1,5 @@
 package domotix.controller.io;
 
-import domotix.model.bean.device.Sensore;
-
-import java.util.List;
-
 /**
  *  Interfaccia per l'implementazione di strutture per il "rinfresco" dei dati, ovvero la ri-lettura di
  *  attributi di determinate entita' per avere valori aggiornati e sincronizzati con i dati salvati.
@@ -19,13 +15,11 @@ import java.util.List;
 public interface RinfrescaDati {
 
     /**
-     * Rinfresca gli attributi per ciascun Sensore contenuto in ElencoSensori passato.
+     * Rinfresca gli attributi per ciascun Sensore contenuto nel model.
      *
-     * @param elenco    elenco di da elaborare (gestito come singleton, percio' unica istanza)
      * @throws Exception    eventuale eccezione lanciata per diverse circostanze interne.
      * @see domotix.model.bean.device.Sensore
-     * @see ElencoSensori
      */
-    void rinfrescaSensori(List<Sensore> elenco) throws Exception;
+    void rinfrescaSensori() throws Exception;
 
 }

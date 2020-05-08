@@ -7,6 +7,7 @@ import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 import domotix.model.util.SommarioDispositivi;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -82,13 +83,28 @@ public class AccessoModel implements Model {
     }
 
     @Override
+    public List<Sensore> getSensori() {
+        return Arrays.asList(this.elencoSensori.getDispositivi());
+    }
+
+    @Override
     public Attuatore getAttuatore(String attuatore) {
         return this.elencoAttuatori.getDispositivo(attuatore);
     }
 
     @Override
+    public List<Attuatore> getAttuatori() {
+        return Arrays.asList(this.elencoAttuatori.getDispositivi());
+    }
+
+    @Override
     public Azione getAzioneProgrammata(String id) {
         return this.elencoAzioniProgrammate.getAzione(id);
+    }
+
+    @Override
+    public List<String> getIdAzioniProgrammate() {
+        return this.elencoAzioniProgrammate.getIdAzioni();
     }
 
     @Override

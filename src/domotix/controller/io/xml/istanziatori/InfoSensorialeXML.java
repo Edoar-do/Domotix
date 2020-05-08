@@ -3,14 +3,12 @@ package domotix.controller.io.xml.istanziatori;
 import java.time.LocalTime;
 import java.util.NoSuchElementException;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import domotix.controller.io.xml.CompilatoreXML;
+import domotix.controller.Recuperatore;
 import domotix.controller.io.xml.CostantiXML;
 import domotix.controller.io.xml.IstanziatoreXML;
-import domotix.model.ElencoSensori;
 import domotix.model.bean.device.InfoRilevabile;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.device.SensoreOrologio;
@@ -21,14 +19,20 @@ import domotix.model.bean.regole.InfoVariabile;
 
 public class InfoSensorialeXML implements IstanziatoreXML<InfoSensoriale> {
 
+	private Recuperatore recuperatore = null;
+
+	public InfoSensorialeXML(Recuperatore recuperatore) {
+		this.recuperatore = recuperatore;
+	}
+
     /** Metodo per scrittore: INFO_SENSORIALE **/
     @Override
     public InfoSensoriale getInstance(Element el) throws Exception {
-        return null;
-    }
+        return instanceElement(el, this.recuperatore);
+	}
 
 	/** Metodo per lettore: INFO_SENSORIALE **/
-	public static Object leggiInfoSensoriale(Element el) throws Exception {
+	public static InfoSensoriale instanceElement(Element el, Recuperatore recuperatore) {
 	    //controllo tag elemento
 	    if (el.getTagName().equals(CostantiXML.NODO_XML_INFO_SENSORIALE)) {
 	        InfoSensoriale info = null;
@@ -38,10 +42,10 @@ public class InfoSensorialeXML implements IstanziatoreXML<InfoSensoriale> {
 	        if (childs.getLength() > 0) {
 	            //Traduco un'informazione sensoriale di tipo varibile
 	            String nomeSensore = childs.item(0).getTextContent();
-	            Sensore sens = ElencoSensori.getInstance().getDispositivo(nomeSensore);
+	            Sensore sens = recuperatore.getSensore(nomeSensore);
 	
 	            if (sens == null)
-	                throw new NoSuchElementException("LettoriXML.INFO_SENSORIALE.getInstance(): sensore " + nomeSensore + " non trovato.");
+	                throw new NoSuchElementException("InfoSensorialeXML.instanceElement(): sensore " + nomeSensore + " non trovato.");
 	
 	            childs = el.getElementsByTagName(CostantiXML.NODO_XML_INFO_SENSORIALE_INFO_RILEV);
 	            if (childs.getLength() > 0) {
@@ -49,12 +53,12 @@ public class InfoSensorialeXML implements IstanziatoreXML<InfoSensoriale> {
 	                InfoRilevabile infoRilev = sens.getCategoria().getInformazioneRilevabile(nomeInfoRilev);
 	
 	                if (infoRilev == null)
-	                    throw new NoSuchElementException("LettoriXML.INFO_SENSORIALE.getInstance(): informazione " + nomeInfoRilev + " per categoria sensore " + sens.getCategoria().getNome() + " non trovato.");
+	                    throw new NoSuchElementException("InfoSensorialeXML.instanceElement(): informazione " + nomeInfoRilev + " per categoria sensore " + sens.getCategoria().getNome() + " non trovato.");
 	
 	                info = new InfoVariabile(sens, nomeInfoRilev);
 	
 	            } else
-	                throw new NoSuchElementException("LettoriXML.INFO_SENSORIALE.getInstance(): elemento " + CostantiXML.NODO_XML_INFO_SENSORIALE_INFO_RILEV + " assente.");
+	                throw new NoSuchElementException("InfoSensorialeXML.instanceElement(): elemento " + CostantiXML.NODO_XML_INFO_SENSORIALE_INFO_RILEV + " assente.");
 	
 	        }
 	        if (info == null) {
@@ -104,13 +108,13 @@ public class InfoSensorialeXML implements IstanziatoreXML<InfoSensoriale> {
 	            }
 	        }
 	        if (info == null) //malformazione
-	            throw new NoSuchElementException("LettoriXML.INFO_SENSORIALE.getInstance(): elemento " + CostantiXML.NODO_XML_INFO_SENSORIALE + " con formato non gestito.");
+	            throw new NoSuchElementException("InfoSensorialeXML.instanceElement(): elemento " + CostantiXML.NODO_XML_INFO_SENSORIALE + " con formato non gestito.");
 	
 	        //ritorno istanza corretta
 	        return info;
 	    }
 	    else
-	        throw new NoSuchElementException("LettoriXML.INFO_SENSORIALE.getInstance(): elemento " + el.getTagName() + "non di tipo " + CostantiXML.NODO_XML_INFO_SENSORIALE);
+	        throw new NoSuchElementException("InfoSensorialeXML.instanceElement(): elemento " + el.getTagName() + "non di tipo " + CostantiXML.NODO_XML_INFO_SENSORIALE);
 	}
 
 	

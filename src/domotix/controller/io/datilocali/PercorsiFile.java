@@ -5,8 +5,6 @@ import java.nio.file.NotDirectoryException;
 import java.util.ArrayList;
 import java.util.List;
 
-import domotix.controller.io.Costanti;
-
 /**
  * Classe che implementa il pattern Singleton per la gestione dei percorsi dei file locali in cui sono salvati i dati del programma.
  * Si intende in questo modo centralizzare la generazione dei percorsi e le codifiche delle chiavi identificative.
@@ -163,11 +161,11 @@ public class PercorsiFile {
     public String getPercorsoSorgente() {
         switch(this.sorgente) {
             case DATI:
-                return Costanti.PERCORSO_CARTELLA_DATI;
+                return CostantiPercorsi.PERCORSO_CARTELLA_DATI;
             case LIBRERIA:
-                return Costanti.PERCORSO_CARTELLA_LIBRERIA;
+                return CostantiPercorsi.PERCORSO_CARTELLA_LIBRERIA;
             case LIBRERIA_IMPORTATA:
-                return Costanti.PERCORSO_CARTELLA_LIBRERIA_IMPORTATA;
+                return CostantiPercorsi.PERCORSO_CARTELLA_LIBRERIA_IMPORTATA;
         }
         return "";
     }
@@ -198,7 +196,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.CategoriaSensore
      */
     public String getCartellaCategorieSensore() {
-        return getPercorsoSorgente() + File.separator + Costanti.NOME_CARTELLA_CATEGORIE_SENSORI;
+        return getPercorsoSorgente() + File.separator + CostantiPercorsi.NOME_CARTELLA_CATEGORIE_SENSORI;
     }
 
     /**
@@ -231,7 +229,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.Modalita
      */
     public String getCartellaInformazioneRilevabile(String cat) {
-        return getCartellaCategoriaSensore(cat) + File.separator + Costanti.NOME_CARTELLA_INFO_RILEVABILE;
+        return getCartellaCategoriaSensore(cat) + File.separator + CostantiPercorsi.NOME_CARTELLA_INFO_RILEVABILE;
     }
 
     /**
@@ -272,7 +270,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.CategoriaAttuatore
      */
     public String getCartellaCategorieAttuatore() {
-        return getPercorsoSorgente() + File.separator + Costanti.NOME_CARTELLA_CATEGORIE_ATTUATORI;
+        return getPercorsoSorgente() + File.separator + CostantiPercorsi.NOME_CARTELLA_CATEGORIE_ATTUATORI;
     }
 
     /**
@@ -305,7 +303,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.Modalita
      */
     public String getCartellaModalita(String cat) {
-        return getCartellaCategoriaAttuatore(cat) + File.separator + Costanti.NOME_CARTELLA_MODALITA;
+        return getCartellaCategoriaAttuatore(cat) + File.separator + CostantiPercorsi.NOME_CARTELLA_MODALITA;
     }
 
     /**
@@ -346,7 +344,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.UnitaImmobiliare
      */
     public String getCartellaUnitaImmobiliari() {
-        return getPercorsoSorgente() + File.separator + Costanti.NOME_CARTELLA_UNITA_IMMOB;
+        return getPercorsoSorgente() + File.separator + CostantiPercorsi.NOME_CARTELLA_UNITA_IMMOB;
     }
 
     /**
@@ -380,7 +378,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.system.Stanza
      */
     public String getCartellaStanze(String unita) {
-        return getCartellaUnitaImmobiliare(unita) + File.separator + Costanti.NOME_CARTELLA_STANZE;
+        return getCartellaUnitaImmobiliare(unita) + File.separator + CostantiPercorsi.NOME_CARTELLA_STANZE;
     }
 
     /**
@@ -413,7 +411,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.system.Artefatto
      */
     public String getCartellaArtefatti(String unita) {
-        return getCartellaUnitaImmobiliare(unita) + File.separator + Costanti.NOME_CARTELLA_ARTEFATTI;
+        return getCartellaUnitaImmobiliare(unita) + File.separator + CostantiPercorsi.NOME_CARTELLA_ARTEFATTI;
     }
 
     /**
@@ -444,7 +442,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.Sensore
      */
     public String getCartellaSensori() {
-        return getPercorsoSorgente() + File.separator + Costanti.NOME_CARTELLA_SENSORI;
+        return getPercorsoSorgente() + File.separator + CostantiPercorsi.NOME_CARTELLA_SENSORI;
     }
 
     /**
@@ -475,7 +473,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.device.Attuatore
      */
     public String getCartellaAttuatori() {
-        return getPercorsoSorgente() + File.separator + Costanti.NOME_CARTELLA_ATTUATORI;
+        return getPercorsoSorgente() + File.separator + CostantiPercorsi.NOME_CARTELLA_ATTUATORI;
     }
 
     /**
@@ -506,7 +504,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.regole.Regola
      */
     public String getCartellaRegole(String unita) {
-        return getCartellaUnitaImmobiliare(unita) + File.separator + Costanti.NOME_CARTELLA_REGOLE;
+        return getCartellaUnitaImmobiliare(unita) + File.separator + CostantiPercorsi.NOME_CARTELLA_REGOLE;
     }
 
     /**
@@ -539,7 +537,7 @@ public class PercorsiFile {
      * @see domotix.model.bean.regole.Azione
      */
     public String getCartellaAzioniProgrammabili() {
-        return getPercorsoSorgente() + File.separator + Costanti.NOME_CARTELLA_AZIONI_PROGRAMMATE;
+        return getPercorsoSorgente() + File.separator + CostantiPercorsi.NOME_CARTELLA_AZIONI_PROGRAMMATE;
     }
 
     /**

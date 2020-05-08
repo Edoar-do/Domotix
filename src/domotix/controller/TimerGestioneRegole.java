@@ -1,6 +1,5 @@
 package domotix.controller;
 
-import domotix.model.ElencoUnitaImmobiliari;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.regole.Regola;
 import domotix.model.bean.regole.StatoRegola;
@@ -19,27 +18,17 @@ public class TimerGestioneRegole {
 
     private Timer timer;
     private int delay = DEFAULT_DELAY;
+    private Recuperatore recuperatore = null;
 
-    private static TimerGestioneRegole instance = null;
-
-    /**
-     * Recupera la unica istanza della classe
-     * @return  unica istanza della classe
-     */
-    public static TimerGestioneRegole getInstance() {
-        if (instance == null)
-            instance = new TimerGestioneRegole();
-        return instance;
-    }
-
-    private TimerGestioneRegole() {
+    public TimerGestioneRegole(Recuperatore recuperatore) {
         this.timer = new Timer(delay, this::action);
         this.timer.setRepeats(true);
+        this.recuperatore = recuperatore;
     }
 
     private void action(ActionEvent e) {
         //controllo le regole per ciascuna unita immobiliare presente
-        for (UnitaImmobiliare u : ElencoUnitaImmobiliari.getInstance().getUnita()) {
+        for (UnitaImmobiliare u : recuperatore.getListaUnita()) {
             for (Regola r : u.getRegole()) {
                 //se la regola e' attiva e l'antecedente risulta verificato allora eseguo
                 if (r.getStato().equals(StatoRegola.ATTIVA)) {

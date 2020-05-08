@@ -1,21 +1,16 @@
 package domotix.controller;
 
-import domotix.model.*;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.CategoriaAttuatore;
 import domotix.model.bean.device.CategoriaSensore;
 import domotix.controller.io.RimozioneDatiSalvati;
 import domotix.controller.io.ScritturaDatiSalvati;
-import domotix.view.menus.MenuChiusura;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Classe per le operazioni finali del programma.
@@ -63,7 +58,7 @@ public class ChiusuraProgramma {
             esito = risalvaDati(istanze);
         }
 
-        return true;
+        return esito;
     }
 
     /**
