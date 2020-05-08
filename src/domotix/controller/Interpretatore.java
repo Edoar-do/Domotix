@@ -7,18 +7,14 @@ import domotix.model.bean.regole.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 /**
  * Classe per implementare una parte di logica controller relativa all'aggiunta e rimozione di entita'.
  * @author andrea, paolopasqua, Edoardo Coppola
  **/
 public class Interpretatore {
-    // TODO: come faccio a fare cose come quelle alla riga 96 (0 188)? Bisognerebbe aggiungere questa roba a verificatore
     private Modificatore modificatore;
 
     public Interpretatore(Modificatore modificatore) {
@@ -34,7 +30,7 @@ public class Interpretatore {
      * @return True se l'aggiunta e' andata a buon fine
      */
     public boolean aggiungiParametro(String nomeCategoria, String nomeModalita, String nomeParametro, double valore) {
-        return modificatore.aggiungiParametro(new Parametro(nomeParametro, valore));
+        return modificatore.aggiungiParametro(nomeCategoria, nomeModalita, new Parametro(nomeParametro, valore));
     }
 
     /**
@@ -43,7 +39,7 @@ public class Interpretatore {
      * @return true se l'aggiunta e' andata a buon fine
      */
     public boolean aggiungiUnitaImmobiliare(String nomeUnita) {
-        return modificatore.aggiungiUnitaImmobiliare(new UnitaImmobiliare(nomeUnita)
+        return modificatore.aggiungiUnitaImmobiliare(new UnitaImmobiliare(nomeUnita));
     }
 
     /**
@@ -61,7 +57,7 @@ public class Interpretatore {
 
 
     public boolean aggiungiInfoRilevabile(String nomeCat, String nome, boolean numerica) {
-        return modificatore.aggiungiInfoRilevabile(new InfoRilevabile(nome, numerica)); 
+        return modificatore.aggiungiInfoRilevabile(nomeCat, new InfoRilevabile(nome, numerica));
     }
 
     /**
@@ -100,7 +96,7 @@ public class Interpretatore {
      * @return true se l'aggiunta e' andata a buon fine
      */
     public boolean aggiungiModalitaCategoriaAttuatore(String nomeCat, String nomeModalita) {
-        return modificatore.aggiungiModalitaCategoriaAttuatore(new Modalita(nomeModalita));
+        return modificatore.aggiungiModalitaCategoriaAttuatore(nomeCat, new Modalita(nomeModalita));
     }
 
     /**
@@ -119,7 +115,9 @@ public class Interpretatore {
      * @return true se l'aggiunta e' andata a buon fine
      */
     public boolean aggiungiStanza(String nomeStanza, String unita) {
-        return modificatore.aggiungiStanza(new Stanza(nomeStanza));
+        Stanza s = new Stanza(nomeStanza);
+        s.setUnitaOwner(unita);
+        return modificatore.aggiungiStanza(s);
     }
 
     /**
@@ -129,14 +127,7 @@ public class Interpretatore {
      * @return true se la rimozione e' andata a buon fine
      */
     public boolean rimuoviStanza(String stanza, String unita) {
-// TODO: cosa faccio qua?
-        UnitaImmobiliare unitaImm = Recuperatore.getUnita(unita);
- 
-        if (unitaImm == null)
-            return false;
-
-        unitaImm.removeStanza(stanza);
-        return true;
+      return modificatore.rimuoviStanza(stanza, unita);
     }
 
     /**
@@ -148,7 +139,7 @@ public class Interpretatore {
      * @return true se l'aggiunta e' andata a buon fine
      */
     public boolean aggiungiArtefatto(String artefatto, String stanza, String unita) {
-        return modificatore.aggiungiArtefatto(new Artefatto(artefatto));
+        return modificatore.aggiungiArtefatto(new Artefatto(artefatto), stanza, unita);
     }
 
     /**
@@ -172,10 +163,7 @@ public class Interpretatore {
      * @return true se l'aggiunta e' andata a buon fine
      */
     public boolean aggiungiSensore(String fantasia, String categoria, String stanza, String unita) {
-        String nomeComposto = StringUtil.componiNome(fantasia, categoria);
-        Sensore sensore = new Sensore(nomeComposto, Recuperatore.getCategoriaSensore(categoria));
-        sensore.setStato(true);
-        return modificatore.aggiungiSensore(sensore, stanza, unita);
+        return modificatore.aggiungiSensore(fantasia, categoria, stanza, unita);
     }
 
     /**
@@ -187,9 +175,7 @@ public class Interpretatore {
      * @return true se la condivisione e' andata a buon fine
      */
     public boolean collegaSensore(String nomeSensore, String nomeStanza, String nomeUnita) {
-        Sensore sens = Recuperatore.getSensore(nomeSensore);
-        Stanza stanza = Recuperatore.getStanza(nomeStanza, nomeUnita);
-        return modificatore.collegaSensore(sens, nomeStanza, nomeUnita);
+        return modificatore.collegaSensore(nomeSensore, nomeStanza, nomeUnita);
     }
 
     /**
@@ -213,10 +199,7 @@ public class Interpretatore {
      * @return true se l'aggiunta e' andata a buon fine
      */
     public boolean aggiungiSensore(String fantasia, String categoria, String artefatto, String stanza, String unita) {
-        String nomeComposto = StringUtil.componiNome(fantasia, categoria);
-        Sensore sensore = new Sensore(nomeComposto, Recuperatore.getCategoriaSensore(categoria));
-        sensore.setStato(true);
-        return modificatore.aggiungiSensore(sensore, artefatto, stanza, unita);
+        return modificatore.aggiungiSensore(fantasia, categoria, stanza, unita);
     }
 
     /**
@@ -253,10 +236,7 @@ public class Interpretatore {
      * @return true se l'aggiunta e' andata a buon fine
      */
     public boolean aggiungiAttuatore(String fantasia, String categoria, String stanza, String unita) {
-        String nomeComposto = StringUtil.componiNome(fantasia, categoria);
-        Attuatore attuatore = new Attuatore(nomeComposto, Recuperatore.getCategoriaAttuatore(categoria), Recuperatore.getCategoriaAttuatore(categoria).getModalitaDefault());
-        attuatore.setStato(true);
-        return modificatore.aggiungiAttuatore(attuatore, stanza, unita);
+        return modificatore.aggiungiAttuatore(fantasia, categoria, stanza, unita);
     }
 
     /**
@@ -268,7 +248,7 @@ public class Interpretatore {
      * @return true se la condivisione e' andata a buon fine
      */
     public boolean collegaAttuatore(String nomeAttuatore, String nomeStanza, String nomeUnita) {
-        return modificatore.collegaAttuatore(nomeAttuatore, nomeStanza, nomeUnita)
+        return modificatore.collegaAttuatore(nomeAttuatore, nomeStanza, nomeUnita);
     }
 
     /**
@@ -292,10 +272,7 @@ public class Interpretatore {
      * @return true se l'aggiunta e' andata a buon fine
      */
     public boolean aggiungiAttuatore(String fantasia, String categoria, String artefatto, String stanza, String unita) {
-        String nomeComposto = StringUtil.componiNome(fantasia, categoria);
-        Attuatore attuatore = new Attuatore(nomeComposto, Recuperatore.getCategoriaAttuatore(categoria), Recuperatore.getCategoriaAttuatore(categoria).getModalitaDefault()); // TODO: come faccio qua con Recuperatore?
-        attuatore.setStato(true);
-        return modificatore.aggiungiAttuatore(attuatore, artefatto, stanza, unita);
+        return modificatore.aggiungiAttuatore(fantasia, categoria, artefatto, stanza, unita);
     }
 
     /**
@@ -333,34 +310,6 @@ public class Interpretatore {
         return modificatore.aggiungiRegola(regola, nomeUnita);
     }
 
-    private InfoVariabile costruisciInfoDaSensore(String sinistroVar) {
-        // TODO: cosa faccio qua? Mi serve recuperatore 
-        String[] campi = sinistroVar.split(Pattern.quote("."));
-        String nomeSensore = campi[0];
-        String nomeInfo = campi[1];
-        Sensore sensore = Recuperatore.getSensore(nomeSensore);
-        InfoVariabile sinistro = new InfoVariabile(sensore, nomeInfo);
-        return sinistro;
-    }
-
-    private boolean aggiungiComponenteCostanteAntecedente(String sinistroVar, String op, Object destroConst, String unita, String idRegola) {
-        // TODO: da fare
-        try {
-            Regola regola = Recuperatore.getUnita(unita).getRegola(idRegola);
-            InfoVariabile sinistro = costruisciInfoDaSensore(sinistroVar);
-            InfoSensoriale destro;
-            if(Verificatore.checkIsSensoreOrologio(sinistroVar)){
-                    destro = new InfoTemporale(SensoreOrologio.getTempo((Double) destroConst));
-            }else {
-                destro = new InfoCostante(destroConst);
-            }
-            regola.addCondizone(new Condizione(sinistro, op, destro));
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
-    }
-
     /**
      * Metodo di aggiunta di una condizione con costante numerica a una regola
      * @param sinistroVar Parte sinistra
@@ -371,7 +320,7 @@ public class Interpretatore {
      * @return true se l'inserimento va a buon fine
      */
     public boolean aggiungiComponenteAntecedente(String sinistroVar, String op, double destroConst, String unita, String idRegola) {
-        return aggiungiComponenteCostanteAntecedente(sinistroVar, op, destroConst, unita, idRegola);
+        return modificatore.aggiungiComponenteAntecedente(sinistroVar, op, destroConst, unita, idRegola);
     }
 
     /**
@@ -385,12 +334,7 @@ public class Interpretatore {
      * @return true se l'inserimento va a buon fine
      */
     public boolean aggiungiComponenteAntecedente(String sinistroVar, String op, String destro, boolean scalare, String unita, String idRegola) {
-        if (scalare) {
-            return aggiungiComponenteCostanteAntecedente(sinistroVar, op, destro, unita, idRegola);
-        }
-        InfoVariabile sx = costruisciInfoDaSensore(sinistroVar);
-        InfoVariabile dx = costruisciInfoDaSensore(destro);
-        return modificatore.aggiungiComponenteAntecedente(new Condizione(sx, op, dx), idRegola, unita);
+        return modificatore.aggiungiComponenteAntecedente(sinistroVar, op, destro, scalare, unita, idRegola);
     }
 
     /**
@@ -423,11 +367,7 @@ public class Interpretatore {
      * @return true se l'inserimento e' andato a buon fine
      */
     public boolean aggiungiAzioneConseguente(String attuatore, String modalita, Map<String, Double> listaParams, String unita, String idRegola) { //SENZA START
-        Attuatore att = Recuperatore.getAttuatore(attuatore); // TODO: anche qua mi serve recuperatore (?)
-        Modalita mod = att.getCategoria().getModalita(modalita);
-        List<Parametro> parametri = new ArrayList<>();
-        listaParams.forEach((k, v) -> parametri.add(new Parametro(k, v)));
-        return modificatore.aggiungiAzioneConseguente(unita, idRegola, new Azione(att, mod, parametri));
+        return modificatore.aggiungiAzioneConseguente(attuatore, modalita, listaParams, unita, idRegola);
     }
 
     /**
@@ -453,13 +393,7 @@ public class Interpretatore {
      * @return true se l'inserimento è andato a buon fine
      */
     public boolean aggiungiAzioneConseguente(String attuatore, String modalita, Map<String, Double> listaParams, double orarioStart, String unita, String idRegola){ //CON START
-        String orario = String.valueOf(orarioStart);
-        Attuatore att = Recuperatore.getAttuatore(attuatore); // TODO: anche qua recuperatore
-        Modalita mod = att.getCategoria().getModalita(modalita);
-        List<Parametro> parametri = new ArrayList<>();
-        listaParams.forEach((k, v) -> parametri.add(new Parametro(k, v)));
-        return modificatore.aggiungiAzioneConseguente(unita, idRegola, new Azione(att, mod, parametri,SensoreOrologio.getTempo(orarioStart))M
-                return true;
+        return modificatore.aggiungiAzioneConseguente(attuatore, modalita, listaParams, orarioStart, unita, idRegola);
     }
 
     /**
@@ -483,28 +417,7 @@ public class Interpretatore {
      * @return true se il cambio stato ha avuto successo
      */
     public boolean cambiaStatoSensore(String sensore, String unita){
-        // TODO: da fare
-        Sensore s = Recuperatore.getSensore(sensore);
-        if(s == null) return false;
-        boolean opposto = !s.getStato();
-        s.setStato(opposto);
-        //eventuale sospensione/attivazione regola
-        UnitaImmobiliare u = Recuperatore.getUnita(unita);
-        Regola[] regole = u.getRegole();
-        for (Regola r: regole) {
-            if(r.contieneSensore(sensore)){//se la regola contiene il sensore a cui ho cambiato stato me ne curo altrimenti me ne frego e vado a quella dopo
-                if(s.getStato() == false) {//sensore appena spento
-                    if(!(r.getStato().equals(StatoRegola.DISATTIVA))) { //sospendo solo se attiva o sospesa. Se disattiva lascio com'è
-                        r.setStato(StatoRegola.SOSPESA);
-                    }
-                }
-                else { //sensore appena acceso - guardo se è possibile riattivare la regola
-                    if(r.getStato().equals(StatoRegola.SOSPESA) && r.isAttivabile()) { r.setStato(StatoRegola.ATTIVA); }
-                }
-            }
-        }
-        //fine sospensione/attivazione
-        return true;
+        return modificatore.cambiaStatoSensore(sensore, unita);
     }
 
     /**
@@ -515,28 +428,7 @@ public class Interpretatore {
      * @return true se il cambio stato ha avuto successo
      */
     public boolean cambiaStatoAttuatore(String attuatore, String unita){
-        // TODO: da fare
-        Attuatore a = Recuperatore.getAttuatore(attuatore);
-        if(a == null) return false;
-        boolean opposto = !a.getStato();
-        a.setStato(opposto);
-        //eventuale sospensione/attivazione regola
-        UnitaImmobiliare u = Recuperatore.getUnita(unita);
-        Regola[] regole = u.getRegole();
-        for (Regola r: regole) {
-            if(r.contieneAttuatore(attuatore)){//se la regola contiene l'attuatore a cui ho cambiato stato me ne curo altrimenti me ne frego e vado a quella dopo
-                if(a.getStato() == false) {//attuatore appena spento
-                    if(!(r.getStato().equals(StatoRegola.DISATTIVA))) { //sospendo solo se attiva o sospesa. Se disattiva lascio com'è
-                        r.setStato(StatoRegola.SOSPESA);
-                    }
-                }
-                else {//attuatore appena acceso - guardo se posso riattivare la regola
-                    if (r.getStato().equals(StatoRegola.SOSPESA) && r.isAttivabile()){ r.setStato(StatoRegola.ATTIVA); }
-                }
-            }
-        }
-        //fine sospensione/attivazione
-        return true;
+        return modificatore.cambiaStatoAttuatore(attuatore, unita);
     }
 
 
@@ -547,15 +439,7 @@ public class Interpretatore {
      * @return true se il cambio stato ha avuto successo
      */
     public int cambioStatoRegola(String idRegola, String unita){
-        // TODO: da fare
-        Regola r = Recuperatore.getUnita(unita).getRegola(idRegola);
-        if(r == null)  return -1;
-        StatoRegola s = r.getStato();
-        if(s.name().equals("ATTIVA")){ s = StatoRegola.DISATTIVA; r.setStato(s); return 1; }
-        else{
-            if(r.isAttivabile()){ s = StatoRegola.ATTIVA; r.setStato(s); return 2; }
-            else{ s = StatoRegola.SOSPESA; r.setStato(s); return 3; }
-        }
+        return modificatore.cambioStatoRegola(idRegola, unita);
     }
 
     /**
@@ -566,10 +450,7 @@ public class Interpretatore {
      * @return true: rimozione eseguita con successo; false: altrimenti
      */
     public boolean rimuoviAzioneProgrammata(String idAzione, boolean esegui) {
-        Azione a = Recuperatore.getAzioneProgrammata(idAzione); // TODO: anche qua recuperatore
-        if (esegui)
-            a.esegui();
-        return modificatore.rimuoviAzioneProgrammata(idAzione);
+        return modificatore.rimuoviAzioneProgrammata(idAzione, esegui);
     }
 
 }
