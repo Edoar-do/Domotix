@@ -35,7 +35,7 @@ public class Verificatore {
     }
 
     private boolean checkUnivocitaUnitaImmobiliare(String nome) {
-        return ElencoUnitaImmobiliari.getUnita(nome) == null;
+        return recuperatore.getListaUnita().stream().anyMatch(u -> nome.equals(u.getNome()));
     }
 
     /**
@@ -136,7 +136,9 @@ public class Verificatore {
      */
     public boolean checkValiditaCategoriaSensore(String nome) {
         return isNomeValido(nome) &&
-            !ElencoCategorieSensori.contains(nome);
+            !recuperatore.getCategorieSensore()
+            .stream()
+            .anyMatch(cs -> nome.equals(cs.getNome()));
     }
 
     /**
@@ -147,7 +149,9 @@ public class Verificatore {
      */
     public boolean checkValiditaCategoriaAttuatore(String nome) {
         return isNomeValido(nome) &&
-            !ElencoCategorieAttuatori.contains(nome);
+            !recuperatore.getCategorieSensore()
+            .stream()
+            .anyMatch(ca -> nome.equals(ca.getNome()));
     }
 
     /**
