@@ -35,7 +35,7 @@ public class Verificatore {
     }
 
     private boolean checkUnivocitaUnitaImmobiliare(String nome) {
-        return recuperatore.getListaUnita().stream().anyMatch(u -> nome.equals(u.getNome()));
+        return !recuperatore.getListaUnita().stream().anyMatch(u -> nome.equals(u.getNome()));
     }
 
     /**
