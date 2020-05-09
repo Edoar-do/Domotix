@@ -1,5 +1,6 @@
 package domotix.view.menus.menuUnita.gestioneStanza.gestioneArtefatto;
 
+import domotix.controller.Interpretatore;
 import domotix.controller.Rappresentatore;
 import domotix.view.MyMenu;
 import domotix.controller.util.StringUtil;

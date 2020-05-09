@@ -1,6 +1,7 @@
 package domotix.view.menus;
 
 import domotix.controller.Modificatore;
+import domotix.controller.Rappresentatore;
 import domotix.controller.Recuperatore;
 import domotix.view.InputDati;
 import domotix.view.MyMenu;
@@ -24,18 +25,20 @@ public class MenuAzioniConflitto {
     private static final String AVVISA_PROSEGUIMENTO_DOPO_ESEGUI = "Tutte le azioni rimanenti saranno riprogrammate per l'esecuzione. Premere invio per procedere...";
 
     private MyMenu menu = null;
+    private Rappresentatore rappresentatore = null;
     private Recuperatore recuperatore = null;
     private Modificatore modificatore = null;
 
     /**
      * Costruttore della classe.
      * 
-     * @param recuperatore  istanza del controller Recuperatore
+     * @param rappresentatore  istanza del controller Recuperatore
      * @param modificatore  istanza del controller Modificatore
      */
-    public MenuAzioniConflitto(Recuperatore recuperatore, Modificatore modificatore) {
-        this.recuperatore = recuperatore;
+    public MenuAzioniConflitto(Rappresentatore rappresentatore, Modificatore modificatore, Recuperatore recuperatore) {
+        this.rappresentatore = rappresentatore;
         this.modificatore = modificatore;
+        this.recuperatore = recuperatore;
     }
 
     /**
@@ -50,7 +53,7 @@ public class MenuAzioniConflitto {
 
             //recupero le descrizioni delle azioni
             for (int i = 0; i < idAzioni.size(); i++) {
-                descrizioniAzione.add(i, this.recuperatore.getDescrizioneAzioneProgrammata(idAzioni.get(i)));
+                descrizioniAzione.add(i, this.rappresentatore.getDescrizioneAzioneProgrammata(idAzioni.get(i)));
             }
 
             premenuElimina(idAzioni, descrizioniAzione);

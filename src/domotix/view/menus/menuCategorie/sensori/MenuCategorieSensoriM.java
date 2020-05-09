@@ -24,7 +24,6 @@ public class MenuCategorieSensoriM {
         this.menu.setTitolo(TITOLO);
         this.menu.setVoci(VOCI);
         this.i = i;
-        this.v = v;
         this.r = r;
         this.imp = imp;
     }

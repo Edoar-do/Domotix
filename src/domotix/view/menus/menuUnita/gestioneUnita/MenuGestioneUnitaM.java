@@ -1,5 +1,6 @@
 package domotix.view.menus.menuUnita.gestioneUnita;
 
+import domotix.controller.Interpretatore;
 import domotix.controller.Rappresentatore;
 import domotix.view.InputDati;
 import domotix.view.MyMenu;

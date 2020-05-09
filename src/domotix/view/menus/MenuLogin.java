@@ -1,5 +1,6 @@
 package domotix.view.menus;
 
+import domotix.controller.Interpretatore;
 import domotix.controller.Rappresentatore;
 import domotix.controller.Verificatore;
 import domotix.view.MyMenu;

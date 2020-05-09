@@ -35,7 +35,7 @@ public class Verificatore {
     }
 
     private boolean checkUnivocitaUnitaImmobiliare(String nome) {
-        return ElencoUnitaImmobiliari.getInstance().getUnita(nome) == null;
+        return ElencoUnitaImmobiliari.getUnita(nome) == null;
     }
 
     /**
@@ -136,7 +136,7 @@ public class Verificatore {
      */
     public boolean checkValiditaCategoriaSensore(String nome) {
         return isNomeValido(nome) &&
-            !ElencoCategorieSensori.getInstance().contains(nome);
+            !ElencoCategorieSensori.contains(nome);
     }
 
     /**
@@ -147,7 +147,7 @@ public class Verificatore {
      */
     public boolean checkValiditaCategoriaAttuatore(String nome) {
         return isNomeValido(nome) &&
-            !ElencoCategorieAttuatori.getInstance().contains(nome);
+            !ElencoCategorieAttuatori.contains(nome);
     }
 
     /**
@@ -188,7 +188,7 @@ public class Verificatore {
      * @return true se il sensore e' univoco
      */
     public boolean checkUnivocitaSensore(String nomeSensore) {
-        for (Sensore s : ElencoSensori.getInstance().getDispositivi()) {
+        for (Sensore s : ElencoSensori.getDispositivi()) {
             if (s.getNome().equals(nomeSensore)) return false;
         }
         return true;
@@ -200,7 +200,7 @@ public class Verificatore {
      * @return true se l'attuatore e' univoco
      */
     public boolean checkUnivocitaAttuatore(String nomeAttuatore) {
-        for (Attuatore a : ElencoAttuatori.getInstance().getDispositivi()) {
+        for (Attuatore a : ElencoAttuatori.getDispositivi()) {
             if (a.getNome().equals(nomeAttuatore)) return false;
         }
         return true;
