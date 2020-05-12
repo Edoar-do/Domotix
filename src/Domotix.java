@@ -58,7 +58,7 @@ public class Domotix {
         ImportaDati importaDati = new ImportaDatiLocali(generatoreLibreria, generatoreLibreriaImportata, letturaLibreria);
         
         /* DICHIARAZIONE ELEMENTI CONTROLLER */
-        Importatore importatoreLocale = new Importatore(modificatore, importaDatiLocali);
+        Importatore importatoreLocale = new Importatore(modificatore, importaDatiLocali, recuperatore);
         Interpretatore interpretatore = new Interpretatore(modificatore);
         Rappresentatore rappresentatore = new Rappresentatore(recuperatore);
 
@@ -71,12 +71,12 @@ public class Domotix {
         /* DICHIARAZIONE ELEMENTI FUNZIONAMENTO PROGRAMMA */
         AperturaProgramma apertura = new AperturaProgramma(letturaDati, modificatore);
         MenuApertura menuApertura = new MenuApertura(apertura);
-        MenuAzioniConflitto menuAzioniConflitto = new MenuAzioniConflitto(recuperatore, modificatore);
+        MenuAzioniConflitto menuAzioniConflitto = new MenuAzioniConflitto(rappresentatore, modificatore, recuperatore);
         
         ChiusuraProgramma chiusura = new ChiusuraProgramma(scritturaDati, rimozioneDati, recuperatore);
         MenuChiusura menuChiusura = new MenuChiusura(chiusura);
 
-        MenuLogin menuLogin = new MenuLogin(interpretatore, rappresentatore, verificatore);
+        MenuLogin menuLogin = new MenuLogin(interpretatore, verificatore, rappresentatore);
 
 
         /* AVVIO DEL PROGRAMMMA */
