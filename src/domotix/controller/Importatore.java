@@ -1,8 +1,5 @@
 package domotix.controller;
 
-import domotix.model.ElencoCategorieAttuatori;
-import domotix.model.ElencoCategorieSensori;
-import domotix.model.ElencoUnitaImmobiliari;
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.CategoriaAttuatore;
 import domotix.model.bean.device.CategoriaSensore;
@@ -64,8 +61,8 @@ public class Importatore {
      * Metodo che realizza l'importazione di categorie di sensori da una libreria esterna
      * @return esiti dell'importazione
      */
-    public ArrayList<String> importaCategorieSensori(){
-        ArrayList<String> esiti = new ArrayList<>();
+    public List<String> importaCategorieSensori(){
+        List<String> esiti = new ArrayList<>();
         CategoriaSensore categoria;
         String[] nomiCategorieSensoriDaImportare;
         try{ nomiCategorieSensoriDaImportare = importaDati.getNomiCategorieSensori().toArray(new String[0]);
@@ -97,8 +94,8 @@ public class Importatore {
      * Metodo che realizza l'importazione di categorie di attuatori da una libreria esterna
      * @return esiti dell'importazione
      */
-    public ArrayList<String> importaCategorieAttuatori(){
-        ArrayList<String> esiti = new ArrayList<>();
+    public List<String> importaCategorieAttuatori(){
+        List<String> esiti = new ArrayList<>();
         CategoriaAttuatore categoria;
         String[] nomiCategorieAttuatoriDaImportare;
         try {
