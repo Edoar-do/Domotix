@@ -192,7 +192,7 @@ public class Verificatore {
      * @return true se il sensore e' univoco
      */
     public boolean checkUnivocitaSensore(String nomeSensore) {
-        for (Sensore s : ElencoSensori.getDispositivi()) {
+        for (Sensore s : recuperatore.getSensori()) {
             if (s.getNome().equals(nomeSensore)) return false;
         }
         return true;
@@ -204,7 +204,7 @@ public class Verificatore {
      * @return true se l'attuatore e' univoco
      */
     public boolean checkUnivocitaAttuatore(String nomeAttuatore) {
-        for (Attuatore a : ElencoAttuatori.getDispositivi()) {
+        for (Attuatore a : recuperatore.getAttuatori()) {
             if (a.getNome().equals(nomeAttuatore)) return false;
         }
         return true;
