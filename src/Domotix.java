@@ -18,6 +18,14 @@ import domotix.view.menus.MenuAzioniConflitto;
 import domotix.view.menus.MenuApertura;
 import domotix.view.menus.MenuChiusura;
 import domotix.view.menus.MenuLogin;
+import domotix.view.strategyException.ContextStrategy;
+import domotix.view.strategyException.NotDirectoryExceptionRoutine;
+import domotix.view.strategyException.ParserConfigurationExceptionRoutine;
+import domotix.view.strategyException.TransformerConfigurationExceptionRoutine;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
+import java.nio.file.NotDirectoryException;
 
 /**
  * Classe principale del programma.
@@ -44,18 +52,41 @@ public class Domotix {
         PercorsiFile generatoreLibreriaImportata = new PercorsiFile(PercorsiFile.SORGENTE.LIBRERIA_IMPORTATA);
 
         /* CONTROLLO STRUTTURA DATI LOCALI */
-        //TODO manage exceptions
-        generatoreDati.controllaStruttura();
-        generatoreLibreria.controllaStruttura();
-        generatoreLibreriaImportata.controllaStruttura();
+        ContextStrategy contextStrategy;
+
+        try {
+            generatoreDati.controllaStruttura();
+            generatoreLibreria.controllaStruttura();
+            generatoreLibreriaImportata.controllaStruttura();
+        }catch(NotDirectoryException e){
+            contextStrategy = new ContextStrategy(new NotDirectoryExceptionRoutine());
+            contextStrategy.executeStrategy(e);
+        }
 
         /* DICHIARAZIONE ELEMENTI IO */
-        VisitorXML visitatoriXML = new VisitorXML(); //TODO: manage exceptions
-        LetturaDatiSalvati letturaDati = new LetturaDatiLocali(generatoreDati, recuperatore);
-        LetturaDatiSalvati letturaLibreria = new LetturaDatiLocali(generatoreLibreria, recuperatore);
-        ScritturaDatiSalvati scritturaDati = new ScritturaDatiLocali(generatoreDati, visitatoriXML); //TODO: manage exceptions
+        VisitorXML visitatoriXML = null;
+
+        try {
+            visitatoriXML = new VisitorXML();
+            LetturaDatiSalvati letturaDati = new LetturaDatiLocali(generatoreDati, recuperatore);
+            LetturaDatiSalvati letturaLibreria = new LetturaDatiLocali(generatoreLibreria, recuperatore);
+        } catch (ParserConfigurationException e) {
+            contextStrategy = new ContextStrategy(new ParserConfigurationExceptionRoutine());
+            contextStrategy.executeStrategy(e);
+        } catch (NotDirectoryException e){
+            contextStrategy = new ContextStrategy(new NotDirectoryExceptionRoutine());
+            contextStrategy.executeStrategy(e);
+        }
+
+        try {
+            ScritturaDatiSalvati scritturaDati = new ScritturaDatiLocali(generatoreDati, visitatoriXML);
+        }catch(TransformerConfigurationException e){
+            contextStrategy = new ContextStrategy(new TransformerConfigurationExceptionRoutine());
+            contextStrategy.executeStrategy(e);
+        }
+
         RimozioneDatiSalvati rimozioneDati = new RimozioneDatiLocali(generatoreDati);
-        ImportaDati importaDati = new ImportaDatiLocali(generatoreLibreria, generatoreLibreriaImportata, letturaLibreria);
+        ImportaDati importaDati = new ImportaDatiLocali(generatoreLibreria, generatoreLibreriaImportata, letturaLibreria); //todo: posso metterlo dentro il try in cui c'è lettura libreria??
         
         /* DICHIARAZIONE ELEMENTI CONTROLLER */
         Importatore importatoreLocale = new Importatore(modificatore, importaDati, recuperatore);
