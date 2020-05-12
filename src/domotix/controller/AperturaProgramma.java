@@ -61,8 +61,6 @@ public class AperturaProgramma {
      * In questo modo si possono riportare all'utente i messaggi di errore.
      *
      * @return  true non vi sono stati errori in lettura; false altrimenti
-     * @see LogErrori
-     * @see StoreIstanzeErrori
      */
     private boolean popolaDati() {
         AtomicBoolean result = new AtomicBoolean(true);

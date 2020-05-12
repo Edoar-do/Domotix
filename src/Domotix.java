@@ -58,7 +58,7 @@ public class Domotix {
         ImportaDati importaDati = new ImportaDatiLocali(generatoreLibreria, generatoreLibreriaImportata, letturaLibreria);
         
         /* DICHIARAZIONE ELEMENTI CONTROLLER */
-        Importatore importatoreLocale = new Importatore(modificatore, importaDatiLocali, recuperatore);
+        Importatore importatoreLocale = new Importatore(modificatore, importaDati, recuperatore);
         Interpretatore interpretatore = new Interpretatore(modificatore);
         Rappresentatore rappresentatore = new Rappresentatore(recuperatore);
 
