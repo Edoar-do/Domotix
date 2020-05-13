@@ -51,94 +51,84 @@ public class Domotix {
         PercorsiFile generatoreLibreria = new PercorsiFile(PercorsiFile.SORGENTE.LIBRERIA);
         PercorsiFile generatoreLibreriaImportata = new PercorsiFile(PercorsiFile.SORGENTE.LIBRERIA_IMPORTATA);
 
-        /* CONTROLLO STRUTTURA DATI LOCALI */
         ContextStrategy contextStrategy;
 
         try {
+            /* CONTROLLO STRUTTURA DATI LOCALI */
             generatoreDati.controllaStruttura();
             generatoreLibreria.controllaStruttura();
             generatoreLibreriaImportata.controllaStruttura();
-        }catch(NotDirectoryException e){
-            contextStrategy = new ContextStrategy(new NotDirectoryExceptionRoutine());
-            contextStrategy.executeStrategy(e);
-        }
 
-        /* DICHIARAZIONE ELEMENTI IO */
-        VisitorXML visitatoriXML = null;
-
-        try {
+            /* DICHIARAZIONE ELEMENTI IO */
+            VisitorXML visitatoriXML = null;
             visitatoriXML = new VisitorXML();
             LetturaDatiSalvati letturaDati = new LetturaDatiLocali(generatoreDati, recuperatore);
             LetturaDatiSalvati letturaLibreria = new LetturaDatiLocali(generatoreLibreria, recuperatore);
-        } catch (ParserConfigurationException e) {
-            contextStrategy = new ContextStrategy(new ParserConfigurationExceptionRoutine());
-            contextStrategy.executeStrategy(e);
-        } catch (NotDirectoryException e){
+            ScritturaDatiSalvati scritturaDati = new ScritturaDatiLocali(generatoreDati, visitatoriXML);
+            RimozioneDatiSalvati rimozioneDati = new RimozioneDatiLocali(generatoreDati);
+            ImportaDati importaDati = new ImportaDatiLocali(generatoreLibreria, generatoreLibreriaImportata, letturaLibreria);
+
+            /* DICHIARAZIONE ELEMENTI CONTROLLER */
+            Importatore importatoreLocale = new Importatore(modificatore, importaDati, recuperatore);
+            Interpretatore interpretatore = new Interpretatore(modificatore);
+            Rappresentatore rappresentatore = new Rappresentatore(recuperatore);
+
+            /* DICHIARAZIONE ELEMENTI TIMER */
+            RinfrescaDati rinfrescaDati = new RinfrescaDatiLocali(letturaDati, recuperatore);
+            TimerRinfrescoDati timerRinfrescoDati = new TimerRinfrescoDati(rinfrescaDati);
+            TimerGestioneRegole timerGestioneRegole = new TimerGestioneRegole(recuperatore);
+            TimerAzioniProgrammate timerAzioniProgrammate = new TimerAzioniProgrammate(recuperatore, modificatore);
+
+            /* DICHIARAZIONE ELEMENTI FUNZIONAMENTO PROGRAMMA */
+            AperturaProgramma apertura = new AperturaProgramma(letturaDati, modificatore);
+            MenuApertura menuApertura = new MenuApertura(apertura);
+            MenuAzioniConflitto menuAzioniConflitto = new MenuAzioniConflitto(rappresentatore, modificatore, recuperatore);
+
+            ChiusuraProgramma chiusura = new ChiusuraProgramma(scritturaDati, rimozioneDati, recuperatore);
+            MenuChiusura menuChiusura = new MenuChiusura(chiusura);
+
+            MenuLogin menuLogin = new MenuLogin(interpretatore, verificatore, rappresentatore);
+
+
+            /* AVVIO DEL PROGRAMMMA */
+
+            boolean esegui = menuApertura.avvia();
+
+            //Controllo di integrita' dati caricati e avvio servizi
+            if (esegui) {
+                menuAzioniConflitto.avvia();
+
+                //Controllo se non sono presenti unita immobiliari e in tal caso aggiungo l'unita base generata.
+                if (!verificatore.controlloEsistenzaUnita())
+                    modificatore.aggiungiUnitaImmobiliare(recuperatore.getUnitaBase());
+
+                timerAzioniProgrammate.start(); //avvio timer gestione azioni programmate
+                timerRinfrescoDati.start(); //avvio timer rinfresco dati
+                timerGestioneRegole.start(); //avvio timer gestione regole
+            }
+
+            //Esecuzione routine di esecuzione
+            while (esegui) {
+
+                menuLogin.avvia();
+
+                esegui = !chiusura.chiudi();
+            }
+
+            //Arresto servizi
+            timerAzioniProgrammate.stop();
+            timerRinfrescoDati.stop();
+            timerGestioneRegole.stop();
+        }catch(NotDirectoryException e){
             contextStrategy = new ContextStrategy(new NotDirectoryExceptionRoutine());
             contextStrategy.executeStrategy(e);
-        }
-
-        try {
-            ScritturaDatiSalvati scritturaDati = new ScritturaDatiLocali(generatoreDati, visitatoriXML);
+        }catch(ParserConfigurationException e){
+            contextStrategy = new ContextStrategy(new ParserConfigurationExceptionRoutine());
+            contextStrategy.executeStrategy(e);
         }catch(TransformerConfigurationException e){
             contextStrategy = new ContextStrategy(new TransformerConfigurationExceptionRoutine());
             contextStrategy.executeStrategy(e);
         }
 
-        RimozioneDatiSalvati rimozioneDati = new RimozioneDatiLocali(generatoreDati);
-        ImportaDati importaDati = new ImportaDatiLocali(generatoreLibreria, generatoreLibreriaImportata, letturaLibreria); //todo: posso metterlo dentro il try in cui c'è lettura libreria??
-        
-        /* DICHIARAZIONE ELEMENTI CONTROLLER */
-        Importatore importatoreLocale = new Importatore(modificatore, importaDati, recuperatore);
-        Interpretatore interpretatore = new Interpretatore(modificatore);
-        Rappresentatore rappresentatore = new Rappresentatore(recuperatore);
-
-        /* DICHIARAZIONE ELEMENTI TIMER */
-        RinfrescaDati rinfrescaDati = new RinfrescaDatiLocali(letturaDati, recuperatore);
-        TimerRinfrescoDati timerRinfrescoDati = new TimerRinfrescoDati(rinfrescaDati);
-        TimerGestioneRegole timerGestioneRegole = new TimerGestioneRegole(recuperatore);
-        TimerAzioniProgrammate timerAzioniProgrammate = new TimerAzioniProgrammate(recuperatore, modificatore);
-
-        /* DICHIARAZIONE ELEMENTI FUNZIONAMENTO PROGRAMMA */
-        AperturaProgramma apertura = new AperturaProgramma(letturaDati, modificatore);
-        MenuApertura menuApertura = new MenuApertura(apertura);
-        MenuAzioniConflitto menuAzioniConflitto = new MenuAzioniConflitto(rappresentatore, modificatore, recuperatore);
-        
-        ChiusuraProgramma chiusura = new ChiusuraProgramma(scritturaDati, rimozioneDati, recuperatore);
-        MenuChiusura menuChiusura = new MenuChiusura(chiusura);
-
-        MenuLogin menuLogin = new MenuLogin(interpretatore, verificatore, rappresentatore);
-
-
-        /* AVVIO DEL PROGRAMMMA */
-
-        boolean esegui = menuApertura.avvia();
-
-        //Controllo di integrita' dati caricati e avvio servizi
-        if (esegui) {
-            menuAzioniConflitto.avvia();
-
-            //Controllo se non sono presenti unita immobiliari e in tal caso aggiungo l'unita base generata.
-            if (!verificatore.controlloEsistenzaUnita())
-                modificatore.aggiungiUnitaImmobiliare(recuperatore.getUnitaBase());
-
-            timerAzioniProgrammate.start(); //avvio timer gestione azioni programmate
-            timerRinfrescoDati.start(); //avvio timer rinfresco dati
-            timerGestioneRegole.start(); //avvio timer gestione regole
-        }
-
-        //Esecuzione routine di esecuzione
-        while (esegui) {
-
-            menuLogin.avvia();
-
-            esegui = !chiusura.chiudi();
-        }
-
-        //Arresto servizi
-        timerAzioniProgrammate.stop();
-        timerRinfrescoDati.stop();
-        timerGestioneRegole.stop();
     }
-
 }
