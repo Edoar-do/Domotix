@@ -58,7 +58,7 @@ public class LetturaDatiLocali extends LetturaDatiSalvatiAdapter {
     private DocumentBuilder documentBuilder = null;
     private HashMap<String, IstanziatoreXML<? extends Object>> lettori = null;
 
-    public LetturaDatiLocali(PercorsiFile generatorePercorsi, Recuperatore recuperatore) throws NotDirectoryException, ParserConfigurationException {
+    public LetturaDatiLocali(PercorsiFile generatorePercorsi, Recuperatore recuperatore) throws ParserConfigurationException {
         
         this.generatorePercorsi = generatorePercorsi;
         //this.recuperatore = recuperatore;

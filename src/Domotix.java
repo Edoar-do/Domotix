@@ -112,7 +112,7 @@ public class Domotix {
 
                 menuLogin.avvia();
 
-                esegui = !chiusura.chiudi();
+                esegui = !menuChiusura.avvia();
             }
 
             //Arresto servizi

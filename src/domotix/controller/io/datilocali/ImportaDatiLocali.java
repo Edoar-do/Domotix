@@ -29,7 +29,7 @@ public class ImportaDatiLocali extends ImportaDatiAdapter {
     private PercorsiFile generatoreLibreriaImportata = null;
     private LetturaDatiSalvati lettoreLibreria = null;
 
-    public ImportaDatiLocali(PercorsiFile generatoreLibreria, PercorsiFile generatoreLibreriaImportata, LetturaDatiSalvati lettoreLibreria) throws NotDirectoryException {
+    public ImportaDatiLocali(PercorsiFile generatoreLibreria, PercorsiFile generatoreLibreriaImportata, LetturaDatiSalvati lettoreLibreria) {
         this.generatoreLibreria = generatoreLibreria;
         this.generatoreLibreriaImportata = generatoreLibreriaImportata;
         this.lettoreLibreria = lettoreLibreria;
