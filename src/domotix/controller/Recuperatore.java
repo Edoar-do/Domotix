@@ -8,7 +8,6 @@ import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Sistema;
 import domotix.model.bean.system.Stanza;
-import domotix.model.util.SommarioDispositivi;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -412,19 +411,4 @@ public class Recuperatore {
         return this.model.getOrologio();
     }
 
-    /**
-     * Ritorna il sommario per i sensori
-     * @return  istanza di sommariodispositivi inerenti a sensori
-     */
-    public SommarioDispositivi getSommarioSensori() {
-        return this.model.getSommarioSensori();
-    }
-
-    /**
-     * Ritorna il sommario per i attuatori
-     * @return  istanza di sommariodispositivi inerenti a attuatori
-     */
-    public SommarioDispositivi getSommarioAttuatori() {
-        return this.model.getSommarioAttuatori();
-    }
 }

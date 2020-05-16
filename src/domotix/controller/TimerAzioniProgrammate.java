@@ -1,8 +1,6 @@
 package domotix.controller;
 
 import domotix.controller.util.TimerTaskAzione;
-import domotix.model.ElencoAzioniProgrammate;
-import domotix.model.bean.device.SensoreOrologio;
 import domotix.model.bean.regole.Azione;
 
 import java.util.ArrayList;

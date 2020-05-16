@@ -1,6 +1,5 @@
 package domotix.model.bean.regole;
 
-import domotix.model.visitor.Visitable;
 import domotix.model.visitor.Visitor;
 import domotix.model.bean.device.Sensore;
 
@@ -9,7 +8,7 @@ import domotix.model.bean.device.Sensore;
  * @author andrea
  */
 
-public class InfoVariabile implements Visitable, InfoSensoriale {
+public class InfoVariabile implements InfoSensoriale {
     private Sensore sensore;
     private String nomeInfo;
 

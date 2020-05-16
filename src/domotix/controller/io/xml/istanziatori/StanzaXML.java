@@ -14,7 +14,6 @@ import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-import domotix.model.util.SommarioDispositivi;
 
 public class StanzaXML implements IstanziatoreXML<Stanza> {
 	
@@ -36,8 +35,6 @@ public class StanzaXML implements IstanziatoreXML<Stanza> {
 	public static Stanza instanceElement(Element el, Recuperatore recuperatore, LetturaDatiSalvati lettore) throws Exception {
 	//controllo tag elemento
 	        if (el.getTagName().equals(CostantiXML.NODO_XML_STANZA)) {
-				SommarioDispositivi sommarioSensori = recuperatore.getSommarioSensori();
-				SommarioDispositivi sommarioAttuatori = recuperatore.getSommarioAttuatori();
 	            String nome;
 	            String unitImmob;
 	            Stanza stanza;
@@ -54,11 +51,7 @@ public class StanzaXML implements IstanziatoreXML<Stanza> {
 	                throw new NoSuchElementException("StanzaXML.instanceElement(): attributo " + CostantiXML.NODO_XML_STANZA_UNITA_IMMOB + " assente.");
 	
 	            stanza = new Stanza(nome);
-	            //Aggiungo gli elenchi globali come osservatori dei dispositivi
-	            stanza.addOsservatoreListaSensori(sommarioSensori);
-	            stanza.addOsservatoreListaAttuatori(sommarioAttuatori);
 	            stanza.setUnitaOwner(unitImmob);
-	
 	
 	            //estrazione elementi
 	            NodeList childs = el.getElementsByTagName(CostantiXML.NODO_XML_STANZA_SENSORE);

@@ -5,7 +5,6 @@ import domotix.model.bean.device.*;
 import domotix.model.bean.regole.Azione;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-import domotix.model.util.SommarioDispositivi;
 
 import java.util.Arrays;
 import java.util.List;
@@ -123,17 +122,9 @@ public class AccessoModel implements Model {
     }
 
     @Override
-    public SommarioDispositivi getSommarioSensori() {
-        return this.elencoSensori;
-    }
-
-    @Override
-    public SommarioDispositivi getSommarioAttuatori() {
-        return this.elencoAttuatori;
-    }
-
-    @Override
     public void addUnita(UnitaImmobiliare unitaImmobiliare) {
+        unitaImmobiliare.aggiungiOsservatoreListaSensori(this.elencoSensori);
+        unitaImmobiliare.aggiungiOsservatoreListaAttuatori(this.elencoAttuatori);
         elencoUnitaImmobiliari.add(unitaImmobiliare);
     }
 

@@ -5,7 +5,6 @@ import domotix.model.bean.device.*;
 import domotix.model.bean.regole.Azione;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
-import domotix.model.util.SommarioDispositivi;
 
 import java.util.List;
 
@@ -111,16 +110,6 @@ public interface Model {
      * @return  istanza della categoria sensore
      */
     CategoriaSensore getCategoriaSensore(String nomeCategoriaSensore);
-    /**
-     * Ritorna il sommario sensori
-     * @return  istanza del sommario sensori
-     */
-    SommarioDispositivi getSommarioSensori();
-    /**
-     * Ritorna il sommario attuatori
-     * @return  istanza del sommario attuatori
-     */
-    SommarioDispositivi getSommarioAttuatori();
 
     void addUnita(UnitaImmobiliare unitaImmobiliare);
 

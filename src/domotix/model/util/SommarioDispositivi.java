@@ -1,7 +1,5 @@
 package domotix.model.util;
 
-import domotix.model.visitor.Visitable;
-import domotix.model.visitor.Visitor;
 import domotix.model.bean.device.Dispositivo;
 
 import java.util.HashMap;

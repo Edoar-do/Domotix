@@ -3,10 +3,12 @@ package domotix.model.bean;
 import domotix.model.visitor.Visitable;
 import domotix.model.visitor.Visitor;
 import domotix.model.bean.device.Attuatore;
+import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
+import domotix.model.util.ObserverList;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -22,13 +24,15 @@ public class UnitaImmobiliare implements Visitable {
     public static final String NOME_UNITA_DEFAULT = "casa";
     public static final String NOME_STANZA_DEFAULT = "esterno";
     private static final int POS_STANZA_DEFAULT = 0;
-    private static final String NO_REGOLE = "Non e' presente alcuna regola";
+    // private static final String NO_REGOLE = "Non e' presente alcuna regola";
 
     private String nome;
     private List<Stanza> stanze;
     private Map<String, Regola> regole;
     private ActionListener controlloRegoleSensori;
     private ActionListener controlloRegoleAttuatori;
+    private List<ObserverList<Dispositivo>> osservatoriSensori;
+    private List<ObserverList<Dispositivo>> osservatoriAttuatori;
 
     /**
      * Costruttore di base.
@@ -62,6 +66,9 @@ public class UnitaImmobiliare implements Visitable {
         this.getStanzaDefault().setUnitaOwner(this.getNome());
         this.getStanzaDefault().addRimuoviSensoreListener(controlloRegoleSensori);
         this.getStanzaDefault().addRimuoviAttuatoreListener(controlloRegoleAttuatori);
+
+        this.osservatoriSensori = new ArrayList<>();
+        this.osservatoriAttuatori = new ArrayList<>();
     }
 
     /**
@@ -78,6 +85,8 @@ public class UnitaImmobiliare implements Visitable {
         stanza.setUnitaOwner(this.getNome());
         stanza.addRimuoviSensoreListener(controlloRegoleSensori);
         stanza.addRimuoviAttuatoreListener(controlloRegoleAttuatori);
+        this.osservatoriSensori.forEach(o -> stanza.addOsservatoreListaSensori(o));
+        this.osservatoriAttuatori.forEach(o -> stanza.addOsservatoreListaAttuatori(o));
         this.stanze.add(stanza);
         return true;
     }
@@ -122,6 +131,8 @@ public class UnitaImmobiliare implements Visitable {
             stanza.setUnitaOwner(this.getNome());
             stanza.addRimuoviSensoreListener(controlloRegoleSensori);
             stanza.addRimuoviAttuatoreListener(controlloRegoleAttuatori);
+            this.osservatoriSensori.forEach(o -> stanza.addOsservatoreListaSensori(o));
+            this.osservatoriAttuatori.forEach(o -> stanza.addOsservatoreListaAttuatori(o));
             stanze.set(POS_STANZA_DEFAULT, stanza);
             return true;
         }
@@ -253,8 +264,25 @@ public class UnitaImmobiliare implements Visitable {
     public Regola[] getRegole() {
         return this.regole.values().toArray(new Regola[0]);
     }
-
-
+    
+    /**
+     * Aggiunge l'osservatore della lista sensori all'unita' e a tutte le stanze contenute.
+     * @param osservatore   osservatore della lista sensori
+     */
+    public void aggiungiOsservatoreListaSensori (ObserverList<Dispositivo> osservatore){
+        this.osservatoriSensori.add(osservatore);
+        this.stanze.forEach(s -> s.addOsservatoreListaSensori(osservatore));
+    }
+    
+    /**
+     * Aggiunge l'osservatore della lista attuatori all'unita' e a tutte le stanze contenute.
+     * @param osservatore   osservatore della lista attuatori
+     */
+    public void aggiungiOsservatoreListaAttuatori (ObserverList<Dispositivo> osservatore){
+        this.osservatoriAttuatori.add(osservatore);
+        this.stanze.forEach(s -> s.addOsservatoreListaAttuatori(osservatore));
+    }
+        
     @Override
     public Object fattiVisitare(Visitor v) {
         return v.visitaUnitaImmobiliare(this);

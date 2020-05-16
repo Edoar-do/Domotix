@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /** @author Edoardo Coppola */
 public class Modalita implements Visitable {
-    private static final String TOSTRING_TEMPLATE = "%s";
+    // private static final String TOSTRING_TEMPLATE = "%s";
     private String nome;
     private Map<String, Parametro> parametri;
 

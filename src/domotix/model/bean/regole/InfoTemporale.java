@@ -1,6 +1,5 @@
 package domotix.model.bean.regole;
 
-import domotix.model.visitor.Visitable;
 import domotix.model.visitor.Visitor;
 import domotix.model.bean.device.SensoreOrologio;
 
@@ -10,7 +9,7 @@ import java.time.LocalTime;
  * Classe che rappresenta un InfoSensoriale rappresentante un valore temporale
  * @author andrea
  */
-public class InfoTemporale implements Visitable, InfoSensoriale {
+public class InfoTemporale implements InfoSensoriale {
     private LocalTime tempo;
 
     public InfoTemporale(LocalTime tempo) {

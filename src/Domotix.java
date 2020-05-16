@@ -12,7 +12,6 @@ import domotix.controller.io.datilocali.RinfrescaDatiLocali;
 import domotix.controller.io.datilocali.ScritturaDatiLocali;
 import domotix.controller.io.xml.VisitorXML;
 import domotix.model.AccessoModel;
-import domotix.model.ElencoUnitaImmobiliari;
 import domotix.model.Model;
 import domotix.view.menus.MenuAzioniConflitto;
 import domotix.view.menus.MenuApertura;

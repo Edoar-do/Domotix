@@ -12,7 +12,6 @@ import domotix.controller.io.xml.IstanziatoreXML;
 import domotix.model.bean.device.Attuatore;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.system.Artefatto;
-import domotix.model.util.SommarioDispositivi;
 
 public class ArtefattoXML implements IstanziatoreXML<Artefatto> {
 
@@ -34,8 +33,6 @@ public class ArtefattoXML implements IstanziatoreXML<Artefatto> {
 	public static Artefatto instanceElement(Element el, Recuperatore recuperatore, LetturaDatiSalvati lettore) throws Exception {
 	    //controllo tag elemento
 	    if (el.getTagName().equals(CostantiXML.NODO_XML_ARTEFATTO)) {
-			SommarioDispositivi sommarioSensori = recuperatore.getSommarioSensori();
-			SommarioDispositivi sommarioAttuatori = recuperatore.getSommarioAttuatori();
 	        String nome;
 	        String unitImmob;
 	        Artefatto artefatto;
@@ -52,9 +49,6 @@ public class ArtefattoXML implements IstanziatoreXML<Artefatto> {
 	            throw new NoSuchElementException("ArtefattoXML.instanceElement(): attributo " + CostantiXML.NODO_XML_ARTEFATTO_UNITA_IMMOB + " assente.");
 	
 	        artefatto = new Artefatto(nome);
-	        //Aggiungo gli elenchi globali come osservatori dei dispositivi
-	        artefatto.addOsservatoreListaSensori(sommarioSensori);
-	        artefatto.addOsservatoreListaAttuatori(sommarioAttuatori);
 	        artefatto.setUnitaOwner(unitImmob);
 	
 	        //estrazione elementi

@@ -7,7 +7,6 @@ import domotix.controller.io.ImportaDatiAdapter;
 import domotix.controller.io.LetturaDatiSalvati;
 
 import java.io.File;
-import java.nio.file.NotDirectoryException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;

@@ -1,7 +1,5 @@
 package domotix.model;
 
-import domotix.model.visitor.Visitable;
-import domotix.model.visitor.Visitor;
 import domotix.model.bean.UnitaImmobiliare;
 
 import java.util.ArrayList;

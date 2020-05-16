@@ -1,8 +1,5 @@
 package domotix.model.bean.system;
 
-import domotix.controller.util.StringUtil;
-import domotix.model.ElencoAttuatori;
-import domotix.model.ElencoSensori;
 import domotix.model.bean.device.*;
 import domotix.model.util.ElencoDispositivi;
 import domotix.model.util.ObserverList;
@@ -10,7 +7,6 @@ import domotix.model.util.ObserverList;
 import javax.swing.event.EventListenerList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public abstract class Sistema implements Osservabile, Azionabile {
@@ -28,8 +24,6 @@ public abstract class Sistema implements Osservabile, Azionabile {
         this.nome = nome;
         this.attuatori = attuatoriIniziali;
         this.sensori = sensoriIniziali;
-        this.addOsservatoreListaAttuatori(ElencoAttuatori.getInstance());
-        this.addOsservatoreListaSensori(ElencoSensori.getInstance());
         this.rimozioneSensori = new EventListenerList();
         this.rimozioneAttuatori = new EventListenerList();
     }
@@ -238,19 +232,19 @@ public abstract class Sistema implements Osservabile, Azionabile {
         return Arrays.copyOf(arrayAttuatori, arrayAttuatori.length, Attuatore[].class);
     }
 
-    private String getStringaDispositivi(Dispositivo[] dispositivi) {
-        StringBuffer buffer = new StringBuffer();
-        for (int i = 0; i < dispositivi.length; i++) {
-            buffer.append(dispositivi[i].toString() + (i < dispositivi.length - 1 ? "\n" : ""));
-        }
-        return buffer.toString();
-    }
+    // private String getStringaDispositivi(Dispositivo[] dispositivi) {
+    //     StringBuffer buffer = new StringBuffer();
+    //     for (int i = 0; i < dispositivi.length; i++) {
+    //         buffer.append(dispositivi[i].toString() + (i < dispositivi.length - 1 ? "\n" : ""));
+    //     }
+    //     return buffer.toString();
+    // }
 
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (!(obj instanceof Sistema)) return false;
-        Sistema other = (Sistema) obj;
+        // Sistema other = (Sistema) obj;
         return this.nome.equals(((Sistema) obj).nome);
     }
 

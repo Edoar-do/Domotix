@@ -1,13 +1,12 @@
 package domotix.model.bean.regole;
 
-import domotix.model.visitor.Visitable;
 import domotix.model.visitor.Visitor;
 
 /**
  * Classe che rappresenta un InfoSensoriale costante
  * @author andrea
  */
-public class InfoCostante implements Visitable, InfoSensoriale {
+public class InfoCostante implements InfoSensoriale {
     private Object info;
 
     public InfoCostante(Object info) {

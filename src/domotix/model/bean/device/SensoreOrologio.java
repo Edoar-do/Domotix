@@ -1,6 +1,5 @@
 package domotix.model.bean.device;
 
-import domotix.model.visitor.Visitable;
 import domotix.model.visitor.Visitor;
 
 import java.time.LocalTime;
@@ -16,7 +15,7 @@ import java.util.regex.Pattern;
  *
  * @author paolopasqua
  */
-public class SensoreOrologio extends Sensore implements Visitable {
+public class SensoreOrologio extends Sensore {
 
     public static final DateTimeFormatter TIME_FORMATTER =  DateTimeFormatter.ofPattern("HH.mm");
     public static final int MINUTI_IN_UN_GIORNO = 1440; //24 ore * 60 minuti
