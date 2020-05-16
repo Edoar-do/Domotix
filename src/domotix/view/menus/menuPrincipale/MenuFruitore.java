@@ -7,8 +7,7 @@ import domotix.view.MyMenu;
 import domotix.view.menus.menuCategorie.MenuCategorieF;
 import domotix.view.menus.menuUnita.MenuUnitaF;
 
-import java.util.ArrayList;
-import static domotix.view.menus.ViewConstants.*;
+import static domotix.view.ViewConstants.*;
 
 /** @author Edoardo Coppola*/
 public class MenuFruitore {

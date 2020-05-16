@@ -4,8 +4,8 @@ import domotix.controller.*;
 import domotix.view.InputDati;
 import domotix.view.MyMenu;
 
-import java.util.List;
-import static domotix.view.menus.ViewConstants.*;
+import java.util.ArrayList;
+import static domotix.view.ViewConstants.*;
 
 /** @author Edoardo Coppola*/
 public class MenuCategorieAttuatoriM {
@@ -112,7 +112,7 @@ public class MenuCategorieAttuatoriM {
                     break;
                 case 4: //importa categorie attuatori
                     System.out.println(INTRO_IMPORT_CAT_ATT);
-                    List<String> msgs = imp.importaCategorieAttuatori();
+                    ArrayList<String> msgs = (ArrayList<String>) imp.importaCategorieAttuatori();
                     if(msgs == null) System.out.println(IMPORT_FAILED_ATT_CAT);
                     if(msgs.size() > 0) {
                         for (String msg : msgs) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK

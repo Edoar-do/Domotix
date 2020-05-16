@@ -3,7 +3,6 @@ package domotix.view.menus.menuCategorie;
 import domotix.controller.Importatore;
 import domotix.controller.Interpretatore;
 import domotix.controller.Rappresentatore;
-import domotix.controller.Verificatore;
 import domotix.view.MyMenu;
 import domotix.view.menus.menuCategorie.attuatori.MenuCategorieAttuatoriM;
 import domotix.view.menus.menuCategorie.sensori.MenuCategorieSensoriM;

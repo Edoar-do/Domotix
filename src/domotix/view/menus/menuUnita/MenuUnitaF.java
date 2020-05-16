@@ -10,7 +10,7 @@ import domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaF;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
-import static domotix.view.menus.ViewConstants.*;
+import static domotix.view.ViewConstants.*;
 
 /** @author Edoardo Coppola*/
 public class MenuUnitaF {

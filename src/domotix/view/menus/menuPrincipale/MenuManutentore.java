@@ -8,7 +8,7 @@ import domotix.view.InputDati;
 import domotix.view.MyMenu;
 import domotix.view.menus.menuCategorie.MenuCategorieM;
 import domotix.view.menus.menuUnita.MenuUnitaM;
-import static domotix.view.menus.ViewConstants.*;
+import static domotix.view.ViewConstants.*;
 
 import java.util.ArrayList;
 
@@ -26,14 +26,14 @@ public class MenuManutentore {
     private MenuUnitaM menuUnitaM;
     private MenuCategorieM menuCategorieM;
 
-    public MenuManutentore(Interpretatore i, Verificatore v, Rappresentatore r, MyMenu m){
+    public MenuManutentore(Interpretatore i, Verificatore v, Rappresentatore r, MyMenu m, Importatore imp){
         this.menu = m;
         menu.setTitolo(TITOLO);
         menu.setVoci(VOCI);
         this.interpretatore = i;
         this.verificatore = v;
         this.rappresentatore = r;
-        this.importatore = new Importatore();
+        this.importatore = imp;
         menuUnitaM = new MenuUnitaM(interpretatore, verificatore, rappresentatore, menu);
         menuCategorieM = new MenuCategorieM(interpretatore, rappresentatore, importatore, menu);
     }
@@ -75,7 +75,7 @@ public class MenuManutentore {
                     break;
                 case 5: //importazione unità immobiliari
                     System.out.println(INTRO_IMPORT_UNITA);
-                    ArrayList<String> msgs = importatore.importaUnitaImmobiliari();
+                    ArrayList<String> msgs = (ArrayList<String>) importatore.importaUnitaImmobiliari();
                     if(msgs == null) System.out.println(IMPORT_FAILED);
                     if(msgs.size() > 0) {
                         for (String msg : msgs) { //stampa gli eventuali messaggi di errore oppure il solo messaggio di OK

@@ -87,7 +87,7 @@ public class Domotix {
             ChiusuraProgramma chiusura = new ChiusuraProgramma(scritturaDati, rimozioneDati, recuperatore);
             MenuChiusura menuChiusura = new MenuChiusura(chiusura);
 
-            MenuLogin menuLogin = new MenuLogin(interpretatore, verificatore, rappresentatore);
+            MenuLogin menuLogin = new MenuLogin(interpretatore, verificatore, rappresentatore, importatoreLocale);
 
 
             /* AVVIO DEL PROGRAMMMA */
@@ -129,6 +129,5 @@ public class Domotix {
             contextStrategy = new ContextStrategy(new TransformerConfigurationExceptionRoutine());
             contextStrategy.executeStrategy(e);
         }
-
     }
 }

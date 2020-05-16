@@ -1,12 +1,13 @@
 package domotix.view.menus;
 
+import domotix.controller.Importatore;
 import domotix.controller.Interpretatore;
 import domotix.controller.Rappresentatore;
 import domotix.controller.Verificatore;
 import domotix.view.MyMenu;
 import domotix.view.menus.menuPrincipale.MenuFruitore;
 import domotix.view.menus.menuPrincipale.MenuManutentore;
-import static domotix.view.menus.ViewConstants.*;
+import static domotix.view.ViewConstants.*;
 
 /** @author Edoardo Coppola*/
 public class MenuLogin {
@@ -19,15 +20,17 @@ public class MenuLogin {
     private Interpretatore interpretatore;
     private Verificatore verificatore;
     private Rappresentatore rappresentatore;
+    private Importatore importatore;
     private MenuManutentore menuManutentore;
     private MenuFruitore menuFruitore;
 
-    public MenuLogin(Interpretatore interpretatore, Verificatore verificatore, Rappresentatore rappresentatore){
+    public MenuLogin(Interpretatore interpretatore, Verificatore verificatore, Rappresentatore rappresentatore, Importatore importatore){
         this.menu = new MyMenu(TITOLO, VOCI);
         this.interpretatore = interpretatore;
         this.rappresentatore = rappresentatore;
         this.verificatore = verificatore;
-        menuManutentore = new MenuManutentore(interpretatore, verificatore, rappresentatore, menu);
+        this.importatore = importatore;
+        menuManutentore = new MenuManutentore(interpretatore, verificatore, rappresentatore, menu, importatore);
         menuFruitore = new MenuFruitore(interpretatore, verificatore, rappresentatore, menu);
     }
 

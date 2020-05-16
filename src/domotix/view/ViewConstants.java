@@ -1,4 +1,4 @@
-package domotix.view.menus;
+package domotix.view;
 
 /**
  * @author Edoardo Coppola
@@ -148,5 +148,6 @@ public class ViewConstants {
     public static final String INTRO_IMPORT_CAT_ATT = "L'importazione delle categorie di attuatori di libreria è stata selezionata. Di seguito apparirà l'esito dell'importazione: ";
     public static final String IMPORT_CAT_ATT_OK = "Importazione delle categorie di attuatori terminato con successo";
     public static final String IMPORT_FAILED_ATT_CAT = "Importazione delle categorie di attuatori fallita completamente";
+    public static final String ASSISTENZA = "Si prega di contattare l'assistenza per la risoluzione del problema";
 }
 
