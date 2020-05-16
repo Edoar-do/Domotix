@@ -10,5 +10,5 @@ public interface ExceptionStrategy {
      * Metodo per la routine di gestione di una eccezione
      * @param e eccezione da gestire
      */
-    void doExceptionRuotine(Exception e);
+    String doExceptionRuotine(Exception e);
 }

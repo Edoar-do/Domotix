@@ -12,7 +12,7 @@ public class ParserConfigurationExceptionRoutine implements ExceptionStrategy{
             + ASSISTENZA;
 
     @Override
-    public void doExceptionRuotine(Exception e) {
-        System.out.println(ERRORE_CARICAMENTO_STRUMENTI_LETTURA_SCRITTURA);
+    public String doExceptionRuotine(Exception e) {
+        return ERRORE_CARICAMENTO_STRUMENTI_LETTURA_SCRITTURA;
     }
 }

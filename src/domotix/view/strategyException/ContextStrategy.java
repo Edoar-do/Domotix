@@ -19,5 +19,5 @@ public class ContextStrategy {
      * Metodo per l'esecuzione runtime di una routine di gestione di un'eccezione verificatasi
      * @param e eccezione verificatasi
      */
-    public void executeStrategy(Exception e){ exceptionStrategy.doExceptionRuotine(e);}
+    public void executeStrategy(Exception e){ System.out.println(exceptionStrategy.doExceptionRuotine(e));}
 }

@@ -8,12 +8,11 @@ import static domotix.view.ViewConstants.ASSISTENZA;
  */
 public class TransformerConfigurationExceptionRoutine implements ExceptionStrategy {
 
-
     private static final String ERRORE_CARICAMENTO_STRUMENTI_LETTURA_SCRITTURA = "Si è verificato un errore durante il caricamento degli strumenti per la lettura e la scrittura dei dati salvati"
             + ASSISTENZA;
 
     @Override
-    public void doExceptionRuotine(Exception e) {
-        System.out.println(ERRORE_CARICAMENTO_STRUMENTI_LETTURA_SCRITTURA);
+    public String doExceptionRuotine(Exception e) {
+        return ERRORE_CARICAMENTO_STRUMENTI_LETTURA_SCRITTURA;
     }
 }
