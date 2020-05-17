@@ -482,4 +482,8 @@ public class Modificatore {
     }
 
 
+    public boolean aggiungiAzioneProgrammata(String s, Azione a) {
+        this.model.addAzioneProgrammata(a);
+        return true;
+    }
 }

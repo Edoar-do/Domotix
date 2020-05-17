@@ -157,4 +157,9 @@ public class AccessoModel implements Model {
     public void removeAzioneProgrammata(String idAzione) {
         elencoAzioniProgrammate.remove(idAzione);
     }
+
+    @Override
+    public void addAzioneProgrammata(Azione a) {
+        elencoAzioniProgrammate.add(a);
+    }
 }

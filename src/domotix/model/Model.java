@@ -125,4 +125,5 @@ public interface Model {
 
     void removeAzioneProgrammata(String idAzione);
 
+    void addAzioneProgrammata(Azione a);
 }
