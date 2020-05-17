@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class Conseguente implements Visitable {
     private List<Azione> azioni;
+    private ElencoAzioniProgrammate elencoAzioni;
 
     public Conseguente() {
         this.azioni = new ArrayList<>();
@@ -44,8 +45,8 @@ public class Conseguente implements Visitable {
     public void esegui() {
         for (Azione a : azioni) {
             if (a.getStart() == null) a.esegui();
-            else if (!ElencoAzioniProgrammate.getInstance().contains(a))
-                ElencoAzioniProgrammate.getInstance().add(a);
+            else if (!elencoAzioni.contains(a))
+                elencoAzioni.add(a);
         }
     }
 
@@ -65,5 +66,9 @@ public class Conseguente implements Visitable {
     @Override
     public Object fattiVisitare(Visitor v) {
         return v.visitaConseguente(this);
+    }
+
+    public void addElencoAzioni(ElencoAzioniProgrammate eazioni) {
+        this.elencoAzioni = eazioni;
     }
 }

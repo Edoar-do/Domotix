@@ -1,5 +1,6 @@
 package domotix.model.bean;
 
+import domotix.model.ElencoAzioniProgrammate;
 import domotix.model.visitor.Visitable;
 import domotix.model.visitor.Visitor;
 import domotix.model.bean.device.Attuatore;
@@ -24,6 +25,8 @@ public class UnitaImmobiliare implements Visitable {
     public static final String NOME_UNITA_DEFAULT = "casa";
     public static final String NOME_STANZA_DEFAULT = "esterno";
     private static final int POS_STANZA_DEFAULT = 0;
+    private ElencoAzioniProgrammate azioni;
+
     // private static final String NO_REGOLE = "Non e' presente alcuna regola";
 
     private String nome;
@@ -69,6 +72,10 @@ public class UnitaImmobiliare implements Visitable {
 
         this.osservatoriSensori = new ArrayList<>();
         this.osservatoriAttuatori = new ArrayList<>();
+    }
+
+    public void addElencoAzioni(ElencoAzioniProgrammate azioni) {
+        this.azioni = azioni;
     }
 
     /**
@@ -237,6 +244,7 @@ public class UnitaImmobiliare implements Visitable {
      */
     public void addRegola(Regola regola) {
         this.regole.put(regola.getId(), regola);
+        regola.addElencoAzioni(this.azioni);
     }
 
     /**

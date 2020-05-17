@@ -1,5 +1,6 @@
 package domotix.model.bean.regole;
 
+import domotix.model.ElencoAzioniProgrammate;
 import domotix.model.visitor.Visitable;
 import domotix.model.visitor.Visitor;
 import domotix.model.bean.device.Sensore;
@@ -20,6 +21,7 @@ public class Regola implements Visitable {
     private Antecedente antecedente;
     private Conseguente conseguente;
     private boolean eseguita; //booleano utilizzato come rilevatore di fronte per l'esecuzione del conseguente
+    private ElencoAzioniProgrammate azioni;
 
     public Regola(String id, StatoRegola stato, Antecedente antecedente, Conseguente conseguente) {
         this.id = id;
@@ -174,5 +176,10 @@ public class Regola implements Visitable {
     @Override
     public Object fattiVisitare(Visitor v) {
         return v.visitaRegola(this);
+    }
+
+    public void addElencoAzioni(ElencoAzioniProgrammate azioni) {
+        this.azioni = azioni;
+        this.conseguente.addElencoAzioni(this.azioni);
     }
 }

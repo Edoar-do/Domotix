@@ -1,5 +1,6 @@
 package domotix.model.bean.system;
 
+import domotix.model.ElencoAzioniProgrammate;
 import domotix.model.bean.device.*;
 import domotix.model.util.ElencoDispositivi;
 import domotix.model.util.ObserverList;
