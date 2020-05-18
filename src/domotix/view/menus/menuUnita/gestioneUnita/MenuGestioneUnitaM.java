@@ -6,7 +6,7 @@ import domotix.view.InputDati;
 import domotix.view.MyMenu;
 
 import domotix.controller.util.StringUtil;
-import static domotix.view.ViewConstants.*;
+import static domotix.view.ViewUtil.*;
 
 /** @author Edoardo Coppola*/
 public class MenuGestioneUnitaM {
@@ -32,7 +32,7 @@ public class MenuGestioneUnitaM {
      * @param nomeUnitaSuCuiLavorare è il nome dell'unità immobiliare scelta nel menu precedente e su cui operare
      */
     public void avvia(String nomeUnitaSuCuiLavorare){
-ripristinaMenuOriginale(menu, TITOLO, VOCI);
+    ripristinaMenuOriginale(menu, TITOLO, VOCI);
 
         menu.setSottotitolo(SOTTOTITOLO + StringUtil.componiPercorso(nomeUnitaSuCuiLavorare));
 

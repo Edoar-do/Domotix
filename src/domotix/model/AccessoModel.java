@@ -57,7 +57,7 @@ public class AccessoModel implements Model {
 
     @Override
     public Artefatto getArtefatto(String artefatto, String stanza, String unita) {
-        return this.getStanza(unita, stanza).getArtefatto(artefatto);
+        return this.getStanza(stanza, unita).getArtefatto(artefatto);
     }
 
     @Override

@@ -7,7 +7,7 @@ import domotix.view.MyMenu;
 import domotix.view.menus.menuCategorie.MenuCategorieF;
 import domotix.view.menus.menuUnita.MenuUnitaF;
 
-import static domotix.view.ViewConstants.*;
+import static domotix.view.ViewUtil.*;
 
 /** @author Edoardo Coppola*/
 public class MenuFruitore {

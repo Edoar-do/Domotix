@@ -5,7 +5,7 @@ import domotix.view.InputDati;
 import domotix.view.MyMenu;
 
 import java.util.ArrayList;
-import static domotix.view.ViewConstants.*;
+import static domotix.view.ViewUtil.*;
 
 /** @author Edoardo Coppola*/
 public class MenuCategorieAttuatoriM {

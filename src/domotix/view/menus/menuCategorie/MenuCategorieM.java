@@ -6,6 +6,7 @@ import domotix.controller.Rappresentatore;
 import domotix.view.MyMenu;
 import domotix.view.menus.menuCategorie.attuatori.MenuCategorieAttuatoriM;
 import domotix.view.menus.menuCategorie.sensori.MenuCategorieSensoriM;
+import static domotix.view.ViewUtil.*;
 
 /** @author Edoardo Coppola*/
 public class MenuCategorieM {

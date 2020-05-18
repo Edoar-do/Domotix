@@ -7,7 +7,7 @@ import domotix.controller.Verificatore;
 import domotix.view.MyMenu;
 import domotix.view.menus.menuPrincipale.MenuFruitore;
 import domotix.view.menus.menuPrincipale.MenuManutentore;
-import static domotix.view.ViewConstants.*;
+import static domotix.view.ViewUtil.*;
 
 /** @author Edoardo Coppola*/
 public class MenuLogin {
@@ -17,19 +17,19 @@ public class MenuLogin {
 
 
     private MyMenu menu;
-    private Interpretatore interpretatore;
-    private Verificatore verificatore;
-    private Rappresentatore rappresentatore;
-    private Importatore importatore;
+//    private Interpretatore interpretatore;
+//    private Verificatore verificatore;
+//    private Rappresentatore rappresentatore;
+//    private Importatore importatore;
     private MenuManutentore menuManutentore;
     private MenuFruitore menuFruitore;
 
     public MenuLogin(Interpretatore interpretatore, Verificatore verificatore, Rappresentatore rappresentatore, Importatore importatore){
         this.menu = new MyMenu(TITOLO, VOCI);
-        this.interpretatore = interpretatore;
-        this.rappresentatore = rappresentatore;
-        this.verificatore = verificatore;
-        this.importatore = importatore;
+//        this.interpretatore = interpretatore;
+//        this.rappresentatore = rappresentatore;
+//        this.verificatore = verificatore;
+//        this.importatore = importatore;
         menuManutentore = new MenuManutentore(interpretatore, verificatore, rappresentatore, menu, importatore);
         menuFruitore = new MenuFruitore(interpretatore, verificatore, rappresentatore, menu);
     }
@@ -38,7 +38,7 @@ public class MenuLogin {
      * Presenta il menu di login all'utente di modo che possa accedere come manutentore o come fruitore oppure che possa salvare ed uscire dall'applicazione
      */
     public void avvia(){
-ripristinaMenuOriginale(menu, TITOLO, VOCI);
+    ripristinaMenuOriginale(menu, TITOLO, VOCI);
 
         int sceltaMenu = 0;
         do {
@@ -49,11 +49,11 @@ ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     return;
                 case 1: //Manutentore
                     menuManutentore.avvia();
-ripristinaMenuOriginale(menu, TITOLO, VOCI);
+                        ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
                 case 2: //Fruitore
                     menuFruitore.avvia();
-ripristinaMenuOriginale(menu, TITOLO, VOCI);
+                    ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
             }
         }while(sceltaMenu != 0);

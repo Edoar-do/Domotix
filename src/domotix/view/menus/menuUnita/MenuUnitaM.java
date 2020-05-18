@@ -8,7 +8,7 @@ import domotix.view.MyMenu;
 import domotix.controller.util.StringUtil;
 import domotix.view.menus.menuUnita.gestioneStanza.MenuGestioneStanzaM;
 import domotix.view.menus.menuUnita.gestioneUnita.MenuGestioneUnitaM;
-import static domotix.view.ViewConstants.*;
+import static domotix.view.ViewUtil.*;
 
 /** @author Edoardo Coppola*/
 public class MenuUnitaM {

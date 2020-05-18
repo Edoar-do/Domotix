@@ -3,7 +3,7 @@ package domotix.view.menus.menuCategorie.sensori;
 import domotix.controller.*;
 import domotix.view.InputDati;
 import domotix.view.MyMenu;
-import static domotix.view.ViewConstants.*;
+import static domotix.view.ViewUtil.*;
 import java.util.List;
 
 

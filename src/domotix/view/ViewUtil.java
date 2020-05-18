@@ -4,7 +4,7 @@ package domotix.view;
  * @author Edoardo Coppola
  * Classe che contiene pressoché tutte le costanti utilizzate nelle diverse classi del modulo View
  */
-public class ViewConstants {
+public class ViewUtil {
     public static final String SALVA_ED_ESCI = "Salva ed Esci";
     public static final String INDIETRO = "Indietro";
     public static final String UNITA_IMMOBILIARI_ESISTENTI = "Unità Immobiliari: ";
@@ -149,5 +149,10 @@ public class ViewConstants {
     public static final String IMPORT_CAT_ATT_OK = "Importazione delle categorie di attuatori terminato con successo";
     public static final String IMPORT_FAILED_ATT_CAT = "Importazione delle categorie di attuatori fallita completamente";
     public static final String ASSISTENZA = "Si prega di contattare l'assistenza per la risoluzione del problema";
+
+    public static void ripristinaMenuOriginale(MyMenu menu, String titolo, String[] voci){
+        menu.setTitolo(titolo);
+        menu.setVoci(voci);
+    }
 }
 

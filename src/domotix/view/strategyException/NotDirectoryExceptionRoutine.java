@@ -1,5 +1,5 @@
 package domotix.view.strategyException;
-import static domotix.view.ViewConstants.ASSISTENZA;
+import static domotix.view.ViewUtil.ASSISTENZA;
 
 /**
  * Classe che realizza la routine di gestione in caso di NotDirectoryException

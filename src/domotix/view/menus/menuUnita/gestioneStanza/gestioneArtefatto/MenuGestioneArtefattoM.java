@@ -6,7 +6,7 @@ import domotix.controller.Rappresentatore;
 import domotix.view.InputDati;
 import domotix.view.MyMenu;
 import domotix.controller.util.StringUtil;
-import static domotix.view.ViewConstants.*;
+import static domotix.view.ViewUtil.*;
 
 /** @author Edoardo Coppola*/
 public class MenuGestioneArtefattoM {

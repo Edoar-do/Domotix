@@ -230,7 +230,7 @@ public class Rappresentatore {
      * @param nomeArtefatto Nome dell'artefatto
      * @param nomeStanza Nome della stanza selezionata
      * @param nomeUnita Nome dell'untia' immobiliare selezionata
-     * @return Descrizione della stanza
+     * @return Descrizione dell'artefatto
      */
     public String getDescrizioneArtefatto(String nomeArtefatto, String nomeStanza, String nomeUnita) {
         return stringatore.visita(recuperatore.getArtefatto(nomeArtefatto, nomeStanza, nomeUnita));

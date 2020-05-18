@@ -2,9 +2,7 @@ package domotix.view.menus.menuCategorie.attuatori;
 
 
 import domotix.controller.Rappresentatore;
-import domotix.controller.Recuperatore;
-
-import domotix.controller.Verificatore;
+import static  domotix.view.ViewUtil.*;
 import domotix.view.MyMenu;
 
 /** @author Edoardo Coppola*/

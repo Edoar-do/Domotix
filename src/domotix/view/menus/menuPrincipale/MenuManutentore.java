@@ -8,7 +8,7 @@ import domotix.view.InputDati;
 import domotix.view.MyMenu;
 import domotix.view.menus.menuCategorie.MenuCategorieM;
 import domotix.view.menus.menuUnita.MenuUnitaM;
-import static domotix.view.ViewConstants.*;
+import static domotix.view.ViewUtil.*;
 
 import java.util.ArrayList;
 

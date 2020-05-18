@@ -2,7 +2,7 @@ package domotix.view.menus.menuCategorie.sensori;
 
 
 import domotix.controller.Rappresentatore;
-import domotix.controller.Recuperatore;
+import static domotix.view.ViewUtil.*;
 import domotix.view.MyMenu;
 
 /** @author Edoardo Coppola*/

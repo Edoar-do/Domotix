@@ -1,10 +1,9 @@
 package domotix.view.menus.menuCategorie;
 
 import domotix.controller.Rappresentatore;
-import domotix.controller.Verificatore;
+import static domotix.view.ViewUtil.*;
 import domotix.view.MyMenu;
 import domotix.view.menus.menuCategorie.attuatori.MenuCategorieAttuatoriF;
-import domotix.view.menus.menuCategorie.attuatori.MenuCategorieAttuatoriM;
 import domotix.view.menus.menuCategorie.sensori.MenuCategorieSensoriF;
 
 /** @author Edoardo Coppola*/
