@@ -32,6 +32,7 @@ public class MenuCategorieF {
      * oppure un menu per la gestione delle categorie di attuatori
      */
     public void avvia(){
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
 
         int sceltaMenu = 0;
         do {
@@ -42,9 +43,11 @@ public class MenuCategorieF {
                     return;
                 case 1: //Menu categorie sensori fruitore
                     menuCategorieSensoriF.avvia();
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
                 case 2: //Menu categorie attuatori fruitore
                     menuCategorieAttuatoriF.avvia();
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
             }
         }while(sceltaMenu != 0);

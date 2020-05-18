@@ -26,6 +26,7 @@ public class MenuCategorieSensoriF {
      * tornare indietro e chiuedere questo menu
      */
     public void avvia(){
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
 
         int sceltaMenu = 0;
         do {

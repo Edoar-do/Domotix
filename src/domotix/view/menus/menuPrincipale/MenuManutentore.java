@@ -44,6 +44,7 @@ public class MenuManutentore {
      * E' consentito anche tornare indietro ed uscire da questo menu
      */
     public void avvia(){
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
 
         int sceltaMenu = 0;
         do {
@@ -54,9 +55,11 @@ public class MenuManutentore {
                     return;
                 case 1: //Menu Categorie Dispositivi Manutentore
                     menuCategorieM.avvia();
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
                 case 2: //Menu Unita Manutentore
                     menuUnitaM.avvia();
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
                 case 3: //aggiungi unità
                     if(interpretatore.aggiungiUnitaImmobiliare(InputDati.leggiStringaNonVuota(NOME_NUOVA_UNITA)))

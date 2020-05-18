@@ -50,6 +50,7 @@ public class MenuGestioneStanzaM {
      * @param nomeUnitaSuCuiLavorare è il nome dell'unità immobiliare dal quale scegliere la stanza su cui lavorare
      */
     public void avvia(String nomeUnitaSuCuiLavorare) {
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
 
         String nomeDispositivoDaAggiungere, nomeDispositivoDaRimuovere, categoriaDispositivo;
         String nomeStanza = premenuStanze(nomeUnitaSuCuiLavorare);
@@ -165,6 +166,7 @@ public class MenuGestioneStanzaM {
                     break;
                 case 8://menu gestione artefatto manutentore
                     menuGestioneArtefattoM.avvia(nomeUnitaSuCuiLavorare, nomeStanza);
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
             }
         } while (sceltaMenu != 0);

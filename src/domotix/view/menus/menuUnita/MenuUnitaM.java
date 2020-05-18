@@ -45,6 +45,7 @@ public class MenuUnitaM {
      * Il menu consete anche di tornare indietro e chiudere questo menu
      */
     public void avvia(){
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
 
         String nomeUnitaSuCuiLavorare = premenuUnita();
 
@@ -66,9 +67,11 @@ public class MenuUnitaM {
                     return;
                 case 1: // menu gestione unita
                     menuGestioneUnitaM.avvia(nomeUnitaSuCuiLavorare);
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
                 case 2: //menu gestione stanza
                     menuGestioneStanzaM.avvia(nomeUnitaSuCuiLavorare);
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
             }
         }while(sceltaMenu != 0);

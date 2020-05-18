@@ -35,6 +35,7 @@ public class MenuCategorieAttuatoriM {
      * è richiesto almeno un parametro per essa
      */
     public void avvia(){
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
 
         int sceltaMenu = 0;
         String nome;

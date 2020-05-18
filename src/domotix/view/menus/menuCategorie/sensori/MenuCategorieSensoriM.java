@@ -35,6 +35,7 @@ public class MenuCategorieSensoriM {
      * L'aggiunta di una nuova categoria di sensori comporta anche l'aggiunta di almeno un'informazione rilevabile di cui va specificato il nome e se questa è numerica o meno
      */
     public void avvia(){
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
 
         int sceltaMenu = 0;
         String nome, info, testo;

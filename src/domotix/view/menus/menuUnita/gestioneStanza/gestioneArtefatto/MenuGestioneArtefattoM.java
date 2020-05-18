@@ -48,6 +48,7 @@ public class MenuGestioneArtefattoM {
      * @param nomeStanza
      */
     public void avvia(String nomeUnitaSuCuiLavorare, String nomeStanza) {
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
 
         String nomeDispositivoDaAggiungere, nomeDispositivoDaRimuovere, categoriaDispositivo;
         String nomeArtefatto = premenuArtefatto(nomeUnitaSuCuiLavorare, nomeStanza);

@@ -37,6 +37,7 @@ public class MenuFruitore {
      * attuatori oppure di aprire un menu per fruitori per la gestione dell'unità immobiliare oppure di tornare indietro e chiudere questo menu
      */
     public void avvia(){
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
 
         int sceltaMenu = 0;
         do {
@@ -47,9 +48,11 @@ public class MenuFruitore {
                     return;
                 case 1: //MenuCategorieDispositivi
                     menuCategorieF.avvia();
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
                 case 2: //MenuUnita
                     menuUnitaF.avvia();
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
                 case 3: //Visualizza azioni programmate
                     String[] azioni = rappresentatore.getDescrizioniAzioniProgrammate();

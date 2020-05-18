@@ -28,6 +28,7 @@ public class MenuCategorieAttuatoriF {
      * di attuatori presenti oppure consente di tornare indietro e chiudere questo menu
      */
     public void avvia(){
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
 
         int sceltaMenu = 0;
         do {

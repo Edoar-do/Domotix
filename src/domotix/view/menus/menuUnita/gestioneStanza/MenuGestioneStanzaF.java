@@ -39,6 +39,7 @@ public class MenuGestioneStanzaF {
      * @param nomeUnitaSuCuiLavorare è il nome dell'unità dalla quale scegliere la stanza su cui lavorare
      */
     public void avvia(String nomeUnitaSuCuiLavorare) {
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
         String nomeStanza = premenuStanze(nomeUnitaSuCuiLavorare);
 
         if (nomeStanza == null) return;
@@ -57,6 +58,7 @@ public class MenuGestioneStanzaF {
                     break;
                 case 2://menu gestione artefatto fruitore
                     menuGestioneArtefattoF.avvia(nomeUnitaSuCuiLavorare, nomeStanza);
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
                 case 3: //imposta modalità operativa
                     String nomeAttuatore = premenuAttuatori(nomeStanza, nomeUnitaSuCuiLavorare);

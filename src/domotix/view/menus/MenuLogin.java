@@ -38,6 +38,7 @@ public class MenuLogin {
      * Presenta il menu di login all'utente di modo che possa accedere come manutentore o come fruitore oppure che possa salvare ed uscire dall'applicazione
      */
     public void avvia(){
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
 
         int sceltaMenu = 0;
         do {
@@ -48,9 +49,11 @@ public class MenuLogin {
                     return;
                 case 1: //Manutentore
                     menuManutentore.avvia();
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
                 case 2: //Fruitore
                     menuFruitore.avvia();
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
             }
         }while(sceltaMenu != 0);

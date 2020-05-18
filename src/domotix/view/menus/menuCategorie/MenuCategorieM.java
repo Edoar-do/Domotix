@@ -36,6 +36,7 @@ public class MenuCategorieM {
      * oppure un menu per la gestione delle categorie di attuatori oppure consente di tornare indietro e chiudere questo menu
      */
     public void avvia(){
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
 
         int sceltaMenu = 0;
         do {
@@ -46,9 +47,11 @@ public class MenuCategorieM {
                     return;
                 case 1: //Menu categorie sensori manutentore
                     menuCategorieSensoriM.avvia();
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
                 case 2: //Menu categorie attuatori manutentori
                     menuCategorieAttuatoriM.avvia();
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
             }
         }while(sceltaMenu != 0);

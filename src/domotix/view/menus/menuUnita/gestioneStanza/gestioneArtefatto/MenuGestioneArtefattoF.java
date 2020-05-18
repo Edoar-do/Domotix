@@ -36,6 +36,7 @@ public class MenuGestioneArtefattoF {
      * @param nomeStanza è il nome della stanza all'interno della quale si trova l'artefatto su cui lavoriamo
      */
     public void avvia(String nomeUnitaSuCuiLavorare, String nomeStanza) {
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
 
         String nomeArtefatto = premenuArtefatto(nomeUnitaSuCuiLavorare, nomeStanza);
 

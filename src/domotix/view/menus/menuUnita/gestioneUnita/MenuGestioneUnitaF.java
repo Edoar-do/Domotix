@@ -33,6 +33,7 @@ public class MenuGestioneUnitaF {
      * @param nomeUnitaSuCuiLavorare è il nome dell'unità immobiliare scelta nel menu precedente e su cui operare
      */
     public void avvia(String nomeUnitaSuCuiLavorare){
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
         menu.setSottotitolo(SOTTOTITOLO + StringUtil.componiPercorso(nomeUnitaSuCuiLavorare));
 
         int sceltaMenu = 0;

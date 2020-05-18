@@ -47,6 +47,7 @@ public class MenuUnitaF {
      * Il menu consente anche di tornare indietro e chiudere questo menu
      */
     public void avvia() {
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
         String nomeUnitaSuCuiLavorare = premenuUnita();
 
         if(nomeUnitaSuCuiLavorare == null) return;
@@ -67,9 +68,11 @@ public class MenuUnitaF {
                     return;
                 case 1: // menu gestione unita
                     menuGestioneUnitaF.avvia(nomeUnitaSuCuiLavorare);
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
                 case 2: //menu gestione stanza
                     menuGestioneStanzaF.avvia(nomeUnitaSuCuiLavorare);
+ripristinaMenuOriginale(menu, TITOLO, VOCI);
                     break;
                 case 3: //crea nuova regola
                     if (!checkSensori(nomeUnitaSuCuiLavorare)) {
