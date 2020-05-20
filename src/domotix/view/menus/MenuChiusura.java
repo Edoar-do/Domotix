@@ -41,7 +41,7 @@ public class MenuChiusura {
     public boolean avvia() {
         int esito = RITENTA_SALVATAGGIO;
 
-        while(esito != ESCI || esito != ANNULLA_CHIUSURA) {
+        while(esito != ESCI && esito != ANNULLA_CHIUSURA) {
             if (this.controller.chiudi()) {
                 esito = ESCI;
             }
