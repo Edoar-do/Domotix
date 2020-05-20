@@ -176,11 +176,12 @@ public class Modificatore {
     }
 
     
-    public boolean aggiungiSensore(Sensore s, String artefatto, String stanza, String unita) {
-        String nomeComposto = s.getNome();
-        String categoria = s.getCategoria().getNome();
+    public boolean aggiungiSensore(String fantasia, String categoria,  String artefatto, String stanza, String unita) {
+        String nomeComposto = StringUtil.componiNome(fantasia, categoria);
         if (!verificatore.checkValiditaSensore(nomeComposto, categoria, artefatto, stanza, unita)) return false;
-        recuperatore.getArtefatto(artefatto, stanza, unita).addSensore(s);
+        Sensore sensore = new Sensore(nomeComposto, recuperatore.getCategoriaSensore(categoria));
+        sensore.setStato(true);
+        recuperatore.getArtefatto(artefatto, stanza, unita).addSensore(sensore);
         return true;
     }
 

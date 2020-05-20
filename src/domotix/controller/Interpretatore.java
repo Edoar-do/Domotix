@@ -199,7 +199,7 @@ public class Interpretatore {
      * @return true se l'aggiunta e' andata a buon fine
      */
     public boolean aggiungiSensore(String fantasia, String categoria, String artefatto, String stanza, String unita) {
-        return modificatore.aggiungiSensore(fantasia, categoria, stanza, unita);
+        return modificatore.aggiungiSensore(fantasia, categoria, artefatto, stanza, unita);
     }
 
     /**
