@@ -8,7 +8,6 @@ import domotix.model.visitor.Visitable;
  * @author andrea
  */
 public interface InfoSensoriale extends Visitable {
-    // TODO: rimuovi dalle classi che implementano questa classe l'"implements Visitable" perche' e' inutile
     /**
      * Metodo che recupera il valore dell'InfoSensoriale
      * @return Il valore dell'informazione sensoriale
