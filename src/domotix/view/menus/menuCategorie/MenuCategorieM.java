@@ -15,9 +15,9 @@ public class MenuCategorieM {
     private static final String INDIETRO = "Indietro";
 
    private MyMenu menu;
-   private Interpretatore i;
-   private Rappresentatore r;
-   private Importatore imp;
+//    private Interpretatore i;
+//    private Rappresentatore r;
+//    private Importatore imp;
    private MenuCategorieSensoriM menuCategorieSensoriM;
    private MenuCategorieAttuatoriM menuCategorieAttuatoriM;
 
@@ -25,9 +25,9 @@ public class MenuCategorieM {
        this.menu = m;
        menu.setTitolo(TITOLO);
        menu.setVoci(VOCI);
-       this.i = i;
-       this.imp = imp;
-       this.r = r;
+    //    this.i = i;
+    //    this.imp = imp;
+    //    this.r = r;
        menuCategorieAttuatoriM = new MenuCategorieAttuatoriM(menu, i, r, imp);
        menuCategorieSensoriM = new MenuCategorieSensoriM(menu, i, r, imp);
    }

@@ -99,7 +99,7 @@ public class SensoreOrologio extends Sensore {
      * @return  intero che rappresenta il numero di minuti dalla mezzanotte
      */
     @Override
-    @SuppressWarnings("deprecation")
+    // @SuppressWarnings("deprecation")
     public int getValore() {
         return SensoreOrologio.getTempo(getValoreTempo());
     }

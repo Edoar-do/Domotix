@@ -25,7 +25,7 @@ public class ChiusuraProgramma {
     private Recuperatore recuperatore = null;
 
     private List<String> erroriScrittura = null;
-    private Map<String, Class> istanzeErrori = null;
+    private Map<String, Class<? extends Object>> istanzeErrori = null;
 
     /**
      * Costruttore della classe.
@@ -39,7 +39,7 @@ public class ChiusuraProgramma {
         this.recuperatore = recuperatore;
 
         this.erroriScrittura = new ArrayList<String>();
-        this.istanzeErrori = new HashMap<String, Class>();
+        this.istanzeErrori = new HashMap<String, Class<? extends Object>>();
     }
 
     /**
@@ -53,7 +53,7 @@ public class ChiusuraProgramma {
         if (erroriScrittura.isEmpty())
             esito = salvaDati();
         else {
-            Map<String, Class> istanze = new HashMap<String, Class>();
+            Map<String, Class<? extends Object>> istanze = new HashMap<String, Class<? extends Object>>();
             istanze.putAll(this.istanzeErrori);
             esito = risalvaDati(istanze);
         }
@@ -188,7 +188,7 @@ public class ChiusuraProgramma {
      * @see LogErrori
      * @see StoreIstanzeErrori
      */
-    private boolean risalvaDati(Map<String, Class> istanzeErrori) {
+    private boolean risalvaDati(Map<String, Class<? extends Object>> istanzeErrori) {
         AtomicBoolean result = new AtomicBoolean(true);
 
         this.pulisciErrori();

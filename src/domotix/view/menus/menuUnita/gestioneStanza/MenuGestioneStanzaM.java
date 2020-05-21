@@ -21,7 +21,7 @@ public class MenuGestioneStanzaM {
     private MyMenu menu;
     private Rappresentatore r;
     private Interpretatore i;
-    private Verificatore v;
+    // private Verificatore v;
     private MenuGestioneArtefattoM menuGestioneArtefattoM;
 
     public MenuGestioneStanzaM(MyMenu menu, Rappresentatore r, Interpretatore i, Verificatore v) {
@@ -30,7 +30,7 @@ public class MenuGestioneStanzaM {
         this.menu.setVoci(VOCI);
         this.r = r;
         this.i = i;
-        this.v = v;
+        // this.v = v;
         menuGestioneArtefattoM = new MenuGestioneArtefattoM(menu, r, i);
     }
 

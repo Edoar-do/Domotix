@@ -13,7 +13,7 @@ public class MenuCategorieF {
     private static final String INDIETRO = "Indietro";
 
     private MyMenu menu;
-    private Rappresentatore r;
+    // private Rappresentatore r;
     private MenuCategorieSensoriF menuCategorieSensoriF;
     private MenuCategorieAttuatoriF menuCategorieAttuatoriF;
 
@@ -21,7 +21,7 @@ public class MenuCategorieF {
         this.menu = m;
         menu.setTitolo(TITOLO);
         menu.setVoci(VOCI);
-        this.r = r;
+        // this.r = r;
         menuCategorieSensoriF = new MenuCategorieSensoriF(menu, r);
         menuCategorieAttuatoriF = new MenuCategorieAttuatoriF(menu, r);
     }

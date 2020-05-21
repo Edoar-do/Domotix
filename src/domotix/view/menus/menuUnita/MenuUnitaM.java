@@ -20,9 +20,9 @@ public class MenuUnitaM {
     private static final String NONE = "Nessuna unità immobiliare esistente. L'utente manutentore deve prima crearne una";
 
     private MyMenu menu;
-    private Interpretatore i;
+    // private Interpretatore i;
     private Rappresentatore r;
-    private Verificatore v;
+    // private Verificatore v;
     private MenuGestioneUnitaM menuGestioneUnitaM;
     private MenuGestioneStanzaM menuGestioneStanzaM;
 
@@ -30,9 +30,9 @@ public class MenuUnitaM {
         this.menu = m;
         menu.setTitolo(TITOLO);
         menu.setVoci(VOCI);
-        this.i = i;
+        // this.i = i;
         this.r = r;
-        this.v = v;
+        // this.v = v;
         menuGestioneUnitaM = new MenuGestioneUnitaM(menu, r, i);
         menuGestioneStanzaM = new MenuGestioneStanzaM(menu, r, i, v);
     }

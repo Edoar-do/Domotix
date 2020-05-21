@@ -9,9 +9,6 @@ import domotix.model.bean.regole.*;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -391,7 +388,7 @@ public class Modificatore {
         if (recuperatore.getUnita(unita).getRegola(idRegola) == null) return false;
         if (recuperatore.getAttuatore(attuatore) == null) return false;
         if (!recuperatore.getAttuatore(attuatore).getCategoria().hasModalita(modalita)) return false;
-        String orario = String.valueOf(orarioStart);
+        //String orario = String.valueOf(orarioStart);
         Attuatore att = recuperatore.getAttuatore(attuatore);
         Modalita mod = att.getCategoria().getModalita(modalita);
         List<Parametro> parametri = new ArrayList<>();

@@ -1,7 +1,6 @@
 package domotix.controller;
 
-import domotix.model.*;
-import domotix.model.bean.UnitaImmobiliare;
+
 import domotix.model.bean.device.*;
 import domotix.model.bean.regole.Azione;
 import domotix.model.bean.regole.Regola;
@@ -94,11 +93,11 @@ public class Rappresentatore {
         return this.getNomiStanze(nomeUnita, true);
     }
 
-    private static String[] getNomiAttuatoriSistema(Sistema sistema) {
+    private String[] getNomiAttuatoriSistema(Sistema sistema) {
         return Stream.of(sistema.getAttuatori()).map(a -> a.getNome()).toArray(String[]::new);
     }
 
-    private static String[] getNomiSensoriSistema(Sistema sistema) {
+    private String[] getNomiSensoriSistema(Sistema sistema) {
         return Stream.of(sistema.getSensori()).map(s -> s.getNome()).toArray(String[]::new);
     }
 

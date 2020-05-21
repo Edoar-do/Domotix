@@ -1,6 +1,6 @@
 package domotix.controller;
 
-import domotix.controller.util.StringUtil;
+
 import domotix.model.bean.UnitaImmobiliare;
 import domotix.model.bean.device.*;
 import domotix.model.bean.regole.*;
