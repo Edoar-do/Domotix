@@ -131,6 +131,7 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
         //se non ha attributi genera cartella vuota
         if (unita.getStanze().length == 0)
             generaCartella(this.generatorePercorsi.getCartellaStanze(unita.getNome()));
+            generaCartella( this.generatorePercorsi.getCartellaArtefatti(unita.getNome()) );
         if (unita.getRegole().length == 0)
             generaCartella(this.generatorePercorsi.getCartellaRegole(unita.getNome()));
 
@@ -182,7 +183,7 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
     @Override
     public void salva(Artefatto artefatto, String unita) throws TransformerException, IOException {
         //cartella per sensori e attuatori generata all'avvio programma (cartelle principali)
-        
+
         //salvo prima le entita' interne
         for (Sensore s : artefatto.getSensori()) {
             salva(s);
