@@ -21,6 +21,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystemException;
+import java.nio.file.NotDirectoryException;
 
 /**
  * Classe che implementa l'interfaccia ScritturaDatiSalvati per definire un meccanismo di salvataggio dei dati su file memorizzati
@@ -57,7 +58,8 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
                 throw new FileSystemException(this.getClass().getName() + ": " + path + " impossibile scrivere.");
         }
         else {
-            docFile.getParentFile().mkdirs();
+            // docFile.getParentFile().mkdirs();
+            generaCartella(docFile.getParent());
             docFile.createNewFile();
             docFile.setWritable(true);
             docFile.setReadable(true);
@@ -71,8 +73,21 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
         transformer.transform(domSource, streamResult);
     }
 
+    private void generaCartella(String path) throws NotDirectoryException {
+        File entita = new File(path);
+        if (!entita.exists()) {
+            entita.mkdirs();
+        }
+        else if (!entita.isDirectory())
+            throw new NotDirectoryException("ScritturaDatiLocali.generaCartella(): generazione cartella " + path + " fallita. Percorso esistenete come file.");
+    }
+
     @Override
     public void salva(CategoriaSensore cat) throws TransformerException, IOException {
+        //se non ha attributi genera cartella vuota
+        if (cat.getInformazioniRilevabili().isEmpty())
+            generaCartella(this.generatorePercorsi.getCartellaInformazioneRilevabile(cat.getNome()));
+
         //salvo prima le entita' interne
         for (InfoRilevabile info : cat.getInformazioniRilevabili()) {
             salva(info, cat.getNome());
@@ -90,6 +105,11 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
 
     @Override
     public void salva(CategoriaAttuatore cat) throws TransformerException, IOException {
+        //se non ha attributi genera cartella vuota
+        if (cat.getElencoModalita().isEmpty())
+            generaCartella(this.generatorePercorsi.getCartellaModalita(cat.getNome()));
+
+        
         //salvo prima le entita' interne
         for (Modalita modalita : cat.getElencoModalita()) {
             salva(modalita, cat.getNome());
@@ -108,6 +128,12 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
 
     @Override
     public void salva(UnitaImmobiliare unita) throws TransformerException, IOException {
+        //se non ha attributi genera cartella vuota
+        if (unita.getStanze().length == 0)
+            generaCartella(this.generatorePercorsi.getCartellaStanze(unita.getNome()));
+        if (unita.getRegole().length == 0)
+            generaCartella(this.generatorePercorsi.getCartellaRegole(unita.getNome()));
+
         //salvo prima le entita' interne
         for (Stanza s : unita.getStanze()) {
             salva(s,unita.getNome());
@@ -132,6 +158,11 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
 
     @Override
     public void salva(Stanza stanza, String unita) throws TransformerException, IOException {
+        //se non ha attributi genera cartella vuota
+        if (stanza.getArtefatti().length == 0)
+            generaCartella( this.generatorePercorsi.getCartellaArtefatti(unita) );
+        //cartella per sensori e attuatori generata all'avvio programma (cartelle principali)
+
         //salvo prima le entita' interne
         for (Sensore s : stanza.getSensori()) {
             salva(s);
@@ -150,6 +181,8 @@ public class ScritturaDatiLocali extends ScritturaDatiSalvatiAdapter {
 
     @Override
     public void salva(Artefatto artefatto, String unita) throws TransformerException, IOException {
+        //cartella per sensori e attuatori generata all'avvio programma (cartelle principali)
+        
         //salvo prima le entita' interne
         for (Sensore s : artefatto.getSensori()) {
             salva(s);
