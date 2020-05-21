@@ -398,7 +398,7 @@ public class Rappresentatore {
         Map<String, String> map = new HashMap<>();
         List<Regola> regole = recuperatore.getRegoleAttiveDisattive(unita);
         for (Regola r : regole) {
-            map.put(stringatore.visita(r.getAntecedente()) + ":" + r.getStato().name(), r.getId());
+            map.put(( r.getAntecedente() == null) ? ("true ") : (stringatore.visita(r.getAntecedente())) + ":" + r.getStato().name(), r.getId());
         }
         return map;
     }
