@@ -75,7 +75,7 @@ public class Stringatore extends AbstractVisitor {
         buffer.append("\tARTEFATTI:");
         if (v.getArtefatti().length > 0) {
             for (Artefatto artefatto : v.getArtefatti()) {
-                String stringaArtefatto = "\n" + artefatto.toString();
+                String stringaArtefatto = "\n" + this.visita(artefatto);
                 buffer.append(StringUtil.indent(stringaArtefatto, 2));
             }
         } else {
@@ -232,7 +232,7 @@ public class Stringatore extends AbstractVisitor {
     public Object visitaAzione(Visitable visitabileAzione) {
         Azione v = (Azione) visitabileAzione;
         String parstr = v.getParametri().size() > 0 ? v.getParametri().stream().map(e -> this.visita(e)).collect(Collectors.joining(",")) : "";
-        String timestr = v.getStart() == null ? "" : ", start := " + v.getStart().toString(); // todo
+        String timestr = v.getStart() == null ? "" : ", start := " + v.getStart().toString();
         return v.getAttuatore().getNome() + " := " + v.getModalita().getNome() + parstr + timestr;
     }
 }
