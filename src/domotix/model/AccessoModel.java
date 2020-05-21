@@ -126,6 +126,7 @@ public class AccessoModel implements Model {
     public void addUnita(UnitaImmobiliare unitaImmobiliare) {
         unitaImmobiliare.aggiungiOsservatoreListaSensori(this.elencoSensori);
         unitaImmobiliare.aggiungiOsservatoreListaAttuatori(this.elencoAttuatori);
+        unitaImmobiliare.setElencoAzioni(this.elencoAzioniProgrammate);
         elencoUnitaImmobiliari.add(unitaImmobiliare);
     }
 

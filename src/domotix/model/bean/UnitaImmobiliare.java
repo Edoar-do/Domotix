@@ -74,8 +74,11 @@ public class UnitaImmobiliare implements Visitable {
         this.osservatoriAttuatori = new ArrayList<>();
     }
 
-    public void addElencoAzioni(ElencoAzioniProgrammate azioni) {
+    public void setElencoAzioni(ElencoAzioniProgrammate azioni) {
         this.azioni = azioni;
+        for ( Regola r : this.regole.values()) {
+            r.setElencoAzioni(azioni);
+        }
     }
 
     /**
@@ -244,7 +247,7 @@ public class UnitaImmobiliare implements Visitable {
      */
     public void addRegola(Regola regola) {
         this.regole.put(regola.getId(), regola);
-        regola.addElencoAzioni(this.azioni);
+        regola.setElencoAzioni(this.azioni);
     }
 
     /**

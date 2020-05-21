@@ -178,8 +178,8 @@ public class Regola implements Visitable {
         return v.visitaRegola(this);
     }
 
-    public void addElencoAzioni(ElencoAzioniProgrammate azioni) {
+    public void setElencoAzioni(ElencoAzioniProgrammate azioni) {
         this.azioni = azioni;
-        this.conseguente.addElencoAzioni(this.azioni);
+        this.conseguente.setElencoAzioni(this.azioni);
     }
 }

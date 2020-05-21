@@ -45,7 +45,7 @@ public class Conseguente implements Visitable {
     public void esegui() {
         for (Azione a : azioni) {
             if (a.getStart() == null) a.esegui();
-            else if (!elencoAzioni.contains(a))
+            else if (elencoAzioni != null && !elencoAzioni.contains(a))
                 elencoAzioni.add(a);
         }
     }
@@ -68,7 +68,7 @@ public class Conseguente implements Visitable {
         return v.visitaConseguente(this);
     }
 
-    public void addElencoAzioni(ElencoAzioniProgrammate eazioni) {
+    public void setElencoAzioni(ElencoAzioniProgrammate eazioni) {
         this.elencoAzioni = eazioni;
     }
 }
