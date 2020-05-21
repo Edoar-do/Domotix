@@ -8,6 +8,7 @@ import domotix.model.bean.regole.Regola;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Sistema;
 import domotix.model.bean.system.Stanza;
+import domotix.model.util.ObserverList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -409,6 +410,30 @@ public class Recuperatore {
      */
     public SensoreOrologio getSensoreOrologio() {
         return this.model.getOrologio();
+    }
+
+    /**
+     * Ritorna l'osservatore interno al model per i sensori.
+     * Necessario impostarlo esternamente nelle stanze/artefatti per far funzionare il meccanismo di
+     * condivisione dell'unica istanza relativa ad un sensore/attuatore.
+     * Infatti, se generata esternamente e poi aggiunta subito al model non crea problemi. Invece, se
+     * generata esternamente con sensori/attuatori annessi allora occorre impostare l'osservatore (vedi istanziatori xml)
+     * @return  istanza di osservatore per i sensori
+     */
+    public ObserverList<Dispositivo> getOsservatoreSensori() {
+        return this.model.getOsservatoreSensori();
+    }
+    
+    /**
+     * Ritorna l'osservatore interno al model per gli attuatori.
+     * Necessario impostarlo esternamente nelle stanze/artefatti per far funzionare il meccanismo di
+     * condivisione dell'unica istanza relativa ad un sensore/attuatore.
+     * Infatti, se generata esternamente e poi aggiunta subito al model non crea problemi. Invece, se
+     * generata esternamente con sensori/attuatori annessi allora occorre impostare l'osservatore (vedi istanziatori xml)
+     * @return  istanza di osservatore per gli attuatori
+     */
+    public ObserverList<Dispositivo> getOsservatoreAttuatori() {
+        return this.model.getOsservatoreAttuatori();
     }
 
 }

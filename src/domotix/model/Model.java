@@ -5,6 +5,7 @@ import domotix.model.bean.device.*;
 import domotix.model.bean.regole.Azione;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
+import domotix.model.util.ObserverList;
 
 import java.util.List;
 
@@ -126,4 +127,8 @@ public interface Model {
     void removeAzioneProgrammata(String idAzione);
 
     void addAzioneProgrammata(Azione a);
+
+    ObserverList<Dispositivo> getOsservatoreSensori();
+
+    ObserverList<Dispositivo> getOsservatoreAttuatori();
 }

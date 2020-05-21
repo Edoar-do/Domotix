@@ -10,8 +10,10 @@ import domotix.controller.io.LetturaDatiSalvati;
 import domotix.controller.io.xml.CostantiXML;
 import domotix.controller.io.xml.IstanziatoreXML;
 import domotix.model.bean.device.Attuatore;
+import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.system.Artefatto;
+import domotix.model.util.ObserverList;
 
 public class ArtefattoXML implements IstanziatoreXML<Artefatto> {
 
@@ -35,7 +37,11 @@ public class ArtefattoXML implements IstanziatoreXML<Artefatto> {
 	    if (el.getTagName().equals(CostantiXML.NODO_XML_ARTEFATTO)) {
 	        String nome;
 	        String unitImmob;
-	        Artefatto artefatto;
+			Artefatto artefatto;
+			//Imposto immediatamente gli osservatori all'artefatto per far funzionare il meccanismo di ObserverList - ObservableList
+			//in modo che un sensore/attuatore abbia un'unica istanza
+			ObserverList<Dispositivo> osservatoreSensori = recuperatore.getOsservatoreSensori();
+			ObserverList<Dispositivo> osservatoreAttuatori = recuperatore.getOsservatoreAttuatori();
 	
 	        //estrazione attrubuti
 	        if (el.hasAttribute(CostantiXML.NODO_XML_ARTEFATTO_NOME)) {
@@ -50,6 +56,8 @@ public class ArtefattoXML implements IstanziatoreXML<Artefatto> {
 	
 	        artefatto = new Artefatto(nome);
 	        artefatto.setUnitaOwner(unitImmob);
+			artefatto.addOsservatoreListaSensori(osservatoreSensori);
+			artefatto.addOsservatoreListaAttuatori(osservatoreAttuatori);
 	
 	        //estrazione elementi
 	        NodeList childs = el.getElementsByTagName(CostantiXML.NODO_XML_ARTEFATTO_SENSORE);

@@ -5,6 +5,7 @@ import domotix.model.bean.device.*;
 import domotix.model.bean.regole.Azione;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
+import domotix.model.util.ObserverList;
 
 import java.util.Arrays;
 import java.util.List;
@@ -161,5 +162,15 @@ public class AccessoModel implements Model {
     @Override
     public void addAzioneProgrammata(Azione a) {
         elencoAzioniProgrammate.add(a);
+    }
+
+    @Override
+    public ObserverList<Dispositivo> getOsservatoreSensori() {
+        return this.elencoSensori;
+    }
+
+    @Override
+    public ObserverList<Dispositivo> getOsservatoreAttuatori() {
+        return this.elencoAttuatori;
     }
 }

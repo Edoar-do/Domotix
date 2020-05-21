@@ -11,9 +11,11 @@ import domotix.controller.io.LetturaDatiSalvati;
 import domotix.controller.io.xml.CostantiXML;
 import domotix.controller.io.xml.IstanziatoreXML;
 import domotix.model.bean.device.Attuatore;
+import domotix.model.bean.device.Dispositivo;
 import domotix.model.bean.device.Sensore;
 import domotix.model.bean.system.Artefatto;
 import domotix.model.bean.system.Stanza;
+import domotix.model.util.ObserverList;
 
 public class StanzaXML implements IstanziatoreXML<Stanza> {
 	
@@ -37,7 +39,11 @@ public class StanzaXML implements IstanziatoreXML<Stanza> {
 	        if (el.getTagName().equals(CostantiXML.NODO_XML_STANZA)) {
 	            String nome;
 	            String unitImmob;
-	            Stanza stanza;
+				Stanza stanza;
+				//Imposto immediatamente gli osservatori alla stanza per far funzionare il meccanismo di ObserverList - ObservableList
+				//in modo che un sensore/attuatore abbia un'unica istanza
+				ObserverList<Dispositivo> osservatoreSensori = recuperatore.getOsservatoreSensori();
+				ObserverList<Dispositivo> osservatoreAttuatori = recuperatore.getOsservatoreAttuatori();
 	
 	            //estrazione attrubuti
 	            if (el.hasAttribute(CostantiXML.NODO_XML_STANZA_NOME)) {
@@ -51,7 +57,9 @@ public class StanzaXML implements IstanziatoreXML<Stanza> {
 	                throw new NoSuchElementException("StanzaXML.instanceElement(): attributo " + CostantiXML.NODO_XML_STANZA_UNITA_IMMOB + " assente.");
 	
 	            stanza = new Stanza(nome);
-	            stanza.setUnitaOwner(unitImmob);
+				stanza.setUnitaOwner(unitImmob);
+				stanza.addOsservatoreListaSensori(osservatoreSensori);
+				stanza.addOsservatoreListaAttuatori(osservatoreAttuatori);
 	
 	            //estrazione elementi
 	            NodeList childs = el.getElementsByTagName(CostantiXML.NODO_XML_STANZA_SENSORE);
