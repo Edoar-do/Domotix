@@ -55,7 +55,7 @@ public class Stanza extends Sistema implements Visitable {
             for (ActionListener actionListener : getRimuoviSensoreListener()) {
                 artefatto.addRimuoviAttuatoreListener(actionListener);
             }
-            //artefatto.ereditaOsservatoriLista(this);
+            artefatto.ereditaOsservatoriLista(this);
             artefatti.put(artefatto.getNome(), artefatto);
             return true;
         } else {
