@@ -18,6 +18,8 @@ import static org.junit.Assert.assertTrue;
 
 public class ValiditaAttuatoreTest {
 
+    /* La seguente tipologia di testing è white box in quanto tiene conto dell'implementazione del codice */
+
     /*  A   isNomeDispositivoValido(nomeComposto) &&
         B   checkUnivocitaAttuatore(nomeComposto) &&
         C   recuperatore.getUnita(nomeUnita) != null &&
