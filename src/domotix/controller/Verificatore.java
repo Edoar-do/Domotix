@@ -30,7 +30,7 @@ public class Verificatore {
         return nome.matches("^(" + REGEX_NOMI + ")$");
     }
 
-    private boolean isNomeDispositivoValido(String nome) {
+    public boolean isNomeDispositivoValido(String nome) {
         return nome.matches("^(" + REGEX_NOMI_DISPOSITIVI + ")$");
     }
 
@@ -292,8 +292,8 @@ public class Verificatore {
         String orarioStringa = String.valueOf(orario);
         int ora = Integer.parseInt(orarioStringa.split(Pattern.quote("."))[0]);
         int minuti = Integer.parseInt(orarioStringa.split(Pattern.quote("."))[1]);
-        if(ora < 0 || ora > 23) return false;
-        if(minuti < 0 || minuti > 59) return false;
+        if((ora < 0 || ora > 23)) return false;
+        if((minuti < 0 || minuti > 59)) return false;
         return true;
     }
 
