@@ -43,8 +43,6 @@ public class CambioStatoSensoreTest {
         modificatore = new Modificatore(model, recuperatore, verificatore);
     }
 
-   /*
-    Test di scrupolo
     @Test
     public void sensorStateShouldBeTrueAtCreation(){
         modificatore.aggiungiUnitaImmobiliare(new UnitaImmobiliare("villetta"));
@@ -54,7 +52,6 @@ public class CambioStatoSensoreTest {
         Stanza stanza = recuperatore.getStanza("cucina", "villetta");
         assertTrue(getDesiredSensor(stanza.getSensori(), "t1_termometro").getStato());
     }
-    */
 
     @Test
     public void sensorStateShouldBeFalseAfterHavingSwitchedItOff(){
