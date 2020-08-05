@@ -86,6 +86,7 @@ public class Domotix {
             ChiusuraProgramma chiusura = new ChiusuraProgramma(scritturaDati, rimozioneDati, recuperatore);
             MenuChiusura menuChiusura = new MenuChiusura(chiusura);
 
+            //QUI VA LA CREAZIONE DELLA FINESTRA MA VA TENUTA OSCURATA FINO A QUANDO NON SI SONO RISOLTE LE EVENTUALI FACCENDE DI APERTURA
             MenuLogin menuLogin = new MenuLogin(interpretatore, verificatore, rappresentatore, importatoreLocale);
 
 
