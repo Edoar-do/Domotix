@@ -1,8 +1,9 @@
 package domotix.view.menus;
 
 import domotix.controller.ChiusuraProgramma;
-import domotix.view.MyMenu;
 
+
+import javax.swing.*;
 import java.util.List;
 
 /**
@@ -18,8 +19,9 @@ public class MenuChiusura {
     /** Scelta dell'utente di ritentare il salvataggio **/
     public static final int RITENTA_SALVATAGGIO = 2;
 
-    private MyMenu erroreChiusura = null;
     private ChiusuraProgramma controller = null;
+    private JTextArea area;
+    private JScrollPane scrollPane;
 
     /**
      * Costruttore della classe.
@@ -28,7 +30,6 @@ public class MenuChiusura {
      */
     public MenuChiusura(ChiusuraProgramma chiusura) {
         this.controller = chiusura;
-        this.erroreChiusura = new MyMenu("Proseguire con l'apertura del programma?", new String[]{"Annulla chiusura", "Ritenta salvataggio"});
     }
 
     /**
@@ -46,15 +47,27 @@ public class MenuChiusura {
                 esito = ESCI;
             }
             else {
+                area = new JTextArea(10, 40);
+                area.setEditable(false);
+                scrollPane = new JScrollPane(area);
+                Object[] widgets = new Object[]{"Si sono verificati i seguenti errori: ", scrollPane, "Come desideri procedere? "};
+                String[] opz = new String[]{"Esci", "Annulla Chiusura", "Ritenta Salvataggio"};
+
                 List<String> errori = this.controller.getErroriScrittura();
 
-                System.out.println("Errore/i in salvataggio dati salvati:");
                 if (errori.isEmpty())
-                    System.out.println("\tErrore sconosciuto");
+                    area.append("Errori sconosciuti");
                 else
-                    errori.forEach(s -> System.out.println("\t"+s));
+                    errori.forEach(s -> area.append(s + "\n"));
                 
-                esito = this.erroreChiusura.scegli();
+                esito = JOptionPane.showOptionDialog(null,
+                        widgets,
+                        "Errori Chiusura Programma",
+                        JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE,
+                        null,
+                        opz,
+                        null);
             }
         }
 

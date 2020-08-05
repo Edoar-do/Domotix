@@ -1,7 +1,7 @@
 package domotix.view.menus;
 
 import domotix.controller.AperturaProgramma;
-import domotix.view.MyMenu;
+
 
 import javax.swing.*;
 import java.awt.*;
