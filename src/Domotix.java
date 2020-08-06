@@ -17,11 +17,7 @@ import domotix.view.menus.MenuAzioniConflitto;
 import domotix.view.menus.MenuApertura;
 import domotix.view.menus.MenuChiusura;
 import domotix.view.menus.MenuLogin;
-import domotix.view.strategyException.ContextStrategy;
-import domotix.view.strategyException.NotDirectoryExceptionRoutine;
-import domotix.view.strategyException.ParserConfigurationExceptionRoutine;
-import domotix.view.strategyException.TransformerConfigurationExceptionRoutine;
-
+import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import java.nio.file.NotDirectoryException;
@@ -33,6 +29,11 @@ import java.nio.file.NotDirectoryException;
  * @author paolopasqua
  */
 public class Domotix {
+
+    private static final String CONTACT_ASSIST = "Contattare l'assistenza per risolvere il problema";
+    private static final String NOT_DIR = "L'incoerenza dei dati salvati rende impossibile l'esecuzione del programma. " + CONTACT_ASSIST;
+    private static final String PARSER_TRANSF_CONF = "Si è verificato un errore nel caricamento degli strumenti di I/O dei dati salvati. " + CONTACT_ASSIST;
+
 
     /**
      * Metodo main di avvio del programma.
@@ -50,7 +51,6 @@ public class Domotix {
         PercorsiFile generatoreLibreria = new PercorsiFile(PercorsiFile.SORGENTE.LIBRERIA);
         PercorsiFile generatoreLibreriaImportata = new PercorsiFile(PercorsiFile.SORGENTE.LIBRERIA_IMPORTATA);
 
-        ContextStrategy contextStrategy;
 
         try {
             /* CONTROLLO STRUTTURA DATI LOCALI */
@@ -120,14 +120,9 @@ public class Domotix {
             timerRinfrescoDati.stop();
             timerGestioneRegole.stop();
         }catch(NotDirectoryException e){
-            contextStrategy = new ContextStrategy(new NotDirectoryExceptionRoutine());
-            contextStrategy.executeStrategy(e);
-        }catch(ParserConfigurationException e){
-            contextStrategy = new ContextStrategy(new ParserConfigurationExceptionRoutine());
-            contextStrategy.executeStrategy(e);
-        }catch(TransformerConfigurationException e){
-            contextStrategy = new ContextStrategy(new TransformerConfigurationExceptionRoutine());
-            contextStrategy.executeStrategy(e);
+            JOptionPane.showConfirmDialog(null, NOT_DIR, "Errore!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null);
+        }catch(ParserConfigurationException | TransformerConfigurationException e){
+            JOptionPane.showConfirmDialog(null, PARSER_TRANSF_CONF, "Errore!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null);
         }
     }
 }
