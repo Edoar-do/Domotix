@@ -88,6 +88,7 @@ public class Domotix {
 
             //QUI VA LA CREAZIONE DELLA FINESTRA MA VA TENUTA OSCURATA FINO A QUANDO NON SI SONO RISOLTE LE EVENTUALI FACCENDE DI APERTURA
             MenuLogin menuLogin = new MenuLogin(interpretatore, verificatore, rappresentatore, importatoreLocale);
+            //TODO: INSERIRE LA MIA FINESTRA MA NASCOSTA E CON DO_NOTHING_ON_CLOSE!!!
 
 
             /* AVVIO DEL PROGRAMMMA */
@@ -106,6 +107,14 @@ public class Domotix {
                 timerRinfrescoDati.start(); //avvio timer rinfresco dati
                 timerGestioneRegole.start(); //avvio timer gestione regole
             }
+
+            //TODO: AL POSTO DEL WHILE E DEGLI STOP AI TIMER:
+            //miaFinestra.setVisible(true); //da qui posso iniziare ad usarla
+            //miaFinestra.addWindowListener(new WindowAdapter(){
+            //public void windowClosing(WindowEvent e){
+                //if(menuChiusura.avvia()){ //se true allora esci
+                    // stop dei timer vari + miaFinestra.dispose()
+            //});
 
             //Esecuzione routine di esecuzione
             while (esegui) {

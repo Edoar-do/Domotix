@@ -46,7 +46,7 @@ public class Rappresentatore {
     }
 
     /**
-     * Metodo di recupero di una lista di nomi delle unita' immobiliari
+     * Metodo di recupero di una lista di nomi delle get' immobiliari
      * presenti all'interno del model.
      * @return Array di nomi delle unita' immobiliari esistenti
      */
@@ -423,5 +423,31 @@ public class Rappresentatore {
      */
     public String[] getDescrizioniAzioniProgrammate() {
         return recuperatore.getAzioniProgrammate().stream().map(azione -> stringatore.visita(azione)).toArray(String[]::new);
+    }
+
+    /**
+     * metodo che ritorna la descrizione di una specifica categoria di sensori dato il suo nome
+     * @param nomeCat della categoria di cui si vuole la descrizione
+     * @return la descrizione
+     */
+    public String getDescrizioneCategoriaSensori(String nomeCat){
+        String[] descrizioni = getDescrizioniCategorieSensori();
+        for(String d:descrizioni)
+            if(d.contains(nomeCat))
+                return d;
+        return "";
+    }
+
+    /**
+     * metodo che ritorna la descrizione di una specifica categoria di attuatori dato il suo nome
+     * @param nomeCat della categoria di cui si vuole la descrizione
+     * @return la descrizione
+     */
+    public String getDescrizioneCategoriaAttuatori(String nomeCat){
+        String[] descrizioni = getDescrizioniCategorieAttuatori();
+        for(String d:descrizioni)
+            if(d.contains(nomeCat))
+                return d;
+        return "";
     }
 }
