@@ -28,6 +28,10 @@ public class EditSensoreStanzaListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         if (actionCommand.equalsIgnoreCase("Aggiungi un sensore ad una stanza")){ //aggiungi sensore a stanza
+            if(rapp.getNomiCategorieSensori().length == 0){
+                JOptionPane.showOptionDialog(null, "Non è presente alcuna categoria di sensori!", "Assenza categorie di sensori", -1, 0, null, null, null);
+                return;
+            }
             String[] nomiStanze = rapp.getNomiStanze(pannelloNord.getUnitaCorrente(), true);
             JComboBox comboNomiStanze = new JComboBox(nomiStanze);
             AutoCompletion.enable(comboNomiStanze);
