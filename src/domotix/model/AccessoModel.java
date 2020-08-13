@@ -24,6 +24,7 @@ public class AccessoModel implements Model {
 
     public AccessoModel() {
         this.sensoreOrologio = new SensoreOrologio();
+        this.sensoreOrologio.setStato(true);
         this.elencoCategorieSensori = new ElencoCategorieSensori();
         this.elencoSensori = new ElencoSensori(this.sensoreOrologio);
         this.elencoUnitaImmobiliari = new ElencoUnitaImmobiliari();

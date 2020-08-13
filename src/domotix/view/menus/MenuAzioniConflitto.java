@@ -3,8 +3,6 @@ package domotix.view.menus;
 import domotix.controller.Modificatore;
 import domotix.controller.Rappresentatore;
 import domotix.controller.Recuperatore;
-import domotix.view.InputDati;
-import domotix.view.MyMenu;
 
 import javax.swing.*;
 import java.util.ArrayList;

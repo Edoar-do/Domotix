@@ -16,10 +16,13 @@ import domotix.model.Model;
 import domotix.view.menus.MenuAzioniConflitto;
 import domotix.view.menus.MenuApertura;
 import domotix.view.menus.MenuChiusura;
-import domotix.view.menus.MenuLogin;
+import view.MyViewPanel;
+
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.nio.file.NotDirectoryException;
 
 /**
@@ -86,10 +89,11 @@ public class Domotix {
             ChiusuraProgramma chiusura = new ChiusuraProgramma(scritturaDati, rimozioneDati, recuperatore);
             MenuChiusura menuChiusura = new MenuChiusura(chiusura);
 
-            //QUI VA LA CREAZIONE DELLA FINESTRA MA VA TENUTA OSCURATA FINO A QUANDO NON SI SONO RISOLTE LE EVENTUALI FACCENDE DI APERTURA
-            MenuLogin menuLogin = new MenuLogin(interpretatore, verificatore, rappresentatore, importatoreLocale);
-            //TODO: INSERIRE LA MIA FINESTRA MA NASCOSTA E CON DO_NOTHING_ON_CLOSE!!!
-
+            JFrame frame = new MyViewPanel("Domotix", interpretatore, verificatore, rappresentatore, importatoreLocale);
+            frame.setVisible(false);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+            frame.pack();
 
             /* AVVIO DEL PROGRAMMMA */
 
@@ -108,26 +112,20 @@ public class Domotix {
                 timerGestioneRegole.start(); //avvio timer gestione regole
             }
 
-            //TODO: AL POSTO DEL WHILE E DEGLI STOP AI TIMER:
-            //miaFinestra.setVisible(true); //da qui posso iniziare ad usarla
-            //miaFinestra.addWindowListener(new WindowAdapter(){
-            //public void windowClosing(WindowEvent e){
-                //if(menuChiusura.avvia()){ //se true allora esci
-                    // stop dei timer vari + miaFinestra.dispose()
-            //});
+            frame.setVisible(true);
+            frame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    if(menuChiusura.avvia()){
+                        //Arresto servizi
+                        timerAzioniProgrammate.stop();
+                        timerRinfrescoDati.stop();
+                        timerGestioneRegole.stop();
+                        frame.dispose();
+                    }
+                }
+            });
 
-            //Esecuzione routine di esecuzione
-            while (esegui) {
-
-                menuLogin.avvia();
-
-                esegui = !menuChiusura.avvia();
-            }
-
-            //Arresto servizi
-            timerAzioniProgrammate.stop();
-            timerRinfrescoDati.stop();
-            timerGestioneRegole.stop();
         }catch(NotDirectoryException e){
             JOptionPane.showConfirmDialog(null, NOT_DIR, "Errore!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null);
         }catch(ParserConfigurationException | TransformerConfigurationException e){

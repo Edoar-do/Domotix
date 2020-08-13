@@ -97,7 +97,7 @@ public class Recuperatore {
      */
     public List<Stanza> getStanze(String nomeUnita, boolean elencaStanzaDefault) {
         UnitaImmobiliare unita = model.getUnita(nomeUnita);
-        return Stream.of(unita.getStanze()).filter(s -> elencaStanzaDefault || !s.equals(UnitaImmobiliare.NOME_STANZA_DEFAULT)).collect(Collectors.toList());
+        return Stream.of(unita.getStanze()).filter(s -> elencaStanzaDefault || !s.getNome().equals(UnitaImmobiliare.NOME_STANZA_DEFAULT)).collect(Collectors.toList());
     }
 
     public List<Attuatore> getAttuatoriSistema(Sistema sistema) {

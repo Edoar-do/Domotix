@@ -344,7 +344,7 @@ public class Interpretatore {
      * @return true se l'inserimento va a buon fine
      */
     public boolean aggiungiOperatoreLogico(String unita, String regola, String op) {
-        return modificatore.aggiungiOperatoreLogico(op, regola, unita);
+        return modificatore.aggiungiOperatoreLogico(unita, regola, op);
     }
 
     /**

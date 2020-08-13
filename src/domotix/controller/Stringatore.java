@@ -107,7 +107,7 @@ public class Stringatore extends AbstractVisitor {
     @Override
     public Object visitaAttuatore(Visitable visitabileAttuatore) {
         Attuatore v = (Attuatore) visitabileAttuatore;
-        return String.format("%s [%s]: %s", v.getNome(), (v.getStato() ? "ON" : "OFF"), v.getModoOp());
+        return String.format("%s [%s]: %s", v.getNome(), (v.getStato() ? "ON" : "OFF"), visita(v.getModoOp()));
     }
 
     @Override
