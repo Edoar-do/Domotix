@@ -29,6 +29,10 @@ public class EditAttuatoreStanzaListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         if (actionCommand.equalsIgnoreCase("Aggiungi un attuatore ad una stanza")){ //aggiungi attuatore a stanza
+            if(rapp.getNomiCategorieAttuatori().length == 0){
+                JOptionPane.showOptionDialog(null, "Non è presente alcuna categoria di attuatori!", "Assenza categorie di attuatori", -1, 0, null, null, null);
+                return;
+            }
             String[] nomiStanze = rapp.getNomiStanze(pannelloNord.getUnitaCorrente(), true);
             JComboBox comboNomiStanze = new JComboBox(nomiStanze);
             AutoCompletion.enable(comboNomiStanze);
