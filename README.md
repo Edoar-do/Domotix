@@ -1,10 +1,15 @@
-Domitix
+Domotix
 =======
 #### Progetto per il corso "Ingegneria del Software" del terzo anno di Ingegneria informatica dell'Università degli Studi Brescia.
 
 Domotix è un sistema software per la domotica alla portata di tutti: consente facilmente la gestione e il controllo di ogni tipo di routine, domestica e industriale.
 Richiede solamente l’installazione di un impianto domotico di supporto a cui appoggiarsi ed interfacciarsi.
 La sua flessibilità ed adattabilità risiedono nella robustezza del software stesso che permette una facile gestione di ogni tipo di unità immobiliare.
+
+#### Progetto di tesi di laurea: Laureando Edoardo Coppola in Ingegneria Informatica
+
+Il laurendo ha svolto come progetto di tesi la progettazione e lo sviluppo di una GUI che rimpiazzasse la TUI delle versioni precedenti,
+Firmato: Edoardo Coppola
 
 ## Versione 5.1
 Le differenze rispetto alla versione precedente sono:
