@@ -18,6 +18,7 @@ import domotix.view.menus.MenuApertura;
 import domotix.view.menus.MenuChiusura;
 import view.MyViewPanel;
 
+
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
