@@ -14,7 +14,7 @@ public class GraphicInput {
         JTextField campoTesto = new JTextField(20);
         campoTesto.setToolTipText(chiarificatore);
         do{
-            JOptionPane.showOptionDialog(null, campoTesto, messaggio, JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null );
+            JOptionPane.showOptionDialog(null, new Object[]{chiarificatore, campoTesto}, messaggio, JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null );
             try
             {
                 valoreLetto = Double.parseDouble(campoTesto.getText());

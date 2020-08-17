@@ -22,6 +22,7 @@ import view.MyViewPanel;
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.nio.file.NotDirectoryException;
@@ -91,10 +92,13 @@ public class Domotix {
             MenuChiusura menuChiusura = new MenuChiusura(chiusura);
 
             JFrame frame = new MyViewPanel("Domotix", interpretatore, verificatore, rappresentatore, importatoreLocale);
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            frame.setBounds(0,0,screenSize.width, screenSize.height);
             frame.setVisible(false);
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-            frame.pack();
+            //frame.pack();
+
 
             /* AVVIO DEL PROGRAMMMA */
 

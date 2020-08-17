@@ -2,6 +2,7 @@ package view;
 
 
 import javax.swing.*;
+import java.awt.*;
 
 public class PannelloCentro extends JPanel implements Presenter {
 
@@ -13,8 +14,10 @@ public class PannelloCentro extends JPanel implements Presenter {
      */
     public PannelloCentro() {
         super();
-        areaVisualizzazione = new JTextArea(25, 65);
+        this.setLayout(new BorderLayout());
+        areaVisualizzazione = new JTextArea();
         areaVisualizzazione.setEditable(false);
+        areaVisualizzazione.setFont(new Font("TimesRoman", Font.PLAIN, 19));
         scrollPane = new JScrollPane(areaVisualizzazione);
         this.add(scrollPane);
     }

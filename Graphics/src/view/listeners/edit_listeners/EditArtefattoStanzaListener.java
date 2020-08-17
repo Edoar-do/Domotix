@@ -35,7 +35,7 @@ public class EditArtefattoStanzaListener implements ActionListener, ModifySignal
             AutoCompletion.enable(comboStanze);
             JTextField campoNomeArtefatto = new JTextField(20);
             campoNomeArtefatto.setToolTipText("Nome nuovo artefatto");
-            Object[] oggetti = new Object[]{"Seleziona la stanza a cui aggiungere l'artefatto: ", comboStanze, campoNomeArtefatto };
+            Object[] oggetti = new Object[]{"Seleziona la stanza a cui aggiungere l'artefatto: ", comboStanze, "Nome artefatto: ", campoNomeArtefatto };
             int ok = JOptionPane.showOptionDialog(null, oggetti, "Aggiunta artefatto a una stanza", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
             if(ok == 0){
                 if(inter.aggiungiArtefatto(campoNomeArtefatto.getText(), nomiStanze[comboStanze.getSelectedIndex()], pannelloNord.getUnitaCorrente())) {

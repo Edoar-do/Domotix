@@ -50,10 +50,7 @@ public class NuovoCategoriaAttuatorilistener implements ActionListener, ModifySi
         campoParametro.setEnabled(false);
         campoParametro.setToolTipText("Nome parametro se modalità parametrica");
         //CREAZIONE CAMPO VALORE PARAMETRO
-        NumberFormat format = DecimalFormat.getNumberInstance();
-        format.setMaximumFractionDigits(2);
-        format.setMaximumIntegerDigits(2);
-        JFormattedTextField campoValore = new JFormattedTextField(format);
+        JTextField campoValore = new JTextField(20);
         campoValore.setEnabled(false);
         campoValore.setToolTipText("Valore numerico di riferimento");
         //CREAZIONE BOTTONE AGGIUNGI PARAMETRO
@@ -106,6 +103,7 @@ public class NuovoCategoriaAttuatorilistener implements ActionListener, ModifySi
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(interpretatore.aggiungiCategoriaAttuatore(campoNome.getText(), areaTesto.getText())){
+                    JOptionPane.showOptionDialog(null, "Categoria attuatori creata con successo. \n Procedere con inserimento modalità operative", "Successo Creazione Categoria Attuatori", -1, 1, null, null, null);
                     //DISATTIVO ALTO
                     campoNome.setEnabled(false);
                     areaTesto.setEnabled(false);
@@ -115,7 +113,7 @@ public class NuovoCategoriaAttuatorilistener implements ActionListener, ModifySi
                     parametrica.setEnabled(true);
                     inserisci.setEnabled(true);
                 }else{
-                    JOptionPane.showOptionDialog(null, "Creazione Categoria Attuatori fallita", "Fallimento Operazione", -1, 0, null, null, null);
+                    JOptionPane.showOptionDialog(null, "Creazione Categoria Attuatori fallita. \n Consultare Help > Errori per capire la causa. \n Reinserimento dati effettuabile", "Fallimento Creazione Categoria Attuatori", -1, 0, null, null, null);
                 }
             }
         });
@@ -123,6 +121,7 @@ public class NuovoCategoriaAttuatorilistener implements ActionListener, ModifySi
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(interpretatore.aggiungiModalitaCategoriaAttuatore(campoNome.getText(), campoModalita.getText())){
+                    JOptionPane.showOptionDialog(null, "Inserimento Modalità Operativa riuscito!", "Inserimento Modalità Operativa riuscito!", -1, 0, null, null, null);
                     fineParametri.setEnabled(false); //ridondante?
                     if(parametrica.isSelected()){
                         //disattiva medio + fatto
@@ -138,25 +137,23 @@ public class NuovoCategoriaAttuatorilistener implements ActionListener, ModifySi
                         fatto.setEnabled(true);
                         campoModalita.setText("");
                     }
+                }else{
+                    JOptionPane.showOptionDialog(null, "Inserimento modalità operativa fallita. \n Consultare Hep > Errori per capire la causa \n Reinserimento dati effettuabile", "Fallimento inserimento modalità operativa", -1, 0, null, null, null);
                 }
             }
         });
         aggiungiParametro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double valore = 0.0;
-                try {
-                    valore = format.parse(campoValore.getText()).doubleValue();
-                }catch (ParseException ex){
-                    JOptionPane.showOptionDialog(null, "Ouch! Si è verificata un'eccezione", "Eccezione inserimento parametro", -1, 0, null, null,  null);
-                    interpretatore.rimuoviCategoriaAttuatore(campoNome.getText());
-                    dialog.dispose();
-                    return;
-                }
+
+                double valore = Double.parseDouble(campoValore.getText());
                 if(interpretatore.aggiungiParametro(campoNome.getText(), campoModalita.getText(), campoParametro.getText(), valore)){
+                    JOptionPane.showOptionDialog(null, "Successo inserimento parametro! \n Possibile inserire altri parametri oppure cliccare 'Fine Parametri' \n In quel caso è possibile inserire un'altra modaità", "Successo inserimento parametro", -1, 1, null, null, null);
                     fineParametri.setEnabled(true);
                     campoParametro.setText("");
-                    campoValore.setValue(null);
+                    campoValore.setText("");
+                }else{
+                    JOptionPane.showOptionDialog(null, "Inseimento parametro fallito. \n Consultare Hep > Errori per capire la causa \n Reinserimento dati effettuabile", "Fallimento inserimento parametro", -1, 0, null, null, null);
                 }
             }
         });
@@ -167,7 +164,7 @@ public class NuovoCategoriaAttuatorilistener implements ActionListener, ModifySi
                 campoParametro.setEnabled(false);
                 campoParametro.setText("");
                 campoValore.setEnabled(false);
-                campoValore.setValue(null);
+                campoValore.setText("");
                 aggiungiParametro.setEnabled(false);
                 fineParametri.setEnabled(false);
                 //attivazione medio + fatto

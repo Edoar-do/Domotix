@@ -49,7 +49,7 @@ public class EditCreazioneRegole implements ActionListener, ModifySignal {
             AutoCompletion.enable(comboAttuatori);
 
             //SCELTA ATTUATORE AZIONE
-            JOptionPane.showOptionDialog(null, comboAttuatori, "Conseguente: scelta attuatore azione", -1, 3, null, null, null);
+            JOptionPane.showOptionDialog(null, new Object[]{"Scegli un attuatore per la costruzione dell'azione", comboAttuatori}, "Conseguente: scelta attuatore azione", -1, 3, null, null, null);
             String attuatore = nomiAttuatori[comboAttuatori.getSelectedIndex()];
 
             String[] nomiModalita = rapp.getModalitaTutte(attuatore);
@@ -58,7 +58,7 @@ public class EditCreazioneRegole implements ActionListener, ModifySignal {
             AutoCompletion.enable(comboModalita);
 
             //SCELTA MODALITA DA IMPOSTARE
-            JOptionPane.showOptionDialog(null, comboModalita, "Conseguente: scelta attuatore azione", -1, 3, null, null, null);
+            JOptionPane.showOptionDialog(null, new Object[]{"Scegli la modalità in cui entrerà " + attuatore, comboModalita}, "Conseguente: scelta attuatore azione", -1, 3, null, null, null);
             String modalita = nomiModalita[comboModalita.getSelectedIndex()];
 
             //da fare solo se la modalità è parametrica
@@ -129,7 +129,7 @@ public class EditCreazioneRegole implements ActionListener, ModifySignal {
                 AutoCompletion.enable(comboSensori);
 
                 //RICHIESTA SENSORE LHS
-                JOptionPane.showOptionDialog(null, comboSensori, "LHS: scelta sensore", -1, 3, null, null, null);
+                JOptionPane.showOptionDialog(null, new Object[]{"Scegli un sensore come LHS", comboSensori}, "LHS: scelta sensore", -1, 3, null, null, null);
                 String sensore = nomiSensori[comboSensori.getSelectedIndex()];
 
                 String[] nomiInfo = rapp.getInformazioniRilevabili(sensore);
@@ -137,7 +137,7 @@ public class EditCreazioneRegole implements ActionListener, ModifySignal {
                 comboInfo.setToolTipText("Scegli un'informazione rilevabile del " + sensore);
 
                 //RICHIESTA INFO RILEVABILE DEL SENSORE RICHIESTO PRIMA
-                JOptionPane.showOptionDialog(null, comboInfo, "LHS: scelta informazione rilevabile", -1, 3, null, null, null);
+                JOptionPane.showOptionDialog(null, new Object[]{"Scegli un'informazione rilevabile del " + sensore, comboInfo}, "LHS: scelta informazione rilevabile", -1, 3, null, null, null);
                 String infoRilevabile = nomiInfo[comboInfo.getSelectedIndex()];
 
                 String lhs = sensore + "." + infoRilevabile;
@@ -147,7 +147,7 @@ public class EditCreazioneRegole implements ActionListener, ModifySignal {
                 if(lhs.equalsIgnoreCase("orologio_sistema.tempo") || ver.isInfoNumerica(sensore, infoRilevabile)){
                     JComboBox comboRelOp = new JComboBox(relOps);
                     comboRelOp.setToolTipText("Inserisci un operatore relazionale per il confronto");
-                    JOptionPane.showOptionDialog(null, comboRelOp, "REL.OP: scelta operatore relazionale", -1, 3, null, null, null);
+                    JOptionPane.showOptionDialog(null, new Object[]{"Inserisci un operatore relazionale per il confronto", comboRelOp}, "REL.OP: scelta operatore relazionale", -1, 3, null, null, null);
                     relOp =  relOps[comboRelOp.getSelectedIndex()];
                 }else relOp = "=";
 
@@ -185,9 +185,9 @@ public class EditCreazioneRegole implements ActionListener, ModifySignal {
                         scalare = true;
                         rhs = GraphicInput.leggiStringaNonVuota("RHS: inserimento stringa costante", "Inserisci una stringa");
                     }else{
-                        JOptionPane.showOptionDialog(null, comboSensori, "RHS: scelta sensore", -1, 3, null, null, null);
+                        JOptionPane.showOptionDialog(null, new Object[]{"Scegli un sensore come RHS", comboSensori}, "RHS: scelta sensore", -1, 3, null, null, null);
                         sensore2 = nomiSensori[comboSensori.getSelectedIndex()];
-                        JOptionPane.showOptionDialog(null, comboInfo, "RHS: scelta informazione rilevabile", -1, 3, null, null, null);
+                        JOptionPane.showOptionDialog(null, new Object[]{"Scegli un'informazione rilevabile del " + sensore2, comboInfo}, "RHS: scelta informazione rilevabile", -1, 3, null, null, null);
                         infoRilevabile2 = nomiInfo[comboInfo.getSelectedIndex()];
                         rhs = sensore2 + "." + infoRilevabile2;
                         scalare = false;
@@ -207,7 +207,7 @@ public class EditCreazioneRegole implements ActionListener, ModifySignal {
                     do {
                         JComboBox comboOperatoriLogici = new JComboBox(logicOps);
                         comboOperatoriLogici.setToolTipText("Inserisci un operatore logico per continuare nella costruzione dell'antecedente");
-                        JOptionPane.showOptionDialog(null, comboOperatoriLogici, "Continuazione antecedente: operatore logico", -1, 3, null, null, null);
+                        JOptionPane.showOptionDialog(null, new Object[]{"Scegli un operatore logico di congiunzione", comboOperatoriLogici}, "Continuazione antecedente: operatore logico", -1, 3, null, null, null);
                         String operatoreLogico = logicOps[comboOperatoriLogici.getSelectedIndex()];
 
                         if (inter.aggiungiOperatoreLogico(unita, IDregolaNuova, operatoreLogico)) {

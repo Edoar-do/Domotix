@@ -31,6 +31,10 @@ public class ViewCategorieListener implements ActionListener {
         switch (actionCommand){
             case PannelloNord.CAT_SENS:
                 nomiCategorie = rappresentatore.getNomiCategorieSensori();
+                if(nomiCategorie.length == 0){
+                    JOptionPane.showOptionDialog(null, "Non sono presenti categorie di sensori da visualizzare", "Assenza categorie sensori", -1, 1, null, null, null);
+                    break;
+                }
 
                 comboCategorie = new JComboBox(nomiCategorie);
                 AutoCompletion.enable(comboCategorie);
@@ -57,6 +61,10 @@ public class ViewCategorieListener implements ActionListener {
                 break;
             case PannelloNord.CAT_ATT:
                 nomiCategorie = rappresentatore.getNomiCategorieAttuatori();
+                if(nomiCategorie.length == 0){
+                    JOptionPane.showOptionDialog(null, "Non sono presenti categorie di attuatori da visualizzare", "Assenza categorie attuatori", -1, 1, null, null, null);
+                    break;
+                }
 
                 comboCategorie = new JComboBox(nomiCategorie);
                 AutoCompletion.enable(comboCategorie);

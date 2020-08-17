@@ -2,7 +2,9 @@ package view.listeners.edit_listeners;
 
 import domotix.controller.Interpretatore;
 import domotix.controller.Rappresentatore;
+import view.ModifySignal;
 import view.PannelloNord;
+import view.Presenter;
 import view.listeners.utils.AutoCompletion;
 
 import javax.swing.*;
@@ -12,15 +14,17 @@ import java.awt.event.ActionListener;
 /**
  * Listener per la gestione degli eventi legati al cambio di stato di sensori e attuatori all'interno dell'unità corrente
  */
-public class EditCambioStatoDispositiviListener implements ActionListener {
+public class EditCambioStatoDispositiviListener implements ActionListener, ModifySignal {
     private Interpretatore inter;
     private Rappresentatore rapp;
     private PannelloNord pannelloNord;
+    private Presenter presenter;
 
-    public EditCambioStatoDispositiviListener(Interpretatore inter, Rappresentatore rapp, PannelloNord pannelloNord) {
+    public EditCambioStatoDispositiviListener(Interpretatore inter, Rappresentatore rapp, PannelloNord pannelloNord, Presenter presenter) {
         this.inter = inter;
         this.rapp = rapp;
         this.pannelloNord = pannelloNord;
+        this.presenter = presenter;
     }
 
     @Override
@@ -37,9 +41,10 @@ public class EditCambioStatoDispositiviListener implements ActionListener {
                 int ok = JOptionPane.showOptionDialog(null, oggetti, "Cambio stato sensore", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
 
                 if (ok == 0) {
-                    if (inter.cambiaStatoSensore(nomiSensori[comboNomi.getSelectedIndex()], pannelloNord.getUnitaCorrente()))
+                    if (inter.cambiaStatoSensore(nomiSensori[comboNomi.getSelectedIndex()], pannelloNord.getUnitaCorrente())) {
                         JOptionPane.showConfirmDialog(null, "Cambio stato sensore effettuato con successo", "Successo operazione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                    else
+                        segnalaModifica(rapp.getDescrizioneUnita(pannelloNord.getUnitaCorrente()));
+                    }else
                         JOptionPane.showConfirmDialog(null, "Cambio stato sensore fallito", "Fallimento operazione", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                 }
             }else{
@@ -57,9 +62,10 @@ public class EditCambioStatoDispositiviListener implements ActionListener {
                 int ok = JOptionPane.showOptionDialog(null, oggetti, "Cambio stato attuatore", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
 
                 if (ok == 0) {
-                    if (inter.cambiaStatoAttuatore(nomiAttuatori[comboNomi.getSelectedIndex()], pannelloNord.getUnitaCorrente()))
+                    if (inter.cambiaStatoAttuatore(nomiAttuatori[comboNomi.getSelectedIndex()], pannelloNord.getUnitaCorrente())) {
                         JOptionPane.showConfirmDialog(null, "Cambio stato attuatore effettuato con successo", "Successo operazione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                    else
+                        segnalaModifica(rapp.getDescrizioneUnita(pannelloNord.getUnitaCorrente()));
+                    }else
                         JOptionPane.showConfirmDialog(null, "Cambio stato attuatore fallito", "Fallimento operazione", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                 }
             }else{
@@ -68,5 +74,10 @@ public class EditCambioStatoDispositiviListener implements ActionListener {
             }
         }
 
+    }
+
+    @Override
+    public void segnalaModifica(String descrizione) {
+        presenter.show(descrizione);
     }
 }

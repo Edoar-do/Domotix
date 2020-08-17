@@ -32,6 +32,7 @@ public class MyViewPanel extends JFrame {
         pannelloNord = new PannelloNord((PannelloCentro) pannelloCentro, inter, rapp, imp, ver);
         container.add(pannelloNord, BorderLayout.NORTH); //pannello con menu bar a sinistra a radio button a destra
         container.add(pannelloCentro, BorderLayout.CENTER); //pannello con textArea di visualizzazione scrollabile
+
     }
 
     /**
@@ -40,15 +41,5 @@ public class MyViewPanel extends JFrame {
      * @return pannello nord
      */
     public JPanel getPannelloNord(){ return pannelloNord; }
-
-    /**
-     * Metodo che restituisce il jpanel in centro nella finestra principale.
-     * E' il contenitore dello scrollpane dell'area di visualizzazione
-     * @return pannello centro
-     */
-    public JPanel getPannelloCentro(){ return pannelloCentro; }
-
-
-
 
 }

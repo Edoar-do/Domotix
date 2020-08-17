@@ -157,7 +157,7 @@ public class RadioButtonListener implements ActionListener {
 
     private void attaccaListenerFruitore(Interpretatore inter, Rappresentatore rapp, Verificatore ver) {
         //listener per il cambio stato di sensori e attuatori
-        edit_cambioStatoDispListener = new EditCambioStatoDispositiviListener(inter, rapp, pannelloNord);
+        edit_cambioStatoDispListener = new EditCambioStatoDispositiviListener(inter, rapp, pannelloNord,presenter);
         f_cambioStatoSens.addActionListener(edit_cambioStatoDispListener);
         f_cambioStatoAtt.addActionListener(edit_cambioStatoDispListener);
         //listener per il settaggio della modalita operativa di attuatori di stanze e artefatti

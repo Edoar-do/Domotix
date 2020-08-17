@@ -81,6 +81,7 @@ public class NuovoCategoriaSensoriListener implements ActionListener, ModifySign
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(interpretatore.aggiungiCategoriaSensore(campoNome.getText(), areaTesto.getText())){
+                    JOptionPane.showOptionDialog(null, "Categoria sensori creata! \n Inserisci ora almeno un'informazione rilevabile", "Creazione Categoria Sensori", -1, 1, null, null, null);
                     //DISATTIVO ALTO
                     campoNome.setEditable(false);
                     areaTesto.setEditable(false);
@@ -89,6 +90,8 @@ public class NuovoCategoriaSensoriListener implements ActionListener, ModifySign
                     campoInfo.setEditable(true);
                     numerica.setEnabled(true);
                     inserisci.setEnabled(true);
+                }else{
+                    JOptionPane.showOptionDialog(null, "Creazione Categoria Sensori fallita. \n Consultare Hep > Errori per capire la causa \n Reinserimento dati effettuabile", "Fallimento creazione categoria sensori", -1, 0, null, null, null);
                 }
             }
         });
@@ -100,6 +103,8 @@ public class NuovoCategoriaSensoriListener implements ActionListener, ModifySign
                     fatto.setEnabled(true);
                     campoInfo.setText("");
                     numerica.setSelected(false);
+                }else{
+                    JOptionPane.showOptionDialog(null, "Inserimento info rilevabile fallito. \n Consultare Hep > Errori per capire la causa \n Reinserimento dati effettuabile", "Fallimento creazione categoria sensori", -1, 0, null, null, null);
                 }
             }
         });
