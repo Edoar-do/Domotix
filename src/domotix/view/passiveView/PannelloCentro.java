@@ -1,5 +1,7 @@
-package domotix.view;
+package domotix.view.passiveView;
 
+
+import domotix.view.Presenter;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,7 +1,7 @@
 package domotix.view.listeners.file_listeners.importa;
 
 import domotix.controller.Importatore;
-import domotix.view.PannelloNord;
+import domotix.view.passiveView.PannelloNord;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

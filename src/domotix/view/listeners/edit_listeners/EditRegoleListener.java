@@ -4,7 +4,7 @@ import domotix.controller.Interpretatore;
 import domotix.controller.Rappresentatore;
 import domotix.controller.Verificatore;
 import domotix.view.ModifySignal;
-import domotix.view.PannelloNord;
+import domotix.view.passiveView.PannelloNord;
 import domotix.view.Presenter;
 import domotix.view.listeners.utils.AutoCompletion;
 
@@ -81,7 +81,7 @@ public class EditRegoleListener implements ActionListener, ModifySignal {
                         break;
                 }
             }else{
-                JOptionPane.showOptionDialog(null, "Non sono presenti regole", "Nessuna regola a cui cambiare stato", -1, 1, null, null, null);
+                JOptionPane.showOptionDialog(null, "Non sono presenti regole attive/disattive a cui cambiare stato", "Nessuna regola attiva/disattiva a cui cambiare stato", -1, 1, null, null, null);
                 return;
             }
         }

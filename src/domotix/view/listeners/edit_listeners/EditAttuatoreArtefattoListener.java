@@ -3,7 +3,7 @@ package domotix.view.listeners.edit_listeners;
 import domotix.controller.Interpretatore;
 import domotix.controller.Rappresentatore;
 import domotix.view.ModifySignal;
-import domotix.view.PannelloNord;
+import domotix.view.passiveView.PannelloNord;
 import domotix.view.Presenter;
 import domotix.view.listeners.utils.AutoCompletion;
 
@@ -85,9 +85,11 @@ public class EditAttuatoreArtefattoListener implements ActionListener, ModifySig
 
                                 JButton inserisci = new JButton("Attacca attuatore");
 
-                                JPanel basso = new JPanel(new GridLayout(2, 2));
+                                JPanel basso = new JPanel(new GridLayout(2, 3));
                                 basso.add(new JLabel("Scegli la categoria del nuovo attuatore: "));
                                 basso.add(comboCategorie);
+                                basso.add((new JLabel("")));
+                                basso.add(new JLabel("Nome nuovo attuatore:"));
                                 basso.add(campoNomeAttuatore);
                                 basso.add(inserisci);
 

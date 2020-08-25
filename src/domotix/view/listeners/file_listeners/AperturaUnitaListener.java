@@ -2,7 +2,7 @@ package domotix.view.listeners.file_listeners;
 
 import domotix.controller.*;
 import domotix.view.ModifySignal;
-import domotix.view.PannelloNord;
+import domotix.view.passiveView.PannelloNord;
 import domotix.view.Presenter;
 import domotix.view.listeners.utils.AutoCompletion;
 

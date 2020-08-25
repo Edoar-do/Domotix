@@ -16,13 +16,14 @@ import domotix.model.Model;
 import domotix.view.menus.MenuAzioniConflitto;
 import domotix.view.menus.MenuApertura;
 import domotix.view.menus.MenuChiusura;
-import domotix.view.MyViewPanel;
+import domotix.view.passiveView.MyViewPanel;
 
 
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.nio.file.NotDirectoryException;
@@ -90,6 +91,7 @@ public class Domotix {
 
             ChiusuraProgramma chiusura = new ChiusuraProgramma(scritturaDati, rimozioneDati, recuperatore);
             MenuChiusura menuChiusura = new MenuChiusura(chiusura);
+
 
             JFrame frame = new MyViewPanel("Domotix", interpretatore, verificatore, rappresentatore, importatoreLocale);
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

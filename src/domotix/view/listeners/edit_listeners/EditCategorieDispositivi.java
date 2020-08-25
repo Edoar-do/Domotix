@@ -2,7 +2,7 @@ package domotix.view.listeners.edit_listeners;
 
 import domotix.controller.Interpretatore;
 import domotix.controller.Rappresentatore;
-import domotix.view.PannelloNord;
+import domotix.view.passiveView.PannelloNord;
 import domotix.view.listeners.utils.AutoCompletion;
 
 import javax.swing.*;

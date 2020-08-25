@@ -1,4 +1,4 @@
-package domotix.view;
+package domotix.view.passiveView;
 
 import domotix.controller.*;
 import domotix.view.listeners.*;

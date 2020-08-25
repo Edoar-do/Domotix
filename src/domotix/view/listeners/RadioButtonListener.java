@@ -1,7 +1,7 @@
 package domotix.view.listeners;
 
 import domotix.controller.*;
-import domotix.view.PannelloNord;
+import domotix.view.passiveView.PannelloNord;
 import domotix.view.Presenter;
 import domotix.view.listeners.edit_listeners.*;
 import javax.swing.*;

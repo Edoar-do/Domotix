@@ -118,7 +118,7 @@ public class NuovoCategoriaAttuatorilistener implements ActionListener, ModifySi
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(interpretatore.aggiungiModalitaCategoriaAttuatore(campoNome.getText(), campoModalita.getText())){
-                    JOptionPane.showOptionDialog(null, "Inserimento Modalità Operativa riuscito!", "Inserimento Modalità Operativa riuscito!", -1, 0, null, null, null);
+                    JOptionPane.showOptionDialog(null, "Inserimento Modalità Operativa riuscito!", "Inserimento Modalità Operativa riuscito!", -1, 1, null, null, null);
                     fineParametri.setEnabled(false); //ridondante?
                     if(parametrica.isSelected()){
                         //disattiva medio + fatto
@@ -150,7 +150,7 @@ public class NuovoCategoriaAttuatorilistener implements ActionListener, ModifySi
                     campoParametro.setText("");
                     campoValore.setText("");
                 }else{
-                    JOptionPane.showOptionDialog(null, "Inseimento parametro fallito. \n Consultare Hep > Errori per capire la causa \n Reinserimento dati effettuabile", "Fallimento inserimento parametro", -1, 0, null, null, null);
+                    JOptionPane.showOptionDialog(null, "InseRimento parametro fallito. \n Consultare Hep > Errori per capire la causa \n Reinserimento dati effettuabile", "Fallimento inserimento parametro", -1, 0, null, null, null);
                 }
             }
         });

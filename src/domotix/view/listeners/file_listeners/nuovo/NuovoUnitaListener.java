@@ -3,7 +3,7 @@ package domotix.view.listeners.file_listeners.nuovo;
 import domotix.controller.Interpretatore;
 import domotix.controller.Rappresentatore;
 import domotix.view.ModifySignal;
-import domotix.view.PannelloNord;
+import domotix.view.passiveView.PannelloNord;
 import domotix.view.Presenter;
 
 import javax.swing.*;

@@ -4,7 +4,7 @@ import domotix.controller.Interpretatore;
 import domotix.controller.Rappresentatore;
 import domotix.controller.Verificatore;
 import domotix.view.ModifySignal;
-import domotix.view.PannelloNord;
+import domotix.view.passiveView.PannelloNord;
 import domotix.view.Presenter;
 import domotix.view.listeners.utils.AutoCompletion;
 import domotix.view.listeners.utils.GraphicInput;
@@ -32,7 +32,7 @@ public class EditCreazioneRegole implements ActionListener, ModifySignal {
     }
 
     private boolean checkSensori(String unita) {
-        String[] sensori = rapp.getNomiSensori(unita);
+        String[] sensori = rapp.getNomiSensori(unita, true); //posso creare regole anche se c'è il solo orologio
         return sensori.length != 0;
     }
 
