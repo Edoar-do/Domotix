@@ -1,9 +1,9 @@
 package domotix.view.listeners.file_listeners;
 
 import domotix.controller.*;
-import view.ModifySignal;
-import view.PannelloNord;
-import view.Presenter;
+import domotix.view.ModifySignal;
+import domotix.view.PannelloNord;
+import domotix.view.Presenter;
 import domotix.view.listeners.utils.AutoCompletion;
 
 import javax.swing.*;

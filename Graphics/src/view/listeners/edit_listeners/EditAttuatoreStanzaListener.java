@@ -1,11 +1,11 @@
-package view.listeners.edit_listeners;
+package domotix.view.listeners.edit_listeners;
 
 import domotix.controller.Interpretatore;
 import domotix.controller.Rappresentatore;
 import view.ModifySignal;
 import view.PannelloNord;
 import view.Presenter;
-import view.listeners.utils.AutoCompletion;
+import domotix.view.listeners.utils.AutoCompletion;
 
 import javax.swing.*;
 import java.awt.*;

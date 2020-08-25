@@ -1,8 +1,8 @@
 package domotix.view.listeners.view_listeners;
 
 import domotix.controller.*;
-import view.PannelloCentro;
-import view.PannelloNord;
+import domotix.view.PannelloCentro;
+import domotix.view.PannelloNord;
 import domotix.view.listeners.utils.AutoCompletion;
 
 import javax.swing.*;

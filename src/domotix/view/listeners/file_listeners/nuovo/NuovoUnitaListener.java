@@ -2,9 +2,9 @@ package domotix.view.listeners.file_listeners.nuovo;
 
 import domotix.controller.Interpretatore;
 import domotix.controller.Rappresentatore;
-import view.ModifySignal;
-import view.PannelloNord;
-import view.Presenter;
+import domotix.view.ModifySignal;
+import domotix.view.PannelloNord;
+import domotix.view.Presenter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

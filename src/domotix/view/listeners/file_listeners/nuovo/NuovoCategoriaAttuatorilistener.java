@@ -1,16 +1,13 @@
 package domotix.view.listeners.file_listeners.nuovo;
 
 import domotix.controller.*;
-import view.ModifySignal;
-import view.Presenter;
+import domotix.view.ModifySignal;
+import domotix.view.Presenter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
 
 public class NuovoCategoriaAttuatorilistener implements ActionListener, ModifySignal {
 

@@ -16,7 +16,7 @@ import domotix.model.Model;
 import domotix.view.menus.MenuAzioniConflitto;
 import domotix.view.menus.MenuApertura;
 import domotix.view.menus.MenuChiusura;
-import view.MyViewPanel;
+import domotix.view.MyViewPanel;
 
 
 import javax.swing.*;
