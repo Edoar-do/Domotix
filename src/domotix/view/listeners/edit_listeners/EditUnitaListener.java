@@ -36,6 +36,7 @@ public class EditUnitaListener implements ActionListener, ModifySignal {
             if(inter.rimuoviUnitaImmobiliare(unita)) {
                 JOptionPane.showConfirmDialog(null, "Unità rimossa correttamente", "Successo operazione", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
                 pannelloNord.pulisciUnitaCorrente();
+                segnalaModifica("");
             }else
                 JOptionPane.showConfirmDialog(null, "Unità non rimossa", "Fallimento operazione", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
         }else if(actionCommand.equalsIgnoreCase("aggiungi una stanza all'unità")){

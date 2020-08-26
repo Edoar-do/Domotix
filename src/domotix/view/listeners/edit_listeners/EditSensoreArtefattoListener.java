@@ -77,6 +77,11 @@ public class EditSensoreArtefattoListener implements ActionListener, ModifySigna
                                 comboArtefatti.setEnabled(false);
                                 selezionaArtefatto.setEnabled(false);
                                 String[] nomiCategorie = rapp.getNomiCategorieSensori();
+                                if(nomiCategorie.length == 0){
+                                    JOptionPane.showOptionDialog(null, "Non sono presenti categorie di sensori!", "Impossibile aggiungere sensori", -1, 0, null, null, null);
+                                    dialog.dispose();
+                                    return;
+                                }
                                 JComboBox comboCategorie = new JComboBox(nomiCategorie);
                                 AutoCompletion.enable(comboCategorie);
 

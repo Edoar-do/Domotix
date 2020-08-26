@@ -77,6 +77,11 @@ public class EditAttuatoreArtefattoListener implements ActionListener, ModifySig
                                 comboArtefatti.setEnabled(false);
                                 selezionaArtefatto.setEnabled(false);
                                 String[] nomiCategorie = rapp.getNomiCategorieAttuatori();
+                                if(nomiCategorie.length == 0){
+                                    JOptionPane.showOptionDialog(null, "Non sono presenti categorie di attuatori!", "Impossibile aggiungere attuatori", -1, 0, null, null, null);
+                                    dialog.dispose();
+                                    return;
+                                }
                                 JComboBox comboCategorie = new JComboBox(nomiCategorie);
                                 AutoCompletion.enable(comboCategorie);
 
